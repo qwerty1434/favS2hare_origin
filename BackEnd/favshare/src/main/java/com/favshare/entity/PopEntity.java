@@ -34,7 +34,7 @@ public class PopEntity {
 	private int youtubeId;
 	private String name;
 	private int startSecond;
-	private int endSecond; // DB에서 int로 변경해야함
+	private int endSecond; 
 	private String content;
 	private LocalDateTime createDate;
 	private int views;
