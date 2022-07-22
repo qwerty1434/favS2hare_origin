@@ -12,16 +12,16 @@ import com.favshare.entity.CommentEntity;
 import com.favshare.repository.CommentRepository;
 
 @RestController
-@RequestMapping("/Comment")
+@RequestMapping("/comment")
 public class CommentController {
 	
 	@Autowired
-	private CommentRepository commentRepo;
+	private CommentRepository commentRepository;
 	
 	@GetMapping("/searchAll")
 	@Transactional()
 	public String searchAll() {
-		String result = commentRepo.findAll().toString();
+		String result = commentRepository.findAll().toString();
 		System.out.println(result);
 		return result;
 	}
@@ -29,18 +29,22 @@ public class CommentController {
 	@GetMapping("/search")
 	@Transactional()
 	public CommentDto search(Integer id) {
-		CommentDto result = new CommentDto();
+		CommentEntity entityValue = commentRepository.search(id);
+		CommentDto result = new CommentDto(entityValue.getId(),entityValue.getUserId(),entityValue.getPopId(),entityValue.getContent(),entityValue.getCreateDate(),entityValue.getIsModify());
 		return result;
 	}
 	
+	@GetMapping("/insert")
+	@Transactional()
 	public void insert(CommentDto dto) {
-		commentRepo.save(CommentEntity.builder().userId(dto.getUserId()).popId(dto.getPopId()).content(dto.getContent()).createDate(dto.getCreateDate()).isModify(dto.getIsModify()).build());
+		CommentEntity result = CommentEntity.builder().userId(dto.getUserId()).popId(dto.getPopId()).content(dto.getContent()).createDate(dto.getCreateDate()).isModify(dto.getIsModify()).build();
+		commentRepository.save(result);
 	}
 	
 	@GetMapping("/delete")
 	@Transactional()
 	public void delete(Integer id) {
-		commentRepo.deleteById(id);
+		commentRepository.deleteById(id);
 	}
 
 }
