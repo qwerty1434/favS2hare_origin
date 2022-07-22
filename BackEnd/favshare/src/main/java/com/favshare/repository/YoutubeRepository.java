@@ -10,6 +10,5 @@ import com.favshare.entity.YoutubeEntity;
 @Repository
 public interface YoutubeRepository extends JpaRepository<YoutubeEntity, Integer>{
 	
-	@Query(value = "select * from youtube where id = :id", nativeQuery = true)
-	public YoutubeEntity search(@Param("id") int id);
+	public YoutubeEntity findById(int id);
 }

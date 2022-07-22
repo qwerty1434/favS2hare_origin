@@ -29,9 +29,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("<h2>favshare Spring Boot REST API</h2>")
+                .title("favshare Spring Boot REST API")
                 .version("1.0.0")
-                .description("취미 생활 커뮤니티 hobbybee의 swagger api 입니다.")
+                .description("favshare swagger api 입니다.")
                 .build();
     }
 
