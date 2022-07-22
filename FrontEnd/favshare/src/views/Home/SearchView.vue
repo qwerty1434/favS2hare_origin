@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "SearchView"
-}
+  name: "SearchView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

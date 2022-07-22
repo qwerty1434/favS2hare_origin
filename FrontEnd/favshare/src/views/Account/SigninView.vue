@@ -1,13 +1,9 @@
 <template lang="">
-    <div>
-        
-    </div>
+  <div></div>
 </template>
 <script>
 export default {
-    name: "SigninView"
-}
+  name: "SigninView",
+};
 </script>
-<style lang="">
-    
-</style>
+<style lang=""></style>

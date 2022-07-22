@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "FollowView"
-}
+  name: "FollowView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

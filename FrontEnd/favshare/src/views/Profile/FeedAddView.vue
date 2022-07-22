@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "FeedAddView"
-}
+  name: "FeedAddView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

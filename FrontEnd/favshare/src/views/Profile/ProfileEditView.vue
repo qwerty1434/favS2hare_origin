@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "ProfileEditView"
-}
+  name: "ProfileEditView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

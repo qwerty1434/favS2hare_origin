@@ -1,77 +1,50 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/youtube">Youtube</router-link> |
-      <router-link to="/youtubeedit">YoutubeEdit</router-link> |
-      <router-link to="/search">Search</router-link> |
-      <router-link to="/searchmorepops">SearchMorePops</router-link> |
-      <router-link to="/searchmoreyoutube">SearchMoreYoutube</router-link> |
-      <router-link to="/searchmorefollowing">SearchMoreFollowing</router-link> |
-      <router-link to="/signin">Signin</router-link> |
-      <router-link to="/signup">Signup</router-link> |
-      <router-link to="/findpw">FindPw</router-link> |
-      <router-link to="/interest">Interest</router-link> |
-      <router-link to="/make">Make</router-link> |
-      <router-link to="/pops">Pops</router-link> |
-      <router-link to="/popsdetail">PopsDetail</router-link> |
-      <router-link to="/originallinkedpops">OriginalLinkedPops</router-link> |
-      <router-link to="/feed">Feed</router-link> |
-      <router-link to="/follow">Follow</router-link> |
-      <router-link to="/profileedit">ProfileEdit</router-link> |
-      <router-link to="/feededit">FeedEdit</router-link> |
-      <router-link to="/feedadd">FeedAdd</router-link> |
-      <router-link to="/popsinfeed">PopsInFeed</router-link> |
-    </nav>
-    <router-view/>
-  </div>
-  <!-- <router-view>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/youtube">Youtube</router-link> |
-    <router-link to="/youtubeedit">YoutubeEdit</router-link> |
-    <router-link to="/search">Search</router-link> |
-    <router-link to="/searchmorepops">SearchMorePops</router-link> |
-    <router-link to="/searchmoreyoutube">SearchMoreYoutube</router-link> |
-    <router-link to="/searchmorefollowing">SearchMoreFollowing</router-link> |
-    <router-link to="/signin">Signin</router-link> |
-    <router-link to="/signup">Signup</router-link> |
-    <router-link to="/findpw">FindPw</router-link> |
-    <router-link to="/interest">Interest</router-link> |
-    <router-link to="/make">Make</router-link> |
-    <router-link to="/pops">Pops</router-link> |
-    <router-link to="/popsdetail">PopsDetail</router-link> |
-    <router-link to="/originallinkedpops">OriginalLinkedPops</router-link> |
-    <router-link to="/feed">Feed</router-link> |
-    <router-link to="/follow">Follow</router-link> |
-    <router-link to="/profileedit">ProfileEdit</router-link> |
-    <router-link to="/feededit">FeedEdit</router-link> |
-    <router-link to="/feedadd">FeedAdd</router-link> |
-    <router-link to="/popsinfeed">PopsInFeed</router-link> |
+  <v-app>
+    <v-app-bar app color="primary" dark>
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
 
-  </nav>
-  </router-view> -->
+        <v-img
+          alt="Vuetify Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+          width="100"
+        />
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Latest Release</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: "App",
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  data: () => ({
+    //
+  }),
+};
+</script>
