@@ -30,4 +30,8 @@ public class CommentEntity {
 	private String content;
 	private LocalDateTime createDate;
 	private int isModify;
+	
+	
+	
+	
 }

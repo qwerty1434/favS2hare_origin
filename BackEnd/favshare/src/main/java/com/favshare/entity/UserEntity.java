@@ -33,4 +33,5 @@ public class UserEntity {
 	private String phone;
 	private String content;
 	private String profileImageUrl;
+	
 }

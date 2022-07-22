@@ -2,6 +2,11 @@ package com.favshare.dto;
 
 import java.time.LocalDateTime;
 
+import com.favshare.entity.UserEntity;
+
+import lombok.Builder;
+
+@Builder
 public class UserDto {
 	private int id;
 	private String name;
@@ -25,6 +30,19 @@ public class UserDto {
 		this.phone = phone;
 		this.content = content;
 		this.profileImageUrl = profileImageUrl;
+	}
+	
+	public UserDto(UserEntity userEntity) {
+		super();
+		this.id = userEntity.getId();
+		this.name = userEntity.getName();
+		this.email = userEntity.getEmail();
+		this.password = userEntity.getPassword();
+		this.nickname = userEntity.getNickname();
+		this.birthDate = userEntity.getBirthDate();
+		this.phone = userEntity.getPhone();
+		this.content = userEntity.getContent();
+		this.profileImageUrl = userEntity.getProfileImageUrl();
 	}
 
 	@Override

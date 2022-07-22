@@ -2,6 +2,8 @@ package com.favshare.dto;
 
 import java.time.LocalDateTime;
 
+import com.favshare.entity.CommentEntity;
+
 public class CommentDto {
 	private int id;
 	private String userId;
@@ -9,6 +11,7 @@ public class CommentDto {
 	private String content;
 	private LocalDateTime createDate;
 	private int isModify;
+	
 	public CommentDto(int id, String userId, String popId, String content, LocalDateTime createDate, int isModify) {
 		super();
 		this.id = id;
@@ -18,6 +21,17 @@ public class CommentDto {
 		this.createDate = createDate;
 		this.isModify = isModify;
 	}
+	
+	public CommentDto(CommentEntity commentEntity) {
+		super();
+		this.id = commentEntity.getId();
+		this.userId = commentEntity.getUserId();
+		this.popId = commentEntity.getPopId();
+		this.content = commentEntity.getContent();
+		this.createDate = commentEntity.getCreateDate();
+		this.isModify = commentEntity.getIsModify();		
+	}
+	
 	@Override
 	public String toString() {
 		return "CommentDto [id=" + id + ", userId=" + userId + ", popId=" + popId + ", content=" + content
