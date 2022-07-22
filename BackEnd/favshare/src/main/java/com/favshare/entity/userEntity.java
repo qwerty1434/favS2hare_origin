@@ -29,16 +29,4 @@ public class userEntity {
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;
 	
-	// 롬복이 정상적으로 작동하면 없애야 할 코드
-	public userEntity(String email, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
-		super();
-		this.email = email;
-		this.name = name;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
-	public userEntity() {
-		super();
-	}
-	
 }
