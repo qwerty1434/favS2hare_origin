@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "OriginalLinkedPopsView"
-}
+  name: "OriginalLinkedPopsView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

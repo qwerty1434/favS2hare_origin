@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "PopsInFeedView"
-}
+  name: "PopsInFeedView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

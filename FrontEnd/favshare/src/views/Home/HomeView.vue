@@ -10,12 +10,10 @@ export default {
   data() {
     return {
       // isFeed = false -> 친구피드 탭이면 true, 동영상 탭이면 false
-      // 
-    }
-  }
-}
+      //
+    };
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

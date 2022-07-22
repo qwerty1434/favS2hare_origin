@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "FeedView"
-}
+  name: "FeedView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "SearchMorePopsView"
-}
+  name: "SearchMorePopsView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -1,15 +1,11 @@
 <template>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-    name: "MakeView"
-}
+  name: "MakeView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "YoutubeEditView"
-}
+  name: "YoutubeEditView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

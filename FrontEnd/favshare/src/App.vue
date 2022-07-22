@@ -23,34 +23,8 @@
       <router-link to="/feedadd">FeedAdd</router-link> |
       <router-link to="/popsinfeed">PopsInFeed</router-link> |
     </nav>
-    <router-view/>
+    <router-view />
   </div>
-  <!-- <router-view>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/youtube">Youtube</router-link> |
-    <router-link to="/youtubeedit">YoutubeEdit</router-link> |
-    <router-link to="/search">Search</router-link> |
-    <router-link to="/searchmorepops">SearchMorePops</router-link> |
-    <router-link to="/searchmoreyoutube">SearchMoreYoutube</router-link> |
-    <router-link to="/searchmorefollowing">SearchMoreFollowing</router-link> |
-    <router-link to="/signin">Signin</router-link> |
-    <router-link to="/signup">Signup</router-link> |
-    <router-link to="/findpw">FindPw</router-link> |
-    <router-link to="/interest">Interest</router-link> |
-    <router-link to="/make">Make</router-link> |
-    <router-link to="/pops">Pops</router-link> |
-    <router-link to="/popsdetail">PopsDetail</router-link> |
-    <router-link to="/originallinkedpops">OriginalLinkedPops</router-link> |
-    <router-link to="/feed">Feed</router-link> |
-    <router-link to="/follow">Follow</router-link> |
-    <router-link to="/profileedit">ProfileEdit</router-link> |
-    <router-link to="/feededit">FeedEdit</router-link> |
-    <router-link to="/feedadd">FeedAdd</router-link> |
-    <router-link to="/popsinfeed">PopsInFeed</router-link> |
-
-  </nav>
-  </router-view> -->
 </template>
 
 <style>

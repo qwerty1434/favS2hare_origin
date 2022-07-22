@@ -1,163 +1,165 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
 // Home
-import HomeView from '../views/Home/HomeView.vue'
-import YoutubeView from '../views/Home/YoutubeView.vue'
-import YoutubeEditView from '../views/Home/YoutubeEditView.vue'
-import SearchView from '../views/Home/SearchView.vue'
-import SearchMorePopsView from '../views/Home/SearchMorePopsView.vue'
-import SearchMoreYoutubeView from '../views/Home/SearchMoreYoutubeView.vue'
-import SearchMoreFollowingView from '../views/Home/SearchMoreFollowingView.vue'
+import HomeView from "../views/Home/HomeView.vue";
+import YoutubeView from "../views/Home/YoutubeView.vue";
+import YoutubeEditView from "../views/Home/YoutubeEditView.vue";
+import SearchView from "../views/Home/SearchView.vue";
+import SearchMorePopsView from "../views/Home/SearchMorePopsView.vue";
+import SearchMoreYoutubeView from "../views/Home/SearchMoreYoutubeView.vue";
+import SearchMoreFollowingView from "../views/Home/SearchMoreFollowingView.vue";
 
 // Account
-import SigninView from '../views/Account/SigninView.vue'
-import SignupView from '../views/Account/SignupView.vue'
-import FindPwView from '../views/Account/FindPwView.vue'
+import SigninView from "../views/Account/SigninView.vue";
+import SignupView from "../views/Account/SignupView.vue";
+import FindPwView from "../views/Account/FindPwView.vue";
 
 // Interest
-import InterestView from '../views/Interest/InterestView.vue'
+import InterestView from "../views/Interest/InterestView.vue";
 
 // Make
-import MakeView from '../views/Make/MakeView.vue'
+import MakeView from "../views/Make/MakeView.vue";
 
 // Pops
-import PopsView from '../views/Pops/PopsView.vue'
-import PopsDetailView from '../views/Pops/PopsDetailView.vue'
-import OriginalLinkedPopsView from '../views/Pops/OriginalLinkedPopsView.vue'
+import PopsView from "../views/Pops/PopsView.vue";
+import PopsDetailView from "../views/Pops/PopsDetailView.vue";
+import OriginalLinkedPopsView from "../views/Pops/OriginalLinkedPopsView.vue";
 
 // Profile
-import FeedView from '../views/Profile/FeedView.vue'
-import FollowView from '../views/Profile/FollowView.vue'
-import ProfileEditView from '../views/Profile/ProfileEditView.vue'
-import FeedEditView from '../views/Profile/FeedEditView.vue'
-import FeedAddView from '../views/Profile/FeedAddView.vue'
-import PopsInFeedView from '../views/Profile/PopsInFeedView.vue'
+import FeedView from "../views/Profile/FeedView.vue";
+import FollowView from "../views/Profile/FollowView.vue";
+import ProfileEditView from "../views/Profile/ProfileEditView.vue";
+import FeedEditView from "../views/Profile/FeedEditView.vue";
+import FeedAddView from "../views/Profile/FeedAddView.vue";
+import PopsInFeedView from "../views/Profile/PopsInFeedView.vue";
 
+Vue.use(VueRouter);
 
 const routes = [
-  // Home 화면
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "home",
+    component: HomeView,
   },
   {
-    path: '/youtube',
-    name: 'youtube',
-    component: YoutubeView
+    path: "/youtube",
+    name: "youtube",
+    component: YoutubeView,
   },
   {
-    path: '/youtubeedit',
-    name: 'youtubeedit',
-    component: YoutubeEditView
+    path: "/youtubeedit",
+    name: "youtubeedit",
+    component: YoutubeEditView,
   },
   {
-    path: '/search',
-    name: 'search',
-    component: SearchView
+    path: "/search",
+    name: "search",
+    component: SearchView,
   },
   {
-    path: '/searchmorepops',
-    name: 'searchmorepops',
-    component: SearchMorePopsView
+    path: "/searchmorepops",
+    name: "searchmorepops",
+    component: SearchMorePopsView,
   },
   {
-    path: '/searchmoreyoutube',
-    name: 'searchmoreyoutube',
-    component: SearchMoreYoutubeView
+    path: "/searchmoreyoutube",
+    name: "searchmoreyoutube",
+    component: SearchMoreYoutubeView,
   },
   {
-    path: '/searchmorefollowing',
-    name: 'searchmorefollowing',
-    component: SearchMoreFollowingView
+    path: "/searchmorefollowing",
+    name: "searchmorefollowing",
+    component: SearchMoreFollowingView,
   },
 
   // Sign-in 화면
   {
-    path: '/signin',
-    name: 'signin',
-    component: SigninView
+    path: "/signin",
+    name: "signin",
+    component: SigninView,
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: SignupView
+    path: "/signup",
+    name: "signup",
+    component: SignupView,
   },
   {
-    path: '/findpw',
-    name: 'findpw',
-    component: FindPwView
+    path: "/findpw",
+    name: "findpw",
+    component: FindPwView,
   },
 
   // 취향 선택 화면
   {
-    path: '/interest',
-    name: 'interest',
-    component: InterestView
+    path: "/interest",
+    name: "interest",
+    component: InterestView,
   },
 
   // Make 화면
   {
-    path: '/make',
-    name: 'make',
-    component: MakeView
+    path: "/make",
+    name: "make",
+    component: MakeView,
   },
 
   // Pops 화면
   {
-    path: '/pops',
-    name: 'pops',
-    component: PopsView
+    path: "/pops",
+    name: "pops",
+    component: PopsView,
   },
   {
-    path: '/popsdetail',
-    name: 'popsdetail',
-    component: PopsDetailView
+    path: "/popsdetail",
+    name: "popsdetail",
+    component: PopsDetailView,
   },
   {
-    path: '/originallinkedpops',
-    name: 'originallinkedpops',
-    component: OriginalLinkedPopsView
+    path: "/originallinkedpops",
+    name: "originallinkedpops",
+    component: OriginalLinkedPopsView,
   },
 
   // 마이프로필 화면
   {
-    path: '/feed',
-    name: 'feed',
-    component: FeedView
+    path: "/feed",
+    name: "feed",
+    component: FeedView,
   },
   {
-    path: '/follow',
-    name: 'follow',
-    component: FollowView
+    path: "/follow",
+    name: "follow",
+    component: FollowView,
   },
   {
-    path: '/profileedit',
-    name: 'profileedit',
-    component: ProfileEditView
+    path: "/profileedit",
+    name: "profileedit",
+    component: ProfileEditView,
   },
   {
-    path: '/feededit',
-    name: 'feededit',
-    component: FeedEditView
+    path: "/feededit",
+    name: "feededit",
+    component: FeedEditView,
   },
   {
-    path: '/feedadd',
-    name: 'feedadd',
-    component: FeedAddView
+    path: "/feedadd",
+    name: "feedadd",
+    component: FeedAddView,
   },
 
   // 친구 피드 화면
   {
-    path: '/popsinfeed',
-    name: 'popsinfeed',
-    component: PopsInFeedView
+    path: "/popsinfeed",
+    name: "popsinfeed",
+    component: PopsInFeedView,
   },
-]
+];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
+});
 
-export default router
+export default router;

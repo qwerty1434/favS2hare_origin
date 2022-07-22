@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "SignupView"
-}
+  name: "SignupView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

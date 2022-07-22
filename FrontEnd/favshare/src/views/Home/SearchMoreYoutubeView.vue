@@ -4,10 +4,8 @@
 
 <script>
 export default {
-    name: "SearchMoreYoutubeView"
-}
+  name: "SearchMoreYoutubeView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
