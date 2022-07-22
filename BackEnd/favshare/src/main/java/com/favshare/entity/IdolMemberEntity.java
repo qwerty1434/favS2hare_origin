@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity 
-@Table(name = "youtube") 
+@Table(name = "idolmember") 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
