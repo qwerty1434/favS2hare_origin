@@ -14,8 +14,8 @@ import com.favshare.entity.userEntity;
 @Repository
 public interface Repo extends JpaRepository<userEntity,String>{
 	
-	@Query(value ="select * from user where email = :email", nativeQuery = true) // nativeQuery는 뭐하는 거임?
-	public userEntity search(@Param("email") String email); // public없으면 null이 반환, List<UserEntity>는 또 잘들어감 왜그럼?
+	@Query(value ="select * from user where email = :email", nativeQuery = true)
+	public userEntity search(@Param("email") String email); 
 	
 	
 }

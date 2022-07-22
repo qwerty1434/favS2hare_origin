@@ -14,8 +14,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity // javax.persistence와 org.hibernate.annotations중 javax.persistence사용 권장
-@Table(name = "user") // 테이블 이름
+@Entity 
+@Table(name = "user") 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,8 +23,8 @@ import lombok.ToString;
 public class userEntity {
 	@Id // PK
 	private String email;
-	private String name; // 테이블의 변수명과 객체의 변수명이 동일하면 따로 매핑하지 않아도 됨
-	@Column(name = "created_at") // 테이블의 created_at변수와 객체의 createdAt변수를 매핑하겠다는 의미
+	private String name; 
+	@Column(name = "created_at") 
 	private LocalDateTime createdAt;
 	@Column(name="updated_at")
 	private LocalDateTime updatedAt;

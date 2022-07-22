@@ -35,7 +35,7 @@ public class userController {
 	private Repo repo;
 	
 	@GetMapping("/searchAll")
-	@Transactional() // 필요한지, 작동이 잘 되는지는 아직 모름
+	@Transactional() 
 	public String searchAll() {
 		System.out.println("helloworld");
 		System.out.println(repo.findAll().toString());
@@ -50,9 +50,9 @@ public class userController {
 	}
 	
 	// Create
-	@GetMapping("/insert") // @PostMapping으로 바꿔야 함
+	@GetMapping("/insert") 
 	@Transactional()
-	public void insert() { // 나중에는 변수 받아서 넣어줘야겠지?
+	public void insert() { 
 		repo.save(new userEntity("qwerty1434@naver.com", "name", LocalDateTime.now(),  LocalDateTime.now()));
 	}
 	
@@ -65,7 +65,7 @@ public class userController {
 	}
 	
 	// Update
-	@GetMapping("/update") // POST, PUT으로 변경
+	@GetMapping("/update") 
 	@Transactional()
 	public void update(String id, String email, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
 
