@@ -54,6 +54,7 @@ public class CommentController {
 		commentRepository.deleteById(id);
 	}
 	
+	// test 나중에 지워주세요
 	
 	
 	
