@@ -34,9 +34,6 @@ public class UserEntity {
     @Column(name= "profile_image_url")
 	private String profileImageUrl;
     
-    public void changePassword(String password) {
-    	this.password = password;
-    }
     
     
 	@OneToMany(mappedBy = "userEntity")
@@ -75,6 +72,16 @@ public class UserEntity {
 	@OneToMany(mappedBy="toUserEntity")
 	private List<FollowEntity> toUserEntityList = new ArrayList<>();
 	
+	public void changePassword(String password) {
+		this.password = password;
+	}
+	
+	
+	public void changeProfile(String nickname, String content, String profileImageUrl) {
+		this.nickname = nickname;
+		this.content = content;
+		this.profileImageUrl = profileImageUrl;
+	}
 	
 	//Team과 Member는 1:N
 	//User와 Pop은 1:N

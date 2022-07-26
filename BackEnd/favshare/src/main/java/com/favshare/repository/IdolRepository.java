@@ -3,12 +3,11 @@ package com.favshare.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.favshare.entity.UserEntity;
+import com.favshare.entity.IdolEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity,Integer>{
+public interface IdolRepository extends JpaRepository<IdolEntity, Integer>{
 	
-	UserEntity findByEmail(String email);
-	
+	IdolEntity findByName(String name);
 
 }

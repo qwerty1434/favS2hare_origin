@@ -15,8 +15,9 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/user/interest")
 public class UserInterestController {
 	@ApiOperation(value = "", response = ResponseEntity.class)
-	@PostMapping()
+	@PostMapping
 	public void saveInterest() {
+		
 	}
 
 	@ApiOperation(value = "", response = ResponseEntity.class)
