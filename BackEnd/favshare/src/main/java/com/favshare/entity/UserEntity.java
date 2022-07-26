@@ -34,7 +34,11 @@ public class UserEntity {
     @Column(name= "profile_image_url")
 	private String profileImageUrl;
     
-	
+    public void changePassword(String password) {
+    	this.password = password;
+    }
+    
+    
 	@OneToMany(mappedBy = "userEntity")
     private List<PopEntity> popList = new ArrayList<>();	
     
