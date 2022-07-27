@@ -29,8 +29,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@ApiOperation(value="로그인",response=ResponseEntity.class)	
-	@GetMapping("/login")
+	@ApiOperation(value="로그인",response=ResponseEntity.class)
+	//get방식은 안됨 pathvariable만 가능한듯?
+	@PostMapping("/login")
 	public ResponseEntity userLogin(@RequestBody HashMap<String, String> userInfo) {
         UserAccountDto result = userService.getByEmail(userInfo.get("email"));
 
@@ -38,21 +39,12 @@ public class UserController {
         // 반환값 필요한지 확인
         if(userInfo.get("email").equals(result.getEmail())&&
         		userInfo.get("password").equals(result.getPassword())) {
+        	System.out.println("succ");
         	return new ResponseEntity(HttpStatus.OK);
         }else {        	
+        	System.out.println("fail");
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        
-//        if (result == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body(new ErrorResponse(messageSource.getMessage("error.none.user", null, LocaleContextHolder.getLocale())));
-//        }
-//
-//        if (!passwordEncoder.matches(userInfo.get("password"), result.getPassword())) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body(new ErrorResponse(messageSource.getMessage("error.wrong.password", null, LocaleContextHolder.getLocale())));
-//        }		
-//		
 
 	}
 	
@@ -60,6 +52,8 @@ public class UserController {
 	@PostMapping("/signup")	
 	public ResponseEntity userSignUp(@RequestBody UserSignUpDto userSignUpDto) {
 		try {			
+			System.out.println(userSignUpDto.getEmail());
+			System.out.println(userSignUpDto.getName());
 			userService.insertUser(userSignUpDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch(Exception e) {

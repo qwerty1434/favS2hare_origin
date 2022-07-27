@@ -8,6 +8,7 @@ import com.favshare.entity.UserEntity;
 import lombok.*;
 
 @Data
+@NoArgsConstructor
 public class UserAccountDto {
 	private int id;
 //	private String name;

@@ -83,6 +83,13 @@ public class UserEntity {
 		this.profileImageUrl = profileImageUrl;
 	}
 	
+	public void changeUserInfo(String name, String password, String phone ,LocalDateTime birthDate) {
+		this.name = name;
+		this.password = password;
+		this.phone = phone;
+		this.birthDate = birthDate;
+	}
+	
 	//Team과 Member는 1:N
 	//User와 Pop은 1:N
 	//Youtube와 Pop은 1:N
