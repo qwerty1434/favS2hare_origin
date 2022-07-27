@@ -6,6 +6,11 @@
 <script>
 export default {
   name: "SearchVideoListItem",
+  data() {
+    return {
+      searchedVideo: [],
+    };
+  },
 };
 </script>
 <style>

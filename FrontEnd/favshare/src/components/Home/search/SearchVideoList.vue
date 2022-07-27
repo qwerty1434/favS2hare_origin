@@ -11,6 +11,11 @@ import SearchVideoListItem from "./SearchVideoListItem.vue";
 export default {
   name: "SearchVideoList",
   components: { SearchVideoListItem },
+  data() {
+    return {
+      searchedPopsList: [],
+    };
+  },
 };
 </script>
 <style></style>

@@ -10,7 +10,9 @@ export default {
   name: "SearchPopsListItem",
 
   data() {
-    return {};
+    return {
+      searchedPops: [],
+    };
   },
 };
 </script>

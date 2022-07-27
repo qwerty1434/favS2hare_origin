@@ -15,8 +15,11 @@ export default {
   name: "SearchMorePopsListItem",
 
   data() {
-    return {};
+    return {
+      searchedPops: [],
+    };
   },
+  methods: {},
 };
 </script>
 <style>

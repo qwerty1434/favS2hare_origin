@@ -1,12 +1,12 @@
 <template>
   <v-container>
     <div>
-      <search-bar></search-bar>
+      <search-bar @input-change="searchOnEnter"></search-bar>
     </div>
     <div>
-      <pops-type-list></pops-type-list>
+      <pops-type-list @click-type="searchOnEnter"></pops-type-list>
     </div>
-    <div>
+    <div v-if="searchSuccess">
       <pops-list></pops-list>
     </div>
   </v-container>
@@ -20,6 +20,17 @@ import PopsList from "@/components/Pops/PopsList.vue";
 export default {
   name: "PopsView",
   components: { SearchBar, PopsTypeList, PopsList },
+  data() {
+    return {
+      searchSuccess: false,
+    };
+  },
+  methods: {
+    searchOnEnter: function (keyword) {
+      console.log(keyword);
+      this.searchSuccess = true;
+    },
+  },
 };
 </script>
 

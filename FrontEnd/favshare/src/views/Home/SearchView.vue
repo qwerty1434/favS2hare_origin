@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <search-bar></search-bar>
+    <search-bar @input-change="searchOnEnter"></search-bar>
     <!-- v-if로 검색전, 검색후 화면 나누기 -->
-    <!-- <div @searched="getSearchedAll" v-if="searchSuccess"> -->
-    <search-result></search-result>
-    <!-- </div> -->
+    <div v-if="searchSuccess">
+      <search-result></search-result>
+    </div>
   </v-container>
 </template>
 
@@ -21,8 +21,12 @@ export default {
     };
   },
   methods: {
-    getSearchedAll() {
-      console.log("search succeess");
+    // getSearchedAll() {
+    //   console.log("search succeess");
+    //   this.searchSuccess = true;
+    // },
+    searchOnEnter: function (keyword) {
+      console.log(keyword);
       this.searchSuccess = true;
     },
   },

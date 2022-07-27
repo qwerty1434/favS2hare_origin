@@ -6,6 +6,11 @@
 <script>
 export default {
   name: "SearchFollowingListItem",
+  data() {
+    return {
+      searchedFollowing: [],
+    };
+  },
 };
 </script>
 <style>

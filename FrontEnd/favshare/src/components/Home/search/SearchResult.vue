@@ -2,21 +2,30 @@
   <v-list two-line subheader>
     <v-row>
       <v-subheader>searchpopslist</v-subheader>
-      <router-link to="/searchmorepops">더보기</router-link>
+      <v-spacer></v-spacer>
+      <v-subheader>
+        <router-link to="/searchmorepops">더보기</router-link>
+      </v-subheader>
     </v-row>
     <v-list-item>
       <search-pops-list></search-pops-list>
     </v-list-item>
     <v-row>
       <v-subheader>searchvideolist</v-subheader>
-      <router-link to="/searchmoreyoutube">더보기</router-link>
+      <v-spacer></v-spacer>
+      <v-subheader>
+        <router-link to="/searchmoreyoutube">더보기</router-link>
+      </v-subheader>
     </v-row>
     <v-list-item>
       <search-video-list></search-video-list>
     </v-list-item>
     <v-row>
       <v-subheader>searchfollowinglist</v-subheader>
-      <router-link to="/searchmorefollowing">더보기</router-link>
+      <v-spacer></v-spacer>
+      <v-subheader>
+        <router-link to="/searchmorefollowing">더보기</router-link>
+      </v-subheader>
     </v-row>
     <v-list-item>
       <search-following-list></search-following-list>

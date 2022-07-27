@@ -11,6 +11,11 @@ import SearchFollowingListItem from "./SearchFollowingListItem.vue";
 export default {
   name: "SearchFollowingList",
   components: { SearchFollowingListItem },
+  data() {
+    return {
+      searchedFollowingList: [],
+    };
+  },
 };
 </script>
 <style></style>

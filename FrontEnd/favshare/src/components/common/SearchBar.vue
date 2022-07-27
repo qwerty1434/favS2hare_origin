@@ -9,6 +9,7 @@
           filled
           dense
           rounded
+          @keydown.enter="onInputKeyword"
         ></v-text-field>
       </v-col>
       <v-col>
@@ -31,10 +32,17 @@ export default {
       if (searchKeyword === "") {
         alert("검색 키워드를 입력하세요.");
       } else {
-        this.$emit("searched");
-        console.log(searchKeyword);
+        this.$emit("input-change", searchKeyword);
+        // console.log(searchKeyword);
         // document.getElementById("search-bar").value = "";
       }
+    },
+    onInputKeyword: function (event) {
+      this.$emit("input-change", event.target.value);
+      // this.router.push({
+      //   name: "SearchView",
+      //   params: { searchKeyword: this.searchKeyword },
+      // });
     },
   },
 };
