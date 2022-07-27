@@ -1,11 +1,7 @@
 <template>
   <div></div>
 </template>
-
 <script>
-export default {
-  name: "YoutubeList",
-};
+export default {};
 </script>
-
 <style></style>

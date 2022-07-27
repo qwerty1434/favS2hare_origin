@@ -1,11 +1,9 @@
 <template>
   <div></div>
 </template>
-
 <script>
 export default {
-  name: "YoutubeList",
+  name: "PopsListItem",
 };
 </script>
-
 <style></style>
