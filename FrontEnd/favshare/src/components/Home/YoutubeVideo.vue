@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "FeedInfo",
+  name: "YoutubeVideo",
 };
 </script>
 
