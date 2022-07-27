@@ -1,10 +1,6 @@
 <template>
   <div class="videos">
-    <div
-      v-for="youtubeVideo in youtubeVideos"
-      :key="youtubeVideo.id"
-      class="videos__container"
-    >
+    <div v-for="youtubeVideo in youtubeVideos" :key="youtubeVideo.id" class="videos__container">
       <youtube-list-item :youtube-video="youtubeVideo"></youtube-list-item>
     </div>
   </div>
