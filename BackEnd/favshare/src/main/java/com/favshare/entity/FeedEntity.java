@@ -29,11 +29,23 @@ public class FeedEntity {
     private String feedImageUrl;
     
 	@ManyToOne
-	@JoinColumn(name ="feed_id", nullable = false)
+	@JoinColumn(name ="user_id", nullable = false)
 	private UserEntity userEntity;
 
 	@OneToMany(mappedBy="feedEntity")
 	private List<PopInFeedEntity> popInFeedList = new ArrayList<>();
 	
+	public void changeName(String name) {
+		this.name = name;
+	}
+	
+	public void changeImageUrl(String feedImageUrl) {
+		this.feedImageUrl = feedImageUrl;
+	}
+	
+	// 이 함수를 2개를 만들어서 해야할까? (대표 -> 일반, 일반 -> 대표)
+	public void changeIsFirst() {
+		this.isFirst = !this.isFirst;
+	}
     
 }
