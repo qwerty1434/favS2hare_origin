@@ -44,9 +44,21 @@ public class FeedEntity {
 	}
 	
 	// 이 함수를 2개를 만들어서 해야할까? (대표 -> 일반, 일반 -> 대표)
+//	public void changeIsFirst() {
+//		this.isFirst = !this.isFirst;
+//	
+//	}
+	
 	public void changeIsFirst() {
-		this.isFirst = !this.isFirst;
+		this.isFirst = true;
+	
 	}
+	
+	public void changeIsNotFirst() {
+		this.isFirst = false;
+	}
+	
+
     
 }
 

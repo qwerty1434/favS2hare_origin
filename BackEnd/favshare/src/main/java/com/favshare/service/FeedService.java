@@ -1,5 +1,6 @@
 package com.favshare.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import com.favshare.entity.UserEntity;
 import com.favshare.repository.FeedRepository;
 import com.favshare.repository.UserRepository;
 
+import antlr.collections.List;
+
 
 @Service
 public class FeedService {
@@ -19,11 +22,18 @@ public class FeedService {
 	@Autowired
 	private FeedRepository feedRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
 	public void insertFeed(int userId) {
 		FeedEntity feedEntity = new FeedEntity();
-		// 아래 부분 논의해보기
-//		feedEntity = feedEntity.builder().userId(userId).build();
-//		feedRepository.save(feedEntity);
+		UserEntity userEntity = userRepository.findById(userId).get();
+		if(feedRepository.countFeedByUserId(userId) == 0) {
+			feedEntity = feedEntity.builder().name("피드").isFirst(true).feedImageUrl(null).userEntity(userEntity).build();			
+		}else {			
+			feedEntity = feedEntity.builder().name("피드").isFirst(false).feedImageUrl(null).userEntity(userEntity).build();
+		}
+		feedRepository.save(feedEntity);
 	}
 	
 	public void deleteFeed(int feedId) {
@@ -45,11 +55,18 @@ public class FeedService {
 		feedRepository.save(feedEntity);
 	}
 	
-	public void updateFirstFeed(int feedId) {
-		FeedEntity feedEntity;
-		feedEntity = feedRepository.findById(feedId).get();
+	// api에서 userId를 같이 보내주면 어떨까요? => 기존의 대표피드를 찾기 위해 필요합니다.
+	public void updateFirstFeed(HashMap<String, String> feedInfo) {
+		FeedEntity newFeedEntity, oldFeedEntity;
+		newFeedEntity = feedRepository.findById(Integer.parseInt(feedInfo.get("feedId"))).get();
+		newFeedEntity.changeIsFirst();
 		
+		int oldFirstFeedId = feedRepository.findFirstId(Integer.parseInt(feedInfo.get("userId")));
+		oldFeedEntity = feedRepository.findById(oldFirstFeedId).get();
+		oldFeedEntity.changeIsNotFirst();
 		
+		feedRepository.save(newFeedEntity);
+		feedRepository.save(oldFeedEntity);
 	}
 
 

@@ -40,7 +40,7 @@ public class FeedController {
 	
 	@ApiOperation(value="Feed 설정 화면 - 피드 삭제",response=ResponseEntity.class)	
 	@DeleteMapping("/{feedId}")
-	public ResponseEntity deleteFeed(@PathVariable("id") int id) {
+	public ResponseEntity deleteFeed(@PathVariable("feedId") int id) {
 		try {
 			feedService.deleteFeed(id);
 			return new ResponseEntity(HttpStatus.OK);
@@ -99,9 +99,16 @@ public class FeedController {
 	
 	@ApiOperation(value="Feed 설정 화면 - 대표 피드 설정",response=ResponseEntity.class)	
 	@PutMapping("/star")
-	public ResponseEntity setFirstFeed(@RequestBody int feedId) {
-      
-		return new ResponseEntity(HttpStatus.OK);
+	public ResponseEntity setFirstFeed(@RequestBody HashMap<String, String> feedInfo) {
+		try {
+			feedService.updateFirstFeed(feedInfo);
+			System.out.println("성공");
+			return new ResponseEntity(HttpStatus.OK);
+		}catch(Exception e) {
+			System.out.println("ㅠㅠㅠㅠㅠ");
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		
 
 	}
 
