@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.UserProfileDto;
+import com.favshare.service.PopService;
 import com.favshare.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,9 @@ public class UserFollowController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PopService popService;
 
 	@ApiOperation(value = "나를 팔로우 하는 사람 팔로워", response = ResponseEntity.class)
 	@GetMapping("/from/{userId}")

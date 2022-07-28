@@ -1,6 +1,5 @@
 package com.favshare.entity;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.persistence.*;

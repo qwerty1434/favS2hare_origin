@@ -2,18 +2,15 @@ package com.favshare.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import com.favshare.entity.PopEntity;
+import com.favshare.entity.YoutubeEntity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PopDto {
+public class PopInfoDto {
 	private int id;
 	private String name;
 	private int startSecond;
@@ -23,7 +20,10 @@ public class PopDto {
 	private int views;
 	private int likeCount;
 	
-	public PopDto(PopEntity popEntity) {
+	private int youtubeId;
+	private String url;
+	
+	public PopInfoDto(PopEntity popEntity, YoutubeEntity youtubeEntity) {
 		this.id = popEntity.getId();
 		this.name = popEntity.getName();
 		this.startSecond = popEntity.getStartSecond();
@@ -32,5 +32,7 @@ public class PopDto {
 		this.createDate = popEntity.getCreateDate();
 		this.views = popEntity.getViews();
 		this.likeCount = popEntity.getLikePopList().size();
+		this.youtubeId = youtubeEntity.getId();
+		this.url = youtubeEntity.getUrl();
 	}
 }

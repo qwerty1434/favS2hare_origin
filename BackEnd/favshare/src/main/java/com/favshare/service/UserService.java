@@ -1,23 +1,29 @@
 package com.favshare.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.favshare.dto.UserAccountDto;
 import com.favshare.dto.UserInfoDto;
 import com.favshare.dto.UserProfileDto;
 import com.favshare.dto.UserSignUpDto;
+import com.favshare.dto.YoutubeBookmarkDto;
+import com.favshare.dto.YoutubeDto;
+import com.favshare.entity.StoreYoutubeEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.repository.UserRepository;
+import com.favshare.repository.YoutubeRepository;
 
 @Service
 public class UserService {
 	
+	
 	@Autowired
 	private UserRepository userRepository;
+	
 
 	public UserAccountDto getByEmail(String email) {
 		UserEntity userEntity;
@@ -28,16 +34,10 @@ public class UserService {
 
 	public void insertUser(UserSignUpDto userSignUpDto) {
 		UserEntity userEntity = new UserEntity();
-		System.out.println("11111111111111111");
 		userEntity = userEntity.builder().name(userSignUpDto.getName()).email(userSignUpDto.getEmail())
 				.password(userSignUpDto.getPassword()).nickname(userSignUpDto.getNickname())
 				.birthDate(userSignUpDto.getBirthDate()).phone(userSignUpDto.getPhone()).build();
-		System.out.println("22222222222222222");
-		System.out.println(userEntity.toString());
 		userRepository.save(userEntity);
-		System.out.println("3333333333333333");
-		
-
 	}
 	
 	public void updatePassword(HashMap<String, String> userInfo) {
@@ -76,5 +76,11 @@ public class UserService {
 		userEntity.changeUserInfo(userInfoDto.getName(), userInfoDto.getPassword(), userInfoDto.getPhone(), userInfoDto.getBirthDate());
 		userRepository.save(userEntity);
 	}
+	
+	
+	
+	
+	
+	
 
 }

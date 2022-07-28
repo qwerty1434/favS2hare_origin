@@ -54,10 +54,9 @@ public class PopEntity {
 	@OneToMany(mappedBy="popEntity")
 	private List<PopInFeedEntity> popInFeedList = new ArrayList<>();
 	
-	public int getPopCount(int userId) {
-		int num = 0;
-		
-		return num;
+	
+	public void changeView() {
+		this.views++;
 	}
 	
 }
