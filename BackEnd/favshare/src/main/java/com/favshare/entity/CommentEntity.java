@@ -53,7 +53,10 @@ public class CommentEntity {
 	@OneToMany(mappedBy="commentEntity")
 	private List<LikeCommentEntity> likeCommentList = new ArrayList<>();
 	
-	
+	public void changeComment(String content) {
+		this.content = content;
+		this.isModify = true;
+	}
 	
 	
 }

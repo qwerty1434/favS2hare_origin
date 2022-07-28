@@ -36,26 +36,28 @@ public class FeedService {
 		feedRepository.save(feedEntity);
 	}
 	
+	// popInFeed에서 해당 피드에 관련된 영상을 모두 지워야한다. => 아직 구현 x
 	public void deleteFeed(int feedId) {
 		feedRepository.deleteById(feedId);
 	}
 	
 	
-	public void updateFeedName(HashMap<String, String> userInfo) {
+	public void updateFeedName(HashMap<String, String> feedInfo) {
 		FeedEntity feedEntity;
-		feedEntity = feedRepository.findById(Integer.parseInt(userInfo.get("id"))).get();
-		feedEntity.changeName(userInfo.get("name"));
+		feedEntity = feedRepository.findById(Integer.parseInt(feedInfo.get("id"))).get();
+		feedEntity.changeName(feedInfo.get("name"));
 		feedRepository.save(feedEntity);
 	}
 	
-	public void updateFeedImage(HashMap<String, String> userInfo) {
+	public void updateFeedImage(HashMap<String, String> feedInfo) {
 		FeedEntity feedEntity;
-		feedEntity = feedRepository.findById(Integer.parseInt(userInfo.get("id"))).get();
-		feedEntity.changeImageUrl(userInfo.get("feedImageUrl"));
+		feedEntity = feedRepository.findById(Integer.parseInt(feedInfo.get("id"))).get();
+		feedEntity.changeImageUrl(feedInfo.get("feedImageUrl"));
 		feedRepository.save(feedEntity);
 	}
 	
 	// api에서 userId를 같이 보내주면 어떨까요? => 기존의 대표피드를 찾기 위해 필요합니다.
+	// 일단 REST API Doc 수정했음.
 	public void updateFirstFeed(HashMap<String, String> feedInfo) {
 		FeedEntity newFeedEntity, oldFeedEntity;
 		newFeedEntity = feedRepository.findById(Integer.parseInt(feedInfo.get("feedId"))).get();
