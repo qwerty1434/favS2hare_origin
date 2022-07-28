@@ -3,7 +3,18 @@
     <div class="video" style="text-align: center">
       <div class="video__thumbnail">
         <router-link
-          :to="{ name: 'youtube', params: { youtubePk: youtubeVideo.id } }"
+          :to="{
+            name: 'youtube',
+            params: {
+              youtubePk: youtubeVideo.id,
+              videoInfo: {
+                youtubeId: this.youtubeVideo.videoId,
+                channelName: this.channelName,
+                channelProfilePic: this.channelProfilePic,
+                videoTitle: this.videoTitle,
+              },
+            },
+          }"
           style="text-align: center"
         >
           <img :src="this.thumbNail" alt="" />
@@ -25,50 +36,6 @@
 
 <script>
 import axios from "axios";
-// // 2. This code loads the IFrame Player API code asynchronously.
-// var tag = document.createElement("script");
-
-// tag.src = "https://www.youtube.com/iframe_api";
-// var firstScriptTag = document.getElementsByTagName("script")[0];
-// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-// var section = {
-//   start: 0, // 반복 시작 시간(초)
-//   end: 9999, // 반복 종료 시간(초)
-// };
-
-// // 3. This function creates an <iframe> (and YouTube player)
-// //    after the API code downloads.
-// var player;
-
-// function onYouTubeIframeAPIReady() {
-//   player = new YT.Player("player", {
-//     height: "360",
-//     width: "640",
-//     playerVars: { autoplay: 1, controls: 0, mute: 1 },
-//     videoId: "7tkbzxa8MFQ", // 영상 고유 주소
-//     events: {
-//       onReady: onPlayerReady,
-//       onStateChange: onPlayerStateChange,
-//     },
-//   });
-// }
-
-// function onPlayerReady(event) {
-//   player.seekTo(section.start);
-//   player.playVideo();
-// }
-
-// function onPlayerStateChange(event) {
-//   if (event.data == YT.PlayerState.PLAYING) {
-//     var duration = section.end - section.start;
-//     setTimeout(restartVideoSection, duration * 1000);
-//   }
-// }
-
-// function restartVideoSection() {
-//   player.seekTo(section.start);
-// }
 
 export default {
   name: "YoutubeListItem",
@@ -85,23 +52,23 @@ export default {
     };
   },
   methods: {
-    // getThumbNail() {
-    //   const idIndex = this.youtubeVideo.youtubeUrl("=");
-    //   const videoId = this.youtubeVideo.youtubeUrl.substr(idIndex);
-    //   axios({
-    //     method: "get",
-    //     url: `https://www.googleapis.com/v3/video?part=snippet&id=${videoId}&key=[YOUR_API_KEY]`,
-    //   }).then((res) => {
-    //     this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
-    //     const tmpChannelId = res.data.items[0].snippet.channelId;
-    //     axios({
-    //       method: "get",
-    //       url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=[YOUR_API_KEY]`,
-    //     }).then((res) => {
-    //       this.channelId = res.data.items[0].snippet.thumbnails.default.url;
-    //     });
-    //   });
-    // },
+    getThumbNail() {
+      const idIndex = this.youtubeVideo.youtubeUrl("=");
+      const videoId = this.youtubeVideo.youtubeUrl.substr(idIndex);
+      axios({
+        method: "get",
+        url: `https://www.googleapis.com/v3/video?part=snippet&id=${videoId}&key=[YOUR_API_KEY]`,
+      }).then((res) => {
+        this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
+        const tmpChannelId = res.data.items[0].snippet.channelId;
+        axios({
+          method: "get",
+          url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=[YOUR_API_KEY]`,
+        }).then((res) => {
+          this.channelId = res.data.items[0].snippet.thumbnails.default.url;
+        });
+      });
+    },
     getEx() {
       axios({
         method: "get",
