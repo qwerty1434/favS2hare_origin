@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude= {"popList","commentList","feedList","likePopList","showPopList","storeYoutubeList","showYoutubeList","likeCommentList","interestIdolList","interestSongList","fromUserEntityList","toUserEntityList"})
 @Builder
 public class UserEntity {
     @Id
@@ -39,7 +39,7 @@ public class UserEntity {
 	@OneToMany(mappedBy = "userEntity")
     private List<PopEntity> popList = new ArrayList<>();	
     
-	@OneToMany(mappedBy = "userEntity") //CommentEntity.userEntity
+	@OneToMany(mappedBy = "userEntity")
     private List<CommentEntity> commentList = new ArrayList<>();	
 
 	@OneToMany(mappedBy = "userEntity")

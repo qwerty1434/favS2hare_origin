@@ -1,50 +1,98 @@
 package com.favshare.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.favshare.dto.UserProfileDto;
-import com.favshare.service.PopService;
-import com.favshare.service.UserService;
+import com.favshare.dto.FollowDto;
+import com.favshare.entity.FollowEntity;
+import com.favshare.service.FollowService;
 
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/user/follow")
 public class UserFollowController {
-	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private PopService popService;
 
-	@ApiOperation(value = "나를 팔로우 하는 사람 팔로워", response = ResponseEntity.class)
+	@Autowired	
+	private FollowService followService;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@ApiOperation(value = "내가 팔로우 하는 사람(팔로워)", response = ResponseEntity.class)
 	@GetMapping("/from/{userId}")
-	public ResponseEntity<UserProfileDto> showFollowerList(@PathVariable("userId") int userId) {
-//		UserProfileDto userProfileDto = userService.getUserProfileById(userId);
-		try {
-
-			int popCount = popService.getPopCount(userId);
-
-			UserProfileDto userProfileDto = userService.getUserProfileById(userId);
-
-			userProfileDto.setPopCount(popCount);
-
-			// set으로 팔로워 팔로잉 등등 처리해야함
-
-			return new ResponseEntity<UserProfileDto>(userProfileDto, HttpStatus.OK);
-		} catch (Exception e) {
-			//왜 되지..???????객체 없이 httpstatus만 반환 가능?
-			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
+	public ResponseEntity<List<String>> showFollower(@PathVariable("userId") String userId) { // 프론트에서 유저의 아이디를 알고 있나요?
+		try {			
+			List<FollowEntity> followEntityList = followService.getFollowerById(Integer.parseInt(userId));
+			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
+			// 변환방법 찾아보기
+			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
+			for (int i = 0; i < followDtoList.size(); i++) {
+				nickNameList.add(followDtoList.get(i).getToUserEntity().getNickname());
+			}
+			return new ResponseEntity<List<String>>(nickNameList,HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
 		}
-
 	}
-	
-	
+
+	@ApiOperation(value = "나를 팔로우 하는 사람(팔로잉)", response = ResponseEntity.class)
+	@GetMapping("to/{userId}")
+	public ResponseEntity<List<String>> showFollowing(@PathVariable("userId") String userId) {
+		try {
+			List<FollowEntity> followEntityList = followService.getFollowingById(Integer.parseInt(userId));
+			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
+			// 변환방법 찾아보기
+			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
+			for (int i = 0; i < followDtoList.size(); i++) {
+				nickNameList.add(followDtoList.get(i).getFromUserEntity().getNickname());
+			}
+			return new ResponseEntity<List<String>>(nickNameList,HttpStatus.OK);			
+		} catch(Exception e) {	
+			return new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@ApiOperation(value = "from이 to를 팔로우 함", response = ResponseEntity.class)
+	@PostMapping
+	public ResponseEntity addFollow(@RequestBody HashMap<String, String> followInfo) {
+		try {
+			// 프론트에서 유저 id를 알고 있나요?
+			int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
+			int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+			followService.insertFollow(fromUserId, toUserId);
+			return new ResponseEntity(HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);			
+		}
+	}
+
+	@ApiOperation(value = "내가 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
+	@DeleteMapping("/from")
+	public void deleteFollower(@RequestBody HashMap<String, String> followInfo) {
+		int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
+		int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+		followService.DeleteFollowById(fromUserId, toUserId);
+	}
+	@ApiOperation(value = "나를 팔로우 하는 사람(팔로잉)을 삭제", response = ResponseEntity.class)
+	@DeleteMapping("/to")
+	public void deleteFollowing(@RequestBody HashMap<String, String> followInfo) {
+		int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
+		int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+		followService.DeleteFollowById(toUserId, fromUserId);
+	}
 }
