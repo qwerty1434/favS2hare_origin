@@ -4,6 +4,7 @@
     <youtube-video
       class="youtube__view"
       :video-info="this.videoInfo"
+      :youtube-pk="this.youtubePk"
     ></youtube-video>
     <related-pops-list
       :youtube-pk="this.youtubePk"

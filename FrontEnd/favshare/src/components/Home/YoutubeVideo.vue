@@ -38,6 +38,7 @@ export default {
   name: "YoutubeVideo",
   props: {
     videoInfo: Object,
+    youtubePk: Number,
   },
   data() {
     return {
@@ -62,6 +63,17 @@ export default {
         this.isBookmarkClicked = 1;
       }
     },
+    // postStoredYoutube() {
+    //   axios({
+    //     method: "post",
+    //     url: "http://localhost:8080/youtube/bookmark",
+    //     data: { userId: this.userId, youtubeId: this.youtubePk },
+    //   }).then((res) => {
+    //     if (res.data != 200) {
+    //       console.log("something wrong");
+    //     }
+    //   });
+    // },
   },
   created() {
     this.playVideo();
@@ -77,6 +89,7 @@ export default {
 }
 
 .editicons {
+  display: flex;
   justify-content: space-between;
 }
 
