@@ -13,6 +13,9 @@
     <div v-else class="tab">
       <news-feed></news-feed>
     </div>
+    <div class="bottom">
+      <bottom-navigation-bar></bottom-navigation-bar>
+    </div>
   </div>
 </template>
 
@@ -20,9 +23,10 @@
 import NewsFeed from "../../components/Home/NewsFeed.vue";
 import YoutubeList from "../../components/Home/YoutubeList.vue";
 import NavBar from "../../components/NavBar.vue";
+import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 
 export default {
-  components: { YoutubeList, NewsFeed, NavBar },
+  components: { YoutubeList, NewsFeed, NavBar, BottomNavigationBar },
   name: "HomeView",
   data() {
     return {
@@ -49,5 +53,11 @@ export default {
 
 .tab {
   padding-top: 100px;
+}
+
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 </style>
