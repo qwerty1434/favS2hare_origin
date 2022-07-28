@@ -10,6 +10,7 @@
     <v-list-item>
       <search-pops-list></search-pops-list>
     </v-list-item>
+    <v-divider></v-divider>
     <v-row>
       <v-subheader>searchvideolist</v-subheader>
       <v-spacer></v-spacer>
@@ -20,6 +21,7 @@
     <v-list-item>
       <search-video-list></search-video-list>
     </v-list-item>
+    <v-divider></v-divider>
     <v-row>
       <v-subheader>searchfollowinglist</v-subheader>
       <v-spacer></v-spacer>
