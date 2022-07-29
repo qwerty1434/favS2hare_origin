@@ -41,6 +41,7 @@ export default {
   name: "NewsFeedListItem",
   props: {
     feedPop: Object, // {userId: ?, profileImage: ?, userName: ?, popsId: ?, likeCount: ?}
+    // newsFeedPops: Object, // {}
   },
   data() {
     return {

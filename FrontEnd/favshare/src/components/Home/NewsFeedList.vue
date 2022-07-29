@@ -7,11 +7,19 @@
     >
       <news-feed-list-item :feed-pop="feedPop"></news-feed-list-item>
     </div>
+    <!-- <div
+      v-for="newsFeedPop in newsFeedPops"
+      :key="newsFeedPop.userId"
+      class="video__container"
+    >
+      <news-feed-list-item :news-feed-pop="newsFeedPop"></news-feed-list-item>
+    </div> -->
   </div>
 </template>
 
 <script>
 import NewsFeedListItem from "./NewsFeedListItem.vue";
+import { mapActions, mapGetters } from "vuex";
 // import axios from "axios";
 
 export default {
@@ -22,16 +30,11 @@ export default {
       feedPops: Array,
     };
   },
+  computed: {
+    ...mapGetters(["newsFeedPops"]),
+  },
   methods: {
-    // getFeedPops() {
-    //   axios({
-    //     method: "get",
-    //     url: "http://localhost:8080/pop",
-    //     headers: "유저 토큰",
-    //   }).then((res) => {
-    //     this.feedPops = res.data;
-    //   });
-    // },
+    ...mapActions(["fetchFeedPops"]),
     setDummyFeedPops() {
       this.feedPops = [
         {
@@ -63,6 +66,7 @@ export default {
   },
   created() {
     this.setDummyFeedPops();
+    // this.fetchFeedPops()
   },
 };
 </script>

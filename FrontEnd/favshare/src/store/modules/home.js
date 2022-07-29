@@ -4,19 +4,15 @@ import axios from "axios";
 export default {
   state: {
     homeYoutubes: [],
-    homeYoutube: {},
-    thumbNail: '',
-    channelPic: '',
-    channelName: ''
+    newsFeedPops: [],
   },
   getters: {
-    homeYoutubes: state => state.homeYoutubes
+    homeYoutubes: state => state.homeYoutubes,
+    newsFeedPops: state => state.newsFeedPops
   },
   mutations: {
     SET_HOMEYOUTUBES: (state, homeYoutubes) => (state.homeYoutubes = homeYoutubes),
-    SET_THUMBNAIL: (state, thumbNail) => (state.thumbNail = thumbNail),
-    SET_CHANNELPIC: (state, channelPic) => (state.channelPic = channelPic),
-    SET_CHANNELNAME: (state, channelName) => (state.channelName = channelName)
+    SET_FEEDPOPS: (state, newsFeedPops) => (state.newsFeedPops = newsFeedPops),
   },
   actions: {
     // YoutubeList.vue 에서 사용
@@ -24,10 +20,20 @@ export default {
       axios({
         url: "http://localhost:8080/youtube",
         method: "get",
+        // headers: '유저토큰'
       })
       .then((res) => commit("SET_HOMEYOUTUBES", res.data))
       .catch((err) => console.log(err));
     },
-    // YoutubeListItem.vue 에서 사용
+    // NewsFeedList.vue 에서 사용
+    fetchFeedPops({ commit }) {
+      axios({
+        method: "get",
+        url: 'http://localhost/8080/pop',
+        // headers: "유저토큰"
+      })
+      .then((res) => commit("SET_FEEDPOPS", res.data))
+      .catch((err) => console.log(err))
+    }
   },
 };
