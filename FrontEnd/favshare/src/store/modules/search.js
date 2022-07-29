@@ -3,14 +3,14 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-import search from "./modules/search";
-
 export default new Vuex.Store({
-  state: {},
+  state: {
+    searchedPops: [],
+    searchedYoutube: [],
+    searchedFollowing: [],
+  },
   getters: {},
   mutations: {},
   actions: {},
-  modules: {
-    search: search,
-  },
+  modules: {},
 });
