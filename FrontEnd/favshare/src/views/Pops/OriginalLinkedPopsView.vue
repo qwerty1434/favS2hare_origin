@@ -1,7 +1,7 @@
 <template>
   <div>
     <original-info :youtube="youtube" :popsList="popsList"></original-info>
-    <linked-pops-list></linked-pops-list>
+    <linked-pops-list :popsList="popsList"></linked-pops-list>
   </div>
 </template>
 
@@ -36,8 +36,8 @@ export default {
             popsId: 1,
             youtubeId: 1,
             youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
-            startSecond: "",
-            endSecond: "",
+            startSecond: 10,
+            endSecond: 15,
             view: 30,
             count: 2,
           },
@@ -45,8 +45,8 @@ export default {
             popsId: 2,
             youtubeId: 1,
             youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
-            startSecond: "",
-            endSecond: "",
+            startSecond: 100,
+            endSecond: 110,
             view: 45,
             count: 17,
           },

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <img :src="thumbnail" alt="no image" />
-    <div>{{ title }}</div>
-    <div>{{ description }}</div>
-    <div>Pops {{ countPops }}개</div>
+    <img :src="thumbnail" class="original-image" alt="no image" />
+    <p>{{ title }}</p>
+    <p>{{ description }}</p>
+    <p>Pops {{ countPops }}개</p>
   </div>
 </template>
 
@@ -43,12 +43,10 @@ export default {
         .get(URL, { params })
         .then((response) => {
           this.title = response.data.items[0].snippet.title;
-          this.thumbnail =
-            response.data.items[0].snippet.thumbnails.default.url;
-
+          this.thumbnail = response.data.items[0].snippet.thumbnails.medium.url;
           let description = response.data.items[0].snippet.description;
-          if (description.length > 20) {
-            description = description.slice(0, 20) + "...";
+          if (description.length > 30) {
+            description = description.slice(0, 30) + "...";
           }
           this.description = description;
         })
@@ -60,4 +58,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.original-image {
+  object-fit: cover;
+  width: 125px;
+  height: 125px;
+  border-radius: 30px;
+}
+</style>
