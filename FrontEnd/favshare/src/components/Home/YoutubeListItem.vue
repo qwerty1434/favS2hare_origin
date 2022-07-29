@@ -41,6 +41,7 @@ export default {
   name: "YoutubeListItem",
   props: {
     youtubeVideo: Object,
+    // homeYoutube: Object,  // { youtubeId: ?, youtubeUrl: ? } 형태
   },
   data() {
     return {
@@ -52,23 +53,6 @@ export default {
     };
   },
   methods: {
-    getThumbNail() {
-      const idIndex = this.youtubeVideo.youtubeUrl("=");
-      const videoId = this.youtubeVideo.youtubeUrl.substr(idIndex);
-      axios({
-        method: "get",
-        url: `https://www.googleapis.com/v3/video?part=snippet&id=${videoId}&key=[YOUR_API_KEY]`,
-      }).then((res) => {
-        this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
-        const tmpChannelId = res.data.items[0].snippet.channelId;
-        axios({
-          method: "get",
-          url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=[YOUR_API_KEY]`,
-        }).then((res) => {
-          this.channelId = res.data.items[0].snippet.thumbnails.default.url;
-        });
-      });
-    },
     getEx() {
       axios({
         method: "get",
@@ -92,6 +76,7 @@ export default {
   },
   created() {
     this.getEx();
+    // this.fetchHomeYoutube(this.homeYoutube.youtubeUrl);
   },
 };
 </script>

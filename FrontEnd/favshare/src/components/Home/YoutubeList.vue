@@ -7,11 +7,20 @@
     >
       <youtube-list-item :youtube-video="youtubeVideo"></youtube-list-item>
     </div>
+    <!-- 밑에 꺼가 진짜 위에 꺼는 하드코딩용 -->
+    <!-- <div
+      v-for="homeYoutube in homeYoutubes"
+      :key="homeYoutube.youtubeId"
+      class="videos__container"
+    >
+      <youtube-list-item :home-youtube="homeYoutube"></youtube-list-item>
+    </div> -->
   </div>
 </template>
 
 <script>
 import YoutubeListItem from "./YoutubeListItem.vue";
+import { mapActions, mapGetters } from "vuex";
 // import axios from "axios";
 
 export default {
@@ -22,20 +31,11 @@ export default {
       youtubeVideos: Array,
     };
   },
+  computed: {
+    ...mapGetters(["homeYoutubes"]), // 3. homeYoutubes가 변경되면 감지하여 다시 랜더링, 그 값을 가져옴
+  },
   methods: {
-    // getYoutubeList() {
-    //   axios({
-    //     method: "get",
-    //     url: "http://localhost:8080/youtube/",
-    //     headers: "유저토큰",
-    //   })
-    //     .then((res) => {
-    //       this.youtubeVideos = res.data;
-    //     })[]
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
+    ...mapActions(["fetchHomeYoutubes"]),
     setDummyYoutubes() {
       this.youtubeVideos = [
         { id: 1, videoId: "f6YDKF0LVWw" },
@@ -48,6 +48,7 @@ export default {
   },
   created() {
     this.setDummyYoutubes();
+    // this.fetchHomeYoutubes();  // 1. 랜더링 되면 fetchHomeYoutube실행 => 2. SET_HOMEYOUTUBES mutation을 통해 homeYoutues변경
   },
 };
 </script>
@@ -60,6 +61,7 @@ export default {
   padding: 15px 15px;
   border-top: 1px solid #ddd;
   overflow-y: scroll;
+  padding-bottom: 56px;
 }
 
 .videos__container {

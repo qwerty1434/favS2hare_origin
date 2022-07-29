@@ -1,6 +1,18 @@
 <template>
   <div>
     <div class="video" style="text-align: center">
+      <div class="video__thumbnail">
+        <youtube
+          :video-id="youtubeId"
+          :player-vars="playerVars"
+          :ref="'pops' + this.feedPop.popsId"
+          @ready="onPlayerReady"
+          @playing="onPlaying"
+          :width="360"
+          :height="202"
+          style="pointer-events: none"
+        ></youtube>
+      </div>
       <div class="video__details">
         <div class="author">
           <router-link
@@ -14,16 +26,6 @@
             {{ this.feedPop.userName }}
           </h3>
         </div>
-      </div>
-      <div class="video__thumbnail">
-        <youtube
-          :video-id="this.videoId"
-          :player-vars="this.playerVars"
-          ref="youtube"
-          @playing="playing"
-          :width="360"
-          :height="202"
-        ></youtube>
       </div>
     </div>
   </div>
@@ -42,28 +44,52 @@ export default {
   },
   data() {
     return {
-      videoId: this.feedPop.youtubeVideoId,
       playerVars: {
         autoplay: 1,
+        mute: 1,
         contros: 0,
+        disablekb: 1,
+      },
+      section: {
+        start: this.feedPop.startSecond,
+        end: this.feedPop.endSecond,
       },
     };
   },
+  computed: {
+    youtubeId() {
+      return this.feedPop.youtubeUrl.slice(-11);
+    },
+    player() {
+      return this.$refs[`pops${this.feedPop.popsId}`].player;
+    },
+  },
   methods: {
-    playVideo() {
+    onPlayerReady() {
+      this.player.seekTo(this.section.start);
       this.player.playVideo();
     },
-    playing() {
-      console.log("we are watching!!!");
+    onPlaying() {
+      const duration = this.section.end - this.section.start;
+      setTimeout(this.restartVideoSection, duration * 1000);
     },
+    restartVideoSection() {
+      this.player.seekTo(this.section.start);
+    },
+    // playVideo() {
+    //   this.player.playVideo();
+    // },
+    // playing() {
+    //   console.log("we are watching!!!");
+    // },
   },
-  created() {
-    this.playVideo();
-  },
+  // created() {
+  //   this.playVideo();
+  // },
 };
 </script>
 
-<style>
+<style scoped>
 .video {
   width: 330px;
   margin-bottom: 10px;
@@ -74,7 +100,6 @@ export default {
   height: 170px;
   border-radius: 30%;
   object-fit: cover;
-  margin-top: 10px;
 }
 
 .video__thumbnail img {
