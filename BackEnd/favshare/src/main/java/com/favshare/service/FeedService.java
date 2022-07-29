@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.favshare.dto.FeedDto;
+import com.favshare.dto.FeedUserIdDto;
+import com.favshare.dto.IdFeedImageUrlDto;
+import com.favshare.dto.IdNameDto;
 import com.favshare.entity.FeedEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.repository.FeedRepository;
@@ -42,28 +45,28 @@ public class FeedService {
 	}
 	
 	
-	public void updateFeedName(HashMap<String, String> feedInfo) {
+	public void updateFeedName(IdNameDto idNameDto) {
 		FeedEntity feedEntity;
-		feedEntity = feedRepository.findById(Integer.parseInt(feedInfo.get("id"))).get();
-		feedEntity.changeName(feedInfo.get("name"));
+		feedEntity = feedRepository.findById(idNameDto.getId()).get();
+		feedEntity.changeName(idNameDto.getName());
 		feedRepository.save(feedEntity);
 	}
 	
-	public void updateFeedImage(HashMap<String, String> feedInfo) {
+	public void updateFeedImage(IdFeedImageUrlDto idFeedImageUrlDto) {
 		FeedEntity feedEntity;
-		feedEntity = feedRepository.findById(Integer.parseInt(feedInfo.get("id"))).get();
-		feedEntity.changeImageUrl(feedInfo.get("feedImageUrl"));
+		feedEntity = feedRepository.findById(idFeedImageUrlDto.getId()).get();
+		feedEntity.changeImageUrl(idFeedImageUrlDto.getFeedImageUrl());
 		feedRepository.save(feedEntity);
 	}
 	
 	// api에서 userId를 같이 보내주면 어떨까요? => 기존의 대표피드를 찾기 위해 필요합니다.
 	// 일단 REST API Doc 수정했음.
-	public void updateFirstFeed(HashMap<String, String> feedInfo) {
+	public void updateFirstFeed(FeedUserIdDto feedUserIdDto) {
 		FeedEntity newFeedEntity, oldFeedEntity;
-		newFeedEntity = feedRepository.findById(Integer.parseInt(feedInfo.get("feedId"))).get();
+		newFeedEntity = feedRepository.findById(feedUserIdDto.getFeedId()).get();
 		newFeedEntity.changeIsFirst();
 		
-		int oldFirstFeedId = feedRepository.findFirstId(Integer.parseInt(feedInfo.get("userId")));
+		int oldFirstFeedId = feedRepository.findFirstId(feedUserIdDto.getUserId());
 		oldFeedEntity = feedRepository.findById(oldFirstFeedId).get();
 		oldFeedEntity.changeIsNotFirst();
 		

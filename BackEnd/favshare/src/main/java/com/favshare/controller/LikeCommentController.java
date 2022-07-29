@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.favshare.dto.UserCommentIdDto;
 import com.favshare.service.LikeCommentService;
 
 import io.swagger.annotations.ApiOperation;
@@ -24,9 +25,9 @@ public class LikeCommentController {
 	
 	@ApiOperation(value="댓글 좋아요 클릭 시",response=ResponseEntity.class)	
 	@PostMapping
-	public ResponseEntity addLikeComment(@RequestBody HashMap<String, String> LikeCommentInfo) {
+	public ResponseEntity addLikeComment(@RequestBody UserCommentIdDto userCommentIdDto) {
 		try {
-			likeCommentService.insertLike(LikeCommentInfo);
+			likeCommentService.insertLike(userCommentIdDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			
@@ -36,9 +37,9 @@ public class LikeCommentController {
 	
 	@ApiOperation(value="댓글 좋아요 취소 시",response=ResponseEntity.class)	
 	@DeleteMapping
-	public ResponseEntity deleteLikeComment(@RequestBody HashMap<String, String> LikeCommentInfo) {
+	public ResponseEntity deleteLikeComment(@RequestBody UserCommentIdDto userCommentIdDto) {
 		try {
-			likeCommentService.deleteCommentLike(LikeCommentInfo);
+			likeCommentService.deleteCommentLike(userCommentIdDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			

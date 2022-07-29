@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.favshare.dto.EmailPasswordDto;
 import com.favshare.dto.UserAccountDto;
 import com.favshare.dto.UserSignUpDto;
 import com.favshare.repository.UserRepository;
@@ -32,17 +33,15 @@ public class UserController {
 	@ApiOperation(value="로그인",response=ResponseEntity.class)
 	//get방식은 안됨 pathvariable만 가능한듯?
 	@PostMapping("/login")
-	public ResponseEntity userLogin(@RequestBody HashMap<String, String> userInfo) {
-        UserAccountDto result = userService.getByEmail(userInfo.get("email"));
+	public ResponseEntity userLogin(@RequestBody EmailPasswordDto emailPasswordDto) {
+        UserAccountDto result = userService.getByEmail(emailPasswordDto.getEmail());
 
         // 보안 강화 필요
         // 반환값 필요한지 확인
-        if(userInfo.get("email").equals(result.getEmail())&&
-        		userInfo.get("password").equals(result.getPassword())) {
-        	System.out.println("succ");
+        if(emailPasswordDto.getEmail().equals(result.getEmail())&&
+        		emailPasswordDto.getPassword().equals(result.getPassword())) {
         	return new ResponseEntity(HttpStatus.OK);
         }else {        	
-        	System.out.println("fail");
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 
@@ -52,8 +51,6 @@ public class UserController {
 	@PostMapping("/signup")	
 	public ResponseEntity userSignUp(@RequestBody UserSignUpDto userSignUpDto) {
 		try {			
-			System.out.println(userSignUpDto.getEmail());
-			System.out.println(userSignUpDto.getName());
 			userService.insertUser(userSignUpDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch(Exception e) {

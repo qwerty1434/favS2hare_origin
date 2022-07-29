@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.favshare.dto.YoutubeBookmarkDto;
 import com.favshare.dto.YoutubeDto;
+import com.favshare.dto.YoutubeUserIdDto;
 import com.favshare.entity.StoreYoutubeEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.entity.YoutubeEntity;
@@ -30,11 +31,11 @@ public class StoreYoutubeService {
 	private UserRepository userRepository;
 	
 	//교차엔티티에 값을 넣어줘야함
-	public void insertBookmark(Map<String, String> bookmarkInfo) {
+	public void insertBookmark(YoutubeUserIdDto youtubeUserIdDto) {
 		StoreYoutubeEntity storeYoutubeEntity = new StoreYoutubeEntity();
 		
-		UserEntity userEntity = userRepository.findById(Integer.parseInt(bookmarkInfo.get("userId"))).get();
-		YoutubeEntity youtubeEntity = youtubeRepository.findById(Integer.parseInt(bookmarkInfo.get("youtubeId"))).get(); 
+		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
+		YoutubeEntity youtubeEntity = youtubeRepository.findById(youtubeUserIdDto.getYoutubeId()).get(); 
 		storeYoutubeEntity = storeYoutubeEntity.builder().userEntity(userEntity).youtubeEntity(youtubeEntity).build();
 		
 		storeYoutubeRepository.save(storeYoutubeEntity);
@@ -54,9 +55,9 @@ public class StoreYoutubeService {
 		return result;
 	}
 	
-	public void deleteYoutubeBookMarkById(HashMap<String, String> bookmarkInfo) {
+	public void deleteYoutubeBookMarkById(YoutubeUserIdDto youtubeUserIdDto) {
 		StoreYoutubeEntity storeYoutubeEntity;
-		storeYoutubeEntity = storeYoutubeRepository.searchByUserIdAndYoutubeId(Integer.parseInt(bookmarkInfo.get("userId")), Integer.parseInt(bookmarkInfo.get("youtubeId")));
+		storeYoutubeEntity = storeYoutubeRepository.searchByUserIdAndYoutubeId(youtubeUserIdDto.getUserId(), youtubeUserIdDto.getYoutubeId());
 		storeYoutubeRepository.deleteById(storeYoutubeEntity.getId());
 	}
 }

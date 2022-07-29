@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.FollowDto;
+import com.favshare.dto.FromUserToUserDto;
 import com.favshare.entity.FollowEntity;
 import com.favshare.service.FollowService;
 
@@ -35,10 +36,13 @@ public class UserFollowController {
 
 	@ApiOperation(value = "내가 팔로우 하는 사람(팔로워)", response = ResponseEntity.class)
 	@GetMapping("/from/{userId}")
-	public ResponseEntity<List<String>> showFollower(@PathVariable("userId") String userId) { // 프론트에서 유저의 아이디를 알고 있나요?
+	public ResponseEntity<List<String>> showFollower(@PathVariable("userId") int userId) { // 프론트에서 유저의 아이디를 알고 있나요?
 		try {			
-			List<FollowEntity> followEntityList = followService.getFollowerById(Integer.parseInt(userId));
+			List<FollowEntity> followEntityList = followService.getFollowerById(userId);
+			
+			
 			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
+			
 			// 변환방법 찾아보기
 			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
 			for (int i = 0; i < followDtoList.size(); i++) {
@@ -52,9 +56,9 @@ public class UserFollowController {
 
 	@ApiOperation(value = "나를 팔로우 하는 사람(팔로잉)", response = ResponseEntity.class)
 	@GetMapping("to/{userId}")
-	public ResponseEntity<List<String>> showFollowing(@PathVariable("userId") String userId) {
+	public ResponseEntity<List<String>> showFollowing(@PathVariable("userId") int userId) {
 		try {
-			List<FollowEntity> followEntityList = followService.getFollowingById(Integer.parseInt(userId));
+			List<FollowEntity> followEntityList = followService.getFollowingById(userId);
 			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
 			// 변환방법 찾아보기
 			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
@@ -69,11 +73,11 @@ public class UserFollowController {
 
 	@ApiOperation(value = "from이 to를 팔로우 함", response = ResponseEntity.class)
 	@PostMapping
-	public ResponseEntity addFollow(@RequestBody HashMap<String, String> followInfo) {
+	public ResponseEntity addFollow(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		try {
 			// 프론트에서 유저 id를 알고 있나요?
-			int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
-			int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+			int fromUserId = fromUserToUserDto.getFromUserId();
+			int toUserId = fromUserToUserDto.getToUserId();
 			followService.insertFollow(fromUserId, toUserId);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch(Exception e) {
@@ -83,16 +87,16 @@ public class UserFollowController {
 
 	@ApiOperation(value = "내가 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/from")
-	public void deleteFollower(@RequestBody HashMap<String, String> followInfo) {
-		int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
-		int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+	public void deleteFollower(@RequestBody FromUserToUserDto fromUserToUserDto) {
+		int fromUserId = fromUserToUserDto.getFromUserId();
+		int toUserId = fromUserToUserDto.getToUserId();
 		followService.DeleteFollowById(fromUserId, toUserId);
 	}
 	@ApiOperation(value = "나를 팔로우 하는 사람(팔로잉)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/to")
-	public void deleteFollowing(@RequestBody HashMap<String, String> followInfo) {
-		int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
-		int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+	public void deleteFollowing(@RequestBody FromUserToUserDto fromUserToUserDto) {
+		int fromUserId = fromUserToUserDto.getFromUserId();
+		int toUserId = fromUserToUserDto.getToUserId();
 		followService.DeleteFollowById(toUserId, fromUserId);
 	}
 }

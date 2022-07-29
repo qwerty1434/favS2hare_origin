@@ -30,7 +30,6 @@ public class FollowService {
 	}
 	
 	public void insertFollow(int fromUserId, int toUserId) {
-		
 		UserEntity fromUserEntity = getUserById(fromUserId);		
 		UserEntity toUserEntity = getUserById(toUserId);
 		FollowEntity followEntity = FollowEntity.builder().toUserEntity(toUserEntity).fromUserEntity(fromUserEntity).build();
@@ -39,10 +38,11 @@ public class FollowService {
 	}
 
 	// from이 follower 맞나요??
-	public List<FollowEntity> getFollowerById(int userId) {
+	public List<FollowEntity> getFollowerById(int userId) { // 아이유
 		UserEntity userEntity;
 		userEntity = userRepository.findById(userId).get();
-		List<FollowEntity> result = userEntity.getFromUserEntityList();
+		List<FollowEntity> result = userEntity.getFromUserEntityList(); // 아이유 - 나 || 나,너 
+		// userEntity.toUserEntityList(); // 아이유가 팔로우 한 사람 || 나
 		return result;
 	}
 	// to가 following 맞나요???
