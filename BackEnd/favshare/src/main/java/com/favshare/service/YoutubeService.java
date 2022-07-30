@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.favshare.dto.FeedDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.YoutubeDetailDto;
+import com.favshare.dto.YoutubeEditDto;
 import com.favshare.dto.YoutubeInfoDto;
 import com.favshare.dto.YoutubeUserIdDto;
 import com.favshare.entity.UserEntity;
@@ -49,4 +50,6 @@ public class YoutubeService {
 		result.setFeedList(feedList);
 		return result;
 	}
+	
+
 }

@@ -34,7 +34,6 @@ public class UserProfileController {
 	@ApiOperation(value = "프로필 보기 윗부분", response = ResponseEntity.class)
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserProfileDto> showProfilehead(@PathVariable("userId") int userId) {
-//		UserProfileDto userProfileDto = userService.getUserProfileById(userId);
 		try {
 
 			int popCount = popService.getPopCount(userId);
@@ -50,11 +49,9 @@ public class UserProfileController {
 			userProfileDto.setFollowingNum(followingNum);
 			userProfileDto.setFeedList(feedDtoList);
 
-//			피드 번호를 넘겨주면 해당 피드에 있는 pop들(List)을 반환하는 컨트롤러 가 필요하다 생각함
 
 			return new ResponseEntity<UserProfileDto>(userProfileDto, HttpStatus.OK);
 		} catch (Exception e) {
-			// 왜 되지..???????객체 없이 httpstatus만 반환 가능?
 			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
 		}
 
