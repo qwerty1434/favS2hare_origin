@@ -30,7 +30,7 @@
       </v-subheader>
     </v-row>
     <v-list-item>
-      <search-following-list></search-following-list>
+      <search-following-list> </search-following-list>
     </v-list-item>
   </v-list>
 </template>

@@ -9,7 +9,7 @@
           </v-btn>
         </v-row>
         <v-row class="pa-2 mt-600" justify="end">
-          <v-btn class="ma-2" text icon color="white">
+          <v-btn class="ma-2" text icon color="white" @click="">
             <v-icon large>mdi-heart-outline</v-icon>
           </v-btn>
           <v-btn class="ma-2" text icon color="white" @click.stop="dialogComment = true">
