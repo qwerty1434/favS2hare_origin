@@ -7,6 +7,7 @@ import createPersistedState from "vuex-persistedstate";
 
 import search from "./modules/search";
 import home from "./modules/home";
+import profile from "./modules/profile";
 
 export default new Vuex.Store({
   plugins: [createPersistedState()],
@@ -17,5 +18,6 @@ export default new Vuex.Store({
   modules: {
     search,
     home,
+    profile,
   },
 });
