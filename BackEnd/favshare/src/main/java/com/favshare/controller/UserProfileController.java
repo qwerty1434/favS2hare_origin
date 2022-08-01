@@ -1,5 +1,6 @@
 package com.favshare.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.FeedDto;
+import com.favshare.dto.FollowDto;
+import com.favshare.dto.FollowForFollowDto;
+import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInFeedDto;
 import com.favshare.dto.UserProfileDto;
 import com.favshare.service.PopService;
@@ -60,9 +64,9 @@ public class UserProfileController {
 	// feedController에 있어야 하는건가?
 	@ApiOperation(value = "프로필 보기 아래 피드 출력 부분", response = ResponseEntity.class)
 	@GetMapping("/feed/{feedId}")
-	public ResponseEntity<List<PopInFeedDto>> showPopInFeed(@PathVariable("feedId") int feedId) {
-		List<PopInFeedDto> popInFeedDtoList = userService.getPopInFeedList(feedId);
-		return new ResponseEntity<List<PopInFeedDto>>(popInFeedDtoList, HttpStatus.OK);
+	public ResponseEntity<List<PopDto>> showPopInFeed(@PathVariable("feedId") int feedId) {
+		List<PopDto> popInFeedDtoList = userService.getPopInFeedList(feedId);
+		return new ResponseEntity<List<PopDto>>(popInFeedDtoList, HttpStatus.OK);
 
 	}
 
@@ -100,9 +104,34 @@ public class UserProfileController {
 
 	}
 
-	@ApiOperation(value = "친구 프로필 보기", response = ResponseEntity.class)
-	@GetMapping("friend/{userId}")
-	public void func(@PathVariable("userId") int userId) {
+	@ApiOperation(value = "친구 프로필 보기의 윗부분", response = ResponseEntity.class)
+	@PostMapping("/friend")
+	public ResponseEntity<HashMap<String,Object>> showFreindProfileHead(@RequestBody FollowForFollowDto followForFollowDto) {
 		// {UserProfileDto, 맞팔 여부}를 반환해야 됨
+		try {
+
+			boolean isFollowForFollow = userService.getFollowForFollow(followForFollowDto.getFromUserId(), followForFollowDto.getToUserId());
+			
+			int popCount = popService.getPopCount(followForFollowDto.getToUserId());
+			int[] temp = userService.countFollow(followForFollowDto.getToUserId());
+			int followerNum = temp[0];
+			int followingNum = temp[1];
+			List<FeedDto> feedDtoList = userService.getFeedList(followForFollowDto.getToUserId());
+
+			UserProfileDto userProfileDto = userService.getUserProfileById(followForFollowDto.getToUserId());
+
+			userProfileDto.setPopCount(popCount);
+			userProfileDto.setFollowerNum(followerNum);
+			userProfileDto.setFollowingNum(followingNum);
+			userProfileDto.setFeedList(feedDtoList);
+			
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			map.put("friendProfileDto", userProfileDto);
+			map.put("isFollowForFollow", isFollowForFollow);
+
+			return new ResponseEntity<HashMap<String,Object>>(map , HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<HashMap<String,Object>>(HttpStatus.BAD_REQUEST);
+		}
 	}
 }

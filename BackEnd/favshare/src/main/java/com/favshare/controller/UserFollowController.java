@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.favshare.dto.FollowDto;
 import com.favshare.dto.FromUserToUserDto;
 import com.favshare.entity.FollowEntity;
+import com.favshare.entity.UserEntity;
 import com.favshare.service.FollowService;
 
 import io.swagger.annotations.ApiOperation;
@@ -36,16 +37,17 @@ public class UserFollowController {
 
 	@ApiOperation(value = "내가 팔로우 하는 사람(팔로워)", response = ResponseEntity.class)
 	@GetMapping("/from/{userId}")
-	public ResponseEntity<List<String>> showFollower(@PathVariable("userId") int userId) { // 프론트에서 유저의 아이디를 알고 있나요?
+	public ResponseEntity<List<String>> showFollower(@PathVariable("userId") int userId) {
 		try {			
 			List<FollowEntity> followEntityList = followService.getFollowerById(userId);
-			
 			
 			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
 			
 			// 변환방법 찾아보기
 			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
 			for (int i = 0; i < followDtoList.size(); i++) {
+//				nickNameList.add(new Dto(프로필, 닉네임, 맞팔여부))
+				
 				nickNameList.add(followDtoList.get(i).getToUserEntity().getNickname());
 			}
 			return new ResponseEntity<List<String>>(nickNameList,HttpStatus.OK);

@@ -12,6 +12,7 @@ public class FollowDto {
 	private int id;
     private UserEntity fromUserEntity;
     private UserEntity toUserEntity;
+    
 	public FollowDto(FollowEntity followEntity) {
 		this.id = followEntity.getId();
 		this.fromUserEntity = followEntity.getFromUserEntity();
