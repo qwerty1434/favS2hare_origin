@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <linked-pops-list-item
       v-for="popsListItem in popsList"
       :popsId="popsListItem.popsId"
@@ -10,7 +10,7 @@
       :count="popsListItem.count"
       :key="popsListItem.popsId"
     ></linked-pops-list-item>
-  </div>
+  </v-container>
 </template>
 
 <script>
