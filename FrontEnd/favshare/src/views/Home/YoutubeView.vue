@@ -1,15 +1,26 @@
 <template>
-  <div>
+  <!-- <div>
     <nav-bar class="top"></nav-bar>
     <youtube-video
       class="youtube__view"
       :video-info="this.videoInfo"
-      :youtube-pk="this.youtubePk"
+      :youtube-id="this.youtubeId"
     ></youtube-video>
     <related-pops-list
-      :youtube-pk="this.youtubePk"
+      :youtube-id="this.youtubeId"
       class="rpops"
     ></related-pops-list>
+    <div class="bottom">
+      <bottom-navigation-bar></bottom-navigation-bar>
+    </div>
+  </div> -->
+  <div>
+    <nav-bar class="top"></nav-bar>
+    <youtube-video class="youtube__view"></youtube-video>
+    <related-pops-list class="rpops"></related-pops-list>
+    <div class="bottom">
+      <bottom-navigation-bar></bottom-navigation-bar>
+    </div>
   </div>
 </template>
 
@@ -17,13 +28,31 @@
 import YoutubeVideo from "../../components/Home/YoutubeVideo.vue";
 import NavBar from "../../components/NavBar.vue";
 import RelatedPopsList from "@/components/Home/RelatedPopsList.vue";
+import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
+
+import { mapActions } from "vuex";
 
 export default {
-  components: { NavBar, YoutubeVideo, RelatedPopsList },
+  components: { NavBar, YoutubeVideo, RelatedPopsList, BottomNavigationBar },
   name: "YoutubeView",
   props: {
-    videoInfo: Object,
-    youtubePk: Number,
+    youtubeId: Number,
+    videoInfo: Object, // { videoId(유튜브 id), channelName, channelProfilePic, videoTitle }
+  },
+  // computed: {
+  //   ...mapGetters(["youtubeInfo"]),
+  // },
+  methods: {
+    ...mapActions(["fetchYoutubeInfo"]),
+  },
+  created() {
+    console.log(11111);
+    const vuexYoutubeId = { youtubeId: this.youtubeId };
+    console.log(2222);
+    const vuexVideoInfo = Object.assign(this.videoInfo, vuexYoutubeId);
+    console.log(3333);
+    this.fetchYoutubeInfo(vuexVideoInfo);
+    console.log(4444);
   },
 };
 </script>
@@ -47,5 +76,11 @@ export default {
   overflow: auto;
   white-space: nowrap;
   display: flex;
+}
+
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 </style>
