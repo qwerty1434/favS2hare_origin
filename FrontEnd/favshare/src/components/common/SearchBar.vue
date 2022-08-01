@@ -1,7 +1,10 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="auto">
+    <v-row dense>
+      <v-col cols="2">
+        <v-icon large>mdi-arrow-left</v-icon>
+      </v-col>
+      <v-col cols="8">
         <v-text-field
           id="search-bar"
           placeholder="검색어를 입력하세요."
@@ -12,11 +15,13 @@
           @keydown.enter="onInputKeyword"
         ></v-text-field>
       </v-col>
-      <v-col>
-        <v-btn rounded @click="searchAll(searchKeyword)">검색</v-btn>
+      <v-col cols="2">
+        <v-btn class="ma-2" text icon @click="searchAll(searchKeyword)">
+          <v-icon large>mdi-magnify</v-icon>
+        </v-btn>
       </v-col>
     </v-row>
-    <!-- <v-divider></v-divider> -->
+    <v-divider></v-divider>
   </div>
 </template>
 <script>
