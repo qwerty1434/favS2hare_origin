@@ -7,11 +7,12 @@ export default {
     newsFeedPops: [],
   },
   getters: {
-    homeYoutubes: state => state.homeYoutubes,
-    newsFeedPops: state => state.newsFeedPops
+    homeYoutubes: (state) => state.homeYoutubes,
+    newsFeedPops: (state) => state.newsFeedPops,
   },
   mutations: {
-    SET_HOMEYOUTUBES: (state, homeYoutubes) => (state.homeYoutubes = homeYoutubes),
+    SET_HOMEYOUTUBES: (state, homeYoutubes) =>
+      (state.homeYoutubes = homeYoutubes),
     SET_FEEDPOPS: (state, newsFeedPops) => (state.newsFeedPops = newsFeedPops),
   },
   actions: {
@@ -22,18 +23,18 @@ export default {
         method: "get",
         // headers: '유저토큰'
       })
-      .then((res) => commit("SET_HOMEYOUTUBES", res.data))
-      .catch((err) => console.log(err));
+        .then((res) => commit("SET_HOMEYOUTUBES", res.data))
+        .catch((err) => console.log(err));
     },
     // NewsFeedList.vue 에서 사용
     fetchFeedPops({ commit }) {
       axios({
         method: "get",
-        url: 'http://localhost/8080/pop',
+        url: "http://localhost/8080/pop",
         // headers: "유저토큰"
       })
-      .then((res) => commit("SET_FEEDPOPS", res.data))
-      .catch((err) => console.log(err))
-    }
+        .then((res) => commit("SET_FEEDPOPS", res.data))
+        .catch((err) => console.log(err));
+    },
   },
 };

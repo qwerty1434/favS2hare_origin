@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <v-continer>
     <div>
       <pops-list-item></pops-list-item>
     </div>
-  </div>
+  </v-continer>
 </template>
 <script>
 import PopsListItem from "./PopsListItem.vue";

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row dense>
+    <v-row dense class="mb-n4">
       <v-col cols="2">
         <v-icon large>mdi-arrow-left</v-icon>
       </v-col>
@@ -16,7 +16,7 @@
         ></v-text-field>
       </v-col>
       <v-col cols="2">
-        <v-btn class="ma-2" text icon @click="searchAll(searchKeyword)">
+        <v-btn class="ma-1 ml-3" text icon @click="searchAll(searchKeyword)">
           <v-icon large>mdi-magnify</v-icon>
         </v-btn>
       </v-col>
