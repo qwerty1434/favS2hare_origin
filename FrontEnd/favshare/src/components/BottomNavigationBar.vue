@@ -13,9 +13,9 @@
     </v-btn>
 
     <v-btn>
-      <span>Make</span>
+      <span>Search</span>
 
-      <v-icon>mdi-ticket-confirmation-outline</v-icon>
+      <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
     <v-btn>

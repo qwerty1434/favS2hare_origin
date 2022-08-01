@@ -2,7 +2,7 @@
   <div class="videos">
     <div
       v-for="youtubeVideo in youtubeVideos"
-      :key="youtubeVideo.id"
+      :key="youtubeVideo.youtubeid"
       class="videos__container"
     >
       <youtube-list-item :youtube-video="youtubeVideo"></youtube-list-item>
@@ -32,17 +32,33 @@ export default {
     };
   },
   computed: {
+    // homeYoutubes -> [{ youtubeId: ?, youtubeUrl: ? }, { youtubeId: ?, youtubeUrl: ? }, ... ]
     ...mapGetters(["homeYoutubes"]), // 3. homeYoutubes가 변경되면 감지하여 다시 랜더링, 그 값을 가져옴
   },
   methods: {
     ...mapActions(["fetchHomeYoutubes"]),
     setDummyYoutubes() {
       this.youtubeVideos = [
-        { id: 1, videoId: "f6YDKF0LVWw" },
-        { id: 2, videoId: "lw-1QX47ocA" },
-        { id: 3, videoId: "EEWxd4bj6f4" },
-        { id: 4, videoId: "p25b_ZgvbV4" },
-        { id: 5, videoId: "foo8805uLhc" },
+        {
+          youtubeid: 1,
+          youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
+        },
+        {
+          youtubeid: 2,
+          youtubeUrl: "https://www.youtube.com/watch?v=lw-1QX47ocA",
+        },
+        {
+          youtubeid: 3,
+          youtubeUrl: "https://www.youtube.com/watch?v=EEWxd4bj6f4",
+        },
+        {
+          youtubeid: 4,
+          youtubeUrl: "https://www.youtube.com/watch?v=p25b_ZgvbV4",
+        },
+        {
+          youtubeid: 5,
+          youtubeUrl: "https://www.youtube.com/watch?v=foo8805uLhc",
+        },
       ];
     },
   },

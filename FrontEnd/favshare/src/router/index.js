@@ -43,7 +43,7 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/youtube/:youtubePk",
+    path: "/youtube",
     name: "youtube",
     component: YoutubeView,
     props: true,

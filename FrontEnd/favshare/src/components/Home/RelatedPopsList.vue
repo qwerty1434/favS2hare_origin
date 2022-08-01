@@ -19,23 +19,27 @@
 <script>
 import axios from "axios";
 import RelatedPopsListItem from "./RelatedPopsListItem.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: { RelatedPopsListItem },
   name: "RelatedPopsList",
-  props: {
-    youtubePk: Number,
-  },
+  // props: {
+  //   youtubeId: Number, // 서버 id
+  // },
   data() {
     return {
       popsList: Array,
     };
   },
+  computed: {
+    ...mapGetters(["videoInfo"]),
+  },
   methods: {
     getPopsList() {
       axios({
         method: "get",
-        url: `http://localhost:8080/youtube/detail/${this.youtubePk}`,
+        url: `http://localhost:8080/youtube/detail/${this.videoInfo.youtubeId}`,
       }).then((res) => {
         this.popsList = res.data.popsList;
       });
