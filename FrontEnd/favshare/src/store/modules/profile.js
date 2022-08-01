@@ -3,12 +3,14 @@ import axios from "axios";
 export default {
   state: {
     userInfo: {},
+    feedId: 0,
   },
   getteres: {
     userInfo: (state) => state.userInfo,
   },
   mutations: {
     SET_USERINFO: (state, userInfo) => (state.userInfo = userInfo),
+    SET_SHOWFEEDID: (state, feedId) => (state.feedId = feedId)
   },
   actions: {
     fetchUserInfo({ commit }) {
@@ -20,5 +22,8 @@ export default {
         commit("SET_USERINFO", res.data);
       });
     },
+    setShowFeedId({ commit }) {
+      commit('SET_SHOWFEEDID', feedId)
+    }
   },
 };

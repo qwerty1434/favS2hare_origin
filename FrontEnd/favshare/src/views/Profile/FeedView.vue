@@ -4,6 +4,7 @@
     <feed-info class="feed-view"></feed-info>
     <v-divider></v-divider>
     <feed-list class="rpops"></feed-list>
+    <feed-pops-list></feed-pops-list>
   </div>
 </template>
 
@@ -12,9 +13,10 @@ import { mapActions, mapGetters } from "vuex";
 import FeedInfo from "../../components/Profile/FeedInfo.vue";
 import NavBar from "@/components/NavBar.vue";
 import FeedList from "../../components/Profile/FeedList.vue";
+import FeedPopsList from "../../components/Home/FeedPopsList.vue";
 
 export default {
-  components: { FeedInfo, NavBar, FeedList },
+  components: { FeedInfo, NavBar, FeedList, FeedPopsList },
   name: "FeedView",
   computed: {
     ...mapGetters(["userInfo"]), // {id(유저), nickname, count, followerNum, followingNum, userPicture, feedsList: [{id(피드), name, feedImageUrl, userId, first}]}
