@@ -1,7 +1,7 @@
 <template>
   <div>
     <youtube
-      :video-id="this.videoInfo.youtubeId"
+      :video-id="this.videoInfo.videoId"
       :player-vars="playerVars"
       ref="youtube"
       :width="330"
@@ -31,15 +31,16 @@
 // 유튜브id, 채널이름, 영상제목, 채널 이미지
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
+import { mapGetters } from "vuex";
 
 Vue.use(VueYoutube);
 
 export default {
   name: "YoutubeVideo",
-  props: {
-    videoInfo: Object,
-    youtubePk: Number,
-  },
+  // props: {
+  //   videoInfo: Object,
+  //   youtubeId: Number,
+  // },
   data() {
     return {
       playerVars: {
@@ -48,6 +49,9 @@ export default {
       },
       isBookmarkClicked: 0,
     };
+  },
+  computed: {
+    ...mapGetters(["videoInfo"]),
   },
   methods: {
     playVideo() {

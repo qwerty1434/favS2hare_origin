@@ -6,9 +6,9 @@
           :to="{
             name: 'youtube',
             params: {
-              youtubePk: youtubeVideo.id,
+              youtubeId: youtubeVideo.id, // 서버 id
               videoInfo: {
-                youtubeId: this.youtubeVideo.videoId,
+                videoId: this.videoId, // 유튜브 id
                 channelName: this.channelName,
                 channelProfilePic: this.channelProfilePic,
                 videoTitle: this.videoTitle,
@@ -50,13 +50,16 @@ export default {
       channelProfilePic: String,
       channelName: String,
       videoTitle: String,
+      videoId: String,
     };
   },
   methods: {
     getEx() {
+      const videoId = this.youtubeVideo.youtubeUrl.slice(-11);
+      this.videoId = videoId;
       axios({
         method: "get",
-        url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.youtubeVideo.videoId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
+        url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
       }).then((res) => {
         console.log("여기", res.data);
         // res.data.items[0].snippet.thumbnails.medium => width:320, height: 180 짜리 썸네일
@@ -76,7 +79,6 @@ export default {
   },
   created() {
     this.getEx();
-    // this.fetchHomeYoutube(this.homeYoutube.youtubeUrl);
   },
 };
 </script>
