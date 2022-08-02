@@ -97,7 +97,7 @@ public class UserFollowController {
 		}
 	}
 
-	@ApiOperation(value = "내가 팔로우 하는 사람(팔로잉)을 삭제", response = ResponseEntity.class)
+	@ApiOperation(value = "팔로우 취소 버튼 - 내가 팔로우 하는 사람(팔로잉)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/from")
 	public void deleteFollower(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		int fromUserId = fromUserToUserDto.getFromUserId();
@@ -106,7 +106,7 @@ public class UserFollowController {
 	}
 
 	// 이 api가 조금 헷갈린다. => 같이 봐주면 좋을 것 같음
-	@ApiOperation(value = "나를 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
+	@ApiOperation(value = "삭제 버튼 - 나를 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/to")
 	public void deleteFollowing(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		int fromUserId = fromUserToUserDto.getFromUserId();
