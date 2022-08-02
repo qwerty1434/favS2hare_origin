@@ -49,9 +49,10 @@ const routes = [
     props: true,
   },
   {
-    path: "/youtubeedit",
+    path: "/youtubeedit/:youtubePk",
     name: "youtubeedit",
     component: YoutubeEditView,
+    props: true,
   },
   {
     path: "/search",

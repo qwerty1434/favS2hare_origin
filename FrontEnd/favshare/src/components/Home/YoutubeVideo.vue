@@ -13,7 +13,15 @@
         {{ this.videoInfo.channelName }}
       </div>
       <div class="editicons">
-        <router-link :to="{ name: 'youtubeedit' }">
+        <router-link
+          :to="{
+            name: 'youtubeedit',
+            query: {
+              youtubePk: this.youtubePk,
+              youtubeId: this.videoInfo.youtubeId,
+            },
+          }"
+        >
           <v-icon class="icons">mdi-movie-open-edit-outline</v-icon>
         </router-link>
         <div v-if="this.isBookmarkClicked">
