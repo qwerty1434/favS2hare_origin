@@ -43,7 +43,7 @@ public class UserFollowController {
 	@GetMapping("/from/{userId}")
 	public ResponseEntity<List<FollowDto>> showFollower(@PathVariable("userId") int userId) {
 		try {
-			List<FollowEntity> followEntityList = followService.getFollowerById(userId);
+			List<FollowEntity> followEntityList = followService.getFollowingById(userId);
 
 			List<FollowDto> result = new ArrayList<>();
 
@@ -54,13 +54,6 @@ public class UserFollowController {
 				result.add(new FollowDto(nickname, false, profileImageUrl));
 			}
 
-//			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
-			// 변환방법 찾아보기
-//			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
-//			for (int i = 0; i < followDtoList.size(); i++) {
-//				nickNameList.add(new Dto(프로필, 닉네임, 맞팔여부))
-//				nickNameList.add(followDtoList.get(i).getToUserEntity().getNickname());
-//			}
 			return new ResponseEntity<List<FollowDto>>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<FollowDto>>(HttpStatus.BAD_REQUEST);
@@ -77,19 +70,13 @@ public class UserFollowController {
 			List<FollowDto> result = new ArrayList<>();
 
 			for (int i = 0; i < followEntityList.size(); i++) {
-				int toUserId = followEntityList.get(i).getToUserEntity().getId();
-				String nickname = followEntityList.get(i).getToUserEntity().getNickname();
-				boolean isFollowForFollow = userService.getFollowForFollow(userId, toUserId);
-				String profileImageUrl = followEntityList.get(i).getToUserEntity().getProfileImageUrl();
+				int fromUserId = followEntityList.get(i).getFromUserEntity().getId();
+				String nickname = followEntityList.get(i).getFromUserEntity().getNickname();
+				boolean isFollowForFollow = userService.getFollowForFollow(userId, fromUserId);
+				String profileImageUrl = followEntityList.get(i).getFromUserEntity().getProfileImageUrl();
 				result.add(new FollowDto(nickname, isFollowForFollow, profileImageUrl));
 			}
-//			List<FollowEntity> followEntityList = followService.getFollowingById(userId);
-//			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
-//			 변환방법 찾아보기
-//			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
-//			for (int i = 0; i < followDtoList.size(); i++) {
-//				nickNameList.add(followDtoList.get(i).getFromUserEntity().getNickname());
-//			}
+
 			return new ResponseEntity<List<FollowDto>>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<FollowDto>>(HttpStatus.BAD_REQUEST);
@@ -110,7 +97,7 @@ public class UserFollowController {
 		}
 	}
 
-	@ApiOperation(value = "내가 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
+	@ApiOperation(value = "내가 팔로우 하는 사람(팔로잉)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/from")
 	public void deleteFollower(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		int fromUserId = fromUserToUserDto.getFromUserId();
@@ -118,7 +105,8 @@ public class UserFollowController {
 		followService.DeleteFollowById(fromUserId, toUserId);
 	}
 
-	@ApiOperation(value = "나를 팔로우 하는 사람(팔로잉)을 삭제", response = ResponseEntity.class)
+	// 이 api가 조금 헷갈린다. => 같이 봐주면 좋을 것 같음
+	@ApiOperation(value = "나를 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/to")
 	public void deleteFollowing(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		int fromUserId = fromUserToUserDto.getFromUserId();
