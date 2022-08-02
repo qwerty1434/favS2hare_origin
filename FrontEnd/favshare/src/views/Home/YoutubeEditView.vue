@@ -1,10 +1,14 @@
 <template>
   <div>
     <v-icon>mdi-close</v-icon>
-    <div>게시</div>
+    <div @click="postPops">게시</div>
     <!-- eslint-disable-next-line -->
-    <youtube-edit-tool :youtubePk="youtubePk" :youtubeId="youtubeId"></youtube-edit-tool>
-    <upload-form></upload-form>
+    <youtube-edit-tool
+      ref="youtubeEditTool"
+      :youtubePk="youtubePk"
+      :youtubeId="youtubeId"
+    ></youtube-edit-tool>
+    <upload-form ref="uploadForm" :feedList="feedList"></upload-form>
   </div>
 </template>
 
@@ -21,11 +25,36 @@ export default {
     return {
       youtubePk: null,
       youtubeId: null,
+      feedList: [],
     };
   },
-  mounted() {
+  created() {
     this.youtubePk = this.$route.query.youtubePk;
     this.youtubeId = this.$route.query.youtubeId;
+    this.getDummyFeedList();
+  },
+  methods: {
+    // 해당 유저의 피드리스트 가져오기
+    getDummyFeedList() {
+      this.feedList = [
+        { feedId: 1, name: "대표" },
+        { feedId: 2, name: "아이돌1" },
+        { feedId: 3, name: "아이돌2" },
+        { feedId: 4, name: "아이돌3" },
+      ];
+    },
+    // input 서버에 전송
+    postPops() {
+      console.log({
+        // + userId
+        youtubeId: this.youtubeId,
+        title: this.$refs.uploadForm.title,
+        content: this.$refs.uploadForm.description,
+        startSecond: this.$refs.youtubeEditTool.range[0],
+        endSecond: this.$refs.youtubeEditTool.range[1],
+        feedId: this.$refs.uploadForm.feedId,
+      });
+    },
   },
 };
 </script>

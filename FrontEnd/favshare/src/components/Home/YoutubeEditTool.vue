@@ -7,13 +7,14 @@
       :ref="'youtube' + $route.query.youtubePk"
       width="316"
       height="289"
+      style="pointer-events: none"
     ></youtube>
     <!-- 시간 조정 슬라이더 -->
     <v-range-slider
       :max="max"
       :min="min"
       v-model="range"
-      thumb-label
+      thumb-label="always"
       ticks
       @mouseup="onMouseUp"
       ><template v-slot:thumb-label="{ value }"
@@ -31,8 +32,6 @@
 <script>
 import axios from "axios";
 
-// 가위 누르면 slider max, min 변경하기
-// 새로고침 누르면 기존 영상 다시 불러오고 slider, range 초기화하기
 export default {
   name: "YoutubeEditTool",
   data() {
