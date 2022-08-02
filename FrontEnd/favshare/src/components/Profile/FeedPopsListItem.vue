@@ -1,16 +1,18 @@
 <template>
   <div>
-    <youtube
-      :video-id="videoId"
-      :player-vars="playerVars"
-      :ref="'pops' + this.feedPops.id"
-      @ready="onPlayerReady"
-      @playing="onPlaying"
-      :width="170"
-      :height="96"
-      style="pointer-events: none"
-    >
-    </youtube>
+    <router-link :to="{ name: 'popsinfeed' }">
+      <youtube
+        :video-id="videoId"
+        :player-vars="playerVars"
+        :ref="'pops' + this.feedPops.id"
+        @ready="onPlayerReady"
+        @playing="onPlaying"
+        :width="170"
+        :height="96"
+        style="pointer-events: none"
+      >
+      </youtube>
+    </router-link>
   </div>
 </template>
 

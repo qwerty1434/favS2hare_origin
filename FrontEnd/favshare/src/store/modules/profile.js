@@ -4,13 +4,16 @@ export default {
   state: {
     userInfo: {},
     feedPops: [],
+    followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
   },
   getteres: {
     userInfo: (state) => state.userInfo,
+    followtab: (state) => state.followtab,
   },
   mutations: {
     SET_USERINFO: (state, userInfo) => (state.userInfo = userInfo),
     SET_FEEDPOPS: (state, feedPops) => (state.feedPops = feedPops),
+    SET_FOLLOWTAB: (state, followtab) => (state.followetab = followtab),
   },
   actions: {
     fetchUserInfo({ commit }) {
@@ -29,6 +32,12 @@ export default {
       }).then((res) => {
         commit("SET_FEEDPOPS", res.data);
       });
+    },
+    setTabFollower({ commit }) {
+      commit("SET_FOLLOWTAB", 0);
+    },
+    setTabFollowing({ commit }) {
+      commit("SET_FOLLOWTAB", 1);
     },
   },
 };

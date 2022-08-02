@@ -1,26 +1,31 @@
 <template>
   <div>
-    <div class="user-info">
+    <div>
       <div class="user-pic">
         <v-avatar>
           <img :src="tmpUserInfo.userPicture" alt="John" />
         </v-avatar>
-        <p>{{ tmpUserInfo.nickname }}</p>
       </div>
-      <div>
+      <div class="profile-stats">
         <ul>
-          <li>
-            <span class="stats">{{ tmpUserInfo.count }}</span
-            >게시 '팝'
-          </li>
-          <li>
-            <span class="stats">{{ tmpUserInfo.followerNum }}</span
-            >팔로워 수
-          </li>
-          <li>
-            <span class="stats">{{ tmpUserInfo.followingNum }}</span
-            >팔로잉 수
-          </li>
+          <router-link :to="{ name: 'follow' }">
+            <li>
+              <span class="stats">{{ tmpUserInfo.count }}</span
+              >게시 '팝'
+            </li>
+          </router-link>
+          <router-link :to="{ name: 'follow' }">
+            <li @click="setTabFollower">
+              <span class="stats">{{ tmpUserInfo.followerNum }}</span
+              >팔로워 수
+            </li>
+          </router-link>
+          <router-link :to="{ name: 'follow' }">
+            <li @click="setTabFollowing">
+              <span class="stats">{{ tmpUserInfo.followingNum }}</span
+              >팔로잉 수
+            </li>
+          </router-link>
         </ul>
       </div>
     </div>
@@ -28,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "FeedInfo",
@@ -63,6 +68,7 @@ export default {
   },
   computed: {
     ...mapGetters(["userInfo"]),
+    ...mapActions(["setTabFollower", "setTabFollowing"]),
   },
 };
 </script>
@@ -76,11 +82,7 @@ export default {
   align-content: center;
 }
 
-ul {
-  list-style: none;
-}
-
-li {
-  float: left;
+.profile-stats li {
+  cursor: pointer;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h4>FEED</h4>
     <div
       v-for="feedInfo in tmpUserInfo.feedsList"
       :key="feedInfo.id"
