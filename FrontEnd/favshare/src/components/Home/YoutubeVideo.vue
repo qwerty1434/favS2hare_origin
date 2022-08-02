@@ -13,7 +13,15 @@
         {{ this.videoInfo.channelName }}
       </div>
       <div class="editicons">
-        <router-link :to="{ name: 'youtubeedit' }">
+        <router-link
+          :to="{
+            name: 'youtubeedit',
+            query: {
+              youtubePk: this.youtubePk,
+              youtubeId: this.videoInfo.youtubeId,
+            },
+          }"
+        >
           <v-icon class="icons">mdi-movie-open-edit-outline</v-icon>
         </router-link>
         <div v-if="this.isBookmarkClicked">
@@ -29,11 +37,6 @@
 
 <script>
 // 유튜브id, 채널이름, 영상제목, 채널 이미지
-import VueYoutube from "vue-youtube";
-import Vue from "vue";
-
-Vue.use(VueYoutube);
-
 export default {
   name: "YoutubeVideo",
   props: {
