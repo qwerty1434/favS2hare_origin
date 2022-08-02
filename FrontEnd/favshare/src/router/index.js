@@ -43,7 +43,7 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/youtube/:youtubePk",
+    path: "/youtube",
     name: "youtube",
     component: YoutubeView,
     props: true,
@@ -125,7 +125,7 @@ const routes = [
 
   // 마이프로필 화면
   {
-    path: "/feed/:userPk",
+    path: "/feed",
     name: "feed",
     component: FeedView,
   },

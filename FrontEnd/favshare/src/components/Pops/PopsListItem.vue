@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pt-10">
+  <v-container>
     <router-link to="/popsdetail">
       <v-card>
         <v-img src="@/assets/sample/popssample.jpg" />

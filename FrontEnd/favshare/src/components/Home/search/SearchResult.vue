@@ -7,28 +7,30 @@
         <router-link to="/searchmorepops">더보기</router-link>
       </v-subheader>
     </v-row>
-    <v-list-item>
+    <v-list-item class="mb-2">
       <search-pops-list></search-pops-list>
     </v-list-item>
-    <v-row>
+    <v-divider></v-divider>
+    <v-row class="mt-1">
       <v-subheader>searchvideolist</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader>
         <router-link to="/searchmoreyoutube">더보기</router-link>
       </v-subheader>
     </v-row>
-    <v-list-item>
+    <v-list-item class="mb-2">
       <search-video-list></search-video-list>
     </v-list-item>
-    <v-row>
+    <v-divider></v-divider>
+    <v-row class="mt-1">
       <v-subheader>searchfollowinglist</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader>
         <router-link to="/searchmorefollowing">더보기</router-link>
       </v-subheader>
     </v-row>
-    <v-list-item>
-      <search-following-list></search-following-list>
+    <v-list-item class="mb-2">
+      <search-following-list> </search-following-list>
     </v-list-item>
   </v-list>
 </template>
