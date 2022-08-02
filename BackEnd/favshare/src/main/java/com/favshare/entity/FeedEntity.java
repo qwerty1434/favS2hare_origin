@@ -32,7 +32,7 @@ public class FeedEntity {
 	@JoinColumn(name ="user_id", nullable = false)
 	private UserEntity userEntity;
 
-	@OneToMany(mappedBy="feedEntity")
+	@OneToMany(mappedBy="feedEntity",  cascade = CascadeType.ALL)
 	private List<PopInFeedEntity> popInFeedList = new ArrayList<>();
 	
 	public void changeName(String name) {

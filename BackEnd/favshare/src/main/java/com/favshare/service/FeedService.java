@@ -12,8 +12,10 @@ import com.favshare.dto.FeedUserIdDto;
 import com.favshare.dto.IdFeedImageUrlDto;
 import com.favshare.dto.IdNameDto;
 import com.favshare.entity.FeedEntity;
+import com.favshare.entity.PopInFeedEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.repository.FeedRepository;
+import com.favshare.repository.PopInFeedRepository;
 import com.favshare.repository.UserRepository;
 
 import antlr.collections.List;
@@ -28,6 +30,9 @@ public class FeedService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private PopInFeedRepository popInFeedRepository;
+	
 	public void insertFeed(int userId) {
 		FeedEntity feedEntity = new FeedEntity();
 		UserEntity userEntity = userRepository.findById(userId).get();
@@ -41,6 +46,10 @@ public class FeedService {
 	
 	// popInFeed에서 해당 피드에 관련된 영상을 모두 지워야한다. => 아직 구현 x
 	public void deleteFeed(int feedId) {
+//		PopInFeedEntity popInFeedEntity;
+//		popInFeedEntity = popInFeedRepository.findByFeedId(feedId);
+//		
+//		popInFeedRepository.deleteAllById(ids);
 		feedRepository.deleteById(feedId);
 	}
 	
