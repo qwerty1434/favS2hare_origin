@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-avatar @click="this.setShowFeedId(this.feedInfo.id)">
+    <v-avatar @click="this.fetchFeedPops(this.feedInfo.id)">
       <img :src="feedInfo.feedImageUrl" alt="" />
     </v-avatar>
   </div>
@@ -15,7 +15,7 @@ export default {
     feedInfo: Object, // {id(pops), name, feedImageUrl, userId, first}
   },
   methods: {
-    ...mapActions(["setShowFeedId"]),
+    ...mapActions(["fetchFeedPops"]),
   },
 };
 </script>

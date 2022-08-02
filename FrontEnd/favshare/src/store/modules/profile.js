@@ -3,14 +3,14 @@ import axios from "axios";
 export default {
   state: {
     userInfo: {},
-    feedId: 0,
+    feedPops: [],
   },
   getteres: {
     userInfo: (state) => state.userInfo,
   },
   mutations: {
     SET_USERINFO: (state, userInfo) => (state.userInfo = userInfo),
-    SET_SHOWFEEDID: (state, feedId) => (state.feedId = feedId)
+    SET_FEEDPOPS: (state, feedPops) => (state.feedPops = feedPops),
   },
   actions: {
     fetchUserInfo({ commit }) {
@@ -22,8 +22,13 @@ export default {
         commit("SET_USERINFO", res.data);
       });
     },
-    setShowFeedId({ commit }) {
-      commit('SET_SHOWFEEDID', feedId)
-    }
+    fetchFeedPops({ commit }, feedId) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/profile/feed/${feedId}`,
+      }).then((res) => {
+        commit("SET_FEEDPOPS", res.data);
+      });
+    },
   },
 };
