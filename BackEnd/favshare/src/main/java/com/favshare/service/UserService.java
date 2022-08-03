@@ -117,6 +117,11 @@ public class UserService {
 		List<FeedEntity> feedEntityList = userEntity.getFeedList();		
 		List<FeedDto> feedDtoList = Arrays.asList(modelMapper.map(feedEntityList, FeedDto[].class));
 		return feedDtoList;
+	public void updateAuth(String email, String auth) {
+		UserEntity userEntity;
+		userEntity = userRepository.findByEmail(email);
+		userEntity.changeAuth(auth);
+		userRepository.save(userEntity);
 	}
 	
 	public List<PopDto> getPopInFeedList(int feedId){
@@ -138,6 +143,10 @@ public class UserService {
 		
 		return (countFromTo == 1 && countToFrom == 1);
 		
+	public String getUserAuthByEmail(String email) {
+		UserEntity userEntity;
+		userEntity = userRepository.findByEmail(email);
+		return userEntity.getAuth();
 	}
 	
 	
