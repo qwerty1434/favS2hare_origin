@@ -6,13 +6,13 @@
     <form>
       <div class="input-sheet">
         email
-        <input type="text" v-model="email" />
+        <input type="text" v-model="user.email" />
       </div>
       <div class="input-sheet">
         PW
-        <input type="password" v-model="password" />
+        <input type="password" v-model="user.password" />
       </div>
-      <v-btn @click.prevent="signin" color="#ff5d5d" class="btn-color" rounded
+      <v-btn @click.prevent="confirm" color="#ff5d5d" class="btn-color" rounded
         >로그인</v-btn
       >
     </form>
@@ -24,28 +24,33 @@
   </div>
 </template>
 <script>
-// import axios from "axios";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "SigninView",
   data() {
     return {
-      email: "",
-      password: "",
+      user: {
+        email: null,
+        password: null,
+      },
     };
   },
+  computed: {
+    ...mapState(["isSignin"]),
+  },
   methods: {
-    signin() {
-      console.log(this.email);
-      console.log(this.password);
-      // axios
-      //   .get("http://localhost:8080/user/login")
-      //   .then((res) => {
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+    ...mapActions(["userConfirm", "getUserInfo"]),
+    async confirm() {
+      // 로그인
+      await this.userConfirm(this.user);
+      // sessionStorage에 생긴 토큰으로 유저 정보 갱신
+      let token = sessionStorage.getItem("access-token");
+      if (this.isSignin) {
+        await this.getUserInfo(token);
+        // home으로 자동 이동
+        this.$router.push({ name: "home " });
+      }
     },
   },
 };
