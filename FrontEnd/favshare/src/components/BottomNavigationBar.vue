@@ -1,6 +1,10 @@
 <template>
-  <v-bottom-navigation :value="value" color="indigo" grow absolute>
-    <router-link :to="{ name: 'home' }" class="button">
+  <v-bottom-navigation grow absolute class="b-nav">
+    <router-link
+      :to="{ name: 'home' }"
+      class="button"
+      exact-active-class="bnav-active"
+    >
       <v-btn>
         <span>Home</span>
 
@@ -8,7 +12,11 @@
       </v-btn>
     </router-link>
 
-    <router-link :to="{ name: 'pops' }" class="button">
+    <router-link
+      :to="{ name: 'pops' }"
+      class="button"
+      exact-active-class="bnav-active"
+    >
       <v-btn>
         <span>Pops</span>
 
@@ -16,7 +24,11 @@
       </v-btn>
     </router-link>
 
-    <router-link :to="{ name: 'search' }" class="button">
+    <router-link
+      :to="{ name: 'search' }"
+      class="button"
+      exact-active-class="bnav-active"
+    >
       <v-btn>
         <span>Search</span>
 
@@ -24,7 +36,11 @@
       </v-btn>
     </router-link>
 
-    <router-link :to="{ name: 'feed' }" class="button">
+    <router-link
+      :to="{ name: 'feed' }"
+      class="button"
+      exact-active-class="bnav-active"
+    >
       <v-btn>
         <span>Profile</span>
 
@@ -39,7 +55,7 @@ export default {
   name: "BottomNavigationBar",
   data() {
     return {
-      value: 1,
+      value: 5,
     };
   },
 };
@@ -48,5 +64,14 @@ export default {
 <style>
 .button {
   padding-top: 8px;
+  color: #ff5d5d;
+}
+
+.b-nav {
+  color: #ff5d5d;
+}
+
+.bnav-active {
+  color: #ff5d5d;
 }
 </style>
