@@ -10,6 +10,11 @@ import SearchMorePopsView from "../views/Home/SearchMorePopsView.vue";
 import SearchMoreYoutubeView from "../views/Home/SearchMoreYoutubeView.vue";
 import SearchMoreFollowingView from "../views/Home/SearchMoreFollowingView.vue";
 
+// Nav
+import AlarmView from "../views/Nav/AlarmView.vue";
+import MyYoutubeView from "../views/Nav/MyYoutubeView.vue";
+import AccountView from "../views/Nav/AccountView.vue";
+
 // Account
 import SigninView from "../views/Account/SigninView.vue";
 import SignupView from "../views/Account/SignupView.vue";
@@ -73,6 +78,23 @@ const routes = [
     path: "/searchmorefollowing",
     name: "searchmorefollowing",
     component: SearchMoreFollowingView,
+  },
+
+  // Nav
+  {
+    path: "/alarm",
+    name: "alarm",
+    component: AlarmView,
+  },
+  {
+    path: "/myyoutube",
+    name: "myyoutube",
+    component: MyYoutubeView,
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: AccountView,
   },
 
   // Sign-in 화면
