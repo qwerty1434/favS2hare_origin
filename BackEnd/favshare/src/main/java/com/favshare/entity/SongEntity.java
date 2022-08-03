@@ -1,31 +1,31 @@
 package com.favshare.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import javax.persistence.*;
+import lombok.*;
 
-@Entity 
-@Table(name = "song") 
+@Entity
+@Table(name = "song")
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Builder
-@ToString
-public class SongEntity {
 
+public class SongEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	
-	String name;
+    @Column(nullable = false)
+	private String name;
+
+    private String content;
+    
+	@OneToMany(mappedBy="songEntity")
+	private List<InterestSongEntity> interestSongList = new ArrayList<>();
+    
 	
-	String content;
 }

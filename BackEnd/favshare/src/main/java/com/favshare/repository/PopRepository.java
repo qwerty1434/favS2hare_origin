@@ -15,8 +15,4 @@ import com.favshare.entity.PopEntity;
 @Repository
 public interface PopRepository extends JpaRepository<PopEntity,Integer>{
 	
-	@Query(value ="select * from pop where id = :id", nativeQuery = true)
-	public PopEntity search(@Param("id") int id); 
-	
-	
 }

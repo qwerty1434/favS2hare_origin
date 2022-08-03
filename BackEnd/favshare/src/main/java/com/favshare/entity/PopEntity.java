@@ -1,55 +1,62 @@
 package com.favshare.entity;
 
-
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import lombok.*;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-@Entity // 객체와 테이블 매핑하는 어노테이션 - 테이블과의 매핑
-@Table(name = "pop") // 객체와 테이블 매핑하는 어노테이션 - 엔티티와 매핑할 테이블을 지정
+@Entity
+@Table(name = "pop")
 @Getter
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // 접근 권한을 prorected로 지정하여 어느곳에서나 객체를 생성할 수 있는 상황을 막는다.
-@Builder(builderMethodName = "PopEntityBuilder")
+@NoArgsConstructor
+@Builder
 public class PopEntity {
-	@Id // PK
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	private int userId;
-	private int youtubeId;
-	private String name;
+    @Column(nullable = false)
+	private String name; // 무슨 이름임 영상 이름?? -> 이거 DB에는 없음
+    @Column(name= "start_second", nullable = false)
 	private int startSecond;
+    @Column(name= "end_second", nullable = false)
 	private int endSecond; 
 	private String content;
+	@Column(name= "create_date", nullable = false)
 	private LocalDateTime createDate;
+    @Column(nullable = false)
 	private int views;
 	
-
-//	public static PopEntityBuilder builder(PopDto popDto) {
-//  return PopEntityBuilder()
-           // Dto 만든 뒤 작성해야함 아래는 예시 
-//  		 .idx(studyDto.getIdx())
-//           .studyName(studyDto.getStudyName())
-//           .regUserIdx(studyDto.getRegUserIdx())
-//           .maxCnt(studyDto.getMaxCnt())
-//           .startDate(studyDto.getStartDate())
-//           .endDate(studyDto.getEndDate());
-//}
+	@ManyToOne
+	// 1. @Column이 없는 Integer는 default로 not null속성이 추가됨
+	// 2. @Column이 붙은 Integer는 기본으로 nullable = true임
+	// 3. @Column이 붙은 Integer는 nullable = true를 해아 not null속성이 가능
+	@JoinColumn(name ="user_id",nullable = false)
+	private UserEntity userEntity;
 	
+	@ManyToOne
+	@JoinColumn(name ="youtube_id", nullable = false)
+	private YoutubeEntity youtubeEntity;
 
+	@OneToMany(mappedBy = "popEntity") //CommentEntity.userEntity
+    private List<CommentEntity> commentList = new ArrayList<>();	
+
+	@OneToMany(mappedBy="popEntity")
+	private List<LikePopEntity> likePopList = new ArrayList<>();
+
+	@OneToMany(mappedBy="popEntity")
+	private List<ShowPopEntity> showPopList = new ArrayList<>();
+	
+	@OneToMany(mappedBy="popEntity")
+	private List<PopInFeedEntity> popInFeedList = new ArrayList<>();
+	
+	
+	public void changeView() {
+		this.views++;
+	}
+	
 }
