@@ -39,6 +39,9 @@ import FeedEditView from "../views/Profile/FeedEditView.vue";
 import FeedAddView from "../views/Profile/FeedAddView.vue";
 import PopsInFeedView from "../views/Profile/PopsInFeedView.vue";
 
+// 404 NotFound
+import NotFoundView from "@/views/NotFoundView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -177,6 +180,18 @@ const routes = [
     path: "/popsinfeed",
     name: "popsinfeed",
     component: PopsInFeedView,
+  },
+  // 404 NotFound
+  {
+    path: "/404",
+    name: "notfound",
+    component: NotFoundView,
+  },
+  // 그 외 지정되지 않는 경로 입력 시 /404로 redirect
+  // 가장 하단에 위치
+  {
+    path: "*",
+    redirect: "/404",
   },
 ];
 
