@@ -31,6 +31,58 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
+	private CommentRepository commentRepository;
+
+	@ApiOperation(value = "모든 댓글 정보를 반환합니다", response = CommentEntity.class)
+	@GetMapping("/searchAll")
+	@Transactional()
+	public ResponseEntity<List<CommentEntity>> searchAll() {
+		List<CommentEntity> result = commentRepository.findAll();
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "id 값으로 찾은 특정 댓글 정보를 반환합니다", response = CommentEntity.class)
+	@GetMapping("/search")
+	@Transactional()
+	public ResponseEntity<CommentDto> search(Integer id) {
+		CommentEntity entityValue = commentRepository.search(id);
+		CommentDto result = new CommentDto(entityValue);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@GetMapping("/insert")
+	@Transactional()
+	public void insert(CommentDto dto) {
+		CommentEntity result = CommentEntity.builder().userId(dto.getUserId()).popId(dto.getPopId())
+				.content(dto.getContent()).createDate(dto.getCreateDate()).isModify(dto.getIsModify()).build();
+		commentRepository.save(result);
+	}
+
+	@GetMapping("/delete")
+	@Transactional()
+	public void delete(Integer id) {
+		commentRepository.deleteById(id);
+	}
+	
+	// test 나중에 지워주세요
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+>>>>>>> BackEnd/favshare/src/main/java/com/favshare/controller/CommentController.java
+	
 	@Autowired
 	private UserService userService;
 	
