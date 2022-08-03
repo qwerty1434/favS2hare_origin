@@ -1,7 +1,7 @@
 package com.favshare.controller;
 
 import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/user/interest")
-public class UserInterestController {
+public class UserInterestController{
 	@Autowired
 	IdolService idolService;
 
@@ -55,10 +54,10 @@ public class UserInterestController {
 	}
 
 	@ApiOperation(value = "이름으로 아이돌 찾기", response = ResponseEntity.class)
-	@GetMapping("/findIdol/{message}")
-	public ResponseEntity<IdolDto> findIdol(@PathVariable("message") String message) {
+	@GetMapping("/findIdol/{name}")
+	public ResponseEntity<IdolDto> findIdol(@PathVariable("name") String name) {
 		try {
-			IdolEntity idolEntity = idolService.getIdolByName(message);
+			IdolEntity idolEntity = idolService.getIdolByName(name);
 			IdolDto result = new IdolDto(idolEntity);
 			return new ResponseEntity<IdolDto>(result, HttpStatus.OK);
 		} catch (Exception e) {

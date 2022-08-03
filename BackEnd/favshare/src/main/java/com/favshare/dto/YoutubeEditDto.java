@@ -29,4 +29,12 @@ public class YoutubeEditDto {
 		this.userId = userEntity.getId();
 		this.youtubeId = youtubeEntity.getId();
 	}
+
+
+	public YoutubeEditDto(YoutubeEntity youtubeEntity) {
+		this.youtubeId = youtubeEntity.getId();
+	}
+	
+	
+	
 }

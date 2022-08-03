@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.favshare.dto.EmailPasswordDto;
+import com.favshare.dto.UserAccountDto;
+import com.favshare.dto.UserSignUpDto;
 import com.favshare.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -38,9 +41,9 @@ public class UserPasswordController {
 
 	@ApiOperation(value = "비밀번호 재설정", response = ResponseEntity.class)
 	@PutMapping
-	public ResponseEntity changePassword(@RequestBody HashMap<String, String> userInfo) {
+	public ResponseEntity changePassword(EmailPasswordDto emailPasswordDto) {
 		try {
-			userService.updatePassword(userInfo);
+			userService.updatePassword(emailPasswordDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);

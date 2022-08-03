@@ -7,6 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.favshare.dto.UserCommentContentIdDto;
+import com.favshare.dto.UserCommentIdDto;
+import com.favshare.dto.UserPopContentIdDto;
 import com.favshare.entity.CommentEntity;
 import com.favshare.entity.PopEntity;
 import com.favshare.entity.UserEntity;
@@ -30,25 +33,25 @@ public class CommentService {
 		return commentRepository.findAllByPopId(popId);
 	}
 	
-	public void insertComment(HashMap<String, String> commentInfo) {
+	public void insertComment(UserPopContentIdDto userPopContentIdDto) {
 		CommentEntity commentEntity = new CommentEntity();
-		UserEntity userEntity = userRepository.findById(Integer.parseInt(commentInfo.get("userId"))).get();
-		PopEntity popEntity = popRepository.findById(Integer.parseInt(commentInfo.get("popId"))).get();
+		UserEntity userEntity = userRepository.findById(userPopContentIdDto.getUserId()).get();
+		PopEntity popEntity = popRepository.findById(userPopContentIdDto.getPopId()).get();
 		
-		commentEntity = commentEntity.builder().content(commentInfo.get("content")).createDate(LocalDateTime.now()).isModify(false).userEntity(userEntity).popEntity(popEntity).build();
+		commentEntity = commentEntity.builder().content(userPopContentIdDto.getContent()).createDate(LocalDateTime.now()).isModify(false).userEntity(userEntity).popEntity(popEntity).build();
 		
 		commentRepository.save(commentEntity);
 	}
 	
-	public void updateComment(HashMap<String, String> commentInfo) {
+	public void updateComment(UserCommentContentIdDto userCommentContentIdDto) {
 		CommentEntity commentEntity;
-		commentEntity = commentRepository.findByUserCommentId(Integer.parseInt(commentInfo.get("userId")), Integer.parseInt(commentInfo.get("commentId")));
-		commentEntity.changeComment(commentInfo.get("content"));
+		commentEntity = commentRepository.findByUserCommentId(userCommentContentIdDto.getUserId(), userCommentContentIdDto.getCommentId());
+		commentEntity.changeComment(userCommentContentIdDto.getContent());
 		commentRepository.save(commentEntity);
 	}
 	
-	public void deleteComment(HashMap<String, String> commentInfo) {
-		commentRepository.deleteByUserCommentId(Integer.parseInt(commentInfo.get("userId")), Integer.parseInt(commentInfo.get("commentId")));
+	public void deleteComment(UserCommentIdDto userCommentIdDto) {
+		commentRepository.deleteByUserCommentId(userCommentIdDto.getUserId(), userCommentIdDto.getCommentId());
 	}
 	
 

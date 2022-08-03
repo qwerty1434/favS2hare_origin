@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.favshare.dto.FeedPopIdDto;
 import com.favshare.entity.CommentEntity;
 import com.favshare.entity.FeedEntity;
 import com.favshare.entity.LikeCommentEntity;
@@ -28,19 +29,19 @@ public class PopInFeedService {
 	@Autowired
 	private PopRepository popRepository;
 	
-	public void insertPopInFeed(@RequestBody HashMap<String, String> popInFeedInfo) {
+	public void insertPopInFeed(@RequestBody FeedPopIdDto feedPopIdDto) {
 		PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
 
-		FeedEntity feedEntity = feedRepository.findById(Integer.parseInt(popInFeedInfo.get("feedId"))).get();
-		PopEntity popEntity = popRepository.findById(Integer.parseInt(popInFeedInfo.get("popId"))).get();
+		FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.getFeedId()).get();
+		PopEntity popEntity = popRepository.findById(feedPopIdDto.getPopId()).get();
 
 		popInFeedEntity = popInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity).build();
 		popInFeedRepository.save(popInFeedEntity);
 	}
 	
-	public void deletePopInFeed(@RequestBody HashMap<String, String> popInFeedInfo) {
-		int feedId = Integer.parseInt(popInFeedInfo.get("feedId"));
-		int popId = Integer.parseInt(popInFeedInfo.get("popId"));
+	public void deletePopInFeed(@RequestBody FeedPopIdDto feedPopIdDto) {
+		int feedId = feedPopIdDto.getFeedId();
+		int popId = feedPopIdDto.getPopId();
 		popInFeedRepository.deleteByPopFeedId(feedId, popId);
 	}
 	

@@ -20,10 +20,10 @@ public class UserProfileDto {
 	private String profileImageUrl;
 	
 	private int popCount;
+	private int followerNum;
+	private int followingNum;
 	
-//	private int feedId;
-//	
-//	List<PopDto> popInFeedList; 
+	private List<FeedDto> FeedList;
 	
 	public UserProfileDto(UserEntity userEntity) {
 		this.id = userEntity.getId();

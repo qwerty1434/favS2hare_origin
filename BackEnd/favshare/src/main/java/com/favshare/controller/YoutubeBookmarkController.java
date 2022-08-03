@@ -18,6 +18,7 @@ import com.favshare.dto.UserProfileDto;
 import com.favshare.dto.YoutubeBookmarkDto;
 import com.favshare.dto.YoutubeDetailDto;
 import com.favshare.dto.YoutubeDto;
+import com.favshare.dto.YoutubeUserIdDto;
 import com.favshare.service.StoreYoutubeService;
 import com.favshare.service.UserService;
 import com.favshare.service.YoutubeService;
@@ -39,9 +40,9 @@ public class YoutubeBookmarkController {
 	
 	@ApiOperation(value = "유튜브 저장", response = ResponseEntity.class)
 	@PostMapping
-	public ResponseEntity storeYoutube(@RequestBody HashMap<String, String> bookmarkInfo) {
+	public ResponseEntity storeYoutube(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
-			storeYoutubeService.insertBookmark(bookmarkInfo);
+			storeYoutubeService.insertBookmark(youtubeUserIdDto);
 			return new ResponseEntity(HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -61,9 +62,9 @@ public class YoutubeBookmarkController {
 	
 	@ApiOperation(value = "유튜브 저장 삭제", response = ResponseEntity.class)
 	@DeleteMapping
-	public ResponseEntity deleteYoutubeBookMark(@RequestBody HashMap<String, String> bookmarkInfo) {
+	public ResponseEntity deleteYoutubeBookMark(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
-			storeYoutubeService.deleteYoutubeBookMarkById(bookmarkInfo);
+			storeYoutubeService.deleteYoutubeBookMarkById(youtubeUserIdDto);
 			return new ResponseEntity(HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);

@@ -9,13 +9,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class FollowDto {
-	private int id;
-    private UserEntity fromUserEntity;
-    private UserEntity toUserEntity;
-	public FollowDto(FollowEntity followEntity) {
-		this.id = followEntity.getId();
-		this.fromUserEntity = followEntity.getFromUserEntity();
-		this.toUserEntity = followEntity.getToUserEntity();
+	private String nickname;
+	private boolean isFollowForFollow;
+	private String profileImageUrl;
+	
+	
+	public FollowDto(String nickname, boolean isFollowForFollow, String profileImageUrl) {
+		super();
+		this.nickname = nickname;
+		this.isFollowForFollow = isFollowForFollow;
+		this.profileImageUrl = profileImageUrl;
 	}
-    
+   
 }

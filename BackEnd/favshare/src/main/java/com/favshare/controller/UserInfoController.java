@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.favshare.dto.IdPasswordDto;
 import com.favshare.dto.UserInfoDto;
 import com.favshare.service.UserService;
 
@@ -26,12 +27,12 @@ public class UserInfoController {
 
 	@ApiOperation(value = "비밀번호 확인", response = ResponseEntity.class)
 	@PostMapping
-	public ResponseEntity<UserInfoDto> checkPassword(@RequestBody HashMap<String, String> userInfo) {
+	public ResponseEntity<UserInfoDto> checkPassword(@RequestBody IdPasswordDto idPasswordDto) {
 
 		// id 값이 int로 넘어오는지 string 으로 넘어오는지 //
-		UserInfoDto userInfoDto = userService.getUserInfoById(Integer.parseInt(userInfo.get("id")));
+		UserInfoDto userInfoDto = userService.getUserInfoById(idPasswordDto.getId());
 
-		if (userInfoDto.getPassword().equals(userInfo.get("password"))) {
+		if (userInfoDto.getPassword().equals(idPasswordDto.getPassword())) {
 			return new ResponseEntity<UserInfoDto>(userInfoDto, HttpStatus.OK);
 		} else {
 			// 정보 보내주지 않음

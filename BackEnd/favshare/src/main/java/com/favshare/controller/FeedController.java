@@ -5,6 +5,7 @@ import java.util.*;
 
 
 
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.favshare.dto.FeedDto;
+import com.favshare.dto.FeedPopIdDto;
+import com.favshare.dto.FeedUserIdDto;
+import com.favshare.dto.IdFeedImageUrlDto;
+import com.favshare.dto.IdNameDto;
 import com.favshare.dto.UserSignUpDto;
 import com.favshare.service.FeedService;
 import com.favshare.service.PopInFeedService;
@@ -59,10 +64,10 @@ public class FeedController {
 	
 	@ApiOperation(value="Feed 설정 화면 - 피드이름 수정",response=ResponseEntity.class)	
 	@PutMapping("/name")
-	public ResponseEntity changeFeedName(@RequestBody HashMap<String, String> feedInfo) {
+	public ResponseEntity changeFeedName(@RequestBody IdNameDto idNameDto) {
       
 		try {
-			feedService.updateFeedName(feedInfo);
+			feedService.updateFeedName(idNameDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -73,10 +78,10 @@ public class FeedController {
 	
 	@ApiOperation(value="Feed 설정 화면 - 피드 이미지 변경",response=ResponseEntity.class)	
 	@PutMapping("/image")
-	public ResponseEntity changeFeedImage(@RequestBody HashMap<String, String> feedInfo) {
+	public ResponseEntity changeFeedImage(@RequestBody IdFeedImageUrlDto idFeedImageUrlDto) {
 		
 		try {
-			feedService.updateFeedImage(feedInfo);
+			feedService.updateFeedImage(idFeedImageUrlDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -88,9 +93,9 @@ public class FeedController {
 	// pop이랑 popInfeed랑 연관되어있음.
 	@ApiOperation(value="Feed 설정 화면 - 피드 내 pop 추가",response=ResponseEntity.class)	
 	@PostMapping("/pop")
-	public ResponseEntity addPopInFeed(@RequestBody HashMap<String, String> popInFeedInfo) {
+	public ResponseEntity addPopInFeed(@RequestBody FeedPopIdDto feedPopIdDto) {
 		try {
-			popInFeedService.insertPopInFeed(popInFeedInfo);
+			popInFeedService.insertPopInFeed(feedPopIdDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -100,9 +105,9 @@ public class FeedController {
 	
 	@ApiOperation(value="Feed 설정 화면 - 피드 내 pop 삭제",response=ResponseEntity.class)	
 	@DeleteMapping("/pop")
-	public ResponseEntity deletePopInFeed(@RequestBody HashMap<String, String> popInFeedInfo) {
+	public ResponseEntity deletePopInFeed(@RequestBody FeedPopIdDto feedPopIdDto) {
 		try {
-			popInFeedService.deletePopInFeed(popInFeedInfo);
+			popInFeedService.deletePopInFeed(feedPopIdDto);
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -115,9 +120,9 @@ public class FeedController {
 	
 	@ApiOperation(value="Feed 설정 화면 - 대표 피드 설정",response=ResponseEntity.class)	
 	@PutMapping("/star")
-	public ResponseEntity setFirstFeed(@RequestBody HashMap<String, String> feedInfo) {
+	public ResponseEntity setFirstFeed(@RequestBody FeedUserIdDto feedUserIdDto) {
 		try {
-			feedService.updateFirstFeed(feedInfo);
+			feedService.updateFirstFeed(feedUserIdDto);
 			return new ResponseEntity(HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);

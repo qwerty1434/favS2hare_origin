@@ -56,6 +56,14 @@ public class PopService {
 		return popInfoDto;
 	}
 	
+	public PopDto getPopDtoById(int popId) {
+		PopEntity popEntity = popRepository.findById(popId).get();
+		PopDto popDto = new PopDto(popEntity);
+		return popDto;
+	}
+
+	
+	
 	//유튜브 찾은 후 그에 맞는 
 	public List<PopDto> getPopListById(int youtubeId){
 		YoutubeEntity youtubeEntity = youtubeRepository.findById(youtubeId).get();
@@ -97,5 +105,6 @@ public class PopService {
 		UserEntity userEntity = userRepository.findById(userId).get();
 		return userEntity.getPopList().size();
 	}
+
 	
 }

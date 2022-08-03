@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.FollowDto;
+import com.favshare.dto.FromUserToUserDto;
 import com.favshare.entity.FollowEntity;
+import com.favshare.entity.UserEntity;
 import com.favshare.service.FollowService;
+import com.favshare.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -27,72 +30,87 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/user/follow")
 public class UserFollowController {
 
-	@Autowired	
+	@Autowired
 	private FollowService followService;
+
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@ApiOperation(value = "내가 팔로우 하는 사람(팔로워)", response = ResponseEntity.class)
+	@ApiOperation(value = "내가 팔로우 하는 사람(팔로잉)", response = ResponseEntity.class)
 	@GetMapping("/from/{userId}")
-	public ResponseEntity<List<String>> showFollower(@PathVariable("userId") String userId) { // 프론트에서 유저의 아이디를 알고 있나요?
-		try {			
-			List<FollowEntity> followEntityList = followService.getFollowerById(Integer.parseInt(userId));
-			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
-			// 변환방법 찾아보기
-			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
-			for (int i = 0; i < followDtoList.size(); i++) {
-				nickNameList.add(followDtoList.get(i).getToUserEntity().getNickname());
+	public ResponseEntity<List<FollowDto>> showFollower(@PathVariable("userId") int userId) {
+		try {
+			List<FollowEntity> followEntityList = followService.getFollowingById(userId);
+
+			List<FollowDto> result = new ArrayList<>();
+
+			for (int i = 0; i < followEntityList.size(); i++) {
+				int toUserId = followEntityList.get(i).getToUserEntity().getId();
+				String nickname = followEntityList.get(i).getToUserEntity().getNickname();
+				String profileImageUrl = followEntityList.get(i).getToUserEntity().getProfileImageUrl();
+				result.add(new FollowDto(nickname, false, profileImageUrl));
 			}
-			return new ResponseEntity<List<String>>(nickNameList,HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
+
+			return new ResponseEntity<List<FollowDto>>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<FollowDto>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	@ApiOperation(value = "나를 팔로우 하는 사람(팔로잉)", response = ResponseEntity.class)
+	@ApiOperation(value = "나를 팔로우 하는 사람(팔로워)", response = ResponseEntity.class)
 	@GetMapping("to/{userId}")
-	public ResponseEntity<List<String>> showFollowing(@PathVariable("userId") String userId) {
+	public ResponseEntity<List<FollowDto>> showFollowing(@PathVariable("userId") int userId) {
 		try {
-			List<FollowEntity> followEntityList = followService.getFollowingById(Integer.parseInt(userId));
-			List<FollowDto> followDtoList = Arrays.asList(modelMapper.map(followEntityList, FollowDto[].class));
-			// 변환방법 찾아보기
-			List<String> nickNameList = new ArrayList<String>(); // ArrayList vs LinkedList
-			for (int i = 0; i < followDtoList.size(); i++) {
-				nickNameList.add(followDtoList.get(i).getFromUserEntity().getNickname());
+
+			List<FollowEntity> followEntityList = followService.getFollowerById(userId);
+
+			List<FollowDto> result = new ArrayList<>();
+
+			for (int i = 0; i < followEntityList.size(); i++) {
+				int fromUserId = followEntityList.get(i).getFromUserEntity().getId();
+				String nickname = followEntityList.get(i).getFromUserEntity().getNickname();
+				boolean isFollowForFollow = userService.getFollowForFollow(userId, fromUserId);
+				String profileImageUrl = followEntityList.get(i).getFromUserEntity().getProfileImageUrl();
+				result.add(new FollowDto(nickname, isFollowForFollow, profileImageUrl));
 			}
-			return new ResponseEntity<List<String>>(nickNameList,HttpStatus.OK);			
-		} catch(Exception e) {	
-			return new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
+
+			return new ResponseEntity<List<FollowDto>>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<FollowDto>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	@ApiOperation(value = "from이 to를 팔로우 함", response = ResponseEntity.class)
 	@PostMapping
-	public ResponseEntity addFollow(@RequestBody HashMap<String, String> followInfo) {
+	public ResponseEntity addFollow(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		try {
 			// 프론트에서 유저 id를 알고 있나요?
-			int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
-			int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+			int fromUserId = fromUserToUserDto.getFromUserId();
+			int toUserId = fromUserToUserDto.getToUserId();
 			followService.insertFollow(fromUserId, toUserId);
 			return new ResponseEntity(HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);			
+		} catch (Exception e) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	@ApiOperation(value = "내가 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
+	@ApiOperation(value = "팔로우 취소 버튼 - 내가 팔로우 하는 사람(팔로잉)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/from")
-	public void deleteFollower(@RequestBody HashMap<String, String> followInfo) {
-		int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
-		int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+	public void deleteFollower(@RequestBody FromUserToUserDto fromUserToUserDto) {
+		int fromUserId = fromUserToUserDto.getFromUserId();
+		int toUserId = fromUserToUserDto.getToUserId();
 		followService.DeleteFollowById(fromUserId, toUserId);
 	}
-	@ApiOperation(value = "나를 팔로우 하는 사람(팔로잉)을 삭제", response = ResponseEntity.class)
+
+	// 이 api가 조금 헷갈린다. => 같이 봐주면 좋을 것 같음
+	@ApiOperation(value = "삭제 버튼 - 나를 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/to")
-	public void deleteFollowing(@RequestBody HashMap<String, String> followInfo) {
-		int fromUserId = Integer.parseInt(followInfo.get("fromUserId"));
-		int toUserId = Integer.parseInt(followInfo.get("toUserId"));
+	public void deleteFollowing(@RequestBody FromUserToUserDto fromUserToUserDto) {
+		int fromUserId = fromUserToUserDto.getFromUserId();
+		int toUserId = fromUserToUserDto.getToUserId();
 		followService.DeleteFollowById(toUserId, fromUserId);
 	}
 }

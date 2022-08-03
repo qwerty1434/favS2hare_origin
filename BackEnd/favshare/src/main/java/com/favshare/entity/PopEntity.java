@@ -20,7 +20,7 @@ public class PopEntity {
 	private int id;
 	
     @Column(nullable = false)
-	private String name;
+	private String name; // 무슨 이름임 영상 이름?? -> 이거 DB에는 없음
     @Column(name= "start_second", nullable = false)
 	private int startSecond;
     @Column(name= "end_second", nullable = false)

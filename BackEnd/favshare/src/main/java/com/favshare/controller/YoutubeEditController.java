@@ -17,6 +17,7 @@ import com.favshare.dto.YoutubeDetailDto;
 import com.favshare.dto.YoutubeDto;
 import com.favshare.dto.YoutubeEditPopDto;
 import com.favshare.dto.YoutubeInfoDto;
+import com.favshare.dto.YoutubeUserIdDto;
 import com.favshare.service.PopService;
 import com.favshare.service.YoutubeService;
 
@@ -34,9 +35,9 @@ public class YoutubeEditController {
 	
 	@ApiOperation(value = "유튜브 편집 화면 정보", response = List.class)
 	@PostMapping("/info")
-	public ResponseEntity<YoutubeInfoDto> showYoutubeEdit(@RequestBody HashMap<String, String> editInfo) {
+	public ResponseEntity<YoutubeInfoDto> showYoutubeEdit(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
-			YoutubeInfoDto youtubeEditDto = youtubeService.getEditInfoById(editInfo);
+			YoutubeInfoDto youtubeEditDto = youtubeService.getEditInfoById(youtubeUserIdDto);
 			return new ResponseEntity<YoutubeInfoDto>(youtubeEditDto, HttpStatus.OK);  
 		}catch (Exception e) {
 			return new ResponseEntity<YoutubeInfoDto>(HttpStatus.BAD_REQUEST);  

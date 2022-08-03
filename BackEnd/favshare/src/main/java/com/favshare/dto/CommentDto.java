@@ -19,13 +19,19 @@ public class CommentDto {
 	private int userId;
 	private int popId;
 	
-	public CommentDto(CommentEntity commentEntity) {
+	//추가정보
+	private String nickname;
+	private String profileImageUrl;
+	
+	public CommentDto(CommentEntity commentEntity, String nickname, String profileImageUrl) {
 		this.id = commentEntity.getId();
 		this.content = commentEntity.getContent();
 		this.createDate = commentEntity.getCreateDate();
 		this.isModify = commentEntity.isModify();
 		this.userId = commentEntity.getUserEntity().getId();
 		this.popId = commentEntity.getPopEntity().getId();
+		this.nickname = nickname;
+		this.profileImageUrl = profileImageUrl;
 	}
 	
 }
