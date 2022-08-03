@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="video" style="text-align: center">
-      <div class="video__thumbnail">
+    <v-sheet class="video" elevation="2" rounded="xl">
+      <div class="video__thumbnail" style="text-align: center">
         <router-link
           :to="{
             name: 'youtube',
@@ -30,7 +30,7 @@
           </h3>
         </div>
       </div>
-    </div>
+    </v-sheet>
   </div>
 </template>
 
@@ -105,21 +105,23 @@ img {
 } */
 
 .video {
-  width: 330px;
-  margin-bottom: 10px;
+  width: 320px;
+  margin-bottom: 20px;
 }
 
 .video__thumbnail {
   width: 100%;
-  height: 170px;
+  height: 180px;
   border-radius: 30%;
   object-fit: cover;
+  margin: auto;
 }
 
 .video__thumbnail img {
   object-fit: cover;
   height: 100%;
   width: 100%;
+  border-radius: 10%;
 }
 
 .video__details {

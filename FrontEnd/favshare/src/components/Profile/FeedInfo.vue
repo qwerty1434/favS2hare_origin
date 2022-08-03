@@ -8,18 +8,17 @@
       </div>
       <div class="profile-stats">
         <ul>
-          <router-link :to="{ name: 'follow' }">
-            <li>
-              <span class="stats">{{ tmpUserInfo.count }}</span
-              >게시 '팝'
-            </li>
-          </router-link>
+          <li>
+            <span class="stats">{{ tmpUserInfo.count }}</span
+            >게시 '팝'
+          </li>
           <router-link :to="{ name: 'follow' }">
             <li @click="setTabFollower">
               <span class="stats">{{ tmpUserInfo.followerNum }}</span
               >팔로워 수
             </li>
           </router-link>
+          <v-divider></v-divider>
           <router-link :to="{ name: 'follow' }">
             <li @click="setTabFollowing">
               <span class="stats">{{ tmpUserInfo.followingNum }}</span

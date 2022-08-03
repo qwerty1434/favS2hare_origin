@@ -71,11 +71,11 @@ export default {
 
 <style>
 .videos {
-  background-color: #f9f9f9;
+  background-color: white;
   width: 100%;
   height: 100%;
+  padding-left: 10px;
   padding: 15px 15px;
-  border-top: 1px solid #ddd;
   overflow-y: scroll;
   padding-bottom: 56px;
 }
@@ -85,5 +85,6 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
+  border: 10px;
 }
 </style>

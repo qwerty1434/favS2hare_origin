@@ -7,7 +7,7 @@
         <v-tab @click="setTabFollowing"> 팔로잉 </v-tab>
       </v-tabs>
     </div>
-    <div v-if="!isFollowing" class="tab">
+    <div v-if="!followtab" class="tab">
       <follower-list></follower-list>
     </div>
     <div v-else class="tab">
@@ -24,6 +24,7 @@ import NavBar from "../../components/NavBar.vue";
 import FollowerList from "@/components/Profile/FollowerList.vue";
 import FollowingList from "@/components/Profile/FollowingList.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "FollowView",
@@ -40,6 +41,9 @@ export default {
     setTabFollowing() {
       this.isFollowing = true;
     },
+  },
+  computed: {
+    ...mapGetters(["followtab"]),
   },
 };
 </script>

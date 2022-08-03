@@ -1,8 +1,10 @@
 <template>
   <div>
-    <v-app-bar color="indigo" dense dark>
-      <router-link :to="{ name: 'home' }">
-        <v-toolbar-title>FavS2hare</v-toolbar-title>
+    <v-app-bar dense>
+      <router-link :to="{ name: 'home' }" active-class="navbar-active">
+        <v-toolbar-title color="black"
+          >Fav<span style="color: red">S2</span>hare</v-toolbar-title
+        >
       </router-link>
 
       <v-spacer></v-spacer>
@@ -14,7 +16,7 @@
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
+            <v-icon>mdi-format-list-bulleted</v-icon>
           </v-btn>
         </template>
 
@@ -59,5 +61,9 @@ a {
 
 .navbar__icons {
   padding: 8px 10px;
+}
+
+.navbar-active {
+  color: black !important;
 }
 </style>

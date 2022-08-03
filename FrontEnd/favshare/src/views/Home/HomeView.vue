@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       <nav-bar></nav-bar>
-      <v-tabs fixed-tabs background-color="indigo" dark>
+      <v-tabs fixed-tabs active-class="active-tab" hide-slider>
         <v-tab @click="setTabYoutube"> 동영상 탭 </v-tab>
         <v-tab @click="setTabFeed"> 친구 피드 </v-tab>
       </v-tabs>
@@ -59,5 +59,14 @@ export default {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+
+.active-tab {
+  color: #ff5d5d !important;
+  background-color: white;
+}
+
+.v-tab::before {
+  background-color: white;
 }
 </style>

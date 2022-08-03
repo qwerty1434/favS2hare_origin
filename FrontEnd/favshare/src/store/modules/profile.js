@@ -13,7 +13,7 @@ export default {
   mutations: {
     SET_USERINFO: (state, userInfo) => (state.userInfo = userInfo),
     SET_FEEDPOPS: (state, feedPops) => (state.feedPops = feedPops),
-    SET_FOLLOWTAB: (state, followtab) => (state.followetab = followtab),
+    SET_FOLLOWTAB: (state, followtab) => (state.followtab = followtab),
   },
   actions: {
     fetchUserInfo({ commit }) {

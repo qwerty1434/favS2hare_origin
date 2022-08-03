@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="video" style="text-align: center">
+    <v-sheet class="video" elevation="2" rounded="xl">
       <div class="video__thumbnail">
         <youtube
           :video-id="youtubeId"
@@ -8,8 +8,8 @@
           :ref="'pops' + this.feedPop.popsId"
           @ready="onPlayerReady"
           @playing="onPlaying"
-          :width="360"
-          :height="202"
+          :width="320"
+          :height="180"
           style="pointer-events: none"
         ></youtube>
       </div>
@@ -27,7 +27,7 @@
           </h3>
         </div>
       </div>
-    </div>
+    </v-sheet>
   </div>
 </template>
 
@@ -92,15 +92,16 @@ export default {
 
 <style scoped>
 .video {
-  width: 330px;
+  width: 320px;
   margin-bottom: 10px;
 }
 
 .video__thumbnail {
   width: 100%;
-  height: 170px;
+  height: 180px;
   border-radius: 30%;
   object-fit: cover;
+  margin: auto;
 }
 
 .video__thumbnail img {
@@ -111,7 +112,7 @@ export default {
 
 .video__details {
   display: flex;
-  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .author img {
