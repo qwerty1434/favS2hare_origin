@@ -12,11 +12,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-import VueYoutube from "vue-youtube";
-
-Vue.use(VueYoutube);
-
 export default {
   name: "LinkedPopsListItem",
   props: ["popsId", "youtubeUrl", "startSecond", "endSecond", "view", "count"],
