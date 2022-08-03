@@ -37,6 +37,8 @@ dependencies {
 	implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
 	// https://mvnrepository.com/artifact/org.springframework/spring-context-support
 	implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.20'
+	// https://mvnrepository.com/artifact/org.springframework/spring-websocket
+	implementation group: 'org.springframework', name: 'spring-websocket', version: '5.3.18'
 	
 	
 }

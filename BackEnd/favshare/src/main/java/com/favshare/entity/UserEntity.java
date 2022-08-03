@@ -34,6 +34,7 @@ public class UserEntity {
     @Column(name= "profile_image_url")
 	private String profileImageUrl;
     
+    private String auth;
     
     
 	@OneToMany(mappedBy = "userEntity")
@@ -74,6 +75,10 @@ public class UserEntity {
 	
 	public void changePassword(String password) {
 		this.password = password;
+	}
+	
+	public void changeAuth(String auth) {
+		this.auth = auth;
 	}
 	
 	

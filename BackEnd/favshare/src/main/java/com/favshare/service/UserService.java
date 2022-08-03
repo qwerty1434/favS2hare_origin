@@ -77,8 +77,19 @@ public class UserService {
 		userRepository.save(userEntity);
 	}
 	
+	public void updateAuth(String email, String auth) {
+		UserEntity userEntity;
+		userEntity = userRepository.findByEmail(email);
+		userEntity.changeAuth(auth);
+		userRepository.save(userEntity);
+	}
 	
 	
+	public String getUserAuthByEmail(String email) {
+		UserEntity userEntity;
+		userEntity = userRepository.findByEmail(email);
+		return userEntity.getAuth();
+	}
 	
 	
 	
