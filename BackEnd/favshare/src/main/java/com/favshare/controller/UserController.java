@@ -37,8 +37,6 @@ public class UserController {
 	@ApiOperation(value="로그인",response=ResponseEntity.class)
 	//get방식은 안됨 pathvariable만 가능한듯?
 	@PostMapping("/login")
-	public ResponseEntity userLogin(@RequestBody EmailPasswordDto emailPasswordDto) {
-        UserAccountDto result = userService.getByEmail(emailPasswordDto.getEmail());
 	public ResponseEntity<Map<String, Object>> userLogin(@RequestBody HashMap<String, String> userInfo) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
@@ -61,14 +59,6 @@ public class UserController {
 		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-        // 보안 강화 필요
-        // 반환값 필요한지 확인
-        if(emailPasswordDto.getEmail().equals(result.getEmail())&&
-        		emailPasswordDto.getPassword().equals(result.getPassword())) {
-        	return new ResponseEntity(HttpStatus.OK);
-        }else {        	
-        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-        }
 
 	}
 	
