@@ -8,6 +8,6 @@ import com.favshare.entity.IdolEntity;
 @Repository
 public interface IdolRepository extends JpaRepository<IdolEntity, Integer>{
 	
-	IdolEntity findByName(String name);
+	public IdolEntity findByName(String name);
 
 }

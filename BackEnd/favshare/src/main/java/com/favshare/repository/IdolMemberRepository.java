@@ -7,5 +7,5 @@ import com.favshare.entity.IdolMemberEntity;
 
 
 public interface IdolMemberRepository extends JpaRepository<IdolMemberEntity, Integer>{
-	IdolEntity findByName(String name);
+	public IdolEntity findByName(String name);
 }
