@@ -5,8 +5,8 @@
       :video-id="$route.query.youtubeId"
       :player-vars="playerVars"
       :ref="'youtube' + $route.query.youtubePk"
-      width="316"
-      height="289"
+      width="320"
+      height="180"
       style="pointer-events: none"
     ></youtube>
     <!-- 시간 조정 슬라이더 -->

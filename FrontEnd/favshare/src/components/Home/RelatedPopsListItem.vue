@@ -7,6 +7,7 @@
       :width="200"
       :height="112"
       @playing="playing"
+      style="pointer-events: none"
     ></youtube>
   </div>
 </template>
@@ -27,6 +28,7 @@ export default {
       playerVars: {
         autoplay: 1,
         controls: 0,
+        mute: 1,
       },
     };
   },
@@ -37,6 +39,9 @@ export default {
     playing() {
       console.log("playing");
     },
+  },
+  created() {
+    this.playVideo();
   },
 };
 </script>

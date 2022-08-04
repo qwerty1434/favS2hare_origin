@@ -10,7 +10,7 @@
           @playing="onPlaying"
           :width="320"
           :height="180"
-          style="pointer-events: none"
+          style="pointer-events: none; border-radius: 8px"
         ></youtube>
       </div>
       <div class="video__details">

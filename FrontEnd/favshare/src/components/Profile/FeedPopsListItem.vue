@@ -1,6 +1,22 @@
 <template>
   <div>
-    <router-link :to="{ name: 'popsinfeed' }">
+    <div v-if="!isDelete" class="delete-button">
+      <v-btn class="mx-2" fab dark small color="primary">
+        <v-icon dark> mdi-minus </v-icon>
+      </v-btn>
+    </div>
+    <youtube
+      :video-id="videoId"
+      :player-vars="playerVars"
+      :ref="'pops' + this.feedPop.id"
+      @ready="onPlayerReady"
+      @playing="onPlaying"
+      :width="320"
+      :height="180"
+      style="pointer-events: none; border-radius: 16px"
+    >
+    </youtube>
+    <!-- <router-link :to="{ name: 'popsinfeed' }">
       <youtube
         :video-id="videoId"
         :player-vars="playerVars"
@@ -9,16 +25,17 @@
         @playing="onPlaying"
         :width="170"
         :height="96"
-        style="pointer-events: none"
+        style="pointer-events: none; border-radius: 4px"
       >
       </youtube>
-    </router-link>
+    </router-link> -->
   </div>
 </template>
 
 <script>
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
+import { mapGetters } from "vuex";
 
 Vue.use(VueYoutube);
 
@@ -32,6 +49,10 @@ export default {
         controls: 0,
         disablekb: 1,
       },
+      section: {
+        start: this.feedPop.startSecond,
+        end: this.feedPop.endSecond,
+      },
     };
   },
   props: {
@@ -44,6 +65,7 @@ export default {
     player() {
       return this.$refs[`pops${this.feedPop.id}`].player;
     },
+    ...mapGetters(["isDelete"]),
   },
   methods: {
     onPlayerReady() {
@@ -61,4 +83,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.delete-button {
+  position: absolute;
+}
+</style>
