@@ -1,6 +1,9 @@
 <template>
   <div>
     <h4>FEED</h4>
+    <v-icon @click="fetchIsDelete">mdi-cog-outline</v-icon>
+    <v-divider></v-divider>
+    <v-icon @click="fetchIsDelete">mdi-video-input-component</v-icon>
     <div
       v-for="feedInfo in tmpUserInfo.feedsList"
       :key="feedInfo.id"
@@ -12,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import FeedListItem from "./FeedListItem.vue";
 
 export default {
@@ -51,6 +54,9 @@ export default {
         ],
       },
     };
+  },
+  methods: {
+    ...mapActions(["fetchIsDelete"]),
   },
 };
 </script>

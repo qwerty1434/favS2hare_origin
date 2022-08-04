@@ -64,14 +64,14 @@ export default {
 <style>
 .button {
   padding-top: 8px;
-  color: #ff5d5d;
+  color: #ff5d5d !important;
 }
 
 .b-nav {
-  color: #ff5d5d;
+  color: #ff5d5d !important;
 }
 
 .bnav-active {
-  color: #ff5d5d;
+  color: #ff5d5d !important;
 }
 </style>

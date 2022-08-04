@@ -41,23 +41,23 @@ export default {
       this.youtubeVideos = [
         {
           youtubeid: 1,
-          youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
+          youtubeUrl: "https://www.youtube.com/watch?v=U71hsRLnfpA",
         },
         {
           youtubeid: 2,
-          youtubeUrl: "https://www.youtube.com/watch?v=lw-1QX47ocA",
+          youtubeUrl: "https://www.youtube.com/watch?v=FqkEEX0QEDM",
         },
         {
           youtubeid: 3,
-          youtubeUrl: "https://www.youtube.com/watch?v=EEWxd4bj6f4",
+          youtubeUrl: "https://www.youtube.com/watch?v=wM7zqDG5Iws",
         },
         {
           youtubeid: 4,
-          youtubeUrl: "https://www.youtube.com/watch?v=p25b_ZgvbV4",
+          youtubeUrl: "https://www.youtube.com/watch?v=6DxjJzmYsXo",
         },
         {
           youtubeid: 5,
-          youtubeUrl: "https://www.youtube.com/watch?v=foo8805uLhc",
+          youtubeUrl: "https://www.youtube.com/watch?v=Hwtha3ipOnU",
         },
       ];
     },
