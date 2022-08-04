@@ -5,9 +5,9 @@ export default {
     userInfo: {},
     feedPops: [],
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
-    isDelete: true,
+    isDelete: false,
   },
-  getteres: {
+  getters: {
     userInfo: (state) => state.userInfo,
     followtab: (state) => state.followtab,
     isDelete: (state) => state.isDelete,
@@ -42,11 +42,11 @@ export default {
     setTabFollowing({ commit }) {
       commit("SET_FOLLOWTAB", 1);
     },
-    fetchIsDelete({ commit }) {
-      commit("SET_ISDELETE", true);
+    fetchIsDelete({ commit }, isDelete) {
+      commit("SET_ISDELETE", isDelete);
     },
-    fetchIsNotDelete({ commit }) {
-      commit("SET_ISDELETE", false);
+    fetchIsNotDelete({ commit }, isDelete) {
+      commit("SET_ISDELETE", isDelete);
     },
   },
 };

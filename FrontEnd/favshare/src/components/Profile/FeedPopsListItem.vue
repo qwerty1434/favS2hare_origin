@@ -11,8 +11,8 @@
       :ref="'pops' + this.feedPop.id"
       @ready="onPlayerReady"
       @playing="onPlaying"
-      :width="320"
-      :height="180"
+      :width="160"
+      :height="90"
       style="pointer-events: none; border-radius: 16px"
     >
     </youtube>

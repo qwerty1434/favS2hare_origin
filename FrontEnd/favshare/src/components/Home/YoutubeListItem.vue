@@ -127,13 +127,14 @@ img {
 .video__details {
   display: flex;
   margin-top: 10px;
+  padding-left: 15px;
 }
 
 .author img {
   object-fit: cover;
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   margin-right: 10px;
 }
 

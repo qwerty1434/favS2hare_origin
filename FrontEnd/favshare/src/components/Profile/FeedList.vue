@@ -1,9 +1,13 @@
 <template>
   <div>
     <h4>FEED</h4>
-    <v-icon @click="fetchIsDelete">mdi-cog-outline</v-icon>
+    <div>
+      <v-icon @click="fetchIsDelete(true)">mdi-cog-outline</v-icon>
+    </div>
     <v-divider></v-divider>
-    <v-icon @click="fetchIsDelete">mdi-video-input-component</v-icon>
+    <div>
+      <v-icon @click="fetchIsDelete(false)">mdi-video-input-component</v-icon>
+    </div>
     <div
       v-for="feedInfo in tmpUserInfo.feedsList"
       :key="feedInfo.id"
