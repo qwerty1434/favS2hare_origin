@@ -31,6 +31,7 @@ export default {
   methods: {
     confirmPw() {
       this.isConfirmed = true;
+      //유저정보가져오기
       this.currentComponent = "account-edit";
     },
   },

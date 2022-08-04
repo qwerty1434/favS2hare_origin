@@ -3,18 +3,21 @@ import axios from "axios";
 export default {
   state: {
     userInfo: {},
+    freindInfo: {},
     feedPops: [],
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
     isDelete: true,
   },
   getteres: {
     userInfo: (state) => state.userInfo,
+    freindInfo: (state) => state.freindInfo,
     followtab: (state) => state.followtab,
     isDelete: (state) => state.isDelete,
   },
   mutations: {
     SET_USERINFO: (state, userInfo) => (state.userInfo = userInfo),
     SET_FEEDPOPS: (state, feedPops) => (state.feedPops = feedPops),
+    SET_FRIENDINFO: (state, freindInfo) => (state.freindInfo = freindInfo),
     SET_FOLLOWTAB: (state, followtab) => (state.followtab = followtab),
     SET_ISDELETE: (state, isDelete) => (state.isDelete = isDelete),
   },
@@ -34,6 +37,18 @@ export default {
         url: `http://localhost:8080/user/profile/feed/${feedId}`,
       }).then((res) => {
         commit("SET_FEEDPOPS", res.data);
+      });
+    },
+    fetchFriendInfo({ commit }, fromUserId, toUserId) {
+      axios({
+        method: "post",
+        url: `http://localhost:8080/user/profile/freind`,
+        data: {
+          fromUserId: fromUserId,
+          toUserId: toUserId,
+        },
+      }).then((res) => {
+        commit("SET_FRIENDINFO", res.data);
       });
     },
     setTabFollower({ commit }) {
