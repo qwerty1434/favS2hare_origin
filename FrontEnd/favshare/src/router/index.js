@@ -10,6 +10,11 @@ import SearchMorePopsView from "../views/Home/SearchMorePopsView.vue";
 import SearchMoreYoutubeView from "../views/Home/SearchMoreYoutubeView.vue";
 import SearchMoreFollowingView from "../views/Home/SearchMoreFollowingView.vue";
 
+// Nav
+import AlarmView from "../views/Nav/AlarmView.vue";
+import MyYoutubeView from "../views/Nav/MyYoutubeView.vue";
+import AccountView from "../views/Nav/AccountView.vue";
+
 // Account
 import SigninView from "../views/Account/SigninView.vue";
 import SignupView from "../views/Account/SignupView.vue";
@@ -34,6 +39,9 @@ import FeedEditView from "../views/Profile/FeedEditView.vue";
 import FeedAddView from "../views/Profile/FeedAddView.vue";
 import PopsInFeedView from "../views/Profile/PopsInFeedView.vue";
 
+// 404 NotFound
+import NotFoundView from "@/views/NotFoundView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -46,11 +54,13 @@ const routes = [
     path: "/youtube",
     name: "youtube",
     component: YoutubeView,
+    props: true,
   },
   {
-    path: "/youtubeedit",
+    path: "/youtubeedit/:youtubePk",
     name: "youtubeedit",
     component: YoutubeEditView,
+    props: true,
   },
   {
     path: "/search",
@@ -71,6 +81,23 @@ const routes = [
     path: "/searchmorefollowing",
     name: "searchmorefollowing",
     component: SearchMoreFollowingView,
+  },
+
+  // Nav
+  {
+    path: "/alarm",
+    name: "alarm",
+    component: AlarmView,
+  },
+  {
+    path: "/myyoutube",
+    name: "myyoutube",
+    component: MyYoutubeView,
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: AccountView,
   },
 
   // Sign-in 화면
@@ -153,6 +180,18 @@ const routes = [
     path: "/popsinfeed",
     name: "popsinfeed",
     component: PopsInFeedView,
+  },
+  // 404 NotFound
+  {
+    path: "/404",
+    name: "notfound",
+    component: NotFoundView,
+  },
+  // 그 외 지정되지 않는 경로 입력 시 /404로 redirect
+  // 가장 하단에 위치
+  {
+    path: "*",
+    redirect: "/404",
   },
 ];
 
