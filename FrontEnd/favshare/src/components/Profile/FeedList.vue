@@ -2,18 +2,21 @@
   <div>
     <h4>FEED</h4>
     <div>
-      <v-icon @click="fetchIsDelete(true)">mdi-cog-outline</v-icon>
+      <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
     </div>
-    <v-divider></v-divider>
+    <!-- <v-divider></v-divider>
     <div>
       <v-icon @click="fetchIsDelete(false)">mdi-video-input-component</v-icon>
-    </div>
+    </div> -->
     <div
       v-for="feedInfo in tmpUserInfo.feedsList"
       :key="feedInfo.id"
       class="popsitem"
     >
       <feed-list-item :feed-info="feedInfo"></feed-list-item>
+    </div>
+    <div v-if="!isDelete">
+      <button @click="fetchIsDelete(true)">[삭제완료]</button>
     </div>
   </div>
 </template>
@@ -26,7 +29,7 @@ export default {
   components: { FeedListItem },
   name: "FeedList",
   computed: {
-    ...mapGetters(["userInfo"]),
+    ...mapGetters(["userInfo", "isDelete", "deleteFeedPopsList"]),
   },
   data() {
     return {
@@ -61,6 +64,22 @@ export default {
   },
   methods: {
     ...mapActions(["fetchIsDelete"]),
+    // deleteFeedPops() {
+    //   axios({
+    //     method: "delete",
+    //     url: "http://localhost:8080/feed/pop",
+    //   }).then((res) => {
+    //     console.log(res);
+    //   });
+    // },
+  },
+  watch: {
+    "$store.state.profile.isDelete": function () {
+      console.log(this.$store.state.profile.isDelete);
+    },
+    "$store.state.profile.deleteFeedPopsList": function () {
+      console.log(this.$store.state.profile.deleteFeedPopsList);
+    },
   },
 };
 </script>

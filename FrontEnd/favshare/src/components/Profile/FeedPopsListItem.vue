@@ -1,21 +1,23 @@
 <template>
   <div>
     <div v-if="!isDelete" class="delete-button">
-      <v-btn class="mx-2" fab dark small color="primary">
-        <v-icon dark> mdi-minus </v-icon>
+      <v-btn fab x-small @click="[deleteFeedPop, spliceFeedPops(feedPop.id)]">
+        <v-icon>mdi-minus-circle-outline</v-icon>
       </v-btn>
     </div>
-    <youtube
-      :video-id="videoId"
-      :player-vars="playerVars"
-      :ref="'pops' + this.feedPop.id"
-      @ready="onPlayerReady"
-      @playing="onPlaying"
-      :width="160"
-      :height="90"
-      style="pointer-events: none; border-radius: 16px"
-    >
-    </youtube>
+    <div class="feed-pops-item">
+      <youtube
+        :video-id="videoId"
+        :player-vars="playerVars"
+        :ref="'pops' + this.feedPop.id"
+        @ready="onPlayerReady"
+        @playing="onPlaying"
+        :width="164"
+        :height="92.25"
+        style="pointer-events: none; border-radius: 16px"
+      >
+      </youtube>
+    </div>
     <!-- <router-link :to="{ name: 'popsinfeed' }">
       <youtube
         :video-id="videoId"
@@ -35,7 +37,8 @@
 <script>
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import axios from "axios";
 
 Vue.use(VueYoutube);
 
@@ -53,6 +56,7 @@ export default {
         start: this.feedPop.startSecond,
         end: this.feedPop.endSecond,
       },
+      isSelected: false,
     };
   },
   props: {
@@ -68,6 +72,7 @@ export default {
     ...mapGetters(["isDelete"]),
   },
   methods: {
+    ...mapActions(["spliceFeedPops"]),
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();
@@ -79,12 +84,36 @@ export default {
     restartVideoSection() {
       this.player.seekTo(this.section.start);
     },
+    setIsSelected() {
+      if (this.isSelected) {
+        this.isSelected = false;
+      } else {
+        this.isSelected = true;
+      }
+    },
+    deleteFeedPop() {
+      axios({
+        method: "delete",
+        url: "http://localhost:8080/feed/pop",
+      });
+    },
+  },
+  watch: {
+    "$store.state.profile.isDelete": function () {
+      console.log(this.$store.state.profile.isDelete);
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .delete-button {
-  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.feed-pops-item {
+  margin: auto;
+  padding-left: 2px;
 }
 </style>
