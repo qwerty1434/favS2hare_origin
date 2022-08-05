@@ -33,9 +33,12 @@ public class StoreYoutubeService {
 	//교차엔티티에 값을 넣어줘야함
 	public void insertBookmark(YoutubeUserIdDto youtubeUserIdDto) {
 		StoreYoutubeEntity storeYoutubeEntity = new StoreYoutubeEntity();
-		
 		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
-		YoutubeEntity youtubeEntity = youtubeRepository.findById(youtubeUserIdDto.getYoutubeId()).get(); 
+		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
+		if(youtubeEntity == null) {
+			youtubeEntity = youtubeEntity.builder().url(youtubeUserIdDto.getYoutubeUrl()).build();
+			youtubeRepository.save(youtubeEntity);
+		}
 		storeYoutubeEntity = storeYoutubeEntity.builder().userEntity(userEntity).youtubeEntity(youtubeEntity).build();
 		
 		storeYoutubeRepository.save(storeYoutubeEntity);
@@ -57,7 +60,9 @@ public class StoreYoutubeService {
 	
 	public void deleteYoutubeBookMarkById(YoutubeUserIdDto youtubeUserIdDto) {
 		StoreYoutubeEntity storeYoutubeEntity;
-		storeYoutubeEntity = storeYoutubeRepository.searchByUserIdAndYoutubeId(youtubeUserIdDto.getUserId(), youtubeUserIdDto.getYoutubeId());
+		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
+		System.out.println(youtubeUserIdDto.getYoutubeUrl());
+		storeYoutubeEntity = storeYoutubeRepository.searchByUserIdAndYoutubeId(youtubeUserIdDto.getUserId(), youtubeEntity.getId());
 		storeYoutubeRepository.deleteById(storeYoutubeEntity.getId());
 	}
 }

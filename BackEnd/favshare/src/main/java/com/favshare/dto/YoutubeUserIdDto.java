@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 public class YoutubeUserIdDto {
 	int userId;
-	int youtubeId;
+	String youtubeUrl;
 	
 	
 }

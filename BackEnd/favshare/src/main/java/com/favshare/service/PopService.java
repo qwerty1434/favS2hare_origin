@@ -76,7 +76,14 @@ public class PopService {
 	
 	public void insertPop(YoutubeEditPopDto youtubeEditPopDto) {
 		UserEntity userEntity = userRepository.findById(youtubeEditPopDto.getUserId()).get();
-		YoutubeEntity youtubeEntity = youtubeRepository.findById(youtubeEditPopDto.getYoutubeId()).get();
+		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeEditPopDto.getYoutubeUrl());
+		
+		//youtube가 아직데이터 베이스에 없을 시 데이터베이스에 넣어주기
+		if(youtubeEntity == null) {
+			youtubeEntity = youtubeEntity.builder().url(youtubeEditPopDto.getYoutubeUrl()).build();
+			youtubeRepository.save(youtubeEntity);
+		}
+		
 		FeedEntity feedEntity = feedRepository.findById(youtubeEditPopDto.getFeedId()).get();
 		
 		PopEntity popEntity = new PopEntity();

@@ -14,7 +14,7 @@ public class YoutubeEditPopDto {
 	//userId, youtubeId, startSecond, endSecond, bgm(심화과정), title, content,feedId
 	
 	private int userId;
-	private int youtubeId;
+	private String youtubeUrl;
 	private int feedId;
 	private String name;
 	private int startSecond;
@@ -25,7 +25,7 @@ public class YoutubeEditPopDto {
 	
 	public YoutubeEditPopDto(PopEntity popEntity, FeedEntity feedEntity) {
 		this.userId = popEntity.getUserEntity().getId();
-		this.youtubeId = popEntity.getYoutubeEntity().getId();
+		this.youtubeUrl = popEntity.getYoutubeEntity().getUrl();
 		this.feedId = feedEntity.getId();
 		this.name = popEntity.getName();
 		this.startSecond = popEntity.getStartSecond();

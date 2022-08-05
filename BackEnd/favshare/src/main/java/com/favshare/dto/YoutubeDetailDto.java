@@ -17,14 +17,12 @@ import lombok.NoArgsConstructor;
 public class YoutubeDetailDto {
 
 	
-	private int id;
 	private String url;
 	
   	private List<PopDto> popList = new ArrayList<>();		
   	
-  	public YoutubeDetailDto(YoutubeEntity youtubeEntity) {
-  		this.id = youtubeEntity.getId();
-  		this.url = youtubeEntity.getUrl();
+  	public YoutubeDetailDto(String url) {
+  		this.url = url;
 //  		this.popList = youtubeEntity.getPopList();
   	}
 
