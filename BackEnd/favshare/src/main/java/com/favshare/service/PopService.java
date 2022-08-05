@@ -108,7 +108,7 @@ public class PopService {
 		return userEntity.getPopList().size();
 	}
 	
-	public void deletePop(@RequestBody List<Integer> popIdList) {
+	public void deletePop(List<Integer> popIdList) {
 		for(int i = 0; i < popIdList.size(); i++) {
 			popRepository.deleteById(popIdList.get(i));
 		}

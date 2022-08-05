@@ -30,7 +30,7 @@ public class PopInFeedService {
 	@Autowired
 	private PopRepository popRepository;
 	
-	public void insertPopInFeed(@RequestBody List<FeedPopIdDto> feedPopIdDto) {
+	public void insertPopInFeed(List<FeedPopIdDto> feedPopIdDto) {
 		PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
 		
 		for(int i = 0; i < feedPopIdDto.size(); i++) {			
@@ -42,7 +42,7 @@ public class PopInFeedService {
 		
 	}
 	
-	public void deletePopInFeed(@RequestBody FeedPopIdDto feedPopIdDto) {
+	public void deletePopInFeed(FeedPopIdDto feedPopIdDto) {
 		int feedId = feedPopIdDto.getFeedId();
 		int popId = feedPopIdDto.getPopId();
 		popInFeedRepository.deleteByPopFeedId(feedId, popId);
