@@ -7,9 +7,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInfoDto;
+import com.favshare.dto.UserPopIdDto;
 import com.favshare.dto.YoutubeEditPopDto;
 import com.favshare.entity.FeedEntity;
 import com.favshare.entity.PopEntity;
@@ -104,6 +106,12 @@ public class PopService {
 	public int getPopCount(int userId) {
 		UserEntity userEntity = userRepository.findById(userId).get();
 		return userEntity.getPopList().size();
+	}
+	
+	public void deletePop(@RequestBody List<Integer> popIdList) {
+		for(int i = 0; i < popIdList.size(); i++) {
+			popRepository.deleteById(popIdList.get(i));
+		}
 	}
 
 	
