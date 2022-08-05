@@ -31,21 +31,26 @@ public class YoutubeService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	public YoutubeDetailDto getDetailById(int id) {
+	public YoutubeDetailDto getDetailByUrl(String youtubeUrl) {
 		YoutubeEntity youtubeEntity;
-		youtubeEntity = youtubeRepository.findById(id).get();
+		youtubeEntity = youtubeRepository.findByUrl(youtubeUrl);
 		
-		YoutubeDetailDto result = new YoutubeDetailDto(youtubeEntity);
-		List<PopDto> popList = Arrays.asList(modelMapper.map(youtubeEntity.getPopList(),PopDto[].class));
+		YoutubeDetailDto result = new YoutubeDetailDto(youtubeUrl);
+		List<PopDto> popList;
+		if(youtubeEntity == null) {
+			popList = null;
+		}else {
+			popList = Arrays.asList(modelMapper.map(youtubeEntity.getPopList(),PopDto[].class));
+		}
+		
 		result.setPopList(popList);
 		return result;
 	}
 	
 	public YoutubeInfoDto getEditInfoById(YoutubeUserIdDto youtubeUserIdDto) {
 		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
-		YoutubeEntity youtubeEntity = youtubeRepository.findById(youtubeUserIdDto.getYoutubeId()).get();
 		
-		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeEntity);
+		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeUserIdDto.getYoutubeUrl());
 		List<FeedDto> feedList = Arrays.asList(modelMapper.map(userEntity.getFeedList(),FeedDto[].class));
 		result.setFeedList(feedList);
 		return result;

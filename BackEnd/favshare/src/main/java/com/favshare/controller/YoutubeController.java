@@ -36,10 +36,10 @@ public class YoutubeController {
 	}
 	
 	@ApiOperation(value = "유튜브 관련 정보", response = YoutubeDetailDto.class)
-	@GetMapping("/detail/{youtubeId}")
-	public ResponseEntity<YoutubeDetailDto> showYoutubeDetil(@PathVariable("youtubeId") int youtubeId) {
+	@GetMapping("/detail/{youtubeUrl}")
+	public ResponseEntity<YoutubeDetailDto> showYoutubeDetil(@PathVariable("youtubeUrl") String youtubeUrl) {
 		try {
-			YoutubeDetailDto youtubeDetailDto = youtubeService.getDetailById(youtubeId);
+			YoutubeDetailDto youtubeDetailDto = youtubeService.getDetailByUrl(youtubeUrl);
 			return new ResponseEntity<YoutubeDetailDto>(youtubeDetailDto, HttpStatus.OK);  
 		}catch(Exception e) {
 			return new ResponseEntity<YoutubeDetailDto>(HttpStatus.BAD_REQUEST); 
