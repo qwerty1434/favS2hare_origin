@@ -72,12 +72,19 @@ public class YoutubeService {
 
 	private static YouTube youtube;
 
-	public YoutubeDetailDto getDetailById(int id) {
+	
+	public YoutubeDetailDto getDetailByUrl(String youtubeUrl) {
 		YoutubeEntity youtubeEntity;
-		youtubeEntity = youtubeRepository.findById(id).get();
-
-		YoutubeDetailDto result = new YoutubeDetailDto(youtubeEntity);
-		List<PopDto> popList = Arrays.asList(modelMapper.map(youtubeEntity.getPopList(), PopDto[].class));
+		youtubeEntity = youtubeRepository.findByUrl(youtubeUrl);
+		
+		YoutubeDetailDto result = new YoutubeDetailDto(youtubeUrl);
+		List<PopDto> popList;
+		if(youtubeEntity == null) {
+			popList = null;
+		}else {
+			popList = Arrays.asList(modelMapper.map(youtubeEntity.getPopList(),PopDto[].class));
+		}
+		
 		result.setPopList(popList);
 		return result;
 	}
@@ -165,6 +172,9 @@ public class YoutubeService {
 
 		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeEntity);
 		List<FeedDto> feedList = Arrays.asList(modelMapper.map(userEntity.getFeedList(), FeedDto[].class));
+		
+		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeUserIdDto.getYoutubeUrl());
+		List<FeedDto> feedList = Arrays.asList(modelMapper.map(userEntity.getFeedList(),FeedDto[].class));
 		result.setFeedList(feedList);
 		return result;
 	}
