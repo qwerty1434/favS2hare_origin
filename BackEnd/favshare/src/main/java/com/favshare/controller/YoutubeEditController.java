@@ -37,7 +37,7 @@ public class YoutubeEditController {
 	@PostMapping("/info")
 	public ResponseEntity<YoutubeInfoDto> showYoutubeEdit(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
-			YoutubeInfoDto youtubeEditDto = youtubeService.getEditInfoById(youtubeUserIdDto);
+			YoutubeInfoDto youtubeEditDto = youtubeService.getEditInfoByUrl(youtubeUserIdDto);
 			return new ResponseEntity<YoutubeInfoDto>(youtubeEditDto, HttpStatus.OK);  
 		}catch (Exception e) {
 			return new ResponseEntity<YoutubeInfoDto>(HttpStatus.BAD_REQUEST);  

@@ -166,15 +166,13 @@ public class YoutubeService {
 
 	}
 
-	public YoutubeInfoDto getEditInfoById(YoutubeUserIdDto youtubeUserIdDto) {
+	public YoutubeInfoDto getEditInfoByUrl(YoutubeUserIdDto youtubeUserIdDto) {
 		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
-		YoutubeEntity youtubeEntity = youtubeRepository.findById(youtubeUserIdDto.getYoutubeId()).get();
+		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
 
-		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeEntity);
+		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeUserIdDto.getYoutubeUrl());
 		List<FeedDto> feedList = Arrays.asList(modelMapper.map(userEntity.getFeedList(), FeedDto[].class));
 		
-		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeUserIdDto.getYoutubeUrl());
-		List<FeedDto> feedList = Arrays.asList(modelMapper.map(userEntity.getFeedList(),FeedDto[].class));
 		result.setFeedList(feedList);
 		return result;
 	}
