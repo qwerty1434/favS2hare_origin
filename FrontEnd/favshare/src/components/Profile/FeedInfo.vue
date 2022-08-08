@@ -66,7 +66,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userInfo"]),
+    ...mapGetters(["feedUserInfo"]),
   },
   methods: {
     ...mapActions(["setTabFollower", "setTabFollowing"]),

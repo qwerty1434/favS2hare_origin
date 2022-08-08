@@ -112,16 +112,14 @@ export default {
     ...mapState(["isSignin"]),
   },
   methods: {
-    ...mapActions(["userConfirm", "getUserInfo"]),
+    ...mapActions(["userConfirm"]),
     async confirm() {
       // 유효성 검사를 통과할 경우
       if (this.$refs.form.validate()) {
         // 로그인
         await this.userConfirm(this.user);
         // sessionStorage에 생긴 토큰으로 유저 정보 갱신
-        let token = sessionStorage.getItem("access-token");
         if (this.isSignin) {
-          await this.getUserInfo(token);
           // home으로 자동 이동
           this.$router.push({ name: "home" });
         }
