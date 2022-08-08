@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   state: {
-    userInfo: {},
+    feedUserInfo: {},
     freindInfo: {},
     feedPops: [],
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
@@ -10,14 +10,15 @@ export default {
     deleteFeedPopsList: [],
   },
   getters: {
-    userInfo: (state) => state.userInfo,
+    feedUserInfo: (state) => state.feedUserInfo,
     freindInfo: (state) => state.freindInfo,
     followtab: (state) => state.followtab,
     isDelete: (state) => state.isDelete,
     deleteFeedPopsList: (state) => state.isDelete,
   },
   mutations: {
-    SET_USERINFO: (state, userInfo) => (state.userInfo = userInfo),
+    SET_FEEDUSERINFO: (state, feedUserInfo) =>
+      (state.feedUserInfo = feedUserInfo),
     SET_FEEDPOPS: (state, feedPops) => (state.feedPops = feedPops),
     SET_FRIENDINFO: (state, freindInfo) => (state.freindInfo = freindInfo),
     SET_FOLLOWTAB: (state, followtab) => (state.followtab = followtab),
@@ -37,13 +38,13 @@ export default {
     },
   },
   actions: {
-    fetchUserInfo({ commit }) {
+    fetchFeedUserInfo({ commit }) {
       axios({
         method: "get",
         url: "http://localhost:8080/user/profile",
         headers: "유저토큰",
       }).then((res) => {
-        commit("SET_USERINFO", res.data);
+        commit("SET_FEEDUSERINFO", res.data);
       });
     },
     fetchFeedPops({ commit }, feedId) {

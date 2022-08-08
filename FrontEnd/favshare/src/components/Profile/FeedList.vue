@@ -29,7 +29,7 @@ export default {
   components: { FeedListItem },
   name: "FeedList",
   computed: {
-    ...mapGetters(["userInfo", "isDelete", "deleteFeedPopsList"]),
+    ...mapGetters(["feedUserInfo", "isDelete", "deleteFeedPopsList"]),
   },
   data() {
     return {
