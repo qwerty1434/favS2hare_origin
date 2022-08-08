@@ -74,7 +74,7 @@ public class UserPasswordController {
 			String auth = builder.toString();
 			helper.setText("인증번호는 " + auth + " 입니다.", true);
 			mailSender.send(message);
-			userService.updateAuth(email, auth);
+//			userService.updateAuth(email, auth);
 			return new ResponseEntity(auth, HttpStatus.OK);
 		} catch (MessagingException e) {
 			e.printStackTrace();
