@@ -5,7 +5,7 @@ export default {
     userInfo: {},
     feedPops: [],
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
-    isDelete: false,
+    isDelete: true,
     deleteFeedPopsList: [],
   },
   getters: {

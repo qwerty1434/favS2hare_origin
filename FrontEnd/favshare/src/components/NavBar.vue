@@ -2,7 +2,7 @@
   <div>
     <v-app-bar dense>
       <router-link :to="{ name: 'home' }" active-class="navbar-active">
-        <v-toolbar-title color="black"
+        <v-toolbar-title color="black" class="nav-font"
           >Fav<span style="color: red">S2</span>hare</v-toolbar-title
         >
       </router-link>
@@ -65,5 +65,17 @@ a {
 
 .navbar-active {
   color: black !important;
+}
+
+.nav-font {
+  font-family: "Bingrae", sans-serif !important;
+  text-align: center;
+  font-size: 20px;
+}
+@font-face {
+  font-family: "Bingrae";
+  src: url("@/assets/fonts/Binggrae-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 </style>

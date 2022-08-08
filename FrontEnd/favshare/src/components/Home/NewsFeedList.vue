@@ -1,4 +1,5 @@
 <template>
+  <!-- tmp html -->
   <div class="videos">
     <div
       v-for="feedPop in feedPops"
@@ -7,14 +8,17 @@
     >
       <news-feed-list-item :feed-pop="feedPop"></news-feed-list-item>
     </div>
-    <!-- <div
+  </div>
+  <!-- for-use html -->
+  <!-- <div>
+    <div
       v-for="newsFeedPop in newsFeedPops"
-      :key="newsFeedPop.userId"
+      :key="newsFeedPop.id"
       class="video__container"
     >
       <news-feed-list-item :news-feed-pop="newsFeedPop"></news-feed-list-item>
-    </div> -->
-  </div>
+    </div>
+  </div> -->
 </template>
 
 <script>
@@ -34,7 +38,9 @@ export default {
     ...mapGetters(["newsFeedPops"]),
   },
   methods: {
+    // for-use function
     ...mapActions(["fetchFeedPops"]),
+    // tmp function
     setDummyFeedPops() {
       this.feedPops = [
         {
@@ -47,7 +53,7 @@ export default {
           startSecond: 0,
           endSecond: 3,
           likeCount: 100,
-          youtubeVideoId: "yRTnefB_AWc",
+          name: "밥 졸귀탱",
         },
         {
           userId: 2,
@@ -59,19 +65,21 @@ export default {
           startSecond: 5,
           endSecond: 8,
           likeCount: 200,
-          youtubeVideoId: "vFTbqrS2vCI",
+          name: "밥 졸귀탱22222",
         },
       ];
     },
   },
   created() {
+    // *tmp function
     this.setDummyFeedPops();
+    // *for-use function
     // this.fetchFeedPops()
   },
 };
 </script>
 
-<style>
+<style scoped>
 .videos {
   background-color: #f9f9f9;
   width: 100%;
