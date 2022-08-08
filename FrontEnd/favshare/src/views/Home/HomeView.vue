@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       <nav-bar></nav-bar>
-      <v-tabs fixed-tabs active-class="active-tab" hide-slider>
+      <v-tabs fixed-tabs active-class="active-tab" hide-slider class="tab-font">
         <v-tab @click="setTabYoutube"> 동영상 탭 </v-tab>
         <v-tab @click="setTabFeed"> 친구 피드 </v-tab>
       </v-tabs>
@@ -45,7 +45,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .top {
   position: fixed;
   width: 100%;
@@ -68,5 +68,17 @@ export default {
 
 .v-tab::before {
   background-color: white;
+}
+
+.tab-font {
+  font-family: "Bingrae", sans-serif !important;
+  text-align: center;
+  font-size: 20px;
+}
+@font-face {
+  font-family: "Bingrae";
+  src: url("@/assets/fonts/Binggrae-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 </style>
