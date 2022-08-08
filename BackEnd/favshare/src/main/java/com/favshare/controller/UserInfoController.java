@@ -68,7 +68,7 @@ public class UserInfoController {
 
 		// 유효하다는걸 어떻게 확인하지? Auth쓰는건가? //유저의 토큰가 토큰을 보내도록 해서 해당 토큰이 DB토큰이랑 값이 같은지 확인해야 하는가?
 //		if(validate) {}
-		userService.deleteById(userId);
+		userService.deleteByUserId(userId);
 		return new ResponseEntity(HttpStatus.OK);
 	}	
 
