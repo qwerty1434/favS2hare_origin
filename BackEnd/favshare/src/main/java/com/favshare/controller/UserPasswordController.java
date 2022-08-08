@@ -53,7 +53,7 @@ public class UserPasswordController {
 
 	@ApiOperation(value = "인증번호 발송 클릭 시 ", response = ResponseEntity.class)
 	@GetMapping("/sendAuth/{email}")
-	public void sendAuth(@PathVariable("email") String email) {
+	public ResponseEntity<String> sendAuth(@PathVariable("email") String email) {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper;
 		try {
@@ -75,8 +75,10 @@ public class UserPasswordController {
 			helper.setText("인증번호는 " + auth + " 입니다.", true);
 			mailSender.send(message);
 			userService.updateAuth(email, auth);
+			return new ResponseEntity(auth, HttpStatus.OK);
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			return null;
 		}
 
 	}
