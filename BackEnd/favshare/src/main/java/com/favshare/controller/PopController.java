@@ -111,4 +111,15 @@ public class PopController {
 			return new ResponseEntity<List<PopDto>>(HttpStatus.BAD_REQUEST); 
 		}
 	}
+	
+	@ApiOperation(value = "팝 삭제 - 한개, 여러개 모두 삭제 가능", response = PopInfoDto.class)
+	@DeleteMapping
+	public ResponseEntity deletePop(@RequestBody List<Integer> popIdList) {
+		try {
+			popService.deletePop(popIdList);
+			return new ResponseEntity(HttpStatus.OK);  
+		}catch(Exception e) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST); 
+		}
+	}
 }

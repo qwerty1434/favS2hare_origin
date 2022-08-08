@@ -8,9 +8,11 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.favshare.dto.EmailPasswordDto;
 import com.favshare.dto.FeedDto;
+import com.favshare.dto.FeedUserIdDto;
 import com.favshare.dto.FollowDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInFeedDto;
@@ -124,6 +126,14 @@ public class UserService {
 		userEntity = userRepository.findByEmail(email);
 		userEntity.changeAuth(auth);
 		userRepository.save(userEntity);
+	}
+	
+	public List<PopDto> getAllPopList(FeedUserIdDto feedUserIdDto){
+		UserEntity userEntity = userRepository.getById(feedUserIdDto.getUserId());
+		
+		List<PopDto> result = Arrays.asList(modelMapper.map(userEntity.getPopList(), PopDto[].class));
+		
+		return result;
 	}
 	
 	public List<PopDto> getPopInFeedList(int feedId){

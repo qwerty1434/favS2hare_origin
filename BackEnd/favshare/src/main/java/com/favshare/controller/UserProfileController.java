@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.FeedDto;
+import com.favshare.dto.FeedUserIdDto;
 import com.favshare.dto.FollowDto;
 import com.favshare.dto.FollowForFollowDto;
 import com.favshare.dto.PopDto;
@@ -53,7 +54,6 @@ public class UserProfileController {
 			userProfileDto.setFollowingNum(followingNum);
 			userProfileDto.setFeedList(feedDtoList);
 
-
 			return new ResponseEntity<UserProfileDto>(userProfileDto, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
@@ -62,10 +62,17 @@ public class UserProfileController {
 	}
 
 	// feedController에 있어야 하는건가?
-	@ApiOperation(value = "프로필 보기 아래 피드 출력 부분", response = ResponseEntity.class)
-	@GetMapping("/feed/{feedId}")
-	public ResponseEntity<List<PopDto>> showPopInFeed(@PathVariable("feedId") int feedId) {
-		List<PopDto> popInFeedDtoList = userService.getPopInFeedList(feedId);
+	@ApiOperation(value = "프로필 보기 아래 부분 - 피드별 poplist 출력 ", response = ResponseEntity.class)
+	@PostMapping("/feed")
+	public ResponseEntity<List<PopDto>> showPopInFeed(@RequestBody FeedUserIdDto feedUserIdDto) {
+		List<PopDto> popInFeedDtoList;
+		if (feedUserIdDto.getFeedId() == -1) {
+			// feedId가 -1이라는 것은 전체 피드라는 의미입니다.
+			popInFeedDtoList = userService.getAllPopList(feedUserIdDto);
+
+		} else { // 전체 피드가 아니라 각각의 피드일때
+			popInFeedDtoList = userService.getPopInFeedList(feedUserIdDto.getFeedId());
+		}
 		return new ResponseEntity<List<PopDto>>(popInFeedDtoList, HttpStatus.OK);
 
 	}
@@ -106,12 +113,14 @@ public class UserProfileController {
 
 	@ApiOperation(value = "친구 프로필 보기의 윗부분", response = ResponseEntity.class)
 	@PostMapping("/friend")
-	public ResponseEntity<HashMap<String,Object>> showFreindProfileHead(@RequestBody FollowForFollowDto followForFollowDto) {
+	public ResponseEntity<HashMap<String, Object>> showFreindProfileHead(
+			@RequestBody FollowForFollowDto followForFollowDto) {
 		// {UserProfileDto, 맞팔 여부}를 반환해야 됨
 		try {
 
-			boolean isFollowForFollow = userService.getFollowForFollow(followForFollowDto.getFromUserId(), followForFollowDto.getToUserId());
-			
+			boolean isFollowForFollow = userService.getFollowForFollow(followForFollowDto.getFromUserId(),
+					followForFollowDto.getToUserId());
+
 			int popCount = popService.getPopCount(followForFollowDto.getToUserId());
 			int[] temp = userService.countFollow(followForFollowDto.getToUserId());
 			int followerNum = temp[0];
@@ -124,14 +133,14 @@ public class UserProfileController {
 			userProfileDto.setFollowerNum(followerNum);
 			userProfileDto.setFollowingNum(followingNum);
 			userProfileDto.setFeedList(feedDtoList);
-			
-			HashMap<String,Object> map = new HashMap<String,Object>();
+
+			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("friendProfileDto", userProfileDto);
 			map.put("isFollowForFollow", isFollowForFollow);
 
-			return new ResponseEntity<HashMap<String,Object>>(map , HttpStatus.OK);
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<HashMap<String,Object>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<HashMap<String, Object>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

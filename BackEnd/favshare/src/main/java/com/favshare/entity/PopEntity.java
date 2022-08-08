@@ -42,16 +42,16 @@ public class PopEntity {
 	@JoinColumn(name ="youtube_id", nullable = false)
 	private YoutubeEntity youtubeEntity;
 
-	@OneToMany(mappedBy = "popEntity") //CommentEntity.userEntity
+	@OneToMany(mappedBy = "popEntity", cascade = CascadeType.ALL) //CommentEntity.userEntity
     private List<CommentEntity> commentList = new ArrayList<>();	
 
-	@OneToMany(mappedBy="popEntity")
+	@OneToMany(mappedBy="popEntity", cascade = CascadeType.ALL)
 	private List<LikePopEntity> likePopList = new ArrayList<>();
 
-	@OneToMany(mappedBy="popEntity")
+	@OneToMany(mappedBy="popEntity", cascade = CascadeType.ALL)
 	private List<ShowPopEntity> showPopList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="popEntity")
+	@OneToMany(mappedBy="popEntity", cascade = CascadeType.ALL)
 	private List<PopInFeedEntity> popInFeedList = new ArrayList<>();
 	
 	

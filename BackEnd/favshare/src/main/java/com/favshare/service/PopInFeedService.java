@@ -1,6 +1,7 @@
 package com.favshare.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,17 +30,19 @@ public class PopInFeedService {
 	@Autowired
 	private PopRepository popRepository;
 	
-	public void insertPopInFeed(@RequestBody FeedPopIdDto feedPopIdDto) {
+	public void insertPopInFeed(List<FeedPopIdDto> feedPopIdDto) {
 		PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
-
-		FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.getFeedId()).get();
-		PopEntity popEntity = popRepository.findById(feedPopIdDto.getPopId()).get();
-
-		popInFeedEntity = popInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity).build();
-		popInFeedRepository.save(popInFeedEntity);
+		
+		for(int i = 0; i < feedPopIdDto.size(); i++) {			
+			FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.get(i).getFeedId()).get();
+			PopEntity popEntity = popRepository.findById(feedPopIdDto.get(i).getPopId()).get();
+			popInFeedEntity = popInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity).build();
+			popInFeedRepository.save(popInFeedEntity);
+		}
+		
 	}
 	
-	public void deletePopInFeed(@RequestBody FeedPopIdDto feedPopIdDto) {
+	public void deletePopInFeed(FeedPopIdDto feedPopIdDto) {
 		int feedId = feedPopIdDto.getFeedId();
 		int popId = feedPopIdDto.getPopId();
 		popInFeedRepository.deleteByPopFeedId(feedId, popId);

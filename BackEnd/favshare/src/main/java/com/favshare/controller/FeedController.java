@@ -93,7 +93,7 @@ public class FeedController {
 	// pop이랑 popInfeed랑 연관되어있음.
 	@ApiOperation(value="Feed 설정 화면 - 피드 내 pop 추가",response=ResponseEntity.class)	
 	@PostMapping("/pop")
-	public ResponseEntity addPopInFeed(@RequestBody FeedPopIdDto feedPopIdDto) {
+	public ResponseEntity addPopInFeed(@RequestBody List<FeedPopIdDto> feedPopIdDto) {
 		try {
 			popInFeedService.insertPopInFeed(feedPopIdDto);
 			return new ResponseEntity(HttpStatus.OK);

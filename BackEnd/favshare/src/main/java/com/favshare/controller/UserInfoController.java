@@ -33,6 +33,7 @@ public class UserInfoController {
 		UserInfoDto userInfoDto = userService.getUserInfoById(idPasswordDto.getId());
 
 		if (userInfoDto.getPassword().equals(idPasswordDto.getPassword())) {
+		
 			return new ResponseEntity<UserInfoDto>(userInfoDto, HttpStatus.OK);
 		} else {
 			// 정보 보내주지 않음
