@@ -167,7 +167,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "SignupView",
@@ -229,13 +229,29 @@ export default {
     sendAuthNumber() {
       // 유효성 검사를 통과할 경우
       if (this.$refs.sendingForm.validate()) {
-        // 인증번호 요청해서 저장
-        // axios
-        // .get("http://localhost:8080/user/password/sendAuth", {
-        //   email: this.email,
-        // })
-        // .then((response) => {this.receivedAuthNumber = response.data.authNumber})
-        this.isSent = true;
+        // 가입된 사용자인지 확인
+        axios
+          .get(`http://localhost:8080/user/signup/${this.user.email}`)
+          .then(() => {
+            // 가입되지 않은 사용자라면 인증번호 요청
+            axios
+              .get("http://localhost:8080/user/password/sendAuth", {
+                email: this.email,
+              })
+              .then((response) => {
+                // 요청 결과로 받은 인증번호 저장
+                this.receivedAuthNumber = response.data.authNumber;
+                this.isSent = true;
+              });
+          })
+          .catch((error) => {
+            console.log(
+              "사용자에게는 이미 가입된 경우만 alert가 보여야 합니다"
+            );
+            console.log("에러: ", error);
+            alert("이미 가입된 ID입니다");
+          });
+        // 유효성 검사 통과 못한 경우
       } else {
         this.user.email = "";
         alert("이메일 형식의 ID를 입력해주세요");
@@ -261,20 +277,24 @@ export default {
     async signup() {
       // 유효성 검사를 통과할 경우
       if (this.$refs.signupForm.validate()) {
-        // await axios
-        //   .post("https://localhost:8080/user/signup", JSON.stringify(this.user), {
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //   })
-        //   .then(() => {
-        //     // 회원가입 성공시 로그인 화면으로 이동
-        //     alert("성공적으로 회원가입이 완료되었습니다");
-        //     this.$router.push({ name: "signin" });
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
+        await axios
+          .post(
+            "https://localhost:8080/user/signup",
+            JSON.stringify(this.user),
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then(() => {
+            // 회원가입 성공시 로그인 화면으로 이동
+            alert("성공적으로 회원가입이 완료되었습니다");
+            this.$router.push({ name: "signin" });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         alert("입력한 내용을 다시 확인해주세요");
       }
