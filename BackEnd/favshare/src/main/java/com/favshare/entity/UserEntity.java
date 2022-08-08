@@ -37,40 +37,40 @@ public class UserEntity {
     private String auth;
     
     
-	@OneToMany(mappedBy = "userEntity")
+	@OneToMany(mappedBy = "userEntity",cascade = CascadeType.ALL)
     private List<PopEntity> popList = new ArrayList<>();	
     
-	@OneToMany(mappedBy = "userEntity")
+	@OneToMany(mappedBy = "userEntity",cascade = CascadeType.ALL)
     private List<CommentEntity> commentList = new ArrayList<>();	
 
-	@OneToMany(mappedBy = "userEntity")
+	@OneToMany(mappedBy = "userEntity",cascade = CascadeType.ALL)
     private List<FeedEntity> feedList = new ArrayList<>();	
 
-	@OneToMany(mappedBy="userEntity")
+	@OneToMany(mappedBy="userEntity",cascade = CascadeType.ALL)
 	private List<LikePopEntity> likePopList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="userEntity")
+	@OneToMany(mappedBy="userEntity",cascade = CascadeType.ALL)
 	private List<ShowPopEntity> showPopList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="userEntity")
+	@OneToMany(mappedBy="userEntity",cascade = CascadeType.ALL)
 	private List<StoreYoutubeEntity> storeYoutubeList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="userEntity")
+	@OneToMany(mappedBy="userEntity",cascade = CascadeType.ALL)
 	private List<ShowYoutubeEntity> showYoutubeList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="userEntity")
+	@OneToMany(mappedBy="userEntity",cascade = CascadeType.ALL)
 	private List<LikeCommentEntity> likeCommentList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="userEntity")
+	@OneToMany(mappedBy="userEntity",cascade = CascadeType.ALL)
 	private List<InterestIdolEntity> interestIdolList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="userEntity")
+	@OneToMany(mappedBy="userEntity",cascade = CascadeType.ALL)
 	private List<InterestSongEntity> interestSongList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="fromUserEntity")
+	@OneToMany(mappedBy="fromUserEntity",cascade = CascadeType.ALL)
 	private List<FollowEntity> fromUserEntityList = new ArrayList<>();
 	
-	@OneToMany(mappedBy="toUserEntity")
+	@OneToMany(mappedBy="toUserEntity",cascade = CascadeType.ALL)
 	private List<FollowEntity> toUserEntityList = new ArrayList<>();
 	
 	public void changePassword(String password) {

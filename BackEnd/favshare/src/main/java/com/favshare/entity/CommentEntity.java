@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +51,7 @@ public class CommentEntity {
 	@JoinColumn(name ="pop_id", nullable = false)
 	private PopEntity popEntity;
 	
-	@OneToMany(mappedBy="commentEntity")
+	@OneToMany(mappedBy="commentEntity",cascade = CascadeType.ALL)
 	private List<LikeCommentEntity> likeCommentList = new ArrayList<>();
 	
 	public void changeComment(String content) {

@@ -163,7 +163,7 @@ public class UserService {
 		return userEntity.getAuth();
 	}
 	
-	public void deleteById(int userId) {
+	public void deleteByUserId(int userId) {
 		// delete가 잘 진행됐는지 확인해야 되는거 아님?
 		userRepository.deleteById(userId);
 		
