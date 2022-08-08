@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,19 +73,29 @@ public class YoutubeService {
 
 	private static YouTube youtube;
 
-	
+	public boolean hasInterestIdol(int userId) {
+		List<InterestIdolEntity> interestIdolEntityList;
+		interestIdolEntityList = interestIdolRepository.findAllByUserId(userId);
+
+		if (interestIdolEntityList.size() == 0)
+			return false;
+		else
+			return true;
+
+	}
+
 	public YoutubeDetailDto getDetailByUrl(String youtubeUrl) {
 		YoutubeEntity youtubeEntity;
 		youtubeEntity = youtubeRepository.findByUrl(youtubeUrl);
-		
+
 		YoutubeDetailDto result = new YoutubeDetailDto(youtubeUrl);
 		List<PopDto> popList;
-		if(youtubeEntity == null) {
+		if (youtubeEntity == null) {
 			popList = null;
-		}else {
-			popList = Arrays.asList(modelMapper.map(youtubeEntity.getPopList(),PopDto[].class));
+		} else {
+			popList = Arrays.asList(modelMapper.map(youtubeEntity.getPopList(), PopDto[].class));
 		}
-		
+
 		result.setPopList(popList);
 		return result;
 	}
@@ -94,42 +105,111 @@ public class YoutubeService {
 		interestIdolEntityList = interestIdolRepository.findAllByUserId(userId);
 
 		List<String> urlList = new ArrayList<String>();
+		String queryList = "";
+
+		// 검색어 쿼리 만드는 반복문
 		for (int i = 0; i < interestIdolEntityList.size(); i++) {
-			String idolName = idolRepository.findById(interestIdolEntityList.get(i).getIdolEntity().getId()).get()
-					.getName();
-			try {
-				youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
-					@Override
-					public void initialize(HttpRequest request) throws IOException {
-					}
-				}).setApplicationName("youtube-cmdline-search-sample").build();
+			queryList += idolRepository.findById(interestIdolEntityList.get(i).getIdolEntity().getId()).get().getName();
+			if (i < interestIdolEntityList.size() - 1)
+				queryList += "or";
+		}
 
-				SearchListResponse searchResponse = null;
-
-				YouTube.Search.List search = youtube.search().list("id,snippet");
-
-				search.setKey(API_KEY);
-				search.setType("video");
-				search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
-				search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
-				search.setQ(idolName);
-
-				searchResponse = search.execute();
-
-				List<SearchResult> searchResultList = searchResponse.getItems();
-				if (searchResultList != null) {
-//					System.out.println(searchResultList);
-					prettyPrint(searchResultList.iterator(), urlList);
+		try {
+			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+				@Override
+				public void initialize(HttpRequest request) throws IOException {
 				}
+			}).setApplicationName("youtube-cmdline-search-sample").build();
 
-			} catch (GoogleJsonResponseException e) {
-				System.err.println(
-						"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
-			} catch (IOException e) {
-				System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-			} catch (Throwable t) {
-				t.printStackTrace();
+			SearchListResponse searchResponse = null;
+
+			YouTube.Search.List search = youtube.search().list("id,snippet");
+
+			search.setKey(API_KEY);
+			search.setType("video");
+			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+			search.setQ(queryList);
+
+			searchResponse = search.execute();
+
+			List<SearchResult> searchResultList = searchResponse.getItems();
+			if (searchResultList != null) {
+				prettyPrint(searchResultList.iterator(), urlList);
 			}
+
+		} catch (GoogleJsonResponseException e) {
+			System.err.println(
+					"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
+		} catch (IOException e) {
+			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
+
+		Collections.shuffle(urlList);
+
+		return urlList;
+	}
+
+	// 로그인 하지 않은 사용자 or 선호하는 아이돌이 없는 경우에 사용되는 api
+	public List<String> getAlgoUrlByNoId(int userId) {
+
+		int idolListSize = interestIdolRepository.findAll().size();
+		List<String> urlList = new ArrayList<String>();
+
+		Random r = new Random();
+		int[] idList = new int[5];
+		String queryList = "";
+
+		// 랜덤으로 아이돌 추출해서 검색어 쿼리 만드는 반복문
+		for (int i = 0; i < 5; i++) {
+			idList[i] = r.nextInt(idolListSize) + 1;
+			for (int j = 0; j < i; j++) {
+				if (idList[i] == idList[j])
+					i--;
+			}
+		}
+
+		for (int i = 0; i < idList.length; i++) {
+			queryList += idolRepository.findById(idList[i]).get().getName();
+			if (i < 4)
+				queryList += "or";
+		}
+
+		try {
+			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+				@Override
+				public void initialize(HttpRequest request) throws IOException {
+				}
+			}).setApplicationName("youtube-cmdline-search-sample").build();
+
+			SearchListResponse searchResponse = null;
+
+			YouTube.Search.List search = youtube.search().list("id,snippet");
+
+			search.setKey(API_KEY);
+			search.setType("video");
+			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+			search.setQ(queryList);
+
+			searchResponse = search.execute();
+
+			System.out.println("@@@@@@@@ : " + queryList);
+
+			List<SearchResult> searchResultList = searchResponse.getItems();
+			if (searchResultList != null) {
+				prettyPrint(searchResultList.iterator(), urlList);
+			}
+
+		} catch (GoogleJsonResponseException e) {
+			System.err.println(
+					"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
+		} catch (IOException e) {
+			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
+		} catch (Throwable t) {
+			t.printStackTrace();
 		}
 
 		Collections.shuffle(urlList);
@@ -172,7 +252,7 @@ public class YoutubeService {
 
 		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeUserIdDto.getYoutubeUrl());
 		List<FeedDto> feedList = Arrays.asList(modelMapper.map(userEntity.getFeedList(), FeedDto[].class));
-		
+
 		result.setFeedList(feedList);
 		return result;
 	}
