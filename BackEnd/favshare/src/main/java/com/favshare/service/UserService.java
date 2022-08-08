@@ -172,7 +172,15 @@ public class UserService {
 		
 	}
 	
-	
+	public boolean isExistUserByEmail(String email) {
+        UserEntity userEntity;
+        userEntity = userRepository.findByEmail(email);
+        if(userEntity != null) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 	
 
 }
