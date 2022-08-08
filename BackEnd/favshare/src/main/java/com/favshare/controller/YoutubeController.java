@@ -1,10 +1,14 @@
 package com.favshare.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +25,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.ResourceId;
@@ -39,13 +44,32 @@ public class YoutubeController {
 
 	@ApiOperation(value = "사용자에게 맞는 유튜브 리스트", response = List.class)
 	@GetMapping("/{userId}")
-	public ResponseEntity<List<String>> showYoutubeList(@PathVariable("userId") int userId) {
-
+	public ResponseEntity<List<HashMap<String, Object>>> showYoutubeList(@PathVariable("userId") int userId) {
+		// 로그인 안한 경우에는 userId 값이 0으로 넘어온다.
 		try {
-			List<String>urlList = youtubeService.getAlgoUrlByUserId(userId);
-			return new ResponseEntity<List<String>>(urlList, HttpStatus.OK);
+			boolean hasInterestIdol = youtubeService.hasInterestIdol(userId);
+			List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
+			HashMap<String, Object> urlMap = new HashMap<String, Object>();
+
+			List<String> urlList;
+			
+			if(userId == 0 || !hasInterestIdol) {
+				urlList = youtubeService.getAlgoUrlByNoId(userId);
+			}
+			else {
+				
+				urlList = youtubeService.getAlgoUrlByUserId(userId);
+			}
+			
+			for(int i = 0; i < urlList.size(); i++) {
+				urlMap = new HashMap<String, Object>();
+				urlMap.put("youtubeId" , urlList.get(i));
+				result.add(urlMap);
+			}
+			
+			return new ResponseEntity<List<HashMap<String, Object>>>(result, HttpStatus.OK);
 		}catch (Exception e) {
-			return new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<HashMap<String, Object>>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
