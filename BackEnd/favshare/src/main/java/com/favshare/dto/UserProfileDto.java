@@ -23,7 +23,6 @@ public class UserProfileDto {
 	private int followerNum;
 	private int followingNum;
 	
-	private List<FeedDto> FeedList;
 	
 	public UserProfileDto(UserEntity userEntity) {
 		this.id = userEntity.getId();

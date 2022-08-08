@@ -45,25 +45,29 @@ public class UserProfileController {
 			int[] temp = userService.countFollow(userId);
 			int followerNum = temp[0];
 			int followingNum = temp[1];
-			List<FeedDto> feedDtoList = userService.getFeedList(userId);
 
 			UserProfileDto userProfileDto = userService.getUserProfileById(userId);
 
 			userProfileDto.setPopCount(popCount);
 			userProfileDto.setFollowerNum(followerNum);
 			userProfileDto.setFollowingNum(followingNum);
-			userProfileDto.setFeedList(feedDtoList);
 
 			return new ResponseEntity<UserProfileDto>(userProfileDto, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
 		}
-
+	}
+	
+	@ApiOperation(value = "프로필 보기 중간부분(피드 리스트)", response = ResponseEntity.class)
+	@GetMapping("/feed/{userId}")
+	public ResponseEntity<List<FeedDto>> showMiddle(@PathVariable("userId") int userId){
+		List<FeedDto> feedDtoList = userService.getFeedList(userId);
+		return new ResponseEntity<List<FeedDto>>(feedDtoList,HttpStatus.OK);
 	}
 
 	// feedController에 있어야 하는건가?
 	@ApiOperation(value = "프로필 보기 아래 부분 - 피드별 poplist 출력 ", response = ResponseEntity.class)
-	@PostMapping("/feed")
+	@PostMapping("/popList")
 	public ResponseEntity<List<PopDto>> showPopInFeed(@RequestBody FeedUserIdDto feedUserIdDto) {
 		List<PopDto> popInFeedDtoList;
 		if (feedUserIdDto.getFeedId() == -1) {
@@ -125,14 +129,12 @@ public class UserProfileController {
 			int[] temp = userService.countFollow(followForFollowDto.getToUserId());
 			int followerNum = temp[0];
 			int followingNum = temp[1];
-			List<FeedDto> feedDtoList = userService.getFeedList(followForFollowDto.getToUserId());
 
 			UserProfileDto userProfileDto = userService.getUserProfileById(followForFollowDto.getToUserId());
 
 			userProfileDto.setPopCount(popCount);
 			userProfileDto.setFollowerNum(followerNum);
 			userProfileDto.setFollowingNum(followingNum);
-			userProfileDto.setFeedList(feedDtoList);
 
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("friendProfileDto", userProfileDto);
