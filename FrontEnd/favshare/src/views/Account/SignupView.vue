@@ -226,11 +226,11 @@ export default {
       return reg.test(phone);
     },
     // 인증번호 발송
-    async sendAuthNumber() {
+    sendAuthNumber() {
       // 유효성 검사를 통과할 경우
       if (this.$refs.sendingForm.validate()) {
         // 가입된 사용자인지 확인
-        await axios
+        axios
           .get(`http://localhost:8080/user/signup/${this.user.email}`)
           .then(() => {
             // 가입되지 않은 사용자라면 인증번호 요청
