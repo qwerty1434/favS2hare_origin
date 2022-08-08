@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.IdPasswordDto;
+import com.favshare.dto.UserAccountDto;
 import com.favshare.dto.UserInfoDto;
 import com.favshare.service.UserService;
 
@@ -59,5 +61,15 @@ public class UserInfoController {
 		}
 
 	}
+	
+	@ApiOperation(value="회원탈퇴",response=ResponseEntity.class)
+	@DeleteMapping("/{userId}")
+	public ResponseEntity usersignUp(@PathVariable int userId) {
+
+		// 유효하다는걸 어떻게 확인하지? Auth쓰는건가? //유저의 토큰가 토큰을 보내도록 해서 해당 토큰이 DB토큰이랑 값이 같은지 확인해야 하는가?
+//		if(validate) {}
+		userService.deleteById(userId);
+		return new ResponseEntity(HttpStatus.OK);
+	}	
 
 }
