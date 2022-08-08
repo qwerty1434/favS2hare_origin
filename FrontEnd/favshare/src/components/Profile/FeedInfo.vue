@@ -28,6 +28,14 @@
         </ul>
       </div>
     </div>
+    <div>
+      <div v-if="userInfo.id === userId">
+        <button>프로필 편집</button>
+      </div>
+      <div v-else>
+        <button>팔로우/팔로잉</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,7 +74,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userInfo"]),
+    ...mapGetters(["userInfo", "userId"]),
   },
   methods: {
     ...mapActions(["setTabFollower", "setTabFollowing"]),

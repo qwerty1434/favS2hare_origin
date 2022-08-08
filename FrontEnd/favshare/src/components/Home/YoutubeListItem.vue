@@ -94,7 +94,7 @@ export default {
     //       url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
     //     }).then((res) => {
     //       this.channelProfilePic =
-    //         res.data.items[0].snippet.thumnails.default.url;
+    //         res.data.items[0].snippet.thumbnails.default.url;
     //       this.channelName = res.data.items[0].snippet.title;
     //     });
     //   });

@@ -10,7 +10,7 @@
         </v-slide-item>
       </v-slide-group>
     </v-sheet> -->
-    <div v-for="popsItem in popsList" :key="popsItem.popsId" class="popsitem">
+    <div v-for="popsItem in popsList" :key="popsItem.popId" class="popsitem">
       <related-pops-list-item :pops-item="popsItem"></related-pops-list-item>
     </div>
   </div>

@@ -30,6 +30,12 @@
         <div v-else>
           <v-icon @click="setBookmark">mdi-bookmark-outline</v-icon>
         </div>
+        <!-- <div v-if="this.isBookmarkClicked">
+          <v-icon @click="[setBookmark, postStoredYoutube]"></v-icon>
+        </div>
+        <div v-else>
+          <v-icon @click="[setBookmark, deleteStoredYoutube]"></v-icon>
+        </div> -->
       </div>
     </div>
   </div>
@@ -84,6 +90,15 @@ export default {
     //     if (res.data != 200) {
     //       console.log("something wrong");
     //     }
+    //   });
+    // },
+    // deleteStoredYoutube() {
+    //   axios({
+    //     method: "delete",
+    //     url: "http://localhost:8080/youtube/bookmark",
+    //     data: { userId: this.userId, youtubeId: this.videoInfo.homeYoutube },
+    //   }).then((res) => {
+    //     console.log(res);
     //   });
     // },
   },

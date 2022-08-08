@@ -37,11 +37,10 @@ export default {
     },
   },
   actions: {
-    fetchUserInfo({ commit }) {
+    fetchUserInfo({ commit, getters }) {
       axios({
         method: "get",
-        url: "http://localhost:8080/user/profile",
-        headers: "유저토큰",
+        url: `http://localhost:8080/user/profile/${getters.userId}`,
       }).then((res) => {
         commit("SET_USERINFO", res.data);
       });

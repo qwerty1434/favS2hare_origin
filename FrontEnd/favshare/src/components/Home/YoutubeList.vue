@@ -12,8 +12,8 @@
   <!-- for-use html -->
   <!-- <div>
     <div
-      v-for="homeYoutube in homeYoutubes"
-      :key="homeYoutube"
+      v-for="(homeYoutube, index) in homeYoutubes"
+      :key="index"
       class="videos__container"
     >
       <youtube-list-item :home-youtube="homeYoutube"></youtube-list-item>
