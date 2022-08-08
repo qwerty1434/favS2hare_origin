@@ -48,10 +48,11 @@ public class UserFollowController {
 			List<FollowDto> result = new ArrayList<>();
 
 			for (int i = 0; i < followEntityList.size(); i++) {
+				int fromUserId = followEntityList.get(i).getFromUserEntity().getId();
 				int toUserId = followEntityList.get(i).getToUserEntity().getId();
 				String nickname = followEntityList.get(i).getToUserEntity().getNickname();
 				String profileImageUrl = followEntityList.get(i).getToUserEntity().getProfileImageUrl();
-				result.add(new FollowDto(nickname, false, profileImageUrl));
+				result.add(new FollowDto(fromUserId, toUserId, nickname, false, profileImageUrl));
 			}
 
 			return new ResponseEntity<List<FollowDto>>(result, HttpStatus.OK);
@@ -71,10 +72,11 @@ public class UserFollowController {
 
 			for (int i = 0; i < followEntityList.size(); i++) {
 				int fromUserId = followEntityList.get(i).getFromUserEntity().getId();
+				int toUserId = followEntityList.get(i).getToUserEntity().getId();
 				String nickname = followEntityList.get(i).getFromUserEntity().getNickname();
 				boolean isFollowForFollow = userService.getFollowForFollow(userId, fromUserId);
 				String profileImageUrl = followEntityList.get(i).getFromUserEntity().getProfileImageUrl();
-				result.add(new FollowDto(nickname, isFollowForFollow, profileImageUrl));
+				result.add(new FollowDto(fromUserId, toUserId, nickname, isFollowForFollow, profileImageUrl));
 			}
 
 			return new ResponseEntity<List<FollowDto>>(result, HttpStatus.OK);
@@ -111,6 +113,6 @@ public class UserFollowController {
 	public void deleteFollowing(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		int fromUserId = fromUserToUserDto.getFromUserId();
 		int toUserId = fromUserToUserDto.getToUserId();
-		followService.DeleteFollowById(toUserId, fromUserId);
+		followService.DeleteFollowById(fromUserId, toUserId);
 	}
 }
