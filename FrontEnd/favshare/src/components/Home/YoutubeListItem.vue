@@ -6,9 +6,8 @@
           :to="{
             name: 'youtube',
             params: {
-              youtubeId: youtubeVideo.id, // 서버 id
               videoInfo: {
-                videoId: this.videoId, // 유튜브 id
+                videoId: this.videoId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => homeYoutube로 바꾸기
                 channelName: this.channelName,
                 channelProfilePic: this.channelProfilePic,
                 videoTitle: this.videoTitle,
@@ -40,20 +39,24 @@ import axios from "axios";
 export default {
   name: "YoutubeListItem",
   props: {
+    // tmp data
     youtubeVideo: Object,
-    // homeYoutube: Object,  // { youtubeId: ?, youtubeUrl: ? } 형태
+    // for-use data
+    // homeYoutube: Object,  // 'youtube url' 형태
   },
   data() {
     return {
+      //for-use data
       thumbNail: String,
-      channelId: String,
       channelProfilePic: String,
       channelName: String,
       videoTitle: String,
+      // tmp data
       videoId: String,
     };
   },
   methods: {
+    // tmp function
     getEx() {
       const videoId = this.youtubeVideo.youtubeUrl.slice(-11);
       this.videoId = videoId;
@@ -76,14 +79,37 @@ export default {
         });
       });
     },
+    // // for-use-function
+    // getVideoInfo() {
+    //   // 썸네일, 채널 id 받아오기
+    //   axios({
+    //     method: "get",
+    //     url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.homeYoutube}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
+    //   }).then((res) => {
+    //     this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
+    //     this.videoTitle = res.data.items[0].snippet.title;
+    //     const tmpChannelId = res.data.items[0].snippet.channelId;
+    //     axios({
+    //       method: "get",
+    //       url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
+    //     }).then((res) => {
+    //       this.channelProfilePic =
+    //         res.data.items[0].snippet.thumnails.default.url;
+    //       this.channelName = res.data.items[0].snippet.title;
+    //     });
+    //   });
+    // },
   },
   created() {
+    // tmp function
     this.getEx();
+    // for-use function
+    // this.getVideoInfo();
   },
 };
 </script>
 
-<style>
+<style scoped>
 /* .container {
   height: 100vh;
 }

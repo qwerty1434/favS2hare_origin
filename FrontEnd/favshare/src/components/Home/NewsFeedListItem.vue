@@ -3,7 +3,7 @@
     <v-sheet class="video" elevation="2" rounded="xl">
       <div class="video__thumbnail">
         <youtube
-          :video-id="youtubeId"
+          :video-id="youtubePk"
           :player-vars="playerVars"
           :ref="'pops' + this.feedPop.popsId"
           @ready="onPlayerReady"
@@ -25,6 +25,7 @@
           <h3>
             {{ this.feedPop.userName }}
           </h3>
+          <div class="pop-name">{{ feedPop.name }}</div>
         </div>
       </div>
     </v-sheet>
@@ -32,6 +33,8 @@
 </template>
 
 <script>
+// 이 파일은 feedPop -> newsFeedPop 으로 다 바꿔서 해보면 됩니다.
+
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 
@@ -40,8 +43,8 @@ Vue.use(VueYoutube);
 export default {
   name: "NewsFeedListItem",
   props: {
-    feedPop: Object, // {userId: ?, profileImage: ?, userName: ?, popsId: ?, likeCount: ?}
-    // newsFeedPops: Object, // {}
+    feedPop: Object,
+    // newsFeedPop: Object, // {}
   },
   data() {
     return {
@@ -51,6 +54,7 @@ export default {
         contros: 0,
         disablekb: 1,
       },
+      // tmp data
       section: {
         start: this.feedPop.startSecond,
         end: this.feedPop.endSecond,
@@ -58,7 +62,7 @@ export default {
     };
   },
   computed: {
-    youtubeId() {
+    youtubePk() {
       return this.feedPop.youtubeUrl.slice(-11);
     },
     player() {
@@ -77,12 +81,6 @@ export default {
     restartVideoSection() {
       this.player.seekTo(this.section.start);
     },
-    // playVideo() {
-    //   this.player.playVideo();
-    // },
-    // playing() {
-    //   console.log("we are watching!!!");
-    // },
   },
   // created() {
   //   this.playVideo();
@@ -113,19 +111,21 @@ export default {
 .video__details {
   display: flex;
   padding-top: 10px;
+  padding-left: 10px;
 }
 
 .author img {
   object-fit: cover;
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   margin-right: 10px;
 }
 
 .title {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .title h3 {
@@ -133,5 +133,18 @@ export default {
   line-height: 18px;
   font-size: 14px;
   margin-bottom: 6px;
+}
+
+.pop-name {
+  padding-left: 30px;
+  font-family: "Bingrae", sans-serif !important;
+  text-align: center;
+  font-size: 20px;
+}
+@font-face {
+  font-family: "Bingrae";
+  src: url("@/assets/fonts/Binggrae-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 </style>

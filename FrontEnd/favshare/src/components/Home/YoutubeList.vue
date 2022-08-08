@@ -1,4 +1,5 @@
 <template>
+  <!-- tmp html -->
   <div class="videos">
     <div
       v-for="youtubeVideo in youtubeVideos"
@@ -7,15 +8,17 @@
     >
       <youtube-list-item :youtube-video="youtubeVideo"></youtube-list-item>
     </div>
-    <!-- 밑에 꺼가 진짜 위에 꺼는 하드코딩용 -->
-    <!-- <div
+  </div>
+  <!-- for-use html -->
+  <!-- <div>
+    <div
       v-for="homeYoutube in homeYoutubes"
-      :key="homeYoutube.youtubeId"
+      :key="homeYoutube"
       class="videos__container"
     >
       <youtube-list-item :home-youtube="homeYoutube"></youtube-list-item>
-    </div> -->
-  </div>
+    </div>
+  </div> -->
 </template>
 
 <script>
@@ -63,13 +66,20 @@ export default {
     },
   },
   created() {
+    // tmp function
     this.setDummyYoutubes();
-    // this.fetchHomeYoutubes();  // 1. 랜더링 되면 fetchHomeYoutube실행 => 2. SET_HOMEYOUTUBES mutation을 통해 homeYoutues변경
+    // for-use function
+    // this.fetchHomeYoutubes();
+  },
+  watch: {
+    "$store.state.home.homeYoutubes": function () {
+      console.log(this.$store.state.home.homeYoutubes);
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .videos {
   background-color: white;
   width: 100%;

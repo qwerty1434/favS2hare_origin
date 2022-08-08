@@ -16,7 +16,7 @@
         ></v-text-field>
       </v-col>
       <v-col cols="2">
-        <v-btn class="ma-1 ml-3" text icon @click="searchAll(searchKeyword)">
+        <v-btn class="ma-1 ml-3" text icon @click="searchAll">
           <v-icon large>mdi-magnify</v-icon>
         </v-btn>
       </v-col>
@@ -33,11 +33,11 @@ export default {
     };
   },
   methods: {
-    searchAll(searchKeyword) {
-      if (searchKeyword === "") {
+    searchAll() {
+      if (this.searchKeyword === "") {
         alert("검색 키워드를 입력하세요.");
       } else {
-        this.$emit("input-change", searchKeyword);
+        this.$emit("input-change", this.searchKeyword);
         // console.log(searchKeyword);
         // document.getElementById("search-bar").value = "";
       }

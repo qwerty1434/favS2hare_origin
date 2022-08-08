@@ -1,9 +1,16 @@
 <template>
-  <div>
+  <!-- <div class="feed-pops">
     <div v-for="feedPop in feedPops" :key="feedPop.id">
       <feed-pops-list-item :feed-pop="feedPop"></feed-pops-list-item>
     </div>
-  </div>
+  </div> -->
+  <v-container>
+    <v-row justify="space-around" no-gutters>
+      <v-col v-for="feedPop in feedPops" :key="feedPop.id" col="6">
+        <feed-pops-list-item :feed-pop="feedPop"></feed-pops-list-item>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -11,6 +18,7 @@ import FeedPopsListItem from "./FeedPopsListItem.vue";
 // import { mapGetters } from "vuex";
 
 export default {
+  components: { FeedPopsListItem },
   data() {
     return {
       feedPops: Array,
@@ -65,8 +73,16 @@ export default {
   created() {
     this.tmpFeedPops();
   },
-  components: { FeedPopsListItem },
+  // watch: {
+  //   "$store.state.profile.feedPops": function () {
+  //     console.log(this["$store.state.profile.feedPops"]);
+  //   },
+  // },
 };
 </script>
 
-<style></style>
+<style>
+/* .feed-pops {
+  display: flex;
+} */
+</style>
