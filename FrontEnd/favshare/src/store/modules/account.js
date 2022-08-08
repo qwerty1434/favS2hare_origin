@@ -32,6 +32,9 @@ export default {
       state.isSignin = true;
       state.userId = userId;
     },
+    RESET_FORM: (state, userInfo) => {
+      state.userInfo = userInfo;
+    },
   },
   actions: {
     async userConfirm({ commit }, user) {
@@ -60,8 +63,6 @@ export default {
         .catch(() => {});
     },
     getUserInfo({ commit }, { userId, password }) {
-      console.log(userId);
-      console.log(password);
       console.log("herere");
       axios({
         method: "post",
@@ -78,6 +79,32 @@ export default {
         .catch(() => {
           console.log("fail");
           commit("SET_USER_INFO", null);
+        });
+    },
+    updateUserInfo({ commit }, { userId, password, name, phone, birthDate }) {
+      console.log(userId);
+      console.log(name);
+      console.log(password);
+      console.log(phone);
+      console.log(birthDate);
+      axios({
+        method: "put",
+        url: `http://localhost:8080/user/info`,
+        data: {
+          id: userId,
+          password: password,
+          name: name,
+          phone: phone,
+          birthDate: birthDate,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          commit("RESET_FORM");
+        })
+        .catch((err) => {
+          console.log(err);
+          commit(err);
         });
     },
   },

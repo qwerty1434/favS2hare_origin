@@ -39,11 +39,10 @@ export default {
         alert("비밀번호를 입력하세요.");
       } else {
         // 비밀번호 비교 후 동일하면 컴포넌트 변경
-        console.log(this.pwValue);
         this.getUserInfo({ userId: this.userId, password: this.pwValue });
-        console.log(this.userInfo);
-        if (this.userInfo != null && this.userInfo.password == this.pwValue) {
+        if (this.userInfo.password == this.pwValue) {
           this.$emit("input-change");
+          console.log(this.userInfo);
         } else {
           alert("잘못된 비밀번호입니다.");
         }
