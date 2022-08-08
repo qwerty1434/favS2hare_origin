@@ -1,32 +1,27 @@
 package com.favshare.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Entity 
-@Table(name = "idolmember") 
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
+@Table(name = "idol_member")
 @Getter
-@Builder
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class IdolMemberEntity {
-	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+    @Column(nullable = false)
+	private String name;
+
 	
-	String name;
+	@ManyToOne
+	@JoinColumn(name ="idol_id", nullable = false)
+	private IdolEntity idolEntity;
 	
-	int idolId;
 
 }

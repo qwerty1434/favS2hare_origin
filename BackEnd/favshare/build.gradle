@@ -31,6 +31,15 @@ dependencies {
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	// https://mvnrepository.com/artifact/javax.mail/mail
+	implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
+	// https://mvnrepository.com/artifact/org.springframework/spring-context-support
+	implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.20'
+	// https://mvnrepository.com/artifact/org.springframework/spring-websocket
+	implementation group: 'org.springframework', name: 'spring-websocket', version: '5.3.18'
+	
 	
 }
 

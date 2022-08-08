@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 export default {
   state: {
     isSignin: false,
+    userId: 1,
     isSigninError: false,
     userInfo: null,
   },
@@ -11,6 +12,8 @@ export default {
     checkUserInfo: function (state) {
       return state.userInfo;
     },
+    userId: (state) => state.userId,
+    userInfo: (state) => state.userInfo,
   },
   mutations: {
     SET_IS_SIGNIN: (state, isSignin) => {
@@ -20,7 +23,16 @@ export default {
       state.isSigninError = isSigninError;
     },
     SET_USER_INFO: (state, userInfo) => {
+      state.userInfo = userInfo;
+    },
+    SET_USER: (state, user) => {
+      state.user = user;
+    },
+    SET_USERID: (state, userId) => {
       state.isSignin = true;
+      state.userId = userId;
+    },
+    RESET_FORM: (state, userInfo) => {
       state.userInfo = userInfo;
     },
   },
@@ -42,6 +54,7 @@ export default {
             // sessionStorage: 탭 단위 저장소, 새로고침에는 데이터가 사라지지 않고, 탭을 닫으면 사라짐
             // localStorage: 모든 탭과 창에서 데이터 공유, 브라우저나 OS 재시작해도 데이터 유지
             sessionStorage.setItem("access-token", token);
+            commit("SET_USERID", jwt_decode(token).userId);
           } else {
             commit("SET_IS_SIGNIN", false);
             commit("SET_IS_SIGNIN_ERROR", true);
@@ -49,24 +62,49 @@ export default {
         })
         .catch(() => {});
     },
-    async getUserInfo({ commit }, token) {
-      let decoded_token = jwt_decode(token);
-      await axios
-        .get(`http://localhost:8080/user/Info/${decoded_token.userid}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "access-token": sessionStorage.getItem("access_token"),
-          },
+    getUserInfo({ commit }, { userId, password }) {
+      console.log("herere");
+      axios({
+        method: "post",
+        url: `http://localhost:8080/user/info`,
+        data: {
+          id: userId,
+          password: password,
+        },
+      })
+        .then((res) => {
+          console.log("succ");
+          commit("SET_USER_INFO", res.data);
         })
-        .then((response) => {
-          if (response.data.message === "success") {
-            commit("SET_USER_INFO", response.data.userInfo);
-          } else {
-            console.log("유저 정보 없음");
-          }
+        .catch(() => {
+          console.log("fail");
+          commit("SET_USER_INFO", null);
+        });
+    },
+    updateUserInfo({ commit }, { userId, password, name, phone, birthDate }) {
+      console.log(userId);
+      console.log(name);
+      console.log(password);
+      console.log(phone);
+      console.log(birthDate);
+      axios({
+        method: "put",
+        url: `http://localhost:8080/user/info`,
+        data: {
+          id: userId,
+          password: password,
+          name: name,
+          phone: phone,
+          birthDate: birthDate,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          commit("RESET_FORM");
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
+          commit(err);
         });
     },
   },

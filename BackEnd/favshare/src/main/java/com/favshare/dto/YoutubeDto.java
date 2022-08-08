@@ -1,15 +1,18 @@
 package com.favshare.dto;
 
+import com.favshare.entity.YoutubeEntity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class YoutubeDto {
-	
 	private int id;
 	private String url;
-	private int idolId;
-
+	
+	public YoutubeDto(YoutubeEntity youtubeEntity) {
+		this.id = youtubeEntity.getId();
+		this.url = youtubeEntity.getUrl();
+	}
 }
