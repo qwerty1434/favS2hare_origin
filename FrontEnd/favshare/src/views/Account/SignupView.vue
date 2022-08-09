@@ -24,7 +24,7 @@
               id="idInput"
               v-model="user.email"
               prepend-inner-icon="mdi-account-box"
-              :rules="[rules.IsEmail]"
+              :rules="[rules.isEmail]"
               label="ID"
               placeholder="e-mail@example.com"
               background-color="#FFE3A9"
@@ -184,7 +184,7 @@ export default {
       },
       password2: "",
       rules: {
-        IsEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
+        isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
         authNumberLength: (value) =>
           value.length == 15 || "인증번호는 15자입니다",
         pwLength: (value) =>
