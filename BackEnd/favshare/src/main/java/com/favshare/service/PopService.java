@@ -2,6 +2,8 @@ package com.favshare.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.favshare.dto.PopAlgoDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInfoDto;
 import com.favshare.dto.UserPopIdDto;
@@ -21,6 +24,7 @@ import com.favshare.entity.YoutubeEntity;
 import com.favshare.repository.FeedRepository;
 import com.favshare.repository.PopInFeedRepository;
 import com.favshare.repository.PopRepository;
+import com.favshare.repository.ShowPopRepository;
 import com.favshare.repository.UserRepository;
 import com.favshare.repository.YoutubeRepository;
 
@@ -43,6 +47,8 @@ public class PopService {
 	@Autowired
 	private FeedRepository feedRepository;
 	
+	@Autowired
+	private ShowPopRepository showPopRepository;
 	
 	
 	public void updatePopView(int popId) {
@@ -120,6 +126,62 @@ public class PopService {
 			popRepository.deleteById(popIdList.get(i));
 		}
 	}
+	public boolean isWatched(int userId, int popId) {
+		if(showPopRepository.searchByUserPopId(userId, popId) == 1) {
+			return true;
+		}
+		else return false;
+	}
+	
+	public List<PopAlgoDto> getCustomPopList(int userId) {
+		// 조회수, 좋아요수, 팔로워 수 를 통해 알고리즘 구현 (5 : 3 : 2 의 가중치 부여)
+		
+		List<PopEntity> popEntityList = popRepository.findAll();
+		List<PopAlgoDto> algoList = new ArrayList<PopAlgoDto>();
+		double referenceValue; // maxValues의 중간값
+		int [] value = new int [3]; // 순서대로 조회수, 좋아요수, 팔로워수
+		int [] maxValue = new int [3]; // 
+		
+		// 조회수, 좋아요수, 팔로워수의 최댓값을 구하고 / log취한 값을 algoList에 저장
+		for(int i = 0; i < popEntityList.size(); i++) {
+			// 이미 시청한 pop의 경우 알고리즘 리스트에 넣지 않는다.
+			if(isWatched(userId, popEntityList.get(i).getId())) continue;
+			
+			value[0] = (int) (Math.log10(popEntityList.get(i).getViews()) * 100);
+			value[1] = (int) (Math.log10(popEntityList.get(i).getLikePopList().size()) * 100);
+			value[2] = (int) (Math.log10(popEntityList.get(i).getUserEntity().getToUserEntityList().size()) * 100);
+			
+			maxValue[0] = Math.max(maxValue[0], value[0]);
+			maxValue[1] = Math.max(maxValue[1], value[1]);
+			maxValue[2] = Math.max(maxValue[2], value[2]);
+			algoList.add(new PopAlgoDto(popEntityList.get(i).getId(), value[0], value[1], value[2], 0));
+		}
+		
+		Arrays.sort(maxValue);
+		referenceValue = maxValue[1];
+		
+		for(int i = 0; i < algoList.size(); i++) {
+			value[0] = (int) (algoList.get(i).getViews() * (referenceValue / algoList.get(i).getViews()));
+			value[1] = (int) (algoList.get(i).getLikeCount() * (referenceValue / algoList.get(i).getLikeCount()));
+			value[2] = (int) (algoList.get(i).getFollowers() * (referenceValue / algoList.get(i).getFollowers()));
+			
+			int score = (value[0] * 5) + (value[1] * 3) + (value[2] * 2);
+			algoList.get(i).setAlgoScore(score);
+		}
+		
+		Collections.sort(algoList, new Comparator<PopAlgoDto>() {
 
+			@Override
+			public int compare(PopAlgoDto o1, PopAlgoDto o2) {
+				return o2.getAlgoScore() - o1.getAlgoScore();
+			}
+		
+		});
+		
+//		System.out.println(algoList.toString());
+		
+		return algoList;
+		
+	}
 	
 }
