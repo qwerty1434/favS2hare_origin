@@ -3,25 +3,25 @@
     <div>
       <div class="user-pic">
         <v-avatar>
-          <img :src="tmpUserInfo.userPicture" alt="John" />
+          <img :src="feedUserInfo.userPicture" alt="John" />
         </v-avatar>
       </div>
       <div class="profile-stats">
         <ul>
           <li>
-            <span class="stats">{{ tmpUserInfo.count }}</span
+            <span class="stats">{{ feedUserInfo.count }}</span
             >게시 '팝'
           </li>
           <router-link :to="{ name: 'follow' }">
             <li @click="setTabFollower">
-              <span class="stats">{{ tmpUserInfo.followerNum }}</span
+              <span class="stats">{{ feedUserInfo.followerNum }}</span
               >팔로워 수
             </li>
           </router-link>
           <v-divider></v-divider>
           <router-link :to="{ name: 'follow' }">
             <li @click="setTabFollowing">
-              <span class="stats">{{ tmpUserInfo.followingNum }}</span
+              <span class="stats">{{ feedUserInfo.followingNum }}</span
               >팔로잉 수
             </li>
           </router-link>
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div>
-      <div v-if="userInfo.id === userId">
+      <div v-if="feedUserInfo.id === userId">
         <button>프로필 편집</button>
       </div>
       <div v-else>
@@ -74,10 +74,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userInfo", "userId"]),
+    ...mapGetters(["feedUserInfo", "userId"]),
   },
   methods: {
     ...mapActions(["setTabFollower", "setTabFollowing"]),
+  },
+  watch: {
+    "$store.state.profile.feedUserInfo": function () {
+      console.log(this.$store.state.profile.feedUserInfo);
+    },
   },
 };
 </script>

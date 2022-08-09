@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-
 import NavBar from "@/components/NavBar.vue";
 
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
@@ -21,16 +19,6 @@ import FeedList from "@/components/Profile/FeedList.vue";
 export default {
   components: { NavBar, BottomNavigationBar, FeedPopsList, FeedInfo, FeedList },
   name: "FeedView",
-  computed: {
-    ...mapGetters(["userInfo"]), // {id(유저), nickname, count, followerNum, followingNum, userPicture, feedsList: [{id(피드), name, feedImageUrl, userId, first}]}
-  },
-  methods: {
-    ...mapActions(["fetchUserInfo"]),
-    // feeds id로 내용물 찾는 api 찾아야함
-  },
-  // created() {
-  //   this.fetchUserInfo();
-  // },
 };
 </script>
 
