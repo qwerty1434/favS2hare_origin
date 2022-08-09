@@ -7,21 +7,26 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import com.favshare.dto.PopAlgoDto;
+import com.favshare.dto.IdolDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInfoDto;
 import com.favshare.dto.UserPopIdDto;
 import com.favshare.dto.YoutubeEditPopDto;
 import com.favshare.entity.FeedEntity;
+import com.favshare.entity.InterestIdolEntity;
+import com.favshare.entity.InterestSongEntity;
 import com.favshare.entity.PopEntity;
 import com.favshare.entity.PopInFeedEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.entity.YoutubeEntity;
 import com.favshare.repository.FeedRepository;
+import com.favshare.repository.InterestIdolRepository;
+import com.favshare.repository.InterestSongRepository;
 import com.favshare.repository.PopInFeedRepository;
 import com.favshare.repository.PopRepository;
 import com.favshare.repository.ShowPopRepository;
@@ -49,7 +54,15 @@ public class PopService {
 	
 	@Autowired
 	private ShowPopRepository showPopRepository;
+
+	@Autowired
+	private InterestIdolRepository interestIdolRepository;
+
+	@Autowired
+	private InterestSongRepository interestSongRepository;
 	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	public void updatePopView(int popId) {
 		PopEntity popEntity = popRepository.findById(popId).get();
@@ -183,5 +196,34 @@ public class PopService {
 		return algoList;
 		
 	}
+
+	public List<Integer> findSimilarIdolInterst(int userId, int idolId) {
+		List<InterestIdolEntity> interestIdolEntityList = interestIdolRepository.findByIdolIdExceptUserId(userId, idolId);
+		
+		List<Integer> result = new ArrayList<Integer>();
+		for (int i = 0; i < interestIdolEntityList.size(); i++) {
+			result.add(interestIdolEntityList.get(i).getUserEntity().getId());
+		}
+		return result;
+	}
+	
+	public List<Integer> findSimilarSongInterst(int userId, int songId) {
+		List<InterestSongEntity> interestSongEntityList = interestSongRepository.findBySongIdExceptUserId(userId, songId);
+
+		List<Integer> result = new ArrayList<Integer>();
+		for (int i = 0; i < interestSongEntityList.size(); i++) {
+			result.add(interestSongEntityList.get(i).getUserEntity().getId());
+		}
+		return result;
+	}
+	
+	public List<PopDto> popDtoListByUserId(int userId) {
+		UserEntity userEntity = userRepository.findById(userId).get();
+		List<PopEntity> popEntity = userEntity.getPopList();
+
+		List<PopDto> popDtoList = Arrays.asList(modelMapper.map(popEntity,PopDto[].class));
+		return popDtoList;
+	}
+	
 	
 }
