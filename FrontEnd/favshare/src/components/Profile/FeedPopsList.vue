@@ -25,9 +25,9 @@ export default {
     };
   },
   name: "FeedPopsList",
-  // computed: {
-  //   ...mapGetters(["feedPops"]), // { id(pops), name, *youtubeUrl(추가필요), startSecond, endSecond, content, createDate, views, likeCount }
-  // },
+  computed: {
+    ...mapGetters(["feedPops"]), // { id(pops), name, *youtubeUrl(추가필요), startSecond, endSecond, content, createDate, views, likeCount }
+  },
   methods: {
     tmpFeedPops() {
       this.feedPops = [
@@ -73,11 +73,11 @@ export default {
   created() {
     this.tmpFeedPops();
   },
-  // watch: {
-  //   "$store.state.profile.feedPops": function () {
-  //     console.log(this["$store.state.profile.feedPops"]);
-  //   },
-  // },
+  watch: {
+    "$store.state.profile.feedPops": function () {
+      console.log(this.$store.state.profile.feedPops);
+    },
+  },
 };
 </script>
 

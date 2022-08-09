@@ -69,7 +69,7 @@ export default {
     player() {
       return this.$refs[`pops${this.feedPop.id}`].player;
     },
-    ...mapGetters(["isDelete"]),
+    ...mapGetters(["isDelete", "feedPops"]),
   },
   methods: {
     ...mapActions(["spliceFeedPops"]),
@@ -95,12 +95,18 @@ export default {
       axios({
         method: "delete",
         url: "http://localhost:8080/feed/pop",
+        data: {
+          popsId: this.feedPop.id,
+        },
       });
     },
   },
   watch: {
     "$store.state.profile.isDelete": function () {
       console.log(this.$store.state.profile.isDelete);
+    },
+    "$store.state.profile.feedPops": function () {
+      console.log(this.$store.state.profile.feedPops);
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <v-bottom-navigation grow absolute class="b-nav">
-    <router-link
+    <!-- <router-link
       :to="{ name: 'home' }"
       class="button"
       exact-active-class="bnav-active"
@@ -10,9 +10,14 @@
 
         <v-icon>mdi-home</v-icon>
       </v-btn>
-    </router-link>
+    </router-link> -->
+    <v-btn @clikc="routerPushes('home')">
+      <span>Home</span>
 
-    <router-link
+      <v-icon>mdi-home</v-icon>
+    </v-btn>
+
+    <!-- <router-link
       :to="{ name: 'pops' }"
       class="button"
       exact-active-class="bnav-active"
@@ -22,9 +27,14 @@
 
         <v-icon>mdi-party-popper</v-icon>
       </v-btn>
-    </router-link>
+    </router-link> -->
+    <v-btn @click="routerPushes('pops')">
+      <span>Pops</span>
 
-    <router-link
+      <v-icon>mdi-party-popper</v-icon>
+    </v-btn>
+
+    <!-- <router-link
       :to="{ name: 'search' }"
       class="button"
       exact-active-class="bnav-active"
@@ -34,29 +44,51 @@
 
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
-    </router-link>
+    </router-link> -->
+    <v-btn @click="routerPushes('search')">
+      <span>Search</span>
 
-    <router-link
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+
+    <v-btn @click="[fetchFeedUserInfo(userId), fetchFeedList]">
+      <span>Profile</span>
+
+      <v-icon>mdi-account</v-icon>
+    </v-btn>
+    <!-- <router-link
       :to="{ name: 'feed' }"
       class="button"
       exact-active-class="bnav-active"
     >
-      <v-btn>
+      <v-btn @click="fetchFeedUserInfo">
         <span>Profile</span>
 
         <v-icon>mdi-account</v-icon>
       </v-btn>
-    </router-link>
+    </router-link> -->
   </v-bottom-navigation>
 </template>
 
 <script>
+import router from "@/router";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "BottomNavigationBar",
   data() {
     return {
       value: 5,
     };
+  },
+  computed: {
+    ...mapGetters(["userId"]),
+  },
+  methods: {
+    ...mapActions(["fetchFeedUserInfo", "fetchFeedList"]),
+    routerPushes(icon) {
+      router.push({ name: icon });
+    },
   },
 };
 </script>

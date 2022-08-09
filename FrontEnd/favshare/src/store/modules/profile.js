@@ -1,13 +1,16 @@
+import router from "@/router";
 import axios from "axios";
 
 export default {
   state: {
+    // 마이프로필 상단 유저 정보 state
     feedUserInfo: {},
+    // 마이프로필 중단 유저 Feed List state
+    feedList: [],
     freindInfo: {},
     feedPops: [],
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
     isDelete: true,
-    deleteFeedPopsList: [],
   },
   getters: {
     feedUserInfo: (state) => state.feedUserInfo,
@@ -19,15 +22,11 @@ export default {
   mutations: {
     SET_FEEDUSERINFO: (state, feedUserInfo) =>
       (state.feedUserInfo = feedUserInfo),
+    SET_FEEDLIST: (state, feedList) => (state.feedList = feedList),
     SET_FEEDPOPS: (state, feedPops) => (state.feedPops = feedPops),
     SET_FRIENDINFO: (state, freindInfo) => (state.freindInfo = freindInfo),
     SET_FOLLOWTAB: (state, followtab) => (state.followtab = followtab),
     SET_ISDELETE: (state, isDelete) => (state.isDelete = isDelete),
-    ADD_FEEDPOPSLIST: (state, id) => state.deleteFeedPopsList.push(id),
-    SPLICE_FEEDPOPSLIST: function (state, id) {
-      const index = state.deleteFeedPopsList.indexOf(id);
-      state.deleteFeedPopsList.splice(index, 1);
-    },
     SPLICE_FEEDPOPS: function (state, id) {
       state.feedPops.forEach((value, index, array) => {
         console.log(array);
@@ -38,15 +37,36 @@ export default {
     },
   },
   actions: {
-    fetchFeedUserInfo({ commit }) {
+    // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
+    // 어떤 유저인지를 입력변수로 받음
+    fetchFeedUserInfo({ commit }, userId) {
       axios({
         method: "get",
-        url: "http://localhost:8080/user/profile",
-        headers: "유저토큰",
+        url: `http://localhost:8080/user/profile/${userId}`,
       }).then((res) => {
         commit("SET_FEEDUSERINFO", res.data);
+        router.push({ name: "feed" });
       });
     },
+
+    // 마이 프로필 화면 중간 피드 목록 받는 함수
+    // 받자마자 대표피드 id 찾아서 popsInFeed 받는 함수 실행시켜야 함
+    // 어떤 유저인지를 입력변수로 받음
+    fetchFeedList({ commit }, userId) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/profile/feed/${userId}`,
+      }).then((res) => {
+        for (const feed in res.data) {
+          if (feed.first) {
+            this.fetchFeedPops(feed.id); // 밑에
+          }
+        }
+        commit("SET_FEEDLIST", res.data);
+      });
+    },
+
+    // 피드 클릭 시 피드의 팝스들을 리스트로 받는 함수
     fetchFeedPops({ commit }, feedId) {
       axios({
         method: "get",
@@ -55,6 +75,7 @@ export default {
         commit("SET_FEEDPOPS", res.data);
       });
     },
+
     fetchFriendInfo({ commit }, fromUserId, toUserId) {
       axios({
         method: "post",
@@ -67,18 +88,23 @@ export default {
         commit("SET_FRIENDINFO", res.data);
       });
     },
+
     setTabFollower({ commit }) {
       commit("SET_FOLLOWTAB", 0);
     },
+
     setTabFollowing({ commit }) {
       commit("SET_FOLLOWTAB", 1);
     },
+
     fetchIsDelete({ commit }, isDelete) {
       commit("SET_ISDELETE", isDelete);
     },
+
     fetchIsNotDelete({ commit }, isDelete) {
       commit("SET_ISDELETE", isDelete);
     },
+
     spliceFeedPops({ commit }, id) {
       commit("SPLICE_FEEDPOPS", id);
     },

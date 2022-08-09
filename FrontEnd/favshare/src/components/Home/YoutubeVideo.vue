@@ -30,6 +30,12 @@
         <div v-else>
           <v-icon @click="setBookmark">mdi-bookmark-outline</v-icon>
         </div>
+        <!-- <div v-if="this.isBookmarkClicked">
+          <v-icon @click="[setBookmark, postStoredYoutube]"></v-icon>
+        </div>
+        <div v-else>
+          <v-icon @click="[setBookmark, deleteStoredYoutube]"></v-icon>
+        </div> -->
       </div>
     </div>
   </div>

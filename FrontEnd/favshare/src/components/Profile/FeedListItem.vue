@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-avatar @click="this.fetchFeedPops(this.feedInfo.id)">
+    <v-avatar @click="fetchFeedPops(feedInfo.id)">
       <img :src="feedInfo.feedImageUrl" alt="" />
     </v-avatar>
   </div>
