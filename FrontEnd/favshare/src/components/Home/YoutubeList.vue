@@ -13,7 +13,7 @@
   <!-- <div>
     <div
       v-for="homeYoutube in homeYoutubes"
-      :key="homeYoutube.id"
+      :key="homeYoutube"
       class="videos__container"
     >
       <youtube-list-item :home-youtube="homeYoutube"></youtube-list-item>

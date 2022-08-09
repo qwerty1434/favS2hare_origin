@@ -20,21 +20,19 @@ export default {
   },
   actions: {
     // YoutubeList.vue 에서 사용
-    fetchHomeYoutubes({ commit }) {
+    fetchHomeYoutubes({ commit, getters }) {
       axios({
-        url: "http://localhost:8080/youtube",
+        url: `http://localhost:8080/youtube/${getters.userId}`,
         method: "get",
-        // headers: '유저토큰'
       })
         .then((res) => commit("SET_HOMEYOUTUBES", res.data))
         .catch((err) => console.log(err));
     },
     // NewsFeedList.vue 에서 사용
-    fetchFeedPops({ commit }) {
+    fetchFeedPops({ commit, getters }) {
       axios({
         method: "get",
-        url: "http://localhost/8080/pop",
-        // headers: "유저토큰"
+        url: `http://localhost/8080/pop/friend/${getters.userId}`,
       })
         .then((res) => commit("SET_FEEDPOPS", res.data))
         .catch((err) => console.log(err));

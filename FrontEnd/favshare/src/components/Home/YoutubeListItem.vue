@@ -6,9 +6,8 @@
           :to="{
             name: 'youtube',
             params: {
-              youtubeId: youtubeVideo.id, // 서버 id -> 실재로 쓸 때는 homeYoutube.id로 바꾸기
               videoInfo: {
-                videoId: this.videoId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => this.youtubePk로 바꾸기
+                videoId: this.videoId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => homeYoutube로 바꾸기
                 channelName: this.channelName,
                 channelProfilePic: this.channelProfilePic,
                 videoTitle: this.videoTitle,
@@ -43,14 +42,12 @@ export default {
     // tmp data
     youtubeVideo: Object,
     // for-use data
-    // homeYoutube: Object,  // { id: ?, youtubeUrl: ? } 형태
+    // homeYoutube: Object,  // 'youtube url' 형태
   },
   data() {
     return {
       //for-use data
-      youtubePk: String,
       thumbNail: String,
-      channelId: String,
       channelProfilePic: String,
       channelName: String,
       videoTitle: String,
@@ -84,12 +81,10 @@ export default {
     },
     // // for-use-function
     // getVideoInfo() {
-    //   const youtubePk = this.homeYoutube.youtubeUrl.slice(-11);
-    //   this.youtubePk = youtubePk;
     //   // 썸네일, 채널 id 받아오기
     //   axios({
     //     method: "get",
-    //     url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${youtubePk}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
+    //     url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.homeYoutube}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
     //   }).then((res) => {
     //     this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
     //     this.videoTitle = res.data.items[0].snippet.title;
