@@ -44,6 +44,10 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
+          data: {
+            email: user.email,
+            password: user.password,
+          },
         })
         .then((response) => {
           if (response.data.message === "success") {
@@ -63,7 +67,7 @@ export default {
         .catch(() => {});
     },
     getUserInfo({ commit }, { userId, password }) {
-      console.log("herere");
+      console.log(userId + " " + password);
       axios({
         method: "post",
         url: `http://localhost:8080/user/info`,

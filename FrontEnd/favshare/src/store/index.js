@@ -9,6 +9,7 @@ import search from "./modules/search";
 import home from "./modules/home";
 import profile from "./modules/profile";
 import account from "./modules/account";
+import myvideo from "./modules/myvideo";
 
 export default new Vuex.Store({
   state: {},
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     home,
     profile,
     account,
+    myvideo,
   },
   plugins: [
     createPersistedState({

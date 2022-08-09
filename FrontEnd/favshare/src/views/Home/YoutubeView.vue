@@ -46,8 +46,9 @@ export default {
     ...mapActions(["fetchYoutubeInfo"]),
   },
   created() {
-    const vuexYoutubeId = { youtubeId: this.youtubeId };
-    const vuexVideoInfo = Object.assign(this.videoInfo, vuexYoutubeId);
+    // const vuexYoutubeId = { youtubeId: this.youtubeId };
+    // const vuexVideoInfo = Object.assign(this.videoInfo, vuexYoutubeId);
+    const vuexVideoInfo = Object.assign(this.videoInfo);
     this.fetchYoutubeInfo(vuexVideoInfo);
   },
 };

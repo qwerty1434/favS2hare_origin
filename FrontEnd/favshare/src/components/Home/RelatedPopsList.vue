@@ -2,16 +2,20 @@
   <div>
     <!-- <v-sheet class="mx-auto" max-width="360">
       <v-slide-group multiple>
-        <v-slide-item v-for="popsItem in popsList" :key="popsItem.popsId">
+        <v-slide-item v-for="popsItem in popsList" :key="popsItem.id">
           <related-pops-list-item
             :pops-item="popsItem"
+            :url="url"
             class="mx-2"
           ></related-pops-list-item>
         </v-slide-item>
       </v-slide-group>
     </v-sheet> -->
-    <div v-for="popsItem in popsList" :key="popsItem.popId" class="popsitem">
-      <related-pops-list-item :pops-item="popsItem"></related-pops-list-item>
+    <div v-for="popsItem in popsList" :key="popsItem.id" class="popsitem">
+      <related-pops-list-item
+        :pops-item="popsItem"
+        :url="url"
+      ></related-pops-list-item>
     </div>
   </div>
 </template>
@@ -30,6 +34,7 @@ export default {
   data() {
     return {
       popsList: Array,
+      url: String,
     };
   },
   computed: {
@@ -39,9 +44,10 @@ export default {
     getPopsList() {
       axios({
         method: "get",
-        url: `http://localhost:8080/youtube/detail/${this.videoInfo.youtubeId}`,
+        url: `http://localhost:8080/youtube/detail/${this.videoInfo.videoId}`,
       }).then((res) => {
-        this.popsList = res.data.popsList;
+        this.popsList = res.data.popList;
+        this.url = res.data.url;
       });
     },
     setDummyData() {
@@ -74,7 +80,8 @@ export default {
     },
   },
   created() {
-    this.setDummyData();
+    // this.setDummyData();
+    this.getPopsList();
   },
 };
 </script>

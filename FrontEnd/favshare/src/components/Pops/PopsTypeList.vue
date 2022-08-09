@@ -1,9 +1,7 @@
 <template>
-  <v-container class="mt-3">
-    <div>
-      <pops-type-list-item @click-type="searchPopsType"></pops-type-list-item>
-    </div>
-  </v-container>
+  <div class="pops-type">
+    <pops-type-list-item @click-type="searchPopsType"></pops-type-list-item>
+  </div>
 </template>
 
 <script>

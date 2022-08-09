@@ -1,7 +1,7 @@
 <template>
   <div>
     <youtube
-      :video-id="this.popsItem.youtubeUrl"
+      :video-id="this.url"
       :player-vars="playerVars"
       ref="youtube"
       :width="200"
@@ -22,6 +22,7 @@ export default {
   name: "RelatedPopsListItem",
   props: {
     popsItem: Object,
+    url: String,
   },
   data() {
     return {
@@ -34,6 +35,7 @@ export default {
   },
   methods: {
     playVideo() {
+      console.log(this.url);
       this.player.playVideo();
     },
     playing() {

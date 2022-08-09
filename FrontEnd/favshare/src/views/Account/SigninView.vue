@@ -1,5 +1,7 @@
 <template>
   <v-container>
+    <!-- 뒤로가기 -->
+    <div class="bar-top"></div>
     <!-- 로고 -->
     <v-row class="logo-part text-center">
       <v-col>
@@ -14,7 +16,7 @@
             class="text-field"
             v-model="user.email"
             prepend-inner-icon="mdi-account-box"
-            :rules="[rules.idRequired, rules.idIsEmail]"
+            :rules="[rules.IsEmail]"
             label="ID"
             placeholder="e-mail@example.com"
             background-color="#FFE3A9"
@@ -29,7 +31,7 @@
             v-model="user.password"
             prepend-inner-icon="mdi-lock-question"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.pwRequired, rules.pwLength]"
+            :rules="[rules.pwLength]"
             label="PW"
             background-color="#FFE3A9"
             :type="showPassword ? 'text' : 'password'"
@@ -99,10 +101,7 @@ export default {
       },
       showPassword: false,
       rules: {
-        idRequired: (value) => !!value || "ID를 입력해주세요",
-        idIsEmail: (value) =>
-          this.checkEmail(value) || "이메일 형식에 맞지 않는 아이디입니다",
-        pwRequired: (value) => !!value || "PW를 입력해주세요",
+        IsEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
         pwLength: (value) =>
           (value.length >= 8 && value.length <= 16) ||
           "PW는 8~16자로 작성해주세요",
@@ -113,18 +112,16 @@ export default {
     ...mapState(["isSignin"]),
   },
   methods: {
-    ...mapActions(["userConfirm", "getUserInfo"]),
+    ...mapActions(["userConfirm"]),
     async confirm() {
       // 유효성 검사를 통과할 경우
       if (this.$refs.form.validate()) {
         // 로그인
         await this.userConfirm(this.user);
         // sessionStorage에 생긴 토큰으로 유저 정보 갱신
-        let token = sessionStorage.getItem("access-token");
         if (this.isSignin) {
-          await this.getUserInfo(token);
           // home으로 자동 이동
-          this.$router.push({ name: "home " });
+          this.$router.push({ name: "home" });
         }
       } else {
         alert("올바른 형식의 아이디/비밀번호를 입력해주세요");
@@ -151,9 +148,14 @@ export default {
 };
 </script>
 <style scoped>
+.bar-top {
+  height: 55.1042px;
+}
+
 .logo-part {
   height: 220px;
   line-height: 220px;
+  margin-bottom: 30px;
 }
 
 .text-field {
