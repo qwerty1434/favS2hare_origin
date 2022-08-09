@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="top">
       <search-bar @input-change="searchOnEnter"></search-bar>
     </div>
     <!-- v-if로 검색전, 검색후 화면 나누기 -->

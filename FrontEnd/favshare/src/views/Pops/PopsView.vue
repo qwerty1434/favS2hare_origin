@@ -1,33 +1,34 @@
 <template>
-  <v-container>
-    <div>
+  <!-- eslint-disable -->
+  <div>
+    <div class="top">
       <search-bar @input-change="searchOnEnter"></search-bar>
+      <div>
+        <pops-type-list @click-type="searchOnEnter"></pops-type-list>
+      </div>
     </div>
-    <div>
-      <pops-type-list @click-type="searchOnEnter"></pops-type-list>
+    <div v-if="searchSuccess" class="pops-body">
+      <pops-list :popsList="popsList"></pops-list>
     </div>
-    <div v-if="searchSuccess">
-      <linked-pops-list :popsList="popsList"></linked-pops-list>
+    <div class="bottom">
+      <bottom-navigation-bar></bottom-navigation-bar>
     </div>
-    <div>
-      <bottom-navigation-bar-vue></bottom-navigation-bar-vue>
-    </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
 import SearchBar from "@/components/common/SearchBar.vue";
 import PopsTypeList from "@/components/Pops/PopsTypeList.vue";
-import LinkedPopsList from "@/components/Pops/LinkedPopsList.vue";
-import BottomNavigationBarVue from "@/components/BottomNavigationBar.vue";
+import PopsList from "@/components/Pops/PopsList.vue";
+import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 
 export default {
   name: "PopsView",
   components: {
     SearchBar,
     PopsTypeList,
-    LinkedPopsList,
-    BottomNavigationBarVue,
+    PopsList,
+    BottomNavigationBar,
   },
   data() {
     return {
@@ -74,4 +75,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.pops-body {
+  padding-top: 150px;
+}
+
+.pops-type {
+  /* 가로 스크롤 */
+  height: 100px;
+  overflow: auto;
+  white-space: nowrap;
+}
+</style>

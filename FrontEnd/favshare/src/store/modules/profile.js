@@ -82,5 +82,35 @@ export default {
     spliceFeedPops({ commit }, id) {
       commit("SPLICE_FEEDPOPS", id);
     },
+    getProfileInfo({ commit }, userId) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/profile/edit/${userId}`,
+      }).then((res) => {
+        commit("SET_USERINFO", res.data);
+      });
+    },
+    updateProfileInfo({ commit }, { userId, nickname, content }) {
+      console.log(userId);
+      console.log(nickname);
+      console.log(content);
+      axios({
+        method: "put",
+        url: `http://localhost:8080/user/profile`,
+        data: {
+          id: userId,
+          nickname: nickname,
+          content: content,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          commit("RESET_FORM");
+        })
+        .catch((err) => {
+          console.log(err);
+          commit(err);
+        });
+    },
   },
 };
