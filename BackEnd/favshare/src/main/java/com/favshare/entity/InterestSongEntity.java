@@ -24,6 +24,13 @@ public class InterestSongEntity {
     @ManyToOne
     @JoinColumn(name="user_id",nullable = false)
     private UserEntity userEntity;
+
+	public InterestSongEntity(SongEntity songEntity, UserEntity userEntity) {
+		super();
+		this.songEntity = songEntity;
+		this.userEntity = userEntity;
+	}
+    
     
 	
 }

@@ -215,7 +215,6 @@ public class PopController {
 			// 4. 랜덤
 		} else { // 친구가 있으면 -> 내 친구들의 팝들 최신순으로 보여주기
 
-			// [[친구1의 팝1,친구1의 팝2],[친구2의 팝1],[친구3의 팝1]] 을 [친구1의 팝1, 친구2의 팝2, 친구2의 팝1, 친구3의 팝1]로 변경
 			friendsPopList.sort(new Comparator<FriendFeedDto>() {
 				@Override
 				public int compare(FriendFeedDto o1, FriendFeedDto o2) {
