@@ -11,4 +11,7 @@ import com.favshare.entity.InterestIdolEntity;
 public interface InterestIdolRepository extends JpaRepository<InterestIdolEntity, Integer>{
 	@Query(value ="select * from interest_idol where user_id = :userId", nativeQuery = true)
 	public List<InterestIdolEntity> findAllByUserId(@Param("userId") int userId);
+
+	@Query(value ="select * from interest_idol where idol_id = :idolId and user_id != :userId", nativeQuery = true)
+	public List<InterestIdolEntity> findByIdolIdExceptUserId(@Param("userId") int userId,@Param("idolId") int idolId);
 }

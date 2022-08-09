@@ -14,8 +14,11 @@ import com.favshare.dto.EmailPasswordDto;
 import com.favshare.dto.FeedDto;
 import com.favshare.dto.FeedUserIdDto;
 import com.favshare.dto.FollowDto;
+import com.favshare.dto.FriendFeedDto;
+import com.favshare.dto.IdolDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInFeedDto;
+import com.favshare.dto.SongDto;
 import com.favshare.dto.UserAccountDto;
 import com.favshare.dto.UserInfoDto;
 import com.favshare.dto.UserProfileDto;
@@ -24,12 +27,18 @@ import com.favshare.dto.YoutubeBookmarkDto;
 import com.favshare.dto.YoutubeDto;
 import com.favshare.entity.FeedEntity;
 import com.favshare.entity.FollowEntity;
+import com.favshare.entity.IdolEntity;
+import com.favshare.entity.InterestIdolEntity;
+import com.favshare.entity.InterestSongEntity;
 import com.favshare.entity.PopEntity;
 import com.favshare.entity.PopInFeedEntity;
+import com.favshare.entity.SongEntity;
 import com.favshare.entity.StoreYoutubeEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.repository.FeedRepository;
 import com.favshare.repository.FollowRepository;
+import com.favshare.repository.InterestIdolRepository;
+import com.favshare.repository.InterestSongRepository;
 import com.favshare.repository.PopRepository;
 import com.favshare.repository.UserRepository;
 import com.favshare.repository.YoutubeRepository;
@@ -54,6 +63,11 @@ public class UserService {
 	@Autowired
 	private ModelMapper modelMapper;	
 	
+	@Autowired
+	private InterestIdolRepository interestIdolRepository;
+	
+	@Autowired
+	private InterestSongRepository interestSongRepository;
 
 	public UserAccountDto getByEmail(String email) {
 		UserEntity userEntity;
@@ -171,6 +185,73 @@ public class UserService {
 		
 		
 	}
+	
+
+	public List<FriendFeedDto> getFollowingList(int userId) {
+		UserEntity userEntity = userRepository.findById(userId).get();
+		List<FollowEntity> followEntityList = userEntity.getFromUserEntityList();
+		// key값: 유저id value값: 해당 유저의 PopDto리스트
+		List<FriendFeedDto> result = new ArrayList<FriendFeedDto>();
+		for (int i = 0; i < followEntityList.size(); i++) {
+			
+			// 내가 팔로잉 하는 사람(i번째 사람)
+			UserEntity person = followEntityList.get(i).getToUserEntity();
+			
+			// 내가 팔로잉 하는 사람의 Pop엔티티
+			List<PopEntity> temp = followEntityList.get(i).getToUserEntity().getPopList();
+
+			// {내가 팔로잉 하는 사람:그 사람의 Pop리스트}
+			UserProfileDto userProfileDto = getUserProfileById(person.getId());
+			
+			// 내가 팔로잉 하는 사람의 Pop리스트
+			List<PopDto> popDtoList = Arrays.asList(modelMapper.map(temp,PopDto[].class));
+			// 팝이 없으면 담지 않음
+			if(popDtoList.size() == 0 ) continue;
+			
+			for (int j = 0; j < popDtoList.size(); j++) {
+				result.add(new FriendFeedDto(userProfileDto,popDtoList.get(j)));
+			}			
+		}
+		return result;		
+	}
+	
+	public List<UserProfileDto> getFollowerList(int userId){
+		UserEntity userEntity = userRepository.findById(userId).get();
+		List<FollowEntity> followEntityList = userEntity.getToUserEntityList();
+		List<UserEntity> followerList = new ArrayList<UserEntity>();
+		for (int i = 0; i < followEntityList.size(); i++) {
+			followerList.add(followEntityList.get(i).getFromUserEntity());
+		}
+		
+		List<UserProfileDto> UserProfileDtoList = Arrays.asList(modelMapper.map(followerList,UserProfileDto[].class));
+		
+		
+		return UserProfileDtoList;
+	}
+	
+	
+	public List<IdolDto> getInterestIdolList(int userId) {
+		List<InterestIdolEntity> interestIdolList = interestIdolRepository.findAllByUserId(userId);
+		List<IdolEntity> idolEntityList = new ArrayList<IdolEntity>();
+		for (int i = 0; i < interestIdolList.size(); i++) {
+			idolEntityList.add(interestIdolList.get(i).getIdolEntity());
+		}
+		List<IdolDto> idolDtoList = Arrays.asList(modelMapper.map(idolEntityList,IdolDto[].class));
+		return idolDtoList;
+	}
+	
+	public List<SongDto> getInterestSongList(int userId) {
+		List<InterestSongEntity> interestSongList = interestSongRepository.findAllByUserId(userId);
+		List<SongEntity> songEntityList = new ArrayList<SongEntity>();
+		for (int i = 0; i < interestSongList.size(); i++) {
+			songEntityList.add(interestSongList.get(i).getSongEntity());
+		}
+		List<SongDto> songDtoList = Arrays.asList(modelMapper.map(songEntityList,SongDto[].class));
+		return songDtoList;
+	}
+	
+	
+		
 	
 	public boolean isExistUserByEmail(String email) {
         UserEntity userEntity;

@@ -35,7 +35,7 @@ public class UserInterestController{
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@ApiOperation(value = "아직 미구현", response = ResponseEntity.class)
+	@ApiOperation(value = "유저가 선택한 취향 저장", response = ResponseEntity.class)
 	@PostMapping
 	public void saveInterest() {
 
