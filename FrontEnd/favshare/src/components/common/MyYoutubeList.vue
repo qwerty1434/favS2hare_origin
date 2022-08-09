@@ -10,11 +10,15 @@
 </template>
 <script>
 import MyYoutubeListItem from "./MyYoutubeListItem.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "MyYoutubeList",
   components: { MyYoutubeListItem },
   props: ["youtubeList"],
+  computed: {
+    ...mapState(["userId"]),
+  },
 };
 </script>
 <style></style>

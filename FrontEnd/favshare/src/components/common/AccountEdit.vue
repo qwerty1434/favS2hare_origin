@@ -98,7 +98,7 @@ export default {
     //   });
     // },
     updateProfile() {
-      console.log("update profile");
+      console.log("update user");
       this.updateUserInfo({
         userId: this.userId,
         password: this.passwordNew,

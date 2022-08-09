@@ -63,7 +63,7 @@ export default {
         .catch(() => {});
     },
     getUserInfo({ commit }, { userId, password }) {
-      console.log("herere");
+      console.log(userId + " " + password);
       axios({
         method: "post",
         url: `http://localhost:8080/user/info`,

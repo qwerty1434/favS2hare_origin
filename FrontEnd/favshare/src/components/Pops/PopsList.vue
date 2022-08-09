@@ -1,8 +1,6 @@
 <template>
   <v-continer>
-    <div>
-      <pops-list-item></pops-list-item>
-    </div>
+    <pops-list-item></pops-list-item>
   </v-continer>
 </template>
 <script>

@@ -1,41 +1,37 @@
 <template>
-  <div>
-    <v-row class="ma-n3">
-      <v-sheet
-        v-model="type1"
-        color="red lighten-3"
-        class="mx-auto"
-        height="70"
-        width="70"
-        rounded
-        @click="SearchPopsByType()"
-      ></v-sheet>
-      <v-sheet
-        rounded
-        color="yellow lighten-3"
-        class="mx-auto"
-        height="70"
-        width="70"
-        @click="SearchPopsByType()"
-      ></v-sheet>
-      <v-sheet
-        rounded
-        color="teal lighten-3"
-        class="mx-auto"
-        height="70"
-        width="70"
-        @click="SearchPopsByType()"
-      ></v-sheet>
-      <v-sheet
-        rounded
-        color="green lighten-3"
-        class="mx-auto"
-        height="70"
-        width="70"
-        @click="SearchPopsByType()"
-      ></v-sheet>
-    </v-row>
-  </div>
+  <v-row class="mt-1">
+    <v-sheet
+      v-model="type1"
+      color="red lighten-3"
+      class="pops-type-size"
+      :rounded="'xl'"
+      @click="SearchPopsByType()"
+    ></v-sheet>
+    <v-sheet
+      :rounded="'xl'"
+      color="yellow lighten-3"
+      class="pops-type-size"
+      @click="SearchPopsByType()"
+    ></v-sheet>
+    <v-sheet
+      :rounded="'xl'"
+      color="teal lighten-3"
+      class="pops-type-size"
+      @click="SearchPopsByType()"
+    ></v-sheet>
+    <v-sheet
+      :rounded="'xl'"
+      color="green lighten-3"
+      class="pops-type-size"
+      @click="SearchPopsByType()"
+    ></v-sheet>
+    <!-- <v-sheet
+      :rounded="'xl'"
+      color="blue lighten-3"
+      class="pops-type-size"
+      @click="SearchPopsByType()"
+    ></v-sheet> -->
+  </v-row>
 </template>
 <script>
 export default {
@@ -53,4 +49,10 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.pops-type-size {
+  height: 80px;
+  width: 80px;
+  margin: auto;
+}
+</style>

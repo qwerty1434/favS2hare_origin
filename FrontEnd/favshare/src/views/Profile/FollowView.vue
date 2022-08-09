@@ -24,22 +24,28 @@ import NavBar from "../../components/NavBar.vue";
 import FollowerList from "@/components/Profile/FollowerList.vue";
 import FollowingList from "@/components/Profile/FollowingList.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "FollowView",
   components: { NavBar, FollowerList, FollowingList, BottomNavigationBar },
   data() {
-    return {
-      isFollowing: false,
-    };
+    return {};
+  },
+  created() {
+    this.isFollowingTab();
+  },
+  watch: {
+    "$store.state.profile.followtab": function () {
+      console.log(this.$store.state.profile.followtab);
+    },
   },
   methods: {
-    setTabFollower() {
-      this.isFollowing = false;
-    },
-    setTabFollowing() {
-      this.isFollowing = true;
+    ...mapActions(["setTabFollower", "setTabFollowing"]),
+    isFollowingTab() {
+      if (this.followtab == 1) {
+        console.log("팔로잉 tab");
+      }
     },
   },
   computed: {
