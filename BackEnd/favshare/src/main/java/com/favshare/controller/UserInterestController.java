@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.IdolDto;
+import com.favshare.dto.InterestSaveDto;
 import com.favshare.dto.SongDto;
 import com.favshare.entity.IdolEntity;
 import com.favshare.entity.SongEntity;
 import com.favshare.service.IdolService;
+import com.favshare.service.InterestIdolService;
+import com.favshare.service.InterestSongService;
 import com.favshare.service.SongService;
 
 import io.swagger.annotations.ApiOperation;
@@ -27,18 +30,33 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/user/interest")
 public class UserInterestController{
 	@Autowired
-	IdolService idolService;
+	private IdolService idolService;
 
 	@Autowired
-	SongService songService;
+	private SongService songService;
+	
+	@Autowired
+	private InterestIdolService interestIdolService;
+	
+	@Autowired
+	private InterestSongService interestSongService;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@ApiOperation(value = "유저가 선택한 취향 저장", response = ResponseEntity.class)
 	@PostMapping
-	public void saveInterest() {
-
+	public void saveInterest(InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}} 이런 형식으로 값이 들어왔으면 좋겠음
+		int userId = interestSaveDto.getUserId();
+		List<Integer> IdolList = interestSaveDto.getIdolList();
+		List<Integer> SongList = interestSaveDto.getSongList();
+		for (int i = 0; i < SongList.size(); i++) {		
+			interestSongService.addSongFavorite(userId,SongList.get(i));
+		}
+		for (int i = 0; i < IdolList.size(); i++) {		
+			interestIdolService.addIdolFavorite(userId,IdolList.get(i));
+		}
+		
 	}
 
 	@ApiOperation(value = "모든 노래 정보 반환", response = ResponseEntity.class)

@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.favshare.entity.IdolEntity;
+import com.favshare.entity.SongEntity;
 import com.favshare.repository.IdolRepository;
 
 @Service
 public class IdolService{
 	@Autowired
 	private IdolRepository idolRepository;
-	
+		
 	public IdolEntity getIdolByName(String name) {
 		return idolRepository.findByName(name);
 	}
@@ -20,4 +21,6 @@ public class IdolService{
 	public List<IdolEntity> getIdolList(){
 		return idolRepository.findAll();		
 	}
+	
+	
 }

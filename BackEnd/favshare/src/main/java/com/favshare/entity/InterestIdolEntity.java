@@ -25,5 +25,11 @@ public class InterestIdolEntity {
     @JoinColumn(name="user_id",nullable = false)
     private UserEntity userEntity;
 
+	public InterestIdolEntity(IdolEntity idolEntity, UserEntity userEntity) {
+		super();
+		this.idolEntity = idolEntity;
+		this.userEntity = userEntity;
+	}
+
     
 }
