@@ -44,6 +44,10 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
+          data: {
+            email: user.email,
+            password: user.password,
+          },
         })
         .then((response) => {
           if (response.data.message === "success") {
