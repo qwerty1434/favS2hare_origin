@@ -1,6 +1,6 @@
 <template>
   <!-- tmp html -->
-  <div class="videos">
+  <!-- <div class="videos">
     <div
       v-for="youtubeVideo in youtubeVideos"
       :key="youtubeVideo.youtubeid"
@@ -8,17 +8,17 @@
     >
       <youtube-list-item :youtube-video="youtubeVideo"></youtube-list-item>
     </div>
-  </div>
+  </div> -->
   <!-- for-use html -->
-  <!-- <div>
+  <div>
     <div
       v-for="homeYoutube in homeYoutubes"
-      :key="homeYoutube"
+      :key="homeYoutube.youtubeId"
       class="videos__container"
     >
       <youtube-list-item :home-youtube="homeYoutube"></youtube-list-item>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -67,9 +67,9 @@ export default {
   },
   created() {
     // tmp function
-    this.setDummyYoutubes();
+    // this.setDummyYoutubes();
     // for-use function
-    // this.fetchHomeYoutubes();
+    this.fetchHomeYoutubes();
   },
   watch: {
     "$store.state.home.homeYoutubes": function () {

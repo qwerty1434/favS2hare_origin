@@ -40,6 +40,7 @@
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 import { mapGetters } from "vuex";
+import axios from "axios";
 
 Vue.use(VueYoutube);
 
@@ -59,7 +60,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["videoInfo"]),
+    ...mapGetters(["videoInfo", "userId"]),
   },
   methods: {
     playVideo() {
@@ -71,23 +72,56 @@ export default {
     setBookmark() {
       if (this.isBookmarkClicked === 1) {
         this.isBookmarkClicked = 0;
+        this.deleteStoredYoutube();
       } else {
         this.isBookmarkClicked = 1;
+        this.postStoredYoutube();
       }
     },
-    // postStoredYoutube() {
-    //   axios({
-    //     method: "post",
-    //     url: "http://localhost:8080/youtube/bookmark",
-    //     data: { userId: this.userId, youtubeId: this.youtubePk },
-    //   }).then((res) => {
-    //     if (res.data != 200) {
-    //       console.log("something wrong");
-    //     }
-    //   });
-    // },
+    postStoredYoutube() {
+      axios({
+        method: "post",
+        url: "http://localhost:8080/youtube/bookmark",
+        data: { userId: this.userId, youtubeUrl: this.videoInfo.videoId },
+      })
+        .then((res) => {
+          if (res.data !== 200) {
+            console.log("something wrong");
+          }
+        })
+        .catch((res) => {
+          console.log(this.userId);
+          console.log(this.videoInfo.videoId);
+          console.log(res);
+        });
+    },
+    deleteStoredYoutube() {
+      axios({
+        method: "delete",
+        url: "http://localhost:8080/youtube/bookmark",
+        data: { userId: this.userId, youtubeUrl: this.videoInfo.videoId },
+      }).then((res) => {
+        if (res.data !== 200) {
+          console.log("something wrong");
+        }
+      });
+    },
+    isStoreYoutube() {
+      axios({
+        method: "post",
+        url: "http://localhost:8080/youtube/bookmark/status",
+        data: { userId: this.userId, youtubeUrl: this.videoInfo.videoId },
+      })
+        .then(() => {
+          this.isBookmarkClicked = 1;
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
   },
   created() {
+    this.isStoreYoutube();
     this.playVideo();
   },
 };

@@ -5,7 +5,7 @@ export default {
   state: {
     homeYoutubes: [],
     newsFeedPops: [],
-    videoInfo: {}, // { youtubeId: ?, videoId: ?, channelName: ?, channelProfilePic: ?, videoTitle: ? }
+    videoInfo: {}, // { videoId: ?, channelName: ?, channelProfilePic: ?, videoTitle: ? }
   },
   getters: {
     homeYoutubes: (state) => state.homeYoutubes,
