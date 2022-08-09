@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.favshare.dto.PopAlgoDto;
 import com.favshare.dto.FollowDto;
 import com.favshare.dto.FriendFeedDto;
 import com.favshare.dto.IdolDto;
@@ -54,9 +55,21 @@ public class PopController {
 	@ApiOperation(value = "사용자에게 맞는 팝 리스트", response = List.class)
 	@GetMapping("/{userId}")
 	public ResponseEntity<List<PopDto>> showPopList(@PathVariable("userId") int userId) {
-
-		//알고리즘을 통해 팝 리스트 반환 
-		return null;
+		
+		try {
+			List<PopDto> result = new ArrayList<PopDto>();
+			List<PopAlgoDto> algoList = popService.getCustomPopList(userId);
+			
+			for(int i = 0; i < algoList.size(); i++) {
+				PopDto popDto = popService.getPopDtoById(algoList.get(i).getId());
+				result.add(popDto);
+			}
+			return new ResponseEntity<List<PopDto>>(result, HttpStatus.OK);  
+		} catch (Exception e) {
+			return new ResponseEntity<List<PopDto>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
 	}
 	
 	@ApiOperation(value = "팝 시청시 조회수 증가", response = ResponseEntity.class)
