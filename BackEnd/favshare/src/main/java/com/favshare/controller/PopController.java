@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.sound.midi.Soundbank;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,11 +60,18 @@ public class PopController {
 		
 		try {
 			List<PopDto> result = new ArrayList<PopDto>();
-			List<PopAlgoDto> algoList = popService.getCustomPopList(userId);
 			
-			for(int i = 0; i < algoList.size(); i++) {
-				PopDto popDto = popService.getPopDtoById(algoList.get(i).getId());
-				result.add(popDto);
+			// userId가 0이라는 것은 로그인하지 않았다는 의미
+			if(userId == 0) {
+				result = popService.getRandomPopList();
+			}
+			else {
+				List<PopAlgoDto> algoList = popService.getCustomPopList(userId);
+				
+				for(int i = 0; i < algoList.size(); i++) {
+					PopDto popDto = popService.getPopDtoById(algoList.get(i).getId());
+					result.add(popDto);
+				}				
 			}
 			return new ResponseEntity<List<PopDto>>(result, HttpStatus.OK);  
 		} catch (Exception e) {
