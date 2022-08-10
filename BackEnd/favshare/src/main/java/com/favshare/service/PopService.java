@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -191,10 +192,36 @@ public class PopService {
 		
 		});
 		
-//		System.out.println(algoList.toString());
-		
 		return algoList;
 		
+	}
+	
+	public List<PopDto> getRandomPopList(){
+		List<PopEntity> popEntityList = popRepository.findAll();
+		List<PopEntity> randomPopList = new ArrayList<PopEntity>();
+		
+		int [] randomList = new int[popEntityList.size()];
+		Random r = new Random();
+		
+		// 전체 pop의 개수 안에서 랜덤으로 순서 정함.
+		for(int i = 0; i < popEntityList.size(); i++) {
+			randomList[i] = r.nextInt(popEntityList.size());
+			for(int j = 0; j < i; j++) {
+				if(randomList[i] == randomList[j]) i--;
+			}
+		}
+		
+		System.out.println(Arrays.toString(randomList));
+		
+		
+		for(int i = 0; i < randomList.length; i++) {
+			randomPopList.add(popEntityList.get(randomList[i]));
+		}
+		
+		
+		List<PopDto> result = Arrays.asList(modelMapper.map(randomPopList,PopDto[].class));
+		
+		return result;
 	}
 
 	public List<Integer> findSimilarIdolInterst(int userId, int idolId) {

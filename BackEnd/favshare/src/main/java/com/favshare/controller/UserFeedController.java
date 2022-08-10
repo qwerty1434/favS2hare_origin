@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,33 +47,26 @@ public class UserFeedController {
 	@Autowired
 	private YoutubeService youtubeService;
 	
-	@ApiOperation(value="원하는 피드를 선택했을 때 해당 피드에 있는 pops 목록을 보여줍니다",response=ResponseEntity.class)	
-	@GetMapping
-	public void func1(@RequestBody FeedUserIdDto feedUserIdDto) {
-		// popsinfeedid
-		// pops리스트
-		// 동영상 리스트
-
-	}
 	
-	@ApiOperation(value="",response=ResponseEntity.class)	
+	@ApiOperation(value="feed에서 pop 하나 선택 시 pop의 재생 화면 나타내기",response=ResponseEntity.class)	
 	@PostMapping("/pop")		
-	public List<Object> func2(@RequestBody UserPopYoutubeIdDto userPopYoutubeIdDto) {
-		int userId = userPopYoutubeIdDto.getUserId();
-		int popId = userPopYoutubeIdDto.getPopId();
-		int youtubeId = userPopYoutubeIdDto.getPopId();
-		// pop: popId, title, startSecond, endSecond -> popDto
-		// user: userId, nickname, userPicture -> userProfileDto 
-		// youtube: youtubeId, youtubeName, youtubeUrl -> YoutubeEditDto
-		// -> youtubeName이라는 변수가 어디에도 존재하지 않음
-		PopDto popDto = popService.getPopDtoById(popId);
-		UserProfileDto userProfileDto = userService.getUserProfileById(userId);
-//		YoutubeEditDto youtubeEditDto = youtubeService.getYoutubeEditDtoById(youtubeId);
-		List<Object> lst = new ArrayList<Object>();
-		lst.add(popDto);
-		lst.add(userProfileDto);
-//		lst.add(youtubeEditDto);
-		return lst;
+	public ResponseEntity<HashMap<String, Object>> showOnePop(@RequestBody UserPopIdDto userPopIdDto) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		int userId = userPopIdDto.getUserId();
+		int popId = userPopIdDto.getPopId();
+
+		try {
+			PopDto popDto = popService.getPopDtoById(popId);
+			UserProfileDto userProfileDto = userService.getUserProfileById(userId);
+			
+			result.put("popInfo", popDto);
+			result.put("userInfo", userProfileDto);
+			
+			return new ResponseEntity<HashMap<String, Object>>(result, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<HashMap<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
 		
 	}
 	
