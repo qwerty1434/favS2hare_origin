@@ -1,8 +1,13 @@
 <template>
   <div>
-    <h4>FEED</h4>
     <div>
-      <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
+      <h4>FEED</h4>
+      <div v-if="isDelete">
+        <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
+      </div>
+      <div v-else>
+        <button @click="fetchIsDelete(true)">[삭제완료]</button>
+      </div>
     </div>
     <!-- <v-divider></v-divider>
     <div>
@@ -10,9 +15,6 @@
     </div> -->
     <div v-for="feedInfo in feedList" :key="feedInfo.id" class="popsitem">
       <feed-list-item :feed-info="feedInfo"></feed-list-item>
-    </div>
-    <div v-if="!isDelete">
-      <button @click="fetchIsDelete(true)">[삭제완료]</button>
     </div>
   </div>
 </template>

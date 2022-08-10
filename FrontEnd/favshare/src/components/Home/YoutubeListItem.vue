@@ -82,7 +82,7 @@ export default {
     // for-use-function
     getVideoInfo() {
       // 썸네일, 채널 id 받아오기
-      console.log(this.homeYoutube);
+      // console.log(this.homeYoutube);
       axios({
         method: "get",
         url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.homeYoutube.youtubeId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
@@ -94,8 +94,8 @@ export default {
           method: "get",
           url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
         }).then((res) => {
-          console.log(res);
-          console.log(res.data.items[0].snippet.thumbnails.default.url);
+          // console.log(res);
+          // console.log(res.data.items[0].snippet.thumbnails.default.url);
           this.channelProfilePic =
             res.data.items[0].snippet.thumbnails.default.url;
           this.channelName = res.data.items[0].snippet.title;
