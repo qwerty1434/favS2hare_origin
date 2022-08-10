@@ -18,7 +18,7 @@ import lombok.*;
 
 public class FollowEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne(fetch = FetchType.LAZY)

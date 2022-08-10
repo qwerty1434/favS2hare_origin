@@ -14,7 +14,7 @@ import lombok.*;
 
 public class PopInFeedEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int id;
     
     @ManyToOne(fetch = FetchType.LAZY)
