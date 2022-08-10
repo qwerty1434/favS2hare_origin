@@ -14,5 +14,10 @@ import com.favshare.entity.PopEntity;
 
 @Repository
 public interface PopRepository extends JpaRepository<PopEntity,Integer>{
+
+	@Query(value ="SELECT * FROM pop where content LIKE CONCAT('%',:keyword,'%') OR name LIKE CONCAT('%',:keyword,'%')", nativeQuery = true)
+	public List<PopEntity> findByKeywordContains(@Param("keyword") String keyword);	
+
+	
 	
 }

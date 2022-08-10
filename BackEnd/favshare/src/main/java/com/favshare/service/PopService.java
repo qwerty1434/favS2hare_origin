@@ -162,5 +162,11 @@ public class PopService {
 		return popDtoList;
 	}
 	
+	public List<PopDto> popDtoListByKeyword(String keyword){
+		
+		List<PopEntity> popEntityList = popRepository.findByKeywordContains(keyword);
+		List<PopDto> popDtoList = Arrays.asList(modelMapper.map(popEntityList,PopDto[].class));
+		return popDtoList;
+	}
 	
 }
