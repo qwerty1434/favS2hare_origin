@@ -89,7 +89,7 @@
   </v-container>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "SigninView",
@@ -109,7 +109,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isSignin"]),
+    // ...mapState(["isSignin"]),
+    ...mapGetters(["isSignin"]),
   },
   methods: {
     ...mapActions(["userConfirm"]),

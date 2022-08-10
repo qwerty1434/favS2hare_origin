@@ -161,16 +161,18 @@ export default {
         // 가입된 사용자인지 확인
         // 가입된 사용자 => then, 가입되지 않은 사용자 catch
         axios
-          .get(`http://13.124.112.241:8080/user/signup/${this.email}`)
+          // .get(`http://13.124.112.241:8080/user/signup/${this.email}`)
+          .get(`http://localhost:8080/user/signup/${this.email}`)
           .then(() => {
             // 가입된 사용자만 인증번호 전송
             axios
               .get(
-                `http://13.124.112.241:8080/user/password/sendAuth/${this.email}`
+                // `http://13.124.112.241:8080/user/password/sendAuth/${this.email}`
+                `http://localhost:8080/user/password/sendAuth/${this.email}`
               )
               .then((response) => {
                 // 요청 결과로 받은 인증번호 저장
-                this.receivedAuthNumber = response.data.authNumber;
+                this.receivedAuthNumber = response.data;
                 this.isSent = true;
               })
               .catch((error) => {
@@ -207,10 +209,17 @@ export default {
       // 유효성 검사를 통과할 경우
       if (this.$refs.passwordForm.validate()) {
         axios
-          .post("http://13.124.112.241:8080/user/password", {
-            email: this.email,
-            password: this.password,
-          })
+          // .put("http://13.124.112.241:8080/user/password", {
+          .put(
+            "http://localhost:8080/user/password",
+            {},
+            {
+              params: {
+                email: this.email,
+                password: this.password,
+              },
+            }
+          )
           .then(() => {
             alert("비밀번호 변경이 완료되었습니다. 다시 로그인해주세요");
             this.$router.push({ name: "signin" });

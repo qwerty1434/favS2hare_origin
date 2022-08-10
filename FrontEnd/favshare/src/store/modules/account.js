@@ -14,6 +14,7 @@ export default {
     },
     userId: (state) => state.userId,
     userInfo: (state) => state.userInfo,
+    isSignin: (state) => state.isSignin,
   },
   mutations: {
     SET_IS_SIGNIN: (state, isSignin) => {
@@ -64,7 +65,9 @@ export default {
             commit("SET_IS_SIGNIN_ERROR", true);
           }
         })
-        .catch(() => {});
+        .catch((response) => {
+          console.log(response);
+        });
     },
     getUserInfo({ commit }, { userId, password }) {
       console.log(userId + " " + password);

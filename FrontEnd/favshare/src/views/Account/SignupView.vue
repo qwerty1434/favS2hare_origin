@@ -177,7 +177,7 @@ export default {
         email: "",
         authNumber: "",
         password: "",
-        username: "",
+        name: "",
         nickname: "",
         birthDate: "",
         phone: "",
@@ -235,7 +235,8 @@ export default {
         // 에러 타입에 따라 if 문을 넣어야하나?
         // 400 에러 뜨면 통과인듯...?
         axios
-          .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
+          // .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
+          .get(`http://localhost:8080/user/signup/${this.user.email}`)
           .then(() => {
             console.log(
               "사용자에게는 이미 가입된 경우만 alert가 보여야 합니다"
@@ -248,11 +249,12 @@ export default {
             // 500 에러가 뜨는 기묘한 상황
             axios
               .get(
-                `http://13.124.112.241:8080/user/password/sendAuth/${this.user.email}`
+                // `http://13.124.112.241:8080/user/password/sendAuth/${this.user.email}`
+                `http://localhost:8080/user/password/sendAuth/${this.user.email}`
               )
               .then((response) => {
                 // 요청 결과로 받은 인증번호 저장
-                this.receivedAuthNumber = response.data.authNumber;
+                this.receivedAuthNumber = response.data;
                 this.isSent = true;
               })
               .catch((error) => {
@@ -287,7 +289,8 @@ export default {
       if (this.$refs.signupForm.validate()) {
         await axios
           .post(
-            "http://13.124.112.241:8080/user/signup",
+            // "http://13.124.112.241:8080/user/signup",
+            "http://localhost:8080/user/signup",
             JSON.stringify(this.user),
             {
               headers: {
