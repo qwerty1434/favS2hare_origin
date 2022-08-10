@@ -24,7 +24,7 @@
               id="idInput"
               v-model="user.email"
               prepend-inner-icon="mdi-account-box"
-              :rules="[rules.IsEmail]"
+              :rules="[rules.isEmail]"
               label="ID"
               placeholder="e-mail@example.com"
               background-color="#FFE3A9"
@@ -184,7 +184,7 @@ export default {
       },
       password2: "",
       rules: {
-        IsEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
+        isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
         authNumberLength: (value) =>
           value.length == 15 || "인증번호는 15자입니다",
         pwLength: (value) =>
@@ -230,26 +230,34 @@ export default {
       // 유효성 검사를 통과할 경우
       if (this.$refs.sendingForm.validate()) {
         // 가입된 사용자인지 확인
+        // 가입된 사용자 => then, 가입되지 않은 사용자 catch
+        // 의문: 모든 에러가 catch로 올텐데, "가입되지 않은 ID"임을 catch로 받아도 될까?
+        // 에러 타입에 따라 if 문을 넣어야하나?
+        // 400 에러 뜨면 통과인듯...?
         axios
-          .get(`http://localhost:8080/user/signup/${this.user.email}`)
+          .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .then(() => {
+            console.log(
+              "사용자에게는 이미 가입된 경우만 alert가 보여야 합니다"
+            );
+            alert("이미 가입된 ID입니다");
+          })
+          .catch((error) => {
+            console.log("가입된 사용자 확인 API 에러: ", error);
             // 가입되지 않은 사용자라면 인증번호 요청
+            // 500 에러가 뜨는 기묘한 상황
             axios
-              .get("http://localhost:8080/user/password/sendAuth", {
-                email: this.email,
-              })
+              .get(
+                `http://13.124.112.241:8080/user/password/sendAuth/${this.user.email}`
+              )
               .then((response) => {
                 // 요청 결과로 받은 인증번호 저장
                 this.receivedAuthNumber = response.data.authNumber;
                 this.isSent = true;
+              })
+              .catch((error) => {
+                console.log("인증번호 전송 API 에러: ", error);
               });
-          })
-          .catch((error) => {
-            console.log(
-              "사용자에게는 이미 가입된 경우만 alert가 보여야 합니다"
-            );
-            console.log("에러: ", error);
-            alert("이미 가입된 ID입니다");
           });
         // 유효성 검사 통과 못한 경우
       } else {
@@ -279,7 +287,7 @@ export default {
       if (this.$refs.signupForm.validate()) {
         await axios
           .post(
-            "https://localhost:8080/user/signup",
+            "http://13.124.112.241:8080/user/signup",
             JSON.stringify(this.user),
             {
               headers: {

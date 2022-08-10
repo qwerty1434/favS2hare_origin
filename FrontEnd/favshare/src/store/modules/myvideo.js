@@ -2,23 +2,25 @@ import axios from "axios";
 
 export default {
   state: {
+    userIdInMyVideo: 1,
     myVideoList: [],
   },
   getters: {
-    myvideo: (state) => state.myVideoList,
+    userIdInMyVideo: (state) => state.userIdInMyVideo,
+    myVideoList: (state) => state.myVideoList,
   },
   mutations: {
     SET_MYYOUTUBE: (state, myVideoList) => (state.myVideoList = myVideoList),
   },
   actions: {
-    getMyVideo({ commit }, { userId }) {
-      console.log(userId);
+    getMyVideo({ commit }, { userIdInMyVideo }) {
+      console.log(userIdInMyVideo);
       axios({
         method: "get",
-        url: `http://localhost:8080/youtube/bookmark/${userId}`,
+        url: `http://localhost:8080/youtube/bookmark/${userIdInMyVideo}`,
       }).then((res) => {
-        console.log(res);
-        commit("SET_MYYOUTUBE");
+        console.log(res.data);
+        commit("SET_MYYOUTUBE", res.data);
       });
     },
   },
