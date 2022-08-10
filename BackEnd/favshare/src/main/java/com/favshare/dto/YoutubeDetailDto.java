@@ -18,12 +18,12 @@ public class YoutubeDetailDto {
 
 	
 	private String url;
-	
-  	private List<PopDto> popList = new ArrayList<>();		
+	private boolean isBookmarked;
+	private List<PopDto> popList = new ArrayList<>();		
   	
-  	public YoutubeDetailDto(String url) {
+  	public YoutubeDetailDto(String url, boolean isBookmarked) {
   		this.url = url;
-//  		this.popList = youtubeEntity.getPopList();
+  		this.isBookmarked = isBookmarked;
   	}
 
 }

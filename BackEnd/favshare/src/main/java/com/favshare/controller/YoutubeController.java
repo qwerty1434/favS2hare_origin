@@ -13,11 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.YoutubeDetailDto;
 import com.favshare.dto.YoutubeDto;
+import com.favshare.dto.YoutubeUserIdDto;
 import com.favshare.service.YoutubeService;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequest;
@@ -74,10 +77,10 @@ public class YoutubeController {
 	}
 
 	@ApiOperation(value = "유튜브 관련 정보", response = YoutubeDetailDto.class)
-	@GetMapping("/detail/{youtubeUrl}")
-	public ResponseEntity<YoutubeDetailDto> showYoutubeDetil(@PathVariable("youtubeUrl") String youtubeUrl) {
+	@PostMapping("/detail")
+	public ResponseEntity<YoutubeDetailDto> showYoutubeDetil(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
-			YoutubeDetailDto youtubeDetailDto = youtubeService.getDetailByUrl(youtubeUrl);
+			YoutubeDetailDto youtubeDetailDto = youtubeService.getDetailByUrl(youtubeUserIdDto);
 			return new ResponseEntity<YoutubeDetailDto>(youtubeDetailDto, HttpStatus.OK);  
 		}catch(Exception e) {
 			return new ResponseEntity<YoutubeDetailDto>(HttpStatus.BAD_REQUEST); 
