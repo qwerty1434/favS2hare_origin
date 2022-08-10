@@ -11,7 +11,7 @@
         <v-icon>mdi-home</v-icon>
       </v-btn>
     </router-link> -->
-    <v-btn @clikc="routerPushes('home')">
+    <v-btn @click="routerPushes('home')">
       <span>Home</span>
 
       <v-icon>mdi-home</v-icon>
