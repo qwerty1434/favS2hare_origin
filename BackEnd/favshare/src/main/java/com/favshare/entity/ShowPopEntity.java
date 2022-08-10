@@ -17,11 +17,11 @@ public class ShowPopEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)	
 	private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="pop_id", nullable = false)
     private PopEntity popEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable = false)
     private UserEntity userEntity;
     

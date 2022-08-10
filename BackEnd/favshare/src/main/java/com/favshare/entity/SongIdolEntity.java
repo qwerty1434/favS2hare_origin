@@ -18,11 +18,11 @@ public class SongIdolEntity {
 	private int id;
 	
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="song_id", nullable = false)
     private SongEntity songEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idol_id",nullable = false)
     private IdolEntity idolEntity;
     

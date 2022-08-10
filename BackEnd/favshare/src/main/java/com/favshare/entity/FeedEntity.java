@@ -28,7 +28,7 @@ public class FeedEntity {
     @Column(name="feed_image_url")
     private String feedImageUrl;
     
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="user_id", nullable = false)
 	private UserEntity userEntity;
 
@@ -43,12 +43,7 @@ public class FeedEntity {
 		this.feedImageUrl = feedImageUrl;
 	}
 	
-	// 이 함수를 2개를 만들어서 해야할까? (대표 -> 일반, 일반 -> 대표)
-//	public void changeIsFirst() {
-//		this.isFirst = !this.isFirst;
-//	
-//	}
-	
+
 	public void changeIsFirst() {
 		this.isFirst = true;
 	
