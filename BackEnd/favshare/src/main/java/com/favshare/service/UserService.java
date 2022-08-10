@@ -251,7 +251,6 @@ public class UserService {
 	}
 	
 	
-		
 	
 	public boolean isExistUserByEmail(String email) {
         UserEntity userEntity;
@@ -263,5 +262,12 @@ public class UserService {
         }
     }
 	
+	
+	public List<UserProfileDto> userDtoListByKeyword(String keyword){
+		
+		List<UserEntity> userEntityList = userRepository.findByKeywordContains(keyword);
+		List<UserProfileDto> userDtoList = Arrays.asList(modelMapper.map(userEntityList,UserProfileDto[].class));
+		return userDtoList;
+	}	
 
 }
