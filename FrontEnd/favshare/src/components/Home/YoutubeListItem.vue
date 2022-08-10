@@ -82,7 +82,7 @@ export default {
     // for-use-function
     getVideoInfo() {
       // 썸네일, 채널 id 받아오기
-      // console.log(this.homeYoutube);
+      // console.log(this.homeYoutube.youtubeId);
       axios({
         method: "get",
         url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.homeYoutube.youtubeId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,

@@ -18,7 +18,11 @@
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
-    <v-btn @click="[fetchFeedUserInfo(userId), fetchFeedList(userId)]">
+    <v-btn
+      @click="
+        routerPushes('feed'), [fetchFeedUserInfo(userId), fetchFeedList(userId)]
+      "
+    >
       <span>Profile</span>
 
       <v-icon>mdi-account</v-icon>
