@@ -18,6 +18,10 @@ public class IdolService{
 		return idolRepository.findByName(name);
 	}
 	
+	public List<IdolEntity> getIdolContains(String name){
+		return idolRepository.findByKeywordContains(name);
+	}
+	
 	public List<IdolEntity> getIdolList(){
 		return idolRepository.findAll();		
 	}
