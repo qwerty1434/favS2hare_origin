@@ -9,6 +9,7 @@ export default {
     feedList: [],
     freindInfo: {},
     feedPops: [],
+    feedPop: {},
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
     isDelete: true,
   },
@@ -20,6 +21,7 @@ export default {
     deleteFeedPopsList: (state) => state.isDelete,
     feedList: (state) => state.feedList,
     feedPops: (state) => state.feedPops,
+    feedPop: (state) => state.feedPop,
   },
   mutations: {
     SET_FEEDUSERINFO: (state, feedUserInfo) =>
@@ -37,6 +39,7 @@ export default {
         }
       });
     },
+    SET_FEEDPOP: (state, feedPop) => (state.feedPop = feedPop),
   },
   actions: {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
@@ -156,6 +159,10 @@ export default {
           console.log(err);
           commit(err);
         });
+    },
+
+    fetchFeedPop({ commit }, pop) {
+      commit("SET_FEEDPOP", pop);
     },
   },
 };
