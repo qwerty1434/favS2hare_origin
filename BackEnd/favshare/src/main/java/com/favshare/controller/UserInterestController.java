@@ -73,13 +73,13 @@ public class UserInterestController{
 
 	@ApiOperation(value = "이름으로 아이돌 찾기", response = ResponseEntity.class)
 	@GetMapping("/findIdol/{name}")
-	public ResponseEntity<IdolDto> findIdol(@PathVariable("name") String name) {
+	public ResponseEntity<List<IdolDto>> findIdol(@PathVariable("name") String name) {
 		try {
-			IdolEntity idolEntity = idolService.getIdolByName(name);
-			IdolDto result = new IdolDto(idolEntity);
-			return new ResponseEntity<IdolDto>(result, HttpStatus.OK);
+			List<IdolEntity> idolEntityList = idolService.getIdolContains(name);
+			List<IdolDto> idolDtoList = Arrays.asList(modelMapper.map(idolEntityList, IdolDto[].class));
+			return new ResponseEntity<List<IdolDto>>(idolDtoList, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<IdolDto>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<IdolDto>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
