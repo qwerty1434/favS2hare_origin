@@ -18,6 +18,8 @@ export default {
     followtab: (state) => state.followtab,
     isDelete: (state) => state.isDelete,
     deleteFeedPopsList: (state) => state.isDelete,
+    feedList: (state) => state.feedList,
+    feedPops: (state) => state.feedPops,
   },
   mutations: {
     SET_FEEDUSERINFO: (state, feedUserInfo) =>
@@ -40,6 +42,7 @@ export default {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
     // 어떤 유저인지를 입력변수로 받음
     fetchFeedUserInfo({ commit }, userId) {
+      console.log("우선 여기", userId);
       axios({
         method: "get",
         url: `http://localhost:8080/user/profile/${userId}`,
@@ -52,14 +55,27 @@ export default {
     // 마이 프로필 화면 중간 피드 목록 받는 함수
     // 받자마자 대표피드 id 찾아서 popsInFeed 받는 함수 실행시켜야 함
     // 어떤 유저인지를 입력변수로 받음
-    fetchFeedList({ commit }, userId) {
+    fetchFeedList({ commit, getters }, userId) {
+      console.log("2번");
       axios({
         method: "get",
         url: `http://localhost:8080/user/profile/feed/${userId}`,
       }).then((res) => {
-        for (const feed in res.data) {
+        console.log("피드리스트", res.data);
+        for (const feed of res.data) {
           if (feed.first) {
-            this.fetchFeedPops(feed.id); // 밑에
+            console.log("3번");
+            axios({
+              method: "post",
+              url: "http://localhost:8080/user/profile/popList",
+              data: {
+                userId: getters.userId,
+                feedId: feed.id,
+              },
+            }).then((res) => {
+              console.log("피드 팝스", res.data);
+              commit("SET_FEEDPOPS", res.data);
+            });
           }
         }
         commit("SET_FEEDLIST", res.data);
@@ -68,10 +84,13 @@ export default {
 
     // 피드 클릭 시 피드의 팝스들을 리스트로 받는 함수
     fetchFeedPops({ commit }, feedId) {
+      console.log("3번");
       axios({
         method: "get",
         url: `http://localhost:8080/user/profile/feed/${feedId}`,
       }).then((res) => {
+        console.log("피드팝스", res.data);
+        console.log(res.data);
         commit("SET_FEEDPOPS", res.data);
       });
     },

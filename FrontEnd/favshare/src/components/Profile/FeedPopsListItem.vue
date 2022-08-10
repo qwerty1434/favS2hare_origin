@@ -5,9 +5,9 @@
         <v-icon>mdi-minus-circle-outline</v-icon>
       </v-btn>
     </div>
-    <div class="feed-pops-item">
+    <div class="feed-pops-item" @click="routerPush('popsinfeed')">
       <youtube
-        :video-id="videoId"
+        :video-id="feedPop.youtubeUrl"
         :player-vars="playerVars"
         :ref="'pops' + this.feedPop.id"
         @ready="onPlayerReady"
@@ -18,19 +18,6 @@
       >
       </youtube>
     </div>
-    <!-- <router-link :to="{ name: 'popsinfeed' }">
-      <youtube
-        :video-id="videoId"
-        :player-vars="playerVars"
-        :ref="'pops' + this.feedPops.id"
-        @ready="onPlayerReady"
-        @playing="onPlaying"
-        :width="170"
-        :height="96"
-        style="pointer-events: none; border-radius: 4px"
-      >
-      </youtube>
-    </router-link> -->
   </div>
 </template>
 
@@ -39,6 +26,7 @@ import VueYoutube from "vue-youtube";
 import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
+import router from "@/router";
 
 Vue.use(VueYoutube);
 
@@ -63,9 +51,6 @@ export default {
     feedPop: Object, // { id(pops), name, *youtubeUrl(추가필요), startSecond, endSecond, content, createDate, views, likeCount }
   },
   computed: {
-    videoId() {
-      return this.feedPop.youtubeUrl.slice(-11);
-    },
     player() {
       return this.$refs[`pops${this.feedPop.id}`].player;
     },
@@ -99,6 +84,9 @@ export default {
           popsId: this.feedPop.id,
         },
       });
+    },
+    routerPush(name) {
+      router.push({ name: name });
     },
   },
   watch: {

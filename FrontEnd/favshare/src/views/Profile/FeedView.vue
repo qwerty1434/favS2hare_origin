@@ -2,7 +2,9 @@
   <div>
     <nav-bar></nav-bar>
     <feed-info class="feed-view"></feed-info>
+    <v-divider></v-divider>
     <feed-list class="rpops"></feed-list>
+    <v-divider></v-divider>
     <feed-pops-list></feed-pops-list>
     <bottom-navigation-bar></bottom-navigation-bar>
   </div>
@@ -24,12 +26,13 @@ export default {
 
 <style>
 .feed-view {
-  padding-top: 20px;
+  padding-top: 50px;
   padding-left: 40px;
 }
 
 .rpops {
   width: 360px;
+  padding-top: 40px;
   padding: 20px;
   overflow: scroll;
   overflow: auto;

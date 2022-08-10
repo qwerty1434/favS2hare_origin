@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="user-info">
       <div class="user-pic">
         <v-avatar>
           <img :src="feedUserInfo.userPicture" alt="John" />
@@ -9,22 +9,17 @@
       <div class="profile-stats">
         <ul>
           <li>
-            <span class="stats">{{ feedUserInfo.count }}</span
-            >게시 '팝'
+            <div>게시 '팝'</div>
+            <div>{{ feedUserInfo.popCount }}</div>
           </li>
-          <router-link :to="{ name: 'follow' }">
-            <li @click="setTabFollower">
-              <span class="stats">{{ feedUserInfo.followerNum }}</span
-              >팔로워 수
-            </li>
-          </router-link>
-          <v-divider></v-divider>
-          <router-link :to="{ name: 'follow' }">
-            <li @click="setTabFollowing">
-              <span class="stats">{{ feedUserInfo.followingNum }}</span
-              >팔로잉 수
-            </li>
-          </router-link>
+          <li @click="[setTabFollower, routerPushes('follow')]">
+            <div>팔로워 수</div>
+            <div>{{ feedUserInfo.followerNum }}</div>
+          </li>
+          <li @click="[setTabFollower, routerPushes('follow')]">
+            <div>팔로잉 수</div>
+            <div>{{ feedUserInfo.followingNum }}</div>
+          </li>
         </ul>
       </div>
     </div>
@@ -40,6 +35,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -78,6 +74,9 @@ export default {
   },
   methods: {
     ...mapActions(["setTabFollower", "setTabFollowing"]),
+    routerPushes(name) {
+      router.push({ name: name });
+    },
   },
   watch: {
     "$store.state.profile.feedUserInfo": function () {
@@ -98,5 +97,10 @@ export default {
 
 .profile-stats li {
   cursor: pointer;
+  list-style-type: none;
+  float: left;
+  padding-right: 10px;
+  align-content: center;
+  justify-content: center;
 }
 </style>
