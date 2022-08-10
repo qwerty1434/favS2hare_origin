@@ -14,7 +14,7 @@
         </v-col>
       </v-row>
       <!-- 인증번호 전송 Form -->
-      <v-form>
+      <v-form ref="sendingForm">
         <v-row no-gutters v-if="!isConfirmed">
           <v-col offset="1" cols="10">
             <v-text-field
@@ -44,7 +44,7 @@
         </v-row>
       </v-form>
       <!-- 인증번호확인 Form -->
-      <v-form v-if="isSent && !isConfirmed">
+      <v-form ref="confirmForm" v-if="isSent && !isConfirmed">
         <v-row no-gutters>
           <v-col offset="1" cols="10">
             <v-text-field
@@ -72,7 +72,7 @@
         </v-row>
       </v-form>
       <!-- 비밀번호재설정 Form -->
-      <v-form v-if="isConfirmed">
+      <v-form ref="passwordForm" v-if="isConfirmed">
         <v-row>
           <v-col offset="1" cols="10">
             <v-text-field
@@ -119,6 +119,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "FindPwView",
   data() {
@@ -127,7 +129,7 @@ export default {
       authNumber: "",
       password: "",
       password2: "",
-      receivedAuthNumber: "",
+      receivedAuthNumber: "111111111111111",
       // 인증번호 발송 여부
       isSent: false,
       // 이메일 인증 완료 여부
@@ -154,18 +156,69 @@ export default {
     },
     // 인증번호 발송
     sendAuthNumber() {
-      console.log(this.email);
-      this.isSent = true;
+      //  유효성 검사를 통과할 경우
+      if (this.$refs.sendingForm.validate()) {
+        // 가입된 사용자인지 확인
+        // 가입된 사용자 => then, 가입되지 않은 사용자 catch
+        axios
+          .get(`http://13.124.112.241:8080/user/signup/${this.email}`)
+          .then(() => {
+            // 가입된 사용자만 인증번호 전송
+            axios
+              .get(
+                `http://13.124.112.241:8080/user/password/sendAuth/${this.email}`
+              )
+              .then((response) => {
+                // 요청 결과로 받은 인증번호 저장
+                this.receivedAuthNumber = response.data.authNumber;
+                this.isSent = true;
+              })
+              .catch((error) => {
+                console.log("인증번호 전송 API 에러: ", error);
+              });
+          })
+          .catch((error) => {
+            console.log("가입된 사용자 확인 API 에러: ", error);
+            alert("회원가입되지 않은 ID입니다");
+          });
+      } else {
+        this.email = "";
+        alert("이메일 형식의 ID를 입력해주세요");
+      }
     },
     // 인증번호 확인
     checkAuthNumber() {
-      console.log(this.authNumber);
-      this.isConfirmed = true;
+      // 유효성 검사를 통과할 경우
+      if (this.$refs.confirmForm.validate()) {
+        // 사용자가 입력한 인증번호와 응답받은 인증번호가 일치할 때
+        if (this.authNumber === this.receivedAuthNumber) {
+          this.isConfirmed = true;
+        } else {
+          this.authNumber = "";
+          alert("잘못된 인증번호입니다");
+        }
+      } else {
+        this.authNumber = "";
+        alert("인증번호의 자리수를 확인해주세요");
+      }
     },
     // 비밀번호 변경
     changePassword() {
-      console.log(this.password);
-      console.log(this.password2);
+      // 유효성 검사를 통과할 경우
+      if (this.$refs.passwordForm.validate()) {
+        axios
+          .post("http://13.124.112.241:8080/user/password", {
+            email: this.email,
+            password: this.password,
+          })
+          .then(() => {
+            alert("비밀번호 변경이 완료되었습니다. 다시 로그인해주세요");
+            this.$router.push({ name: "signin" });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
     // 인증번호 발송 후, email 입력을 바꾸면 저장된 값 초기화
     resetAuthNumber() {
