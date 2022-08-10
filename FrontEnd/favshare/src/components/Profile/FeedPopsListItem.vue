@@ -57,7 +57,7 @@ export default {
     ...mapGetters(["isDelete", "feedPops"]),
   },
   methods: {
-    ...mapActions(["spliceFeedPops"]),
+    ...mapActions(["spliceFeedPops", "fetchFeedPop"]),
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();
@@ -86,6 +86,7 @@ export default {
       });
     },
     routerPush(name) {
+      this.fetchFeedPop(this.feedPop);
       router.push({ name: name });
     },
   },
