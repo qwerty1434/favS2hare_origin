@@ -26,6 +26,15 @@
         >
         </youtube>
       </div>
+      <div class="video-info">
+        <div class="user-pic">
+          <v-avatar>
+            <img :src="feedUserInfo.userPicture" alt="" />
+          </v-avatar>
+          <div>{{ feedUserInfo.nickname }}</div>
+        </div>
+        <div>{{ feedPop.content }}</div>
+      </div>
     </v-sheet>
     <bottom-navigation-bar></bottom-navigation-bar>
   </div>
@@ -107,4 +116,16 @@ export default {
   position: absolute;
   top: 60px;
 }
+
+.video-info {
+  display: flex;
+  position: absolute;
+  top: 280px;
+  left: 15px;
+}
+/* .user-pic {
+  position: absolute;
+  top: 280px;
+  left: 15px;
+} */
 </style>
