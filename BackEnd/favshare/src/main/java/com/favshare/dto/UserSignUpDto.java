@@ -1,6 +1,9 @@
 package com.favshare.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.favshare.entity.UserEntity;
 
@@ -14,7 +17,8 @@ public class UserSignUpDto {
 	private String email;
 	private String password;
 	private String nickname;    
-	private LocalDateTime birthDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthDate;
 	private String phone;
 //	private String content;
 //	private String profileImageUrl;

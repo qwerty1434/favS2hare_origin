@@ -5,6 +5,10 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.*;
 
 @Entity
@@ -28,7 +32,8 @@ public class UserEntity {
 	private String nickname;
     
     @Column(name= "birth_date")
-	private LocalDateTime birthDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthDate;
 	private String phone;
 	private String content;
     @Column(name= "profile_image_url")
@@ -88,7 +93,7 @@ public class UserEntity {
 		this.profileImageUrl = profileImageUrl;
 	}
 	
-	public void changeUserInfo(String name, String password, String phone ,LocalDateTime birthDate) {
+	public void changeUserInfo(String name, String password, String phone ,Date birthDate) {
 		this.name = name;
 		this.password = password;
 		this.phone = phone;
