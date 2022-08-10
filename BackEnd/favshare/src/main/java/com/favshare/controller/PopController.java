@@ -134,13 +134,19 @@ public class PopController {
 	
 	@ApiOperation(value = "유튜브 원본 영상에 만들어진 팝 리스트", response = PopInfoDto.class)
 	@GetMapping("/youtube/{popId}")
-	public ResponseEntity<List<PopDto>> showOrginYoutubePopInfo(@PathVariable("popId") int popId) {
+	public ResponseEntity<HashMap<String, Object>> showOrginYoutubePopInfo(@PathVariable("popId") int popId) {
 		try {
+			HashMap<String, Object> result = new HashMap<String, Object>();
 			PopInfoDto popInfoDto  = popService.getPopInfoById(popId);
 			List<PopDto> popList = popService.getPopListById(popInfoDto.getYoutubeId());
-			return new ResponseEntity<List<PopDto>>(popList, HttpStatus.OK);  
+			int countPopByYoutubeId = popList.size();
+			
+			result.put("countPopList", countPopByYoutubeId);
+			result.put("popInfo", popList);
+			
+			return new ResponseEntity<HashMap<String, Object>>(result, HttpStatus.OK);  
 		}catch(Exception e) {
-			return new ResponseEntity<List<PopDto>>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<HashMap<String, Object>>(HttpStatus.BAD_REQUEST); 
 		}
 	}
 	
