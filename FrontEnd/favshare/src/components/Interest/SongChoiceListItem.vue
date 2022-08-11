@@ -17,25 +17,32 @@ export default {
       isSelected: false,
     };
   },
-  methods: {
-    select() {
+  watch: {
+    isSelected(newVal) {
       const item = document.getElementById(this.songId);
       const nameInItem = document.getElementById(this.songId + this.name);
-      // 이미 선택되었을 때
-      if (this.isSelected) {
-        // 스타일 변경
-        item.setAttribute("class", "option unselected-option");
-        nameInItem.setAttribute("class", "name unselected-name");
-        // 선택취소 사실 전달
-        this.$emit("unselectSong", this.songId);
-        this.isSelected = false;
-        // 선택되지 않았을 때
-      } else {
+      if (newVal) {
         // 스타일 변경
         item.setAttribute("class", "option selected-option");
         nameInItem.setAttribute("class", "name selected-name");
         // 선택 사실 전달
         this.$emit("selectSong", this.songId);
+      } else {
+        // 스타일 변경
+        item.setAttribute("class", "option unselected-option");
+        nameInItem.setAttribute("class", "name unselected-name");
+        // 선택취소 사실 전달
+        this.$emit("unselectSong", this.songId);
+      }
+    },
+  },
+  methods: {
+    select() {
+      // 이미 선택되었을 때
+      if (this.isSelected) {
+        this.isSelected = false;
+        // 선택되지 않았을 때
+      } else {
         this.isSelected = true;
       }
     },

@@ -6,6 +6,7 @@
       </div>
     </v-col>
     <song-choice-list-item
+      ref="songChoiceListItem"
       v-for="songListItem in songList"
       :songId="songListItem.songId"
       :name="songListItem.name"
@@ -28,22 +29,34 @@ export default {
       isSelected: false,
     };
   },
+  watch: {
+    isSelected(newVal) {
+      const item = document.getElementById("non-choice");
+      if (newVal) {
+        item.setAttribute("class", "option selected-option");
+        this.$refs.songChoiceListItem.forEach((item) => {
+          item.isSelected = false;
+        });
+      } else {
+        item.setAttribute("class", "option unselected-option");
+      }
+    },
+  },
   methods: {
+    // 다른 선택지가 선택되면
     emitSelectSong(songId) {
+      // 선택안함 버튼은 선택 취소
+      this.isSelected = false;
       this.$emit("emitSelectSong", songId);
     },
     emitUnselectSong(songId) {
       this.$emit("emitUnselectSong", songId);
     },
     select() {
-      const item = document.getElementById("non-choice");
       // 이미 선택되어 있을 때
       if (this.isSelected) {
-        // 스타일 변경
-        item.setAttribute("class", "option unselected-option");
         this.isSelected = false;
       } else {
-        item.setAttribute("class", "option selected-option");
         this.isSelected = true;
       }
     },
