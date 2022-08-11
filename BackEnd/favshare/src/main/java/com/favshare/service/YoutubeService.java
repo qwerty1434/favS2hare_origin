@@ -22,6 +22,7 @@ import com.favshare.entity.UserEntity;
 import com.favshare.entity.YoutubeEntity;
 import com.favshare.repository.IdolRepository;
 import com.favshare.repository.InterestIdolRepository;
+import com.favshare.repository.StoreYoutubeRepository;
 import com.favshare.repository.UserRepository;
 import com.favshare.repository.YoutubeRepository;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -50,6 +51,9 @@ public class YoutubeService {
 
 	@Autowired
 	IdolRepository idolRepository;
+	
+	@Autowired
+	StoreYoutubeRepository storeYoutubeRepository;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -84,12 +88,25 @@ public class YoutubeService {
 
 	}
 
-	public YoutubeDetailDto getDetailByUrl(String youtubeUrl) {
+	public YoutubeDetailDto getDetailByUrl(YoutubeUserIdDto youtubeUSerIdDto) {
 		YoutubeEntity youtubeEntity;
-		youtubeEntity = youtubeRepository.findByUrl(youtubeUrl);
-
-		YoutubeDetailDto result = new YoutubeDetailDto(youtubeUrl);
+		youtubeEntity = youtubeRepository.findByUrl(youtubeUSerIdDto.getYoutubeUrl());
+		
 		List<PopDto> popList;
+		YoutubeDetailDto result;
+		int youtubeId = youtubeRepository.findByUrl(youtubeUSerIdDto.getYoutubeUrl()).getId();
+		boolean isBookmarked;
+		
+		// 해당 유튜브를 bookmark 했는지를 같이 반환
+		if(storeYoutubeRepository.isBookmarked(youtubeUSerIdDto.getUserId(), youtubeId) == 1) {
+			isBookmarked = true;
+		}
+		else {
+			isBookmarked = false;	
+		}
+			
+		result = new YoutubeDetailDto(youtubeUSerIdDto.getYoutubeUrl(), isBookmarked);
+		
 		if (youtubeEntity == null) {
 			popList = null;
 		} else {

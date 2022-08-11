@@ -12,4 +12,7 @@ public interface StoreYoutubeRepository extends JpaRepository<StoreYoutubeEntity
 	
 	@Query(value="select * from store_youtube where user_id = :userId and youtube_id = :youtubeId", nativeQuery = true)
 	public StoreYoutubeEntity searchByUserIdAndYoutubeId(@Param("userId") int userId, @Param("youtubeId") int youtubeId);
+	
+	@Query(value="select count(*) from store_youtube where user_id = :userId and youtube_id = :youtubeId", nativeQuery = true)
+	public int isBookmarked(@Param("userId") int userId, @Param("youtubeId") int youtubeId);
 }
