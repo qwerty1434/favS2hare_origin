@@ -50,9 +50,7 @@ public class UserInterestController{
 	public void saveInterest(@RequestBody InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}} 이런 형식으로 값이 들어왔으면 좋겠음
 		int userId = interestSaveDto.getUserId();
 		System.out.println(interestSaveDto.toString());
-		System.out.println(userId+"!!!!!!!!");
 		List<Integer> IdolList = interestSaveDto.getIdolList();
-		System.out.println(IdolList.toString()+"@@@@@@@@@@@@@2");
 		List<Integer> SongList = interestSaveDto.getSongList();
 		for (int i = 0; i < SongList.size(); i++) {		
 			interestSongService.addSongFavorite(userId,SongList.get(i));
