@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,9 +47,12 @@ public class UserInterestController{
 
 	@ApiOperation(value = "유저가 선택한 취향 저장", response = ResponseEntity.class)
 	@PostMapping
-	public void saveInterest(InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}} 이런 형식으로 값이 들어왔으면 좋겠음
+	public void saveInterest(@RequestBody InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}} 이런 형식으로 값이 들어왔으면 좋겠음
 		int userId = interestSaveDto.getUserId();
+		System.out.println(interestSaveDto.toString());
+		System.out.println(userId+"!!!!!!!!");
 		List<Integer> IdolList = interestSaveDto.getIdolList();
+		System.out.println(IdolList.toString()+"@@@@@@@@@@@@@2");
 		List<Integer> SongList = interestSaveDto.getSongList();
 		for (int i = 0; i < SongList.size(); i++) {		
 			interestSongService.addSongFavorite(userId,SongList.get(i));
