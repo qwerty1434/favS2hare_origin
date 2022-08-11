@@ -22,6 +22,7 @@ public class CommentDto {
 	//추가정보
 	private String nickname;
 	private String profileImageUrl;
+	private int countCommentLikes;
 	
 	public CommentDto(CommentEntity commentEntity, String nickname, String profileImageUrl) {
 		this.id = commentEntity.getId();
@@ -32,6 +33,7 @@ public class CommentDto {
 		this.popId = commentEntity.getPopEntity().getId();
 		this.nickname = nickname;
 		this.profileImageUrl = profileImageUrl;
+		this.countCommentLikes = commentEntity.getLikeCommentList().size();
 	}
 	
 }
