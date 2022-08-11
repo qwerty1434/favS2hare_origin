@@ -151,7 +151,6 @@ export default {
         .get("http://13.124.112.241:8080/user/interest/idol")
         .then((response) => {
           this.idolList = response.data;
-          console.log(this.idolList);
         })
         .catch((error) => {
           console.log(error);
@@ -191,7 +190,6 @@ export default {
           // "선택 안함" 안보이게 하기
           this.$refs.idolChoiceList.isSearching = true;
           this.idolList = response.data;
-          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -211,11 +209,12 @@ export default {
       axios
         .post("http://13.124.112.241:8080/user/interest/", {
           userId: this.userId,
-          idol: this.idolChoiceList,
-          song: this.songChoiceList,
+          idolList: this.idolChoiceList,
+          songList: this.songChoiceList,
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          alert("관심사 등록이 완료되었습니다");
+          this.$router.push({ name: "home" });
         })
         .catch((error) => {
           console.log(error);
