@@ -2,27 +2,21 @@
   <!-- eslint-disable -->
   <v-container>
     <router-link to="/popsdetail">
-      <v-card height="710px">
+      <v-card class="mt-3" height="555px">
         <v-img height="100%" src="@/assets/sample/popssample.jpg">
           <v-row class="pa-2" justify="end">
             <v-btn class="ma-2" text icon color="white">
               <v-icon>mdi-dots-horizontal</v-icon>
             </v-btn>
           </v-row>
-          <v-row class="pa-2 mt-600" justify="end">
+          <v-row class="pa-2 mt-300" justify="end">
+            <!-- userId 영상제목 -->
             <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="likePops">
               <v-icon>mdi-heart-outline</v-icon>
             </v-btn>
             <v-btn class="mt-2" text icon color="white" v-else @click="likePops">
               <v-icon>mdi-heart</v-icon>
             </v-btn>
-            <v-btn class="mt-2" text icon color="white" @click.stop="dialogComment = true">
-              <v-icon>mdi-comment-text-outline</v-icon>
-            </v-btn>
-            <pops-comment-modal
-              :value="dialogComment"
-              @input="dialogComment = $event"
-            ></pops-comment-modal>
             <v-btn class="mt-2" text icon color="white" @click.stop="dialogInfo = true">
               <v-icon>mdi-information-outline</v-icon>
             </v-btn>
@@ -34,12 +28,11 @@
   </v-container>
 </template>
 <script>
-import PopsCommentModal from "@/components/Pops/PopsCommentModal.vue";
 import PopsInfoModal from "@/components/Pops/PopsInfoModal.vue";
 
 export default {
   name: "PopsListItem",
-  components: { PopsCommentModal, PopsInfoModal },
+  components: { PopsInfoModal },
   data() {
     return {
       isLiked: false,
@@ -58,4 +51,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.mt-300 {
+  margin-top: 455px !important;
+  margin-right: 1px;
+}
+</style>

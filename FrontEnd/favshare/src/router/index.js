@@ -68,6 +68,11 @@ const routes = [
     component: SearchView,
   },
   {
+    path: "/search/:keyword",
+    name: "searchforword",
+    component: SearchView,
+  },
+  {
     path: "/searchmorepops",
     name: "searchmorepops",
     component: SearchMorePopsView,

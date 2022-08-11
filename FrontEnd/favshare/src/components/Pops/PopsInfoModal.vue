@@ -29,12 +29,7 @@
           {{ popsInfo.id }}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ createDate }}
         </h5>
-        <h3 class="mt-4">
-          {{ popsInfo.content }}
-        </h3>
-      </v-card-text>
-      <v-card-text>
-        <v-row>
+        <v-row class="mt-3">
           <v-col align="center">
             <h5>좋아요 수</h5>
             <h3>{{ popsInfo.likeCount }}</h3>
@@ -46,16 +41,21 @@
         </v-row>
       </v-card-text>
       <v-divider class="mx-4"></v-divider>
-      <br />
+      <v-card-text>
+        <h3 class="mt-4">
+          {{ popsInfo.content }}
+        </h3>
+        <br />
+        <br />
+        <br />
+        <br />
+      </v-card-text>
       <v-card-text class="red--text">#나연&nbsp;&nbsp;&nbsp;#트와이스</v-card-text>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <v-divider class="mx-4"></v-divider>
+      <v-card-text class="mt-3">
+        <h5>원본영상</h5>
+        {{ popsInfo.youtubeId }}
+      </v-card-text>
     </v-card>
   </v-bottom-sheet>
 </template>

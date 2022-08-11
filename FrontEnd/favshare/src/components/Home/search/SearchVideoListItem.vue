@@ -1,15 +1,18 @@
 <template>
-  <v-card class="video-size">
-    <v-img class="video-size" src="@/assets/sample/popssample.jpg" />
+  <v-card class="video-size mr-4">
+    <v-img class="video-size" src="@/assets/sample/popssample.jpg">
+      {{ youtubeListItem }}
+    </v-img>
   </v-card>
 </template>
 <script>
 export default {
   name: "SearchVideoListItem",
   data() {
-    return {
-      searchedVideo: [],
-    };
+    return {};
+  },
+  props: {
+    youtubeListItem: String,
   },
 };
 </script>
