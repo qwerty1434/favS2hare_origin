@@ -17,11 +17,11 @@ public class LikeCommentEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)	
 	private int id;
 	
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="comment_id", nullable = false)
     private CommentEntity commentEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable = false)
     private UserEntity userEntity;
     

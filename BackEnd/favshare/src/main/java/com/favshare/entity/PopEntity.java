@@ -31,14 +31,14 @@ public class PopEntity {
     @Column(nullable = false)
 	private int views;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	// 1. @Column이 없는 Integer는 default로 not null속성이 추가됨
 	// 2. @Column이 붙은 Integer는 기본으로 nullable = true임
 	// 3. @Column이 붙은 Integer는 nullable = true를 해아 not null속성이 가능
 	@JoinColumn(name ="user_id",nullable = false)
 	private UserEntity userEntity;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="youtube_id", nullable = false)
 	private YoutubeEntity youtubeEntity;
 

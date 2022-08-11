@@ -24,7 +24,7 @@ public class YoutubeEntity {
   	@OneToMany(mappedBy = "youtubeEntity") // Team.members는 연관관계의 주인이 아님, Member.team은 연관관계의 주인임
   	private List<PopEntity> popList = new ArrayList<>();		
 
-  	@ManyToOne // Team.members는 연관관계의 주인이 아님, Member.team은 연관관계의 주인임
+  	@ManyToOne(fetch = FetchType.LAZY) // Team.members는 연관관계의 주인이 아님, Member.team은 연관관계의 주인임
   	@JoinColumn(name="idol_id")
   	private IdolEntity idolEntity;
   	

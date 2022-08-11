@@ -80,6 +80,12 @@ public class PopService {
 	
 	public PopDto getPopDtoById(int popId) {
 		PopEntity popEntity = popRepository.findById(popId).get();
+		
+		// LazyLoading이 정상적으로 작동하는지 확인하기 위한 코드입니다
+		// 해당 주석을 해제한 뒤 userFeedController의 POST메서드를 swagger에서 실행해 보면 됩니다
+		// 콘솔의 출력 결과가 HibernateProxy로 적혀있다면 LazyLoading이 정상적으로 작동하는 겁니다
+//		System.out.println(popEntity.getYoutubeEntity().getClass()+"!!!!!!!!!!!!!!!!!!!");
+//		System.out.println(popEntity.getYoutubeEntity().getId()+"@@@@@@@@@@@@@@@");
 		PopDto popDto = new PopDto(popEntity);
 		return popDto;
 	}

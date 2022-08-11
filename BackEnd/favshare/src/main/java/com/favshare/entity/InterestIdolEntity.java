@@ -17,11 +17,11 @@ public class InterestIdolEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)	
 	private int id;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idol_id", nullable = false)
     private IdolEntity idolEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable = false)
     private UserEntity userEntity;
 
