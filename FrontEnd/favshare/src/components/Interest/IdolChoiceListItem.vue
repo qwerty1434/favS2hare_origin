@@ -1,6 +1,11 @@
 <template>
   <v-col cols="6" align="center">
-    <div @click="select" :id="id" class="option unselected-option">
+    <div
+      @click="select"
+      :id="id"
+      class="option unselected-option"
+      :style="{ 'background-image': 'url(' + picture + ')' }"
+    >
       <div :id="id + name" class="name unselected-name">
         {{ name }}
       </div>
@@ -10,8 +15,8 @@
 
 <script>
 export default {
-  name: "SongChoiceListItem",
-  props: ["id", "name"],
+  name: "IdolChoiceListItem",
+  props: ["index", "id", "name", "picture"],
   data() {
     return {
       isSelected: false,
@@ -22,17 +27,15 @@ export default {
       const item = document.getElementById(this.id);
       const nameInItem = document.getElementById(this.id + this.name);
       if (newVal) {
-        // 스타일 변경
         item.setAttribute("class", "option selected-option");
         nameInItem.setAttribute("class", "name selected-name");
         // 선택 사실 전달
-        this.$emit("selectSong", this.id);
+        this.$emit("selectIdol", this.id);
       } else {
-        // 스타일 변경
         item.setAttribute("class", "option unselected-option");
         nameInItem.setAttribute("class", "name unselected-name");
         // 선택취소 사실 전달
-        this.$emit("unselectSong", this.id);
+        this.$emit("unselectIdol", this.id);
       }
     },
   },

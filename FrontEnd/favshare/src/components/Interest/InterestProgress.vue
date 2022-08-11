@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-progress-linear
-      class="progress-bar"
       :value="value"
       background-color="#EFEFF0"
       color="#FFE3A9"
@@ -15,20 +14,12 @@
 export default {
   name: "InterestProgress",
   props: ["currentPage", "totalPage"],
-  data() {
-    return {
-      // progress bar를 채울 퍼센트(%)
-      value: 0,
-    };
-  },
-  mounted() {
-    this.value = (this.currentPage / this.totalPage) * 100;
+  computed: {
+    value() {
+      return (this.currentPage / this.totalPage) * 100;
+    },
   },
 };
 </script>
 
-<style>
-.progress-bar {
-  width: 90%;
-}
-</style>
+<style></style>
