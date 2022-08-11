@@ -15,7 +15,7 @@ import lombok.*;
 @Builder
 public class YoutubeEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int id;
     @Column(nullable = false)
 	private String url;

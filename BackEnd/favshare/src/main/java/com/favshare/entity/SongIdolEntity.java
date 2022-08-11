@@ -14,7 +14,7 @@ import lombok.*;
 
 public class SongIdolEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int id;
 	
     
