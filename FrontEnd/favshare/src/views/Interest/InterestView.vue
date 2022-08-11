@@ -1,39 +1,72 @@
 <template>
   <div>
-    <h3>FavS2hare</h3>
-    <hr />
-    <div>
-      <v-icon v-if="currentPage == 1">mdi-circle-small</v-icon>
-      <v-icon v-if="currentPage > 1" @click="previousPage"
-        >mdi-arrow-left</v-icon
+    <!-- 로고 -->
+    <div class="logo-part">
+      <h3>FavS2hare</h3>
+    </div>
+    <v-divider></v-divider>
+    <v-container class="container">
+      <v-row align="center" no-gutters>
+        <!-- back icon -->
+        <v-col v-if="currentPage == 1" cols="1">
+          <v-icon>mdi-circle-small</v-icon>
+        </v-col>
+        <v-col v-if="currentPage > 1" cols="1">
+          <v-icon @click="previousPage">mdi-keyboard-backspace</v-icon>
+        </v-col>
+        <!-- progress bar -->
+        <v-col cols="11">
+          <div class="progress-bar">
+            <interest-progress
+              :currentPage="currentPage"
+              :totalPage="totalPage"
+            ></interest-progress>
+          </div>
+        </v-col>
+      </v-row>
+      <!-- question -->
+      <v-row class="question-part" no-gutters>
+        <v-col v-if="currentPage === 1" cols="12" class="text-center">
+          <h3>당신이 선호하는 가수는?</h3>
+        </v-col>
+        <v-col v-if="currentPage === 2" cols="12" class="text-center">
+          <h3>당신이 선호하는 노래는?</h3>
+        </v-col>
+      </v-row>
+      <!-- search bar-->
+      <v-row
+        v-if="currentPage === 1"
+        class="search-bar"
+        justify="space-between"
+        align="center"
+        no-gutters
       >
-      <!-- progress bar -->
-      <interest-progress
-        :currentPage="currentPage"
-        :totalPage="totalPage"
-      ></interest-progress>
-    </div>
-    <!-- question -->
-    <h2 v-if="currentPage === 1">당신이 선호하는 가수는?</h2>
-    <h2 v-if="currentPage === 2">당신이 선호하는 노래는?</h2>
-    <!-- search bar-->
-    <div class="search-bar">
-      <input type="text" v-model="keyword" />
-      <v-icon color="#FF5D5D" dense>mdi-magnify</v-icon>
-    </div>
-    <!-- 응답 선택 -->
-    <singer-choice-list
-      v-if="currentPage === 1"
-      :singerList="singerList"
-      @emitSelectSinger="addSingerInList"
-      @emitUnselectSinger="removeSingerInList"
-    ></singer-choice-list>
-    <Song-choice-list
-      v-if="currentPage === 2"
-      :songList="songList"
-      @emitSelectSong="addSongInList"
-      @emitUnselectSong="removeSongInList"
-    ></Song-choice-list>
+        <v-col cols="10">
+          <input
+            type="text"
+            v-model="keyword"
+            class="search-input"
+            placeholder="검색"
+          />
+        </v-col>
+        <v-col cols="1">
+          <v-icon color="#FF5D5D" dense>mdi-magnify</v-icon>
+        </v-col>
+      </v-row>
+      <!-- 응답 선택 -->
+      <singer-choice-list
+        v-if="currentPage === 1"
+        :singerList="singerList"
+        @emitSelectSinger="addSingerInList"
+        @emitUnselectSinger="removeSingerInList"
+      ></singer-choice-list>
+      <Song-choice-list
+        v-if="currentPage === 2"
+        :songList="songList"
+        @emitSelectSong="addSongInList"
+        @emitUnselectSong="removeSongInList"
+      ></Song-choice-list>
+    </v-container>
     <!-- continue -->
     <v-footer fixed padless>
       <v-btn
@@ -116,6 +149,12 @@ export default {
           content: "?",
           picture: "",
         },
+        {
+          singerId: 3,
+          name: "아이브",
+          content: "?",
+          picture: "",
+        },
       ];
     },
     // 가짜 노래 리스트
@@ -128,6 +167,11 @@ export default {
         },
         {
           songId: 2,
+          name: "LOVE DIVE",
+          content: "?",
+        },
+        {
+          songId: 3,
           name: "LOVE DIVE",
           content: "?",
         },
@@ -166,10 +210,34 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding: 23px;
+}
+
+.logo-part {
+  height: 65px;
+  line-height: 65px;
+  padding-left: 15px;
+}
+
+.progress-bar {
+  padding-left: 10px;
+}
+
+.question-part {
+  height: 110px;
+  line-height: 110px;
+}
+
 .search-bar {
-  width: 90%;
-  height: 25px;
-  background-color: #d9d9d9;
-  border-radius: 25px;
+  height: 27px;
+  background-color: #efeff0;
+  border-radius: 16px;
+}
+
+.search-input {
+  outline: none;
+  padding-left: 13px;
+  font-size: 13px;
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
-  <div @click="select" :id="songId" class="unselected-option">
-    <div :id="songId + name" class="unselected-name">
-      {{ name }}
+  <v-col cols="6" align="center">
+    <div @click="select" :id="songId" class="option unselected-option">
+      <div :id="songId + name" class="name unselected-name">
+        {{ name }}
+      </div>
     </div>
-  </div>
+  </v-col>
 </template>
 
 <script>
@@ -22,16 +24,16 @@ export default {
       // 이미 선택되었을 때
       if (this.isSelected) {
         // 스타일 변경
-        item.setAttribute("class", "unselected-option");
-        nameInItem.setAttribute("class", "unselected-name");
+        item.setAttribute("class", "option unselected-option");
+        nameInItem.setAttribute("class", "name unselected-name");
         // 선택취소 사실 전달
         this.$emit("unselectSong", this.songId);
         this.isSelected = false;
         // 선택되지 않았을 때
       } else {
         // 스타일 변경
-        item.setAttribute("class", "selected-option");
-        nameInItem.setAttribute("class", "selected-name");
+        item.setAttribute("class", "option selected-option");
+        nameInItem.setAttribute("class", "name selected-name");
         // 선택 사실 전달
         this.$emit("selectSong", this.songId);
         this.isSelected = true;
@@ -42,41 +44,41 @@ export default {
 </script>
 
 <style scoped>
-.unselected-option {
+.option {
   width: 150px;
   height: 120px;
-  padding: 15px;
+  background-size: 150px 120px;
+  margin-top: 16px;
   border: 2px solid;
   border-radius: 8px;
+  padding-top: 87px;
+}
+
+.unselected-option {
   background-color: #efeff0;
   border-color: #afb1b6;
 }
 
 .selected-option {
-  width: 150px;
-  height: 120px;
-  padding: 15px;
-  border: 2px solid;
-  border-radius: 8px;
   background-color: #faf0f1;
   border-color: #ff5d5d;
 }
 
-.unselected-name {
-  width: 80px;
-  height: 23px;
-  color: white;
+.name {
+  font-size: 10px;
   text-align: center;
-  background-color: #787878;
+  width: 100px;
+  height: 20px;
+  line-height: 23px;
+  color: white;
   border-radius: 16px;
 }
 
+.unselected-name {
+  background-color: #787878;
+}
+
 .selected-name {
-  width: 80px;
-  height: 23px;
-  color: white;
-  text-align: center;
   background-color: #ff5d5d;
-  border-radius: 16px;
 }
 </style>

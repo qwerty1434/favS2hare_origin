@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-progress-linear
-      class="progress-bar"
       :value="value"
       background-color="#EFEFF0"
       color="#FFE3A9"
@@ -23,8 +22,4 @@ export default {
 };
 </script>
 
-<style>
-.progress-bar {
-  width: 90%;
-}
-</style>
+<style></style>
