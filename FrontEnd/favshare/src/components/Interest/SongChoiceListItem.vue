@@ -1,7 +1,7 @@
 <template>
   <v-col cols="6" align="center">
-    <div @click="select" :id="songId" class="option unselected-option">
-      <div :id="songId + name" class="name unselected-name">
+    <div @click="select" :id="id" class="option unselected-option">
+      <div :id="id + name" class="name unselected-name">
         {{ name }}
       </div>
     </div>
@@ -11,7 +11,7 @@
 <script>
 export default {
   name: "SongChoiceListItem",
-  props: ["songId", "name"],
+  props: ["id", "name"],
   data() {
     return {
       isSelected: false,
@@ -19,20 +19,20 @@ export default {
   },
   watch: {
     isSelected(newVal) {
-      const item = document.getElementById(this.songId);
-      const nameInItem = document.getElementById(this.songId + this.name);
+      const item = document.getElementById(this.id);
+      const nameInItem = document.getElementById(this.id + this.name);
       if (newVal) {
         // 스타일 변경
         item.setAttribute("class", "option selected-option");
         nameInItem.setAttribute("class", "name selected-name");
         // 선택 사실 전달
-        this.$emit("selectSong", this.songId);
+        this.$emit("selectSong", this.id);
       } else {
         // 스타일 변경
         item.setAttribute("class", "option unselected-option");
         nameInItem.setAttribute("class", "name unselected-name");
         // 선택취소 사실 전달
-        this.$emit("unselectSong", this.songId);
+        this.$emit("unselectSong", this.id);
       }
     },
   },

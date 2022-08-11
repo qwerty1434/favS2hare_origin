@@ -8,7 +8,7 @@
     <song-choice-list-item
       ref="songChoiceListItem"
       v-for="songListItem in songList"
-      :songId="songListItem.songId"
+      :id="songListItem.id"
       :name="songListItem.name"
       :key="songListItem.id"
       @selectSong="emitSelectSong"
@@ -34,9 +34,11 @@ export default {
       const item = document.getElementById("non-choice");
       if (newVal) {
         item.setAttribute("class", "option selected-option");
-        this.$refs.songChoiceListItem.forEach((item) => {
-          item.isSelected = false;
-        });
+        if (this.$refs.songChoiceListItem) {
+          this.$refs.songChoiceListItem.forEach((item) => {
+            item.isSelected = false;
+          });
+        }
       } else {
         item.setAttribute("class", "option unselected-option");
       }
@@ -44,13 +46,13 @@ export default {
   },
   methods: {
     // 다른 선택지가 선택되면
-    emitSelectSong(songId) {
+    emitSelectSong(id) {
       // 선택안함 버튼은 선택 취소
       this.isSelected = false;
-      this.$emit("emitSelectSong", songId);
+      this.$emit("emitSelectSong", id);
     },
-    emitUnselectSong(songId) {
-      this.$emit("emitUnselectSong", songId);
+    emitUnselectSong(id) {
+      this.$emit("emitUnselectSong", id);
     },
     select() {
       // 이미 선택되어 있을 때

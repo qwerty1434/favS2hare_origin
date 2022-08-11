@@ -47,19 +47,23 @@
             v-model="keyword"
             class="search-input"
             placeholder="검색"
+            @keydown.enter.prevent="search"
           />
         </v-col>
         <v-col cols="1">
-          <v-icon color="#FF5D5D" dense>mdi-magnify</v-icon>
+          <v-icon @click.prevent="search" color="#FF5D5D" dense
+            >mdi-magnify</v-icon
+          >
         </v-col>
       </v-row>
       <!-- 응답 선택 -->
-      <singer-choice-list
+      <idol-choice-list
+        ref="idolChoiceList"
         v-if="currentPage === 1"
-        :singerList="singerList"
-        @emitSelectSinger="addSingerInList"
-        @emitUnselectSinger="removeSingerInList"
-      ></singer-choice-list>
+        :idolList="idolList"
+        @emitSelectIdol="addIdolInList"
+        @emitUnselectIdol="removeIdolInList"
+      ></idol-choice-list>
       <Song-choice-list
         v-if="currentPage === 2"
         :songList="songList"
@@ -95,15 +99,18 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import InterestProgress from "@/components/Interest/InterestProgress.vue";
-import SingerChoiceList from "@/components/Interest/SingerChoiceList.vue";
+import IdolChoiceList from "@/components/Interest/IdolChoiceList.vue";
 import SongChoiceList from "@/components/Interest/SongChoiceList.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "InterestView",
   components: {
     InterestProgress,
-    SingerChoiceList,
+    IdolChoiceList,
     SongChoiceList,
   },
   data() {
@@ -113,97 +120,106 @@ export default {
       // 검색어
       keyword: "",
       // 취향 후보 리스트
-      singerList: [],
+      idolList: [],
       songList: [],
       // 사용자가 선택한 리스트
-      singerChoiceList: [],
+      idolChoiceList: [],
       songChoiceList: [],
     };
   },
   mounted() {
-    this.getDummySingerList();
-    this.getDummySongList();
+    this.getIdolList();
+    this.getSongList();
+  },
+  watch: {
+    keyword(newVal) {
+      // 사용자가 검색을 했다가 검색어를
+      // 검색어를 다 지우면 다시 전체 목록 보여줌
+      if (!newVal) {
+        this.getIdolList();
+        this.$refs.idolChoiceList.isSearching = false;
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(["userId"]),
   },
   methods: {
     // 좋아하는 가수 선택사항 요청
-    getSingerList() {
-      console.log("가수 선택사항 가져옴");
+    getIdolList() {
+      axios
+        .get("http://13.124.112.241:8080/user/interest/idol")
+        .then((response) => {
+          this.idolList = response.data;
+          console.log(this.idolList);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     // 좋아하는 노래 선택사항 요청
     getSongList() {
-      console.log("노래 선택사항 가져옴");
+      axios
+        .get("http://13.124.112.241:8080/user/interest/song")
+        .then((response) => {
+          this.songList = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    // 가짜 가수 리스트
-    getDummySingerList() {
-      this.singerList = [
-        {
-          singerId: 1,
-          name: "나연",
-          content: "?",
-          picture:
-            "https://img.insight.co.kr/static/2022/04/01/700/img_20220401144441_w5o9o513.webp",
-        },
-        {
-          singerId: 2,
-          name: "아이브",
-          content: "?",
-          picture: "",
-        },
-        {
-          singerId: 3,
-          name: "아이브",
-          content: "?",
-          picture: "",
-        },
-      ];
+    addIdolInList(id) {
+      this.idolChoiceList.push(id);
     },
-    // 가짜 노래 리스트
-    getDummySongList() {
-      this.songList = [
-        {
-          songId: 1,
-          name: "POP!",
-          content: "?",
-        },
-        {
-          songId: 2,
-          name: "LOVE DIVE",
-          content: "?",
-        },
-        {
-          songId: 3,
-          name: "LOVE DIVE",
-          content: "?",
-        },
-      ];
+    removeIdolInList(id) {
+      const idx = this.idolChoiceList.indexOf(id);
+      this.idolChoiceList.splice(idx, 1);
     },
-    addSingerInList(singerId) {
-      this.singerChoiceList.push(singerId);
+    addSongInList(id) {
+      this.songChoiceList.push(id);
     },
-    removeSingerInList(singerId) {
-      const idx = this.singerChoiceList.indexOf(singerId);
-      this.singerChoiceList.splice(idx, 1);
-    },
-    addSongInList(songId) {
-      this.songChoiceList.push(songId);
-    },
-    removeSongInList(songId) {
-      const idx = this.songChoiceList.indexOf(songId);
+    removeSongInList(id) {
+      const idx = this.songChoiceList.indexOf(id);
       this.songChoiceList.splice(idx, 1);
+    },
+    search() {
+      axios
+        .get(
+          `http://13.124.112.241:8080/user/interest/findIdol/${this.keyword}`
+        )
+        .then((response) => {
+          // "선택 안함" 안보이게 하기
+          this.$refs.idolChoiceList.isSearching = true;
+          this.idolList = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     nextPage() {
       this.currentPage = 2;
     },
     previousPage() {
       this.currentPage = 1;
-      this.singerChoiceList = [];
+      this.idolChoiceList = [];
       this.songChoiceList = [];
     },
     // 사용자 선택 전송
-    // 각각 사용자가 선택한 singerId와 songId들을 담고 있고, 정렬되어 있지 않은 상태
+    // 각각 사용자가 선택한 id들을 담고 있고, 정렬되어 있지 않은 상태
     sendInterest() {
-      console.log(this.singerChoiceList);
-      console.log(this.songChoiceList);
+      axios
+        .post("http://13.124.112.241:8080/user/interest/", {
+          userId: this.userId,
+          idol: this.idolChoiceList,
+          song: this.songChoiceList,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

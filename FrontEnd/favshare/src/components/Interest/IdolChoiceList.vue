@@ -1,32 +1,34 @@
 <template>
   <v-row justify="space-between" no-gutters>
-    <v-col cols="6" align="center">
+    <v-col v-if="!isSearching" cols="6" align="center">
       <div id="non-choice" @click="select" class="option unselected-option">
         선택 안함
       </div>
     </v-col>
-    <singer-choice-list-item
-      ref="singerChoiceListItem"
-      v-for="singerListItem in singerList"
-      :singerId="singerListItem.singerId"
-      :name="singerListItem.name"
-      :picture="singerListItem.picture"
-      :key="singerListItem.id"
-      @selectSinger="emitSelectSinger"
-      @unselectSinger="emitUnselectSinger"
-    ></singer-choice-list-item>
+    <idol-choice-list-item
+      ref="idolChoiceListItem"
+      v-for="idolListItem in idolList"
+      :id="idolListItem.id"
+      :name="idolListItem.name"
+      :picture="idolListItem.picture"
+      :key="idolListItem.id"
+      @selectIdol="emitSelectIdol"
+      @unselectIdol="emitUnselectIdol"
+    ></idol-choice-list-item>
   </v-row>
 </template>
 
 <script>
-import SingerChoiceListItem from "@/components/Interest/SingerChoiceListItem.vue";
+import IdolChoiceListItem from "@/components/Interest/IdolChoiceListItem.vue";
 
 export default {
-  name: "SingerChoiceList",
-  components: { SingerChoiceListItem },
-  props: ["singerList"],
+  name: "IdolChoiceList",
+  components: { IdolChoiceListItem },
+  props: ["idolList"],
   data() {
     return {
+      // 검색 중일 때는 보이지 않도록
+      isSearching: false,
       isSelected: false,
     };
   },
@@ -35,10 +37,12 @@ export default {
       const item = document.getElementById("non-choice");
       if (newVal) {
         item.setAttribute("class", "option selected-option");
-        // 선택안함이 선택되면 다른 선택지들 선택 취소
-        this.$refs.singerChoiceListItem.forEach((item) => {
-          item.isSelected = false;
-        });
+        // 다른 선택지들 선택 취소
+        if (this.$refs.idolChoiceListItem) {
+          this.$refs.idolChoiceListItem.forEach((item) => {
+            item.isSelected = false;
+          });
+        }
       } else {
         item.setAttribute("class", "option unselected-option");
       }
@@ -46,13 +50,13 @@ export default {
   },
   methods: {
     // 다른 선택지가 선택되면
-    emitSelectSinger(singerId) {
+    emitSelectIdol(id) {
       // 선택안함 버튼은 선택 취소
       this.isSelected = false;
-      this.$emit("emitSelectSinger", singerId);
+      this.$emit("emitSelectIdol", id);
     },
-    emitUnselectSinger(singerId) {
-      this.$emit("emitUnselectSinger", singerId);
+    emitUnselectIdol(id) {
+      this.$emit("emitUnselectIdol", id);
     },
     select() {
       // 이미 선택되어 있을 때
