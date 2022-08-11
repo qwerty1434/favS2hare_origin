@@ -1,7 +1,7 @@
 <template>
   <!-- eslint-disable -->
   <v-bottom-sheet
-    class="chat-dialog"
+    class="chat-dialog-info"
     :value="dialogInfo"
     @input="dialogInfo = $event"
     hide-overlay
@@ -10,46 +10,76 @@
   >
     <v-card>
       <v-card-title>
-        <v-row>
-          <v-icon large>mdi-information-outline</v-icon>
-          <v-col> 정보 </v-col>
+        <v-row align="center">
+          <v-icon class="ml-2">mdi-information-outline</v-icon>
+          <v-col class="ml-n2"><h5>정보</h5></v-col>
           <v-spacer></v-spacer>
-          <v-btn text @click.stop="dialogInfo = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
+          <v-col cols="2">
+            <v-btn text @click.stop="dialogInfo = false">
+              <v-icon class="mr-2">mdi-close</v-icon>
+            </v-btn>
+          </v-col>
         </v-row>
       </v-card-title>
-      <v-card-text>
+      <v-card-text class="mt-2">
         <h2>
-          {{ sampleInfo.content }}
+          {{ popsInfo.name }}
         </h2>
-        {{ sampleInfo.name }}
-        <h5>
-          {{ sampleInfo.createDate }}
+        <h5 class="mt-2">
+          {{ popsInfo.id }}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ createDate }}
         </h5>
+        <h3 class="mt-4">
+          {{ popsInfo.content }}
+        </h3>
       </v-card-text>
       <v-card-text>
-        <h3>좋아요 {{ sampleInfo.popsLike }}</h3>
-        <h3>조회수 {{ sampleInfo.views }}</h3>
+        <v-row>
+          <v-col align="center">
+            <h5>좋아요 수</h5>
+            <h3>{{ popsInfo.likeCount }}</h3>
+          </v-col>
+          <v-col align="center">
+            <h5>조회수</h5>
+            <h3>{{ popsInfo.views }}</h3>
+          </v-col>
+        </v-row>
       </v-card-text>
       <v-divider class="mx-4"></v-divider>
+      <br />
+      <v-card-text class="red--text">#나연&nbsp;&nbsp;&nbsp;#트와이스</v-card-text>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </v-card>
   </v-bottom-sheet>
 </template>
 <script>
+/* eslint-disable */
+import { mapGetters, mapActions } from "vuex";
+import dayjs from "dayjs";
+
 export default {
   name: "PopsInfoModal",
-  components: {},
+  component: {
+    dayjs,
+  },
   data() {
     return {
-      sampleInfo: {
-        id: 1,
-        name: "사용자",
-        content: "컨텐츠 명",
-        createDate: "2022-05-19",
-        popsLike: "1,900,000",
-        views: "2,400,000",
-      },
+      createDate: "",
+      // sampleInfo: {
+      //   id: 1,
+      //   name: "사용자",
+      //   content: "컨텐츠 명",
+      //   createDate: "2022-05-19",
+      //   popsLike: "1,900,000",
+      //   views: "2,400,000",
+      // },
     };
   },
   props: {
@@ -58,7 +88,16 @@ export default {
       required: true,
     },
   },
+  created() {
+    console.log("popsInfo " + this.popsIdInPopsTab);
+    this.getPopsInfo({
+      popId: this.popsIdInPopsTab,
+      userId: this.userIdInPopsTab,
+    });
+    this.createDate = dayjs(this.popsInfo.createDate).format("YYYY-MM-DD HH:mm");
+  },
   computed: {
+    ...mapGetters(["userIdInPopsTab", "popsIdInPopsTab", "popsInfo"]),
     dialogInfo: {
       get() {
         return this.value;
@@ -68,10 +107,13 @@ export default {
       },
     },
   },
+  methods: {
+    ...mapActions(["getPopsInfo"]),
+  },
 };
 </script>
 <style>
-.chat-dialog {
+.chat-dialog-info {
   position: absolute;
   width: 100%;
   height: calc(100% - 200px);

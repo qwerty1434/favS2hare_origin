@@ -15,7 +15,7 @@
 
 <script>
 import FeedPopsListItem from "./FeedPopsListItem.vue";
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   components: { FeedPopsListItem },
