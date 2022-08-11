@@ -32,7 +32,7 @@ import lombok.ToString;
 
 public class CommentEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
     @Column(nullable = false)
