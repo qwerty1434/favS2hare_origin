@@ -13,10 +13,20 @@ import myvideo from "./modules/myvideo";
 import pops from "./modules/pops";
 
 export default new Vuex.Store({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
+  state: {
+    bottomValue: 1,
+  },
+  getters: {
+    bottomValue: (state) => state.bottomValue,
+  },
+  mutations: {
+    SET_BOTTOMVALUE: (state, value) => (state.bottomValue = value),
+  },
+  actions: {
+    fetchBottomValue({ commit }, value) {
+      commit("SET_BOTTOMVALUE", value);
+    },
+  },
   modules: {
     search,
     home,
