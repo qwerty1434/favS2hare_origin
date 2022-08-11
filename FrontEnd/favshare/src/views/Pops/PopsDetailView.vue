@@ -1,18 +1,22 @@
 <template>
   <!-- eslint-disable -->
   <v-container class="pt-3">
-    <v-card height="710px">
+    <v-card height="720px">
       <v-img height="100%" src="@/assets/sample/popssample.jpg">
         <v-row class="pa-2" justify="end">
           <v-btn class="ma-2" text icon color="white">
-            <v-icon>mdi-close</v-icon>
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn class="ma-2" text icon color="white">
+            <v-icon>mdi-dots-horizontal</v-icon>
           </v-btn>
         </v-row>
         <v-row class="pa-2 mt-600" justify="end">
           <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="likePops">
             <v-icon>mdi-heart-outline</v-icon>
           </v-btn>
-          <v-btn class="mt-2" text icon color="white" v-else @click="likePops">
+          <v-btn class="mt-2" text icon color="red" v-else @click="likePops">
             <v-icon>mdi-heart</v-icon>
           </v-btn>
           <v-btn class="mt-2" text icon color="white" @click.stop="dialogComment = true">
@@ -62,7 +66,7 @@ export default {
 
 <style>
 .mt-600 {
-  margin-top: 600px !important;
+  margin-top: 615px !important;
   margin-right: auto;
 }
 </style>
