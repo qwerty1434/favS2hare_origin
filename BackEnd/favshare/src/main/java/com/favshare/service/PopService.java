@@ -315,4 +315,16 @@ public class PopService {
 		return popDtoList;
 	}
 	
+	public List<IdolDto> getInterestIdolList(int userId){
+		List<InterestIdolEntity> idolList = interestIdolRepository.findAllByUserId(userId);
+		List<IdolDto> result = new ArrayList<IdolDto>();
+		
+		for(int i = 0; i < idolList.size(); i++) {
+			IdolEntity idolEntity = idolRepository.findById(idolList.get(i).getIdolEntity().getId()).get();
+			result.add(new IdolDto(idolEntity));
+		}
+		
+		return result;
+	}
+	
 }

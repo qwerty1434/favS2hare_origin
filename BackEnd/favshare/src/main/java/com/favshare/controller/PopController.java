@@ -170,6 +170,17 @@ public class PopController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@ApiOperation(value = "팝 탭 상단의 카테고리 리스트 - 아이돌1, 아이돌 2 등등", response = PopInfoDto.class)
+	@GetMapping("/idolList/{userId}")
+	public ResponseEntity<List<IdolDto>> getInterestIdolList(@PathVariable int userId) {
+		try {
+			List<IdolDto> result = popService.getInterestIdolList(userId);
+			return new ResponseEntity<List<IdolDto>>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<IdolDto>>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	@ApiOperation(value = "친구피드 탭을 클릭했을 때", response = PopInfoDto.class)
 	@GetMapping("/friend/{userId}")
