@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <v-sheet class="my-video" elevation="2" rounded="xl">
-      <h3>{{ myYoutubeVideo.url }}</h3>
-      <h5>영상 띄워주는 부분</h5>
-      <!-- <div class="video__thumbnail" style="text-align: center">
+  <v-row>
+    <v-col>
+      <v-sheet color="grey lighten-3" class="my-video" elevation="1" rounded>
+        <h3>{{ myYoutubeVideo.url }}</h3>
+        <h5>영상 띄워주는 부분</h5>
+        <!-- <div class="video__thumbnail" style="text-align: center">
         <router-link
           :to="{
             name: 'youtube',
@@ -31,8 +32,18 @@
           </h3>
         </div>
       </div> -->
-    </v-sheet>
-  </div>
+      </v-sheet>
+    </v-col>
+    <v-col class="ml-n5 mt-4">
+      <h4>youtube description</h4>
+      <h5>userId</h5>
+      <v-spacer></v-spacer>
+      <h6>
+        <v-icon small> mdi-close </v-icon>
+        제거
+      </h6>
+    </v-col>
+  </v-row>
 </template>
 <script>
 export default {

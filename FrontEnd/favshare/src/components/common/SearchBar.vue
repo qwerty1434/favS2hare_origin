@@ -1,28 +1,27 @@
 <template>
   <div>
-    <v-row dense>
-      <v-col cols="1" class="ma-1 mt-4">
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-col>
-      <v-col class="mt-3">
-        <v-text-field
-          class="input-none"
-          id="search-bar"
-          placeholder="검색어를 입력하세요."
-          v-model="searchKeyword"
-          dense
-          rounded
-          outlined
-          @keydown.enter="onInputKeyword"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="1" class="mt-3 mr-4">
-        <v-btn text icon @click="searchAll">
-          <v-icon color="red">mdi-magnify</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-divider class="mt-n4"></v-divider>
+    <v-app-bar class="comm-top" dense elevation="1" absolute grow color="white">
+      <v-row>
+        <v-col class="mt-6">
+          <v-text-field
+            align="center"
+            class="input-none"
+            id="search-bar"
+            placeholder="검색어를 입력하세요."
+            v-model="searchKeyword"
+            dense
+            rounded
+            outlined
+            @keydown.enter="onInputKeyword"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="1">
+          <v-btn class="mt-5 ml-n6" text icon @click="searchAll">
+            <v-icon color="red">mdi-magnify</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-app-bar>
   </div>
 </template>
 <script>
@@ -53,11 +52,12 @@ export default {
   },
 };
 </script>
-<style>
-.v-input__slot {
-  min-height: 30px !important;
-}
+<style scoped>
 .input-none {
   background-color: none;
+}
+.comm-top {
+  position: fixed;
+  width: 100%;
 }
 </style>
