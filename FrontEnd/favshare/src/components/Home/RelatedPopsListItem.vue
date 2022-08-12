@@ -1,7 +1,7 @@
 <template>
   <div>
     <youtube
-      :video-id="this.url"
+      :video-id="this.youtubeUrl"
       :player-vars="playerVars"
       ref="youtube"
       :width="200"
