@@ -2,7 +2,7 @@
   <div>
     <div class="top">
       <nav-bar></nav-bar>
-      <v-tabs fixed-tabs background-color="indigo" dark>
+      <v-tabs fixed-tabs active-class="active-tab" hide-slider class="tab-font">
         <v-tab @click="setTabFollower"> 팔로워 </v-tab>
         <v-tab @click="setTabFollowing"> 팔로잉 </v-tab>
       </v-tabs>
@@ -54,4 +54,31 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.top {
+  position: fixed;
+  width: 100%;
+}
+
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+.active-tab {
+  color: #ff5d5d !important;
+  background-color: white;
+}
+
+.tab-font {
+  font-family: "Bingrae", sans-serif !important;
+  text-align: center;
+  font-size: 20px;
+}
+@font-face {
+  font-family: "Bingrae";
+  src: url("@/assets/fonts/Binggrae-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+</style>
