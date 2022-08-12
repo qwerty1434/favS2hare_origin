@@ -14,6 +14,7 @@ export default {
     isDelete: true,
     followerList: [],
     followingList: [],
+    editUserInfo: {},
   },
   getters: {
     feedUserInfo: (state) => state.feedUserInfo,
@@ -26,6 +27,7 @@ export default {
     feedPop: (state) => state.feedPop,
     followerList: (state) => state.followerList,
     followingList: (state) => state.followingList,
+    editUserInfo: (state) => state.editUserInfo,
   },
   mutations: {
     SET_FEEDUSERINFO: (state, feedUserInfo) =>
@@ -48,6 +50,8 @@ export default {
       (state.followerList = followerList),
     SET_FOLLOWINGLIST: (state, followingList) =>
       (state.followingList = followingList),
+    SET_EDITUSERINFO: (state, editUserInfo) =>
+      (state.editUserInfo = editUserInfo),
   },
   actions: {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
