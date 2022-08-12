@@ -85,14 +85,14 @@ export default {
       // console.log(this.homeYoutube.youtubeId);
       axios({
         method: "get",
-        url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.homeYoutube.youtubeId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
+        url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.homeYoutube.youtubeId}&key=AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A`,
       }).then((res) => {
         this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
         this.videoTitle = res.data.items[0].snippet.title;
         const tmpChannelId = res.data.items[0].snippet.channelId;
         axios({
           method: "get",
-          url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
+          url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A`,
         }).then((res) => {
           // console.log(res);
           // console.log(res.data.items[0].snippet.thumbnails.default.url);
