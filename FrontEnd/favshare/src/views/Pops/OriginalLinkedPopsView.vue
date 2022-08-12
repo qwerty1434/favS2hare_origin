@@ -1,21 +1,29 @@
 <template>
   <div>
-    <original-info :youtube="youtube" :popsList="popsList"></original-info>
-    <linked-pops-list :popsList="popsList"></linked-pops-list>
+    <v-app-bar color="white" dense flat>
+      <router-link to="/popsdetail">
+        <v-icon>mdi-keyboard-backspace</v-icon>
+      </router-link>
+    </v-app-bar>
+    <original-info :youtube="youtube"></original-info>
+    <v-divider></v-divider>
+    <linked-pops-list :linkedPopsList="linkedPopsList"></linked-pops-list>
+    <bottom-navigation-bar></bottom-navigation-bar>
   </div>
 </template>
 
 <script>
 import OriginalInfo from "@/components/Pops/OriginalInfo.vue";
 import LinkedPopsList from "@/components/Pops/LinkedPopsList.vue";
+import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 
 export default {
   name: "OriginalLinkedPopsView",
-  components: { OriginalInfo, LinkedPopsList },
+  components: { OriginalInfo, LinkedPopsList, BottomNavigationBar },
   data() {
     return {
       youtube: {},
-      popsList: [],
+      linkedPopsList: [],
     };
   },
   created() {
@@ -31,7 +39,7 @@ export default {
         youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
         youtubeContent: "?",
       }),
-        (this.popsList = [
+        (this.linkedPopsList = [
           {
             popsId: 1,
             youtubeId: 1,

@@ -148,7 +148,7 @@ const routes = [
     component: PopsDetailView,
   },
   {
-    path: "/originallinkedpops",
+    path: "/originallinkedpops/:popsId",
     name: "originallinkedpops",
     component: OriginalLinkedPopsView,
   },
