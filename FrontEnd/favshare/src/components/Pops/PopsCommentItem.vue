@@ -15,7 +15,7 @@
         <h6 class="mt-1">
           <!-- {{ commentListItem.createDate }} -->
           {{ createDate }}
-          &nbsp;&nbsp;&nbsp;좋아요 {{ commentListItem.id }}개
+          &nbsp;&nbsp;&nbsp;좋아요 {{ commentListItem.countCommentLikes }}개
           <v-btn
             class="delete-btn"
             depressed

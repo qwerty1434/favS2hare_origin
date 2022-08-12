@@ -1,7 +1,13 @@
 <template>
   <div>
-    <v-card class="pops-size">
-      <v-img class="pops-size" src="@/assets/sample/popssample.jpg" />
+    <v-card class="pops-size mr-4">
+      <v-img class="pops-size" src="@/assets/sample/popssample.jpg">
+        <br />
+        <br />
+        {{ popsListItem.content }}
+        {{ popsListItem.id }}
+        {{ popsListItem.views }}
+      </v-img>
     </v-card>
   </div>
 </template>
@@ -14,6 +20,10 @@ export default {
       searchedPops: [],
     };
   },
+  props: {
+    popsListItem: Object,
+  },
+  created() {},
 };
 </script>
 <style>

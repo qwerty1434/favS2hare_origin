@@ -13,6 +13,10 @@
           </v-btn>
         </v-row>
         <v-row class="pa-2 mt-600" justify="end">
+          <v-col>
+            <!-- popsView에서 pops클릭 후 userId pops제목 뿌려지는 부분 -->
+          </v-col>
+          <v-spacer></v-spacer>
           <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="likePops">
             <v-icon>mdi-heart-outline</v-icon>
           </v-btn>
