@@ -1,10 +1,13 @@
 <template>
+  <!-- eslint-disable -->
   <div>
     <v-row class="mr-1 ml-1 mt-1">
       <v-subheader>POPS</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader class="more-font">
-        <router-link to="/searchmorepops">더보기</router-link>
+        <router-link :to="{ name: 'searchmorepops', params: { keyword: this.searchedKeyword } }"
+          >더보기</router-link
+        >
       </v-subheader>
     </v-row>
     <div>
@@ -15,7 +18,9 @@
       <v-subheader>동영상</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader class="more-font">
-        <router-link to="/searchmoreyoutube">더보기</router-link>
+        <router-link :to="{ name: 'searchmoreyoutube', params: { keyword: this.searchedKeyword } }"
+          >더보기</router-link
+        >
       </v-subheader>
     </v-row>
     <div>
@@ -26,7 +31,10 @@
       <v-subheader>친구</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader class="more-font">
-        <router-link to="/searchmorefollowing">더보기</router-link>
+        <router-link
+          :to="{ name: 'searchmorefollowing', params: { keyword: this.searchedKeyword } }"
+          >더보기</router-link
+        >
       </v-subheader>
     </v-row>
     <div>
@@ -46,6 +54,7 @@ export default {
     popsList: Array,
     youtubeList: Array,
     userList: Array,
+    searchedKeyword: String,
   },
   created() {},
 };

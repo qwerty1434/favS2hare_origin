@@ -5,6 +5,7 @@
     <!-- v-if로 검색전, 검색후 화면 나누기 -->
     <div v-if="searchSuccess">
       <search-result
+        :searched-keyword="keyword"
         :pops-list="popsList"
         :youtube-list="youtubeList"
         :user-list="userList"
@@ -29,6 +30,7 @@ export default {
   data() {
     return {
       searchSuccess: false,
+      keyword: "",
       popsList: Array,
       youtubeList: Array,
       userList: Array,
@@ -44,6 +46,7 @@ export default {
     //   this.searchSuccess = true;
     // },
     searchOnEnter: function (keyword) {
+      this.keyword = keyword;
       this.getSearchedPopsList({ keyword: keyword });
       this.popsList = this.searchedPopsList;
       this.getSearchedYoutubeList({ keyword: keyword });

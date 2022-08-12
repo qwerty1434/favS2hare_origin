@@ -73,17 +73,17 @@ const routes = [
     component: SearchView,
   },
   {
-    path: "/searchmorepops",
+    path: "/searchmorepops/:keyword",
     name: "searchmorepops",
     component: SearchMorePopsView,
   },
   {
-    path: "/searchmoreyoutube",
+    path: "/searchmoreyoutube/:keyword",
     name: "searchmoreyoutube",
     component: SearchMoreYoutubeView,
   },
   {
-    path: "/searchmorefollowing",
+    path: "/searchmorefollowing/:keyword",
     name: "searchmorefollowing",
     component: SearchMoreFollowingView,
   },

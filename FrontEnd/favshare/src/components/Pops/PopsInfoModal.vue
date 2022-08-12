@@ -54,7 +54,9 @@
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="mt-3">
         <h5>원본영상</h5>
-        {{ popsInfo.youtubeId }}
+        <router-link to="/youtube">
+          {{ popsInfo.youtubeId }}
+        </router-link>
       </v-card-text>
     </v-card>
   </v-bottom-sheet>
