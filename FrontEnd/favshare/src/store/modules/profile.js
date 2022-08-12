@@ -13,6 +13,7 @@ export default {
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
     isDelete: true,
     editUserInfo: {},
+    currentFeedId: 0,
   },
   getters: {
     feedUserInfo: (state) => state.feedUserInfo,
@@ -24,10 +25,10 @@ export default {
     feedPops: (state) => state.feedPops,
     feedPop: (state) => state.feedPop,
     editUserInfo: (state) => state.editUserInfo,
+    currentFeedId: (state) => state.currentFeedId,
   },
   mutations: {
-    SET_FEEDUSERINFO: (state, feedUserInfo) =>
-      (state.feedUserInfo = feedUserInfo),
+    SET_FEEDUSERINFO: (state, feedUserInfo) => (state.feedUserInfo = feedUserInfo),
     SET_FEEDLIST: (state, feedList) => (state.feedList = feedList),
     SET_FEEDPOPS: (state, feedPops) => (state.feedPops = feedPops),
     SET_FRIENDINFO: (state, freindInfo) => (state.freindInfo = freindInfo),
@@ -42,8 +43,8 @@ export default {
       });
     },
     SET_FEEDPOP: (state, feedPop) => (state.feedPop = feedPop),
-    SET_EDITUSERINFO: (state, editUserInfo) =>
-      (state.editUserInfo = editUserInfo),
+    SET_EDITUSERINFO: (state, editUserInfo) => (state.editUserInfo = editUserInfo),
+    SET_CURRENTFEEDID: (state, currentFeedId) => (state.currentFeedId = currentFeedId),
   },
   actions: {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
@@ -180,6 +181,10 @@ export default {
 
     fetchFeedPop({ commit }, pop) {
       commit("SET_FEEDPOP", pop);
+    },
+
+    fetchCurrentFeedId({ commit }, currentFeedId) {
+      commit("SET_CURRENTFEEDID", currentFeedId);
     },
   },
 };
