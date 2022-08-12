@@ -12,7 +12,8 @@ export default {
     feedPop: {},
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
     isDelete: true,
-    editUserInfo: {},
+    followerList: [],
+    followingList: [],
   },
   getters: {
     feedUserInfo: (state) => state.feedUserInfo,
@@ -23,7 +24,8 @@ export default {
     feedList: (state) => state.feedList,
     feedPops: (state) => state.feedPops,
     feedPop: (state) => state.feedPop,
-    editUserInfo: (state) => state.editUserInfo,
+    followerList: (state) => state.followerList,
+    followingList: (state) => state.followingList,
   },
   mutations: {
     SET_FEEDUSERINFO: (state, feedUserInfo) =>
@@ -42,8 +44,10 @@ export default {
       });
     },
     SET_FEEDPOP: (state, feedPop) => (state.feedPop = feedPop),
-    SET_EDITUSERINFO: (state, editUserInfo) =>
-      (state.editUserInfo = editUserInfo),
+    SET_FOLLOWERLIST: (state, followerList) =>
+      (state.followerList = followerList),
+    SET_FOLLOWINGLIST: (state, followingList) =>
+      (state.followingList = followingList),
   },
   actions: {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
@@ -180,6 +184,26 @@ export default {
 
     fetchFeedPop({ commit }, pop) {
       commit("SET_FEEDPOP", pop);
+    },
+
+    fetchFollowerList({ commit, getters }) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/follow/to/${getters.userId}`,
+      })
+        .then((res) => {
+          commit("SET_FOLLOWERLIST", res.data);
+        })
+        .catch((err) => console.log(err));
+    },
+
+    fetchFollowingList({ commit, getters }) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/follow/from${getters.userID}`,
+      }).then((res) => {
+        commit("SET_FOLLOWINGLIST", res.data);
+      });
     },
   },
 };
