@@ -22,6 +22,9 @@
 </template>
 
 <script>
+// 마이너스(삭제) 버튼 클릭 시
+// -> delete요청 보내기 & vuex state feedPops에서 해당 인덱스 지우기
+
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
@@ -54,7 +57,7 @@ export default {
     player() {
       return this.$refs[`pops${this.feedPop.id}`].player;
     },
-    ...mapGetters(["isDelete", "feedPops"]),
+    ...mapGetters(["isDelete", "feedPops", "userId"]),
   },
   methods: {
     ...mapActions(["spliceFeedPops", "fetchFeedPop"]),
@@ -82,8 +85,9 @@ export default {
         url: "http://localhost:8080/feed/pop",
         data: {
           popsId: this.feedPop.id,
+          userId: this.userId,
         },
-      });
+      }).then((res) => console.log(res));
     },
     routerPush(name) {
       this.fetchFeedPop(this.feedPop);
