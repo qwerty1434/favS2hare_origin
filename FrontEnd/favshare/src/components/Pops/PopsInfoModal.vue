@@ -53,16 +53,21 @@
       <v-card-text class="red--text">#나연&nbsp;&nbsp;&nbsp;#트와이스</v-card-text>
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="mt-3">
-        <h5>원본영상</h5>
-        <router-link to="/youtube">
-          {{ popsInfo.youtubeId }}
+        <router-link
+          :to="{
+            name: 'originallinkedpops',
+            query: {
+              popsId: this.popsInfo.id,
+            },
+          }"
+        >
+          <h5>원본영상</h5>
         </router-link>
       </v-card-text>
     </v-card>
   </v-bottom-sheet>
 </template>
 <script>
-/* eslint-disable */
 import { mapGetters, mapActions } from "vuex";
 import dayjs from "dayjs";
 
@@ -96,7 +101,9 @@ export default {
       popId: this.popsIdInPopsTab,
       userId: this.userIdInPopsTab,
     });
-    this.createDate = dayjs(this.popsInfo.createDate).format("YYYY-MM-DD HH:mm");
+    this.createDate = dayjs(this.popsInfo.createDate).format(
+      "YYYY-MM-DD HH:mm"
+    );
   },
   computed: {
     ...mapGetters(["userIdInPopsTab", "popsIdInPopsTab", "popsInfo"]),
