@@ -1,5 +1,6 @@
 package com.favshare.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -126,7 +127,7 @@ public class PopService {
 				.startSecond(youtubeEditPopDto.getStartSecond())
 				.endSecond(youtubeEditPopDto.getEndSecond())
 				.content(youtubeEditPopDto.getContent())
-				.createDate(youtubeEditPopDto.getCreateDate())
+				.createDate(LocalDateTime.now())
 				.views(youtubeEditPopDto.getViews())
 				.userEntity(userEntity)
 				.youtubeEntity(youtubeEntity).build();
