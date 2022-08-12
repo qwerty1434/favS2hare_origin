@@ -13,7 +13,7 @@ import lombok.*;
 @Builder
 public class IdolMemberEntity { //이 엔티티가 사용되는 곳이 있나?
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
     @Column(nullable = false)
 	private String name;
