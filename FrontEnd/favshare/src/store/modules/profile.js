@@ -40,12 +40,13 @@ export default {
     SET_FOLLOWTAB: (state, followtab) => (state.followtab = followtab),
     SET_ISDELETE: (state, isDelete) => (state.isDelete = isDelete),
     SPLICE_FEEDPOPS: function (state, id) {
-      state.feedPops.forEach((value, index, array) => {
-        console.log(array);
-        if (value.id === id) {
-          state.feedPops.spilce(index, 1);
+      for (const tmp in state.feedPops) {
+        if (tmp + 1 === id) {
+          delete state.feedPops.tmp;
+          break;
         }
-      });
+      }
+      console.log("됐냐");
     },
     SET_FEEDPOP: (state, feedPop) => (state.feedPop = feedPop),
     SET_EDITUSERINFO: (state, editUserInfo) =>
