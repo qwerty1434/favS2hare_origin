@@ -6,7 +6,7 @@
         type="text"
         id="title"
         name="title"
-        placeholder="Message"
+        placeholder="제목을 입력하세요"
         v-model="title"
       /><br />
       <label for="description">설명</label><br />
@@ -14,7 +14,7 @@
         type="text"
         id="description"
         name="description"
-        placeholder="Message"
+        placeholder="설명을 입력하세요"
         v-model="description"
       />
       <p>피드 선택</p>
@@ -56,6 +56,7 @@ export default {
   methods: {
     selectFeed(event) {
       this.feedId = event.target.getAttribute("id");
+      console.log(event.target.getAttribute("id"));
     },
   },
 };
