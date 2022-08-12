@@ -18,14 +18,20 @@
         v-model="description"
       />
       <p>피드 선택</p>
-      <div
-        class="unselected-feed"
-        v-for="feedListItem in feedList"
-        :id="feedListItem.feedId"
-        :key="feedListItem.feedId"
-        @click="selectFeed"
-      >
-        {{ feedListItem.name }}
+      <div v-if="feedList">
+        <div
+          class="unselected-feed"
+          v-for="feedListItem in feedList"
+          :id="feedListItem.feedId"
+          :key="feedListItem.feedId"
+          @click="selectFeed"
+        >
+          {{ feedListItem.name }}
+        </div>
+      </div>
+      <div v-else>
+        <div class="unselected-feed" :id="0" :key="0" @click="selectFeed"></div>
+        전체 피드
       </div>
     </form>
   </div>
@@ -57,6 +63,7 @@ export default {
     selectFeed(event) {
       this.feedId = event.target.getAttribute("id");
       console.log(event.target.getAttribute("id"));
+      console.log(this.feedList);
     },
   },
 };

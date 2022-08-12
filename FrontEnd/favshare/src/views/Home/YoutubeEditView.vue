@@ -32,7 +32,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userId"]),
+    ...mapGetters(["userId", "videoInfo"]),
   },
   created() {
     this.youtubePk = this.$route.query.youtubePk;
@@ -71,21 +71,21 @@ export default {
     postPops() {
       console.log({
         // + userId
-        youtubeId: this.youtubeId,
-        title: this.$refs.uploadForm.title,
+        userId: this.userId,
+        youtubeUrl: this.youtubeId,
+        feedId: Number(this.$refs.uploadForm.feedId),
+        name: this.$refs.uploadForm.title,
         content: this.$refs.uploadForm.description,
         startSecond: this.$refs.youtubeEditTool.range[0],
         endSecond: this.$refs.youtubeEditTool.range[1],
-        feedId: this.$refs.uploadForm.feedId,
       });
-
       axios({
         method: "post",
         url: "http://localhost:8080/youtube/edit",
         data: {
           userId: this.userId,
           youtubeUrl: this.youtubeId,
-          feedId: this.$refs.uploadForm.feedId,
+          feedId: Number(this.$refs.uploadForm.feedId),
           name: this.$refs.uploadForm.title,
           content: this.$refs.uploadForm.description,
           startSecond: this.$refs.youtubeEditTool.range[0],
@@ -94,6 +94,17 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          this.$router.push({
+            name: "youtube",
+            params: {
+              videoInfo: {
+                videoId: this.videoInfo.youtubeId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => homeYoutube로 바꾸기
+                channelName: this.videoInfo.channelName,
+                channelProfilePic: this.videoInfo.channelProfilePic,
+                videoTitle: this.videoInfo.videoTitle,
+              },
+            },
+          });
         })
         .catch((res) => {
           console.log(res);

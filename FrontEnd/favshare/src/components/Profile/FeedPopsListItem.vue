@@ -57,7 +57,7 @@ export default {
     player() {
       return this.$refs[`pops${this.feedPop.id}`].player;
     },
-    ...mapGetters(["isDelete", "feedPops", "userId"]),
+    ...mapGetters(["isDelete", "feedPops", "currentFeedId"]),
   },
   methods: {
     ...mapActions(["spliceFeedPops", "fetchFeedPop"]),
@@ -84,8 +84,8 @@ export default {
         method: "delete",
         url: "http://localhost:8080/feed/pop",
         data: {
-          popsId: this.feedPop.id,
-          userId: this.userId,
+          feedId: this.currentFeedId,
+          popId: this.feedPop.id,
         },
       }).then((res) => console.log(res));
     },
