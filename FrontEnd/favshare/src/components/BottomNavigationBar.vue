@@ -1,5 +1,11 @@
 <template>
-  <v-bottom-navigation :value="bottomValue" grow color="teal" absolute>
+  <v-bottom-navigation
+    :value="bottomValue"
+    grow
+    color="teal"
+    absolute
+    class="bottom"
+  >
     <v-btn @click="[routerPushes('home'), fetchBottomValue(1)]">
       <span>Home</span>
       <v-icon>mdi-home</v-icon>

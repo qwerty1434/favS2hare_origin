@@ -12,6 +12,8 @@ export default {
     feedPop: {},
     followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
     isDelete: true,
+    followerList: [],
+    followingList: [],
     editUserInfo: {},
     currentFeedId: 0,
   },
@@ -24,6 +26,8 @@ export default {
     feedList: (state) => state.feedList,
     feedPops: (state) => state.feedPops,
     feedPop: (state) => state.feedPop,
+    followerList: (state) => state.followerList,
+    followingList: (state) => state.followingList,
     editUserInfo: (state) => state.editUserInfo,
     currentFeedId: (state) => state.currentFeedId,
   },
@@ -43,8 +47,17 @@ export default {
       });
     },
     SET_FEEDPOP: (state, feedPop) => (state.feedPop = feedPop),
+<<<<<<< HEAD
     SET_EDITUSERINFO: (state, editUserInfo) => (state.editUserInfo = editUserInfo),
     SET_CURRENTFEEDID: (state, currentFeedId) => (state.currentFeedId = currentFeedId),
+=======
+    SET_FOLLOWERLIST: (state, followerList) =>
+      (state.followerList = followerList),
+    SET_FOLLOWINGLIST: (state, followingList) =>
+      (state.followingList = followingList),
+    SET_EDITUSERINFO: (state, editUserInfo) =>
+      (state.editUserInfo = editUserInfo),
+>>>>>>> 5e551f329d826e2db219e1d57ae7e184f359cbe3
   },
   actions: {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
@@ -185,6 +198,26 @@ export default {
 
     fetchCurrentFeedId({ commit }, currentFeedId) {
       commit("SET_CURRENTFEEDID", currentFeedId);
+    },
+
+    fetchFollowerList({ commit, getters }) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/follow/to/${getters.userId}`,
+      })
+        .then((res) => {
+          commit("SET_FOLLOWERLIST", res.data);
+        })
+        .catch((err) => console.log(err));
+    },
+
+    fetchFollowingList({ commit, getters }) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/follow/from${getters.userID}`,
+      }).then((res) => {
+        commit("SET_FOLLOWINGLIST", res.data);
+      });
     },
   },
 };
