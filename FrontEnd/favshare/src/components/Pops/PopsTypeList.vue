@@ -18,4 +18,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.pops-type {
+  /* 가로 스크롤 */
+  height: 100px;
+  overflow: auto;
+  white-space: nowrap;
+}
+</style>

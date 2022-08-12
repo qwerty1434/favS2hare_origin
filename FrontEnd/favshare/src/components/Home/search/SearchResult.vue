@@ -1,7 +1,7 @@
 <template>
   <!-- eslint-disable -->
   <div>
-    <v-row class="mr-1 ml-1 mt-1">
+    <v-row class="mr-1 ml-1">
       <v-subheader>POPS</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader class="more-font">
@@ -10,7 +10,7 @@
         >
       </v-subheader>
     </v-row>
-    <div>
+    <div class="mt-n7">
       <search-pops-list :pops-list="popsList"></search-pops-list>
     </div>
     <v-divider></v-divider>
@@ -23,7 +23,7 @@
         >
       </v-subheader>
     </v-row>
-    <div>
+    <div class="mt-n7">
       <search-video-list :youtube-list="youtubeList"></search-video-list>
     </div>
     <v-divider></v-divider>
@@ -37,7 +37,7 @@
         >
       </v-subheader>
     </v-row>
-    <div>
+    <div class="mt-n7">
       <search-following-list :user-list="userList"> </search-following-list>
     </div>
   </div>
