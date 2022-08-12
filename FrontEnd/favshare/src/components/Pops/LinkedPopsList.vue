@@ -2,7 +2,7 @@
   <v-container>
     <div class="text-box">
       <h3 style="display: inline">관련 Pops</h3>
-      <span class="count-pops">{{ countPops }}</span>
+      <span class="count-pops">{{ countLinkedPopsList }}</span>
     </div>
     <v-row no-gutters space-between>
       <linked-pops-list-item
@@ -25,12 +25,7 @@ import LinkedPopsListItem from "@/components/Pops/LinkedPopsListItem.vue";
 export default {
   name: "LinkedPopsList",
   components: { LinkedPopsListItem },
-  props: ["linkedPopsList"],
-  computed: {
-    countPops() {
-      return this.linkedPopsList.length;
-    },
-  },
+  props: ["linkedPopsList", "countLinkedPopsList"],
 };
 </script>
 
