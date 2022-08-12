@@ -118,7 +118,6 @@ public class PopService {
 			youtubeRepository.save(youtubeEntity);
 		}
 		
-		FeedEntity feedEntity = feedRepository.findById(youtubeEditPopDto.getFeedId()).get();
 		
 		PopEntity popEntity = new PopEntity();
 		
@@ -133,12 +132,18 @@ public class PopService {
 				.youtubeEntity(youtubeEntity).build();
 		popRepository.save(popEntity);
 		
-		//popinfeed에도 넣어준다
-		PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
-		popInFeedEntity = popInFeedEntity.builder().popEntity(popEntity)
-				.feedEntity(feedEntity).build();
 		
-		popInFeedRepository.save(popInFeedEntity);
+		// popinfeed에도 넣어준다
+		// 해당 user가 보유한 feed가 없을 때에는 feedId 값을 0으로 설정해서, 전체 피드에만 속할 수 있도록 수정
+		if(youtubeEditPopDto.getFeedId() >= 1) {
+			FeedEntity feedEntity = feedRepository.findById(youtubeEditPopDto.getFeedId()).get();
+			
+			PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
+			popInFeedEntity = popInFeedEntity.builder().popEntity(popEntity)
+					.feedEntity(feedEntity).build();
+			
+			popInFeedRepository.save(popInFeedEntity);
+		}
 		
 	}
 

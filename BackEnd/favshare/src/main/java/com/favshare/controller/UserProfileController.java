@@ -70,8 +70,8 @@ public class UserProfileController {
 	@PostMapping("/popList")
 	public ResponseEntity<List<PopDto>> showPopInFeed(@RequestBody FeedUserIdDto feedUserIdDto) {
 		List<PopDto> popInFeedDtoList;
-		if (feedUserIdDto.getFeedId() == -1) {
-			// feedId가 -1이라는 것은 전체 피드라는 의미입니다.
+		if (feedUserIdDto.getFeedId() == 0) {
+			// feedId가 0이라는 것은 전체 피드라는 의미입니다.
 			popInFeedDtoList = userService.getAllPopList(feedUserIdDto);
 
 		} else { // 전체 피드가 아니라 각각의 피드일때
