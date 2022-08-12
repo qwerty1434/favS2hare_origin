@@ -16,6 +16,9 @@
 import YoutubeEditTool from "@/components/Home/YoutubeEditTool.vue";
 import UploadForm from "@/components/Home/UploadForm.vue";
 
+import axios from "axios";
+import { mapGetters } from "vuex";
+
 export default {
   name: "YoutubeEditView",
   components: { YoutubeEditTool, UploadForm },
@@ -28,13 +31,34 @@ export default {
       feedList: [],
     };
   },
+  computed: {
+    ...mapGetters(["userId"]),
+  },
   created() {
     this.youtubePk = this.$route.query.youtubePk;
     this.youtubeId = this.$route.query.youtubeId;
-    this.getDummyFeedList();
+    // this.getDummyFeedList();
+    this.getFeedList();
   },
   methods: {
     // 해당 유저의 피드리스트 가져오기
+    getFeedList() {
+      axios({
+        method: "post",
+        url: "http://localhost:8080/youtube/edit/info",
+        data: {
+          userId: this.userId,
+          youtubeUrl: this.youtubeId,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.feedList = res.data.feedList;
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
     getDummyFeedList() {
       this.feedList = [
         { feedId: 1, name: "대표" },
@@ -54,6 +78,26 @@ export default {
         endSecond: this.$refs.youtubeEditTool.range[1],
         feedId: this.$refs.uploadForm.feedId,
       });
+
+      axios({
+        method: "post",
+        url: "http://localhost:8080/youtube/edit",
+        data: {
+          userId: this.userId,
+          youtubeUrl: this.youtubeId,
+          feedId: this.$refs.uploadForm.feedId,
+          name: this.$refs.uploadForm.title,
+          content: this.$refs.uploadForm.description,
+          startSecond: this.$refs.youtubeEditTool.range[0],
+          endSecond: this.$refs.youtubeEditTool.range[1],
+        },
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     },
   },
 };
