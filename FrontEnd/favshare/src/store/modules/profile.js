@@ -32,7 +32,8 @@ export default {
     currentFeedId: (state) => state.currentFeedId,
   },
   mutations: {
-    SET_FEEDUSERINFO: (state, feedUserInfo) => (state.feedUserInfo = feedUserInfo),
+    SET_FEEDUSERINFO: (state, feedUserInfo) =>
+      (state.feedUserInfo = feedUserInfo),
     SET_FEEDLIST: (state, feedList) => (state.feedList = feedList),
     SET_FEEDPOPS: (state, feedPops) => (state.feedPops = feedPops),
     SET_FRIENDINFO: (state, freindInfo) => (state.freindInfo = freindInfo),
@@ -47,17 +48,14 @@ export default {
       });
     },
     SET_FEEDPOP: (state, feedPop) => (state.feedPop = feedPop),
-<<<<<<< HEAD
-    SET_EDITUSERINFO: (state, editUserInfo) => (state.editUserInfo = editUserInfo),
-    SET_CURRENTFEEDID: (state, currentFeedId) => (state.currentFeedId = currentFeedId),
-=======
+    SET_EDITUSERINFO: (state, editUserInfo) =>
+      (state.editUserInfo = editUserInfo),
+    SET_CURRENTFEEDID: (state, currentFeedId) =>
+      (state.currentFeedId = currentFeedId),
     SET_FOLLOWERLIST: (state, followerList) =>
       (state.followerList = followerList),
     SET_FOLLOWINGLIST: (state, followingList) =>
       (state.followingList = followingList),
-    SET_EDITUSERINFO: (state, editUserInfo) =>
-      (state.editUserInfo = editUserInfo),
->>>>>>> 5e551f329d826e2db219e1d57ae7e184f359cbe3
   },
   actions: {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
