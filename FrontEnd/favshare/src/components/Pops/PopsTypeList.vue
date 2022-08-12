@@ -1,5 +1,5 @@
 <template>
-  <div class="pops-type">
+  <div class="pops-type mt-2">
     <pops-type-list-item @click-type="searchPopsType"></pops-type-list-item>
   </div>
 </template>

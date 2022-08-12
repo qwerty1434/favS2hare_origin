@@ -19,13 +19,13 @@
     <v-row>
       <v-col cols="3">닉네임</v-col>
       <v-col>
-        <v-text-field v-model="userInfo.nickname" dense> </v-text-field>
+        <v-text-field v-model="editUserInfo.nickname" dense> </v-text-field>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="4">프로필 소개</v-col>
       <v-col>
-        <v-text-field v-model="userInfo.content" dense></v-text-field>
+        <v-text-field v-model="editUserInfo.content" dense></v-text-field>
       </v-col>
     </v-row>
     <div align="center" class="ma-10">
@@ -55,7 +55,7 @@ export default {
     this.getProfileInfo(this.userId);
   },
   computed: {
-    ...mapGetters(["userId", "userInfo"]),
+    ...mapGetters(["userId", "editUserInfo"]),
   },
   methods: {
     ...mapActions(["getProfileInfo", "updateProfileInfo"]),
@@ -63,8 +63,8 @@ export default {
       console.log("update profile");
       this.updateProfileInfo({
         userId: this.userId,
-        nickname: this.userInfo.nickname,
-        content: this.userInfo.content,
+        nickname: this.editUserInfo.nickname,
+        content: this.editUserInfo.content,
       });
       alert("프로필 정보가 수정되었습니다.");
       this.$router.go();

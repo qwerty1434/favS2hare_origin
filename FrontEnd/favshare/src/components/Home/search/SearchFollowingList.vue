@@ -1,9 +1,10 @@
 <template>
-  <v-container>
-    <div>
-      <search-following-list-item></search-following-list-item>
+  <!-- eslint-disable -->
+  <div class="rpops">
+    <div v-for="userListItem in userList">
+      <search-following-list-item :user-list-item="userListItem"></search-following-list-item>
     </div>
-  </v-container>
+  </div>
 </template>
 <script>
 import SearchFollowingListItem from "./SearchFollowingListItem.vue";
@@ -12,9 +13,10 @@ export default {
   name: "SearchFollowingList",
   components: { SearchFollowingListItem },
   data() {
-    return {
-      searchedFollowingList: [],
-    };
+    return {};
+  },
+  props: {
+    userList: Array,
   },
 };
 </script>

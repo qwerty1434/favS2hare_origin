@@ -115,11 +115,16 @@ export default {
     isStoreYoutube() {
       axios({
         method: "post",
-        url: "http://localhost:8080/youtube/bookmark/status",
-        data: { userId: this.userId, youtubeUrl: this.videoInfo.videoId },
+        url: "http://localhost:8080/youtube/detail",
+        data: {
+          userId: this.userId,
+          youtubeUrl: this.videoInfo.videoId,
+        },
       })
-        .then(() => {
-          this.isBookmarkClicked = 1;
+        .then((res) => {
+          console.log(res);
+          this.isBookmarkClicked = res.data.bookmarked;
+          console.log(this.isBookmarkClicked);
         })
         .catch((res) => {
           console.log(res);

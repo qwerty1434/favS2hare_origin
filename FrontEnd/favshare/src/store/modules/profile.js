@@ -155,7 +155,8 @@ export default {
         method: "get",
         url: `http://localhost:8080/user/profile/edit/${userId}`,
       }).then((res) => {
-        commit("SET_USERINFO", res.data);
+        console.log(res);
+        commit("SET_EDITUSERINFO", res.data);
       });
     },
     updateProfileInfo({ commit }, { userId, nickname, content }) {

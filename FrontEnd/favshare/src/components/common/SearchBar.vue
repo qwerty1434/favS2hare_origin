@@ -1,28 +1,29 @@
 <template>
-  <v-container>
-    <v-row class="ma-n5">
-      <v-col cols="1">
+  <div>
+    <v-row dense>
+      <v-col cols="1" class="ma-1 mt-4">
         <v-icon>mdi-arrow-left</v-icon>
       </v-col>
-      <v-col cols="8">
+      <v-col class="mt-3">
         <v-text-field
+          class="input-none"
           id="search-bar"
           placeholder="검색어를 입력하세요."
           v-model="searchKeyword"
           dense
           rounded
+          outlined
           @keydown.enter="onInputKeyword"
         ></v-text-field>
       </v-col>
-      <v-spacer></v-spacer>
-      <v-col cols="2">
-        <v-btn class="ml-3" text icon @click="searchAll">
-          <v-icon>mdi-magnify</v-icon>
+      <v-col cols="1" class="mt-3 mr-4">
+        <v-btn text icon @click="searchAll">
+          <v-icon color="red">mdi-magnify</v-icon>
         </v-btn>
       </v-col>
     </v-row>
-    <v-divider></v-divider>
-  </v-container>
+    <v-divider class="mt-n4"></v-divider>
+  </div>
 </template>
 <script>
 export default {
@@ -45,7 +46,7 @@ export default {
     onInputKeyword: function (event) {
       this.$emit("input-change", event.target.value);
       // this.router.push({
-      //   name: "SearchView",
+      //   name: "search",
       //   params: { searchKeyword: this.searchKeyword },
       // });
     },
@@ -53,7 +54,10 @@ export default {
 };
 </script>
 <style>
-.min-height {
+.v-input__slot {
   min-height: 30px !important;
+}
+.input-none {
+  background-color: none;
 }
 </style>
