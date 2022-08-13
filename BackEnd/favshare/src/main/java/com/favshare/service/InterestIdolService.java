@@ -23,8 +23,8 @@ public class InterestIdolService {
 	private UserRepository userRepository;
 
 	public void addIdolFavorite(int userId, int idolId) {
-		IdolEntity idolEntity = idolRepository.findById(idolId).get();
-		UserEntity userEntity = userRepository.findById(userId).get();
+		IdolEntity idolEntity = idolRepository.findById(idolId).orElseThrow(() -> new NullPointerException());
+		UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new NullPointerException());
 		interestIdolRepository.save(new InterestIdolEntity(idolEntity, userEntity));
 	}
 

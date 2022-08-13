@@ -29,7 +29,7 @@ public class StoreYoutubeService {
 
 	// 교차엔티티에 값을 넣어줘야함
 	public void insertBookmark(YoutubeUserIdDto youtubeUserIdDto) {
-		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
+		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).orElseThrow(() -> new NullPointerException());
 		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
 		if (youtubeEntity == null) {
 			youtubeEntity = YoutubeEntity.builder().url(youtubeUserIdDto.getYoutubeUrl()).build();
@@ -42,7 +42,7 @@ public class StoreYoutubeService {
 
 	public List<YoutubeDto> getYoutubeBookmarkById(int id) {
 		UserEntity userEntity;
-		userEntity = userRepository.findById(id).get();
+		userEntity = userRepository.findById(id).orElseThrow(() -> new NullPointerException());
 		List<StoreYoutubeEntity> storeYoutubeList = userEntity.getStoreYoutubeList();
 		List<YoutubeDto> result = new ArrayList<YoutubeDto>();
 		for (int i = 0; i < storeYoutubeList.size(); i++) {

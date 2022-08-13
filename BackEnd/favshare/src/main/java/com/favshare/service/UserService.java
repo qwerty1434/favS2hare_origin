@@ -79,14 +79,14 @@ public class UserService {
 
 	public UserProfileDto getUserProfileById(int id) {
 		UserEntity userEntity;
-		userEntity = userRepository.findById(id).get();
+		userEntity = userRepository.findById(id).orElseThrow(() -> new NullPointerException());
 		UserProfileDto result = new UserProfileDto(userEntity);
 		return result;
 	}
 
 	public void updateProfile(UserProfileDto userProfileDto) {
 		UserEntity userEntity;
-		userEntity = userRepository.findById(userProfileDto.getId()).get();
+		userEntity = userRepository.findById(userProfileDto.getId()).orElseThrow(() -> new NullPointerException());
 		userEntity.changeProfile(userProfileDto.getNickname(), userProfileDto.getContent(),
 				userProfileDto.getProfileImageUrl());
 		userRepository.save(userEntity);
@@ -94,7 +94,7 @@ public class UserService {
 
 	public UserInfoDto getUserInfoById(int id) {
 		UserEntity userEntity;
-		userEntity = userRepository.findById(id).get();
+		userEntity = userRepository.findById(id).orElseThrow(() -> new NullPointerException());
 		UserInfoDto result = new UserInfoDto(userEntity);
 		return result;
 
@@ -102,21 +102,21 @@ public class UserService {
 
 	public void updateUserInfo(UserInfoDto userInfoDto) {
 		UserEntity userEntity;
-		userEntity = userRepository.findById(userInfoDto.getId()).get();
+		userEntity = userRepository.findById(userInfoDto.getId()).orElseThrow(() -> new NullPointerException());
 		userEntity.changeUserInfo(userInfoDto.getName(), userInfoDto.getPassword(), userInfoDto.getPhone(),
 				userInfoDto.getBirthDate());
 		userRepository.save(userEntity);
 	}
 
 	public int[] countFollow(int userId) {
-		UserEntity userEntity = userRepository.findById(userId).get();
+		UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new NullPointerException());
 		int followerNum = userEntity.getFromUserEntityList().size();
 		int followingNum = userEntity.getToUserEntityList().size();
 		return new int[] { followerNum, followingNum };
 	}
 
 	public List<FeedDto> getFeedList(int userId) {
-		UserEntity userEntity = userRepository.findById(userId).get();
+		UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new NullPointerException());
 		List<FeedEntity> feedEntityList = userEntity.getFeedList();
 		List<FeedDto> feedDtoList = Arrays.asList(modelMapper.map(feedEntityList, FeedDto[].class));
 		return feedDtoList;
@@ -138,7 +138,7 @@ public class UserService {
 	}
 
 	public List<PopDto> getPopInFeedList(int feedId) {
-		FeedEntity feedEntity = feedRepository.findById(feedId).get();
+		FeedEntity feedEntity = feedRepository.findById(feedId).orElseThrow(() -> new NullPointerException());
 		List<PopInFeedEntity> popInFeedEntityList = feedEntity.getPopInFeedList();
 
 		List<PopDto> result = new ArrayList<>();
@@ -173,7 +173,7 @@ public class UserService {
 	}
 
 	public List<FriendFeedDto> getFollowingList(int userId) {
-		UserEntity userEntity = userRepository.findById(userId).get();
+		UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new NullPointerException());
 		List<FollowEntity> followEntityList = userEntity.getFromUserEntityList();
 		// key값: 유저id value값: 해당 유저의 PopDto리스트
 		List<FriendFeedDto> result = new ArrayList<FriendFeedDto>();
@@ -202,7 +202,7 @@ public class UserService {
 	}
 
 	public List<UserProfileDto> getFollowerList(int userId) {
-		UserEntity userEntity = userRepository.findById(userId).get();
+		UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new NullPointerException());
 		List<FollowEntity> followEntityList = userEntity.getToUserEntityList();
 		List<UserEntity> followerList = new ArrayList<UserEntity>();
 		for (int i = 0; i < followEntityList.size(); i++) {

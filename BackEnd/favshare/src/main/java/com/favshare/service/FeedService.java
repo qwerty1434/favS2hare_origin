@@ -22,7 +22,7 @@ public class FeedService {
 
 	public void insertFeed(int userId) {
 		FeedEntity feedEntity;
-		UserEntity userEntity = userRepository.findById(userId).get();
+		UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new NullPointerException());
 		if (feedRepository.countFeedByUserId(userId) == 0) {
 			feedEntity = FeedEntity.builder().name("피드").isFirst(true).feedImageUrl(null).userEntity(userEntity)
 					.build();
@@ -39,25 +39,25 @@ public class FeedService {
 
 	public void updateFeedName(IdNameDto idNameDto) {
 		FeedEntity feedEntity;
-		feedEntity = feedRepository.findById(idNameDto.getId()).get();
+		feedEntity = feedRepository.findById(idNameDto.getId()).orElseThrow(() -> new NullPointerException());
 		feedEntity.changeName(idNameDto.getName());
 		feedRepository.save(feedEntity);
 	}
 
 	public void updateFeedImage(IdFeedImageUrlDto idFeedImageUrlDto) {
 		FeedEntity feedEntity;
-		feedEntity = feedRepository.findById(idFeedImageUrlDto.getId()).get();
+		feedEntity = feedRepository.findById(idFeedImageUrlDto.getId()).orElseThrow(() -> new NullPointerException());
 		feedEntity.changeImageUrl(idFeedImageUrlDto.getFeedImageUrl());
 		feedRepository.save(feedEntity);
 	}
 
 	public void updateFirstFeed(FeedUserIdDto feedUserIdDto) {
 		FeedEntity newFeedEntity, oldFeedEntity;
-		newFeedEntity = feedRepository.findById(feedUserIdDto.getFeedId()).get();
+		newFeedEntity = feedRepository.findById(feedUserIdDto.getFeedId()).orElseThrow(() -> new NullPointerException());
 		newFeedEntity.changeIsFirst();
 
 		int oldFirstFeedId = feedRepository.findFirstId(feedUserIdDto.getUserId());
-		oldFeedEntity = feedRepository.findById(oldFirstFeedId).get();
+		oldFeedEntity = feedRepository.findById(oldFirstFeedId).orElseThrow(() -> new NullPointerException());
 		oldFeedEntity.changeIsNotFirst();
 
 		feedRepository.save(newFeedEntity);

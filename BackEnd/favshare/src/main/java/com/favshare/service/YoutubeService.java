@@ -263,7 +263,7 @@ public class YoutubeService {
 	}
 
 	public YoutubeInfoDto getEditInfoByUrl(YoutubeUserIdDto youtubeUserIdDto) {
-		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
+		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).orElseThrow(() -> new NullPointerException());
 //		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
 
 		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeUserIdDto.getYoutubeUrl());

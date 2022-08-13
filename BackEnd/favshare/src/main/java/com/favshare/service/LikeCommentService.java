@@ -26,8 +26,8 @@ public class LikeCommentService {
 
 	public void insertLike(@RequestBody UserCommentIdDto userCommentIdDto) {
 
-		UserEntity userEntity = userRepository.findById(userCommentIdDto.getUserId()).get();
-		CommentEntity commentEntity = commentRepository.findById(userCommentIdDto.getCommentId()).get();
+		UserEntity userEntity = userRepository.findById(userCommentIdDto.getUserId()).orElseThrow(() -> new NullPointerException());
+		CommentEntity commentEntity = commentRepository.findById(userCommentIdDto.getCommentId()).orElseThrow(() -> new NullPointerException());
 
 		LikeCommentEntity likeCommentEntity = LikeCommentEntity.builder().userEntity(userEntity).commentEntity(commentEntity).build();
 		likeCommentRepository.save(likeCommentEntity);

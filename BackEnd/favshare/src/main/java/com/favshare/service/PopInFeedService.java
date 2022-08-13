@@ -33,8 +33,8 @@ public class PopInFeedService {
 	public void insertPopInFeed(List<FeedPopIdDto> feedPopIdDto) {
 
 		for (int i = 0; i < feedPopIdDto.size(); i++) {
-			FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.get(i).getFeedId()).get();
-			PopEntity popEntity = popRepository.findById(feedPopIdDto.get(i).getPopId()).get();
+			FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.get(i).getFeedId()).orElseThrow(() -> new NullPointerException());
+			PopEntity popEntity = popRepository.findById(feedPopIdDto.get(i).getPopId()).orElseThrow(() -> new NullPointerException());
 			PopInFeedEntity popInFeedEntity = PopInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity)
 					.build();
 			popInFeedRepository.save(popInFeedEntity);

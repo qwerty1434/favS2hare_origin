@@ -32,9 +32,9 @@ public class CommentService {
 		return commentRepository.findAllByPopId(popId);
 	}
 
-	public void insertComment(UserPopContentIdDto userPopContentIdDto) {
-		UserEntity userEntity = userRepository.findById(userPopContentIdDto.getUserId()).get();
-		PopEntity popEntity = popRepository.findById(userPopContentIdDto.getPopId()).get();
+	public void insertComment(UserPopContentIdDto userPopContentIdDto) throws NullPointerException {
+		UserEntity userEntity = userRepository.findById(userPopContentIdDto.getUserId()).orElseThrow(() -> new NullPointerException());
+		PopEntity popEntity = popRepository.findById(userPopContentIdDto.getPopId()).orElseThrow(() -> new NullPointerException());
 
 		CommentEntity commentEntity = CommentEntity.builder().content(userPopContentIdDto.getContent())
 				.createDate(LocalDateTime.now()).isModify(false).userEntity(userEntity).popEntity(popEntity).build();

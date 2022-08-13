@@ -22,8 +22,8 @@ public class InterestSongService {
 	private UserRepository userRepository;
 
 	public void addSongFavorite(int userId, int songId) {
-		SongEntity songEntity = songRepository.findById(songId).get();
-		UserEntity userEntity = userRepository.findById(userId).get();
+		SongEntity songEntity = songRepository.findById(songId).orElseThrow(() -> new NullPointerException());
+		UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new NullPointerException());
 		interestSongRepository.save(new InterestSongEntity(songEntity, userEntity));
 	}
 }

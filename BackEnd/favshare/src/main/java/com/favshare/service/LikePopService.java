@@ -29,9 +29,9 @@ public class LikePopService {
 	public void insertLikePop(UserPopIdDto userPopIdDto) {
 		LikePopEntity likePopEntity = new LikePopEntity();
 
-		UserEntity userEntity = userRepository.findById(userPopIdDto.getUserId()).get();
-		PopEntity popEntity = popRepository.findById(userPopIdDto.getPopId()).get();
-		likePopEntity = likePopEntity.builder().userEntity(userEntity).popEntity(popEntity).build();
+		UserEntity userEntity = userRepository.findById(userPopIdDto.getUserId()).orElseThrow(() -> new NullPointerException());
+		PopEntity popEntity = popRepository.findById(userPopIdDto.getPopId()).orElseThrow(() -> new NullPointerException());
+		likePopEntity = LikePopEntity.builder().userEntity(userEntity).popEntity(popEntity).build();
 
 		likePopRepository.save(likePopEntity);
 	}
