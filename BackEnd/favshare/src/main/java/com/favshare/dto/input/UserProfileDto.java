@@ -1,10 +1,9 @@
-package com.favshare.dto;
-
-import java.util.List;
+package com.favshare.dto.input;
 
 import com.favshare.entity.UserEntity;
 
 import lombok.*;
+
 
 @Data
 @NoArgsConstructor

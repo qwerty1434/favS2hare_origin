@@ -1,7 +1,6 @@
 package com.favshare.dto;
 
 import com.favshare.entity.SongEntity;
-
 import lombok.*;
 
 @Data

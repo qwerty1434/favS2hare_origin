@@ -1,11 +1,5 @@
 package com.favshare.dto;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-
-import com.favshare.entity.FeedEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.entity.YoutubeEntity;
 

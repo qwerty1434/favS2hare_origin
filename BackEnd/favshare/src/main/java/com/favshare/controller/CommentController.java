@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.favshare.dto.CommentDto;
-import com.favshare.dto.UserCommentContentIdDto;
-import com.favshare.dto.UserCommentIdDto;
-import com.favshare.dto.UserPopContentIdDto;
-import com.favshare.dto.UserProfileDto;
+import com.favshare.dto.input.UserCommentContentIdDto;
+import com.favshare.dto.input.UserCommentIdDto;
+import com.favshare.dto.input.UserPopContentIdDto;
+import com.favshare.dto.input.UserProfileDto;
 import com.favshare.entity.CommentEntity;
 import com.favshare.service.CommentService;
 import com.favshare.service.UserService;

@@ -9,21 +9,21 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 public class CommentDto {
-	
+
 	private int id;
 	private String content;
 	private LocalDateTime createDate;
 	private boolean isModify;
-	
-	//외래키
+
+	// 외래키
 	private int userId;
 	private int popId;
-	
-	//추가정보
+
+	// 추가정보
 	private String nickname;
 	private String profileImageUrl;
 	private int countCommentLikes;
-	
+
 	public CommentDto(CommentEntity commentEntity, String nickname, String profileImageUrl) {
 		this.id = commentEntity.getId();
 		this.content = commentEntity.getContent();
@@ -35,5 +35,5 @@ public class CommentDto {
 		this.profileImageUrl = profileImageUrl;
 		this.countCommentLikes = commentEntity.getLikeCommentList().size();
 	}
-	
+
 }

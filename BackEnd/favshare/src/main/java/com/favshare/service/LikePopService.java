@@ -5,7 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.favshare.dto.UserPopIdDto;
+import com.favshare.dto.input.UserPopIdDto;
 import com.favshare.entity.LikePopEntity;
 import com.favshare.entity.PopEntity;
 import com.favshare.entity.UserEntity;

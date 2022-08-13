@@ -8,15 +8,14 @@ import lombok.*;
 @AllArgsConstructor
 public class PopUserYoutubeDto {
 	int popId;
-	int userId; 
+	int userId;
 	String nickname;
-	String userPicture; 
+	String userPicture;
 	int youtubeId;
-	String youtubeName; 
-	String youtubeUrl; 
-	int startSecond; 
-	int endSecond; 
+	String youtubeName;
+	String youtubeUrl;
+	int startSecond;
+	int endSecond;
 	String title;
-	
-	
+
 }

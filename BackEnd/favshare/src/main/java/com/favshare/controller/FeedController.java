@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.favshare.dto.FeedPopIdDto;
-import com.favshare.dto.FeedUserIdDto;
-import com.favshare.dto.IdFeedImageUrlDto;
-import com.favshare.dto.IdNameDto;
+import com.favshare.dto.input.FeedPopIdDto;
+import com.favshare.dto.input.FeedUserIdDto;
+import com.favshare.dto.input.IdFeedImageUrlDto;
+import com.favshare.dto.input.IdNameDto;
 import com.favshare.service.FeedService;
 import com.favshare.service.PopInFeedService;
 

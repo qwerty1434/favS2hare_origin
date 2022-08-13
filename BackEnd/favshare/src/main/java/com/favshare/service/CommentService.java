@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.favshare.dto.UserCommentContentIdDto;
-import com.favshare.dto.UserCommentIdDto;
-import com.favshare.dto.UserPopContentIdDto;
+import com.favshare.dto.input.UserCommentContentIdDto;
+import com.favshare.dto.input.UserCommentIdDto;
+import com.favshare.dto.input.UserPopContentIdDto;
 import com.favshare.entity.CommentEntity;
 import com.favshare.entity.PopEntity;
 import com.favshare.entity.UserEntity;

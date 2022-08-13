@@ -1,7 +1,6 @@
 package com.favshare.dto;
 
-import java.util.List;
-
+import com.favshare.dto.input.UserProfileDto;
 
 import lombok.*;
 

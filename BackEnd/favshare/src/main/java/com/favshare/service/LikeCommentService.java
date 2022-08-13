@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.favshare.dto.UserCommentIdDto;
+import com.favshare.dto.input.UserCommentIdDto;
 import com.favshare.entity.CommentEntity;
 import com.favshare.entity.LikeCommentEntity;
 import com.favshare.entity.UserEntity;

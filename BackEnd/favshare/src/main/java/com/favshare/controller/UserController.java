@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.favshare.dto.EmailPasswordDto;
 import com.favshare.dto.UserAccountDto;
-import com.favshare.dto.UserSignUpDto;
+import com.favshare.dto.input.EmailPasswordDto;
+import com.favshare.dto.input.UserSignUpDto;
 import com.favshare.service.UserService;
 import com.favshare.service.JwtServiceImpl;
 

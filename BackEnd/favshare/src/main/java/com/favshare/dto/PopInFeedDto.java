@@ -1,8 +1,5 @@
 package com.favshare.dto;
 
-import com.favshare.entity.FeedEntity;
-import com.favshare.entity.PopEntity;
-
 import lombok.*;
 
 @Data
