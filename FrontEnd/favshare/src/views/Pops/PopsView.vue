@@ -3,7 +3,7 @@
   <div>
     <div class="top">
       <search-bar @input-change="searchOnEnter"></search-bar>
-      <div>
+      <div class="pops-view">
         <pops-type-list @click-type="searchOnEnter"></pops-type-list>
       </div>
     </div>
@@ -80,12 +80,17 @@ export default {
 .pops-body {
   padding-top: 130px;
 }
-
-.pops-type {
-  /* 가로 스크롤 */
-  height: 100px;
-  overflow: auto;
-  white-space: nowrap;
+.top {
+  position: fixed;
+  width: 100%;
+}
+.pops-view {
+  padding-top: 45px;
+}
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
 .bottom {

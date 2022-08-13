@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable -->
-  <v-container>
+  <div>
     <!-- <my-youtube-list-item
       v-for="youtubeItem in myVideoList"
       :youtubeId="youtubeItem.youtubeId"
@@ -10,7 +10,7 @@
     <div v-for="myYoutubeVideo in myYoutubeVideos" :key="myYoutubeVideo.id">
       <my-youtube-list-item :my-youtube-video="myYoutubeVideo"></my-youtube-list-item>
     </div>
-  </v-container>
+  </div>
 </template>
 <script>
 import MyYoutubeListItem from "./MyYoutubeListItem.vue";

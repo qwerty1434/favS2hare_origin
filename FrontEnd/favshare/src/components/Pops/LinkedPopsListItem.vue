@@ -2,7 +2,7 @@
   <v-col cols="6" align="center">
     <v-card class="pops-container" elevation="2">
       <youtube
-        :video-id="youtubeId"
+        :video-id="youtubeUrl"
         :player-vars="playerVars"
         :ref="'pops' + this.popsId"
         width="160"
@@ -34,9 +34,6 @@ export default {
     };
   },
   computed: {
-    youtubeId() {
-      return this.youtubeUrl.slice(-11);
-    },
     player() {
       return this.$refs[`pops${this.popsId}`].player;
     },

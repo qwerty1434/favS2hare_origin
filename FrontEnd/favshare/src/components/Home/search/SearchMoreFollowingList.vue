@@ -1,20 +1,32 @@
 <template>
+  <!-- eslint-disable -->
   <v-container>
-    <div>
-      <search-more-following-list-item></search-more-following-list-item>
+    <div class="mt-6"></div>
+    <div v-for="searchedFollowingListItem in searchedFollowingList">
+      <search-more-following-list-item
+        :searched-following-list-item="searchedFollowingListItem"
+      ></search-more-following-list-item>
     </div>
   </v-container>
 </template>
 <script>
 import SearchMoreFollowingListItem from "./SearchMoreFollowingListItem.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "SearchMoreFollowingList",
   components: { SearchMoreFollowingListItem },
   data() {
-    return {
-      searchedFollowingList: [],
-    };
+    return {};
+  },
+  computed: {
+    ...mapGetters(["searchedFollowingList"]),
+  },
+  methods: {
+    ...mapActions([]),
+    goBack() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>

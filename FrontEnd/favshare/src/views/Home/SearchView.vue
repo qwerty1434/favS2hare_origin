@@ -1,9 +1,11 @@
 <template>
   <!-- eslint-disable -->
-  <div class="top">
-    <search-bar @input-change="searchOnEnter"></search-bar>
+  <div>
+    <div class="top">
+      <search-bar @input-change="searchOnEnter"></search-bar>
+    </div>
     <!-- v-if로 검색전, 검색후 화면 나누기 -->
-    <div v-if="searchSuccess">
+    <div class="search-view" v-if="searchSuccess">
       <search-result
         :searched-keyword="keyword"
         :pops-list="popsList"
@@ -31,6 +33,7 @@ export default {
     return {
       searchSuccess: false,
       keyword: "",
+      paramsData: null,
       popsList: Array,
       youtubeList: Array,
       userList: Array,
@@ -38,6 +41,9 @@ export default {
   },
   computed: {
     ...mapGetters(["searchedPopsList", "searchedYoutubeList", "searchedFollowingList"]),
+  },
+  mounted() {
+    this.paramsData = JSON.parse(this.$route.query.keyword);
   },
   methods: {
     ...mapActions(["getSearchedPopsList", "getSearchedYoutubeList", "getSearchedFollowingList"]),
@@ -47,6 +53,10 @@ export default {
     // },
     searchOnEnter: function (keyword) {
       this.keyword = keyword;
+      this.$router.push({
+        path: "search",
+        query: { keyword: JSON.stringify(keyword) },
+      });
       this.getSearchedPopsList({ keyword: keyword });
       this.popsList = this.searchedPopsList;
       this.getSearchedYoutubeList({ keyword: keyword });
@@ -59,4 +69,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.top {
+  position: fixed;
+  width: 100%;
+}
+.search-view {
+  padding-top: 60px;
+}
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+</style>

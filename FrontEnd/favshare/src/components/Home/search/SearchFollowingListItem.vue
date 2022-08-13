@@ -3,8 +3,8 @@
   <div class="mr-4">
     <v-row>
       <v-col align="center">
-        <v-avatar size="65">
-          <v-img class="following-size" src="@/assets/sample/popssample.jpg"> </v-img>
+        <v-avatar color="orange lighten-4" size="65">
+          <img class="following-size" :src="userListItem.profileImageUrl" alt="image" />
         </v-avatar>
         <h6 class="mt-3">
           {{ userListItem.nickname }}

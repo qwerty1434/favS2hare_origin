@@ -2,7 +2,7 @@
   <!-- eslint-disable -->
   <v-container>
     <router-link to="/popsdetail">
-      <v-card class="mt-3" height="555px">
+      <v-card height="585px">
         <v-img height="100%" src="@/assets/sample/popssample.jpg">
           <v-row class="pa-2" justify="end">
             <v-btn class="ma-2" text icon color="white">
@@ -77,7 +77,7 @@ export default {
 </script>
 <style>
 .mt-300 {
-  margin-top: 455px !important;
+  margin-top: 485px !important;
   margin-right: 1px;
 }
 </style>

@@ -1,8 +1,7 @@
 <template>
   <v-card class="video-size mr-4">
-    <v-img class="video-size" src="@/assets/sample/popssample.jpg">
-      {{ youtubeListItem }}
-    </v-img>
+    <v-img height="130" src="@/assets/sample/popssample.jpg"> </v-img>
+    {{ youtubeListItem }}
   </v-card>
 </template>
 <script>
@@ -18,7 +17,7 @@ export default {
 </script>
 <style>
 .video-size {
-  height: 150px;
-  width: 250px;
+  height: 170px;
+  width: 230px;
 }
 </style>
