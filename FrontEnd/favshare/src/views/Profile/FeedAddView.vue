@@ -1,7 +1,23 @@
 <template>
   <div>
+    <v-app-bar color="white" dense flat>
+      <router-link to="/feed">
+        <v-icon>mdi-keyboard-backspace</v-icon>
+      </router-link>
+    </v-app-bar>
     <my-pops-list ref="myPopsList" :myPopsList="myPopsList"></my-pops-list>
-    <v-btn @click.prevent="addPopsInFeed">영상 추가</v-btn>
+    <!-- 영상 추가 버튼 -->
+    <v-footer fixed padless>
+      <v-btn
+        @click.prevent="addPopsInFeed"
+        color="#FF5D5D"
+        height="50"
+        dark
+        block
+        tile
+        >영상 추가</v-btn
+      >
+    </v-footer>
   </div>
 </template>
 
