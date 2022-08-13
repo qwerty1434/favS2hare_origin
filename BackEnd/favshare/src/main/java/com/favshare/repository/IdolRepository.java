@@ -10,13 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.favshare.entity.IdolEntity;
 
 @Repository
-public interface IdolRepository extends JpaRepository<IdolEntity, Integer>{
-	
-	public IdolEntity findByName(String name);
-	
-	@Query(value ="SELECT * FROM idol WHERE name LIKE CONCAT('%',:keyword,'%')", nativeQuery = true)
-	public List<IdolEntity> findByKeywordContains(@Param("keyword") String keyword);	
+public interface IdolRepository extends JpaRepository<IdolEntity, Integer> {
 
-	
-	
+	public IdolEntity findByName(String name);
+
+	@Query(value = "SELECT * FROM idol WHERE name LIKE CONCAT('%',:keyword,'%')", nativeQuery = true)
+	public List<IdolEntity> findByKeywordContains(@Param("keyword") String keyword);
+
 }

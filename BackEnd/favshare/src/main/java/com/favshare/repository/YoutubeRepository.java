@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.favshare.entity.YoutubeEntity;
 
 @Repository
-public interface YoutubeRepository extends JpaRepository<YoutubeEntity, Integer>{
-	
+public interface YoutubeRepository extends JpaRepository<YoutubeEntity, Integer> {
+
 	YoutubeEntity findByUrl(String url);
 }
