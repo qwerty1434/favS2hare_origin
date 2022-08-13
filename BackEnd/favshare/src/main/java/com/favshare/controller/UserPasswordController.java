@@ -2,7 +2,6 @@ package com.favshare.controller;
 
 import java.util.HashMap;
 
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -89,8 +88,8 @@ public class UserPasswordController {
 		try {
 			String result = userService.getUserAuthByEmail(authInfo.get("email"));
 			if (authInfo.get("auth").equals(result)) {
-				return new ResponseEntity<String>("success",HttpStatus.OK);
-			}else {
+				return new ResponseEntity<String>("success", HttpStatus.OK);
+			} else {
 				return new ResponseEntity<String>("fail", HttpStatus.OK);
 			}
 		} catch (Exception e) {

@@ -27,16 +27,16 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/user/interest")
-public class UserInterestController{
+public class UserInterestController {
 	@Autowired
 	private IdolService idolService;
 
 	@Autowired
 	private SongService songService;
-	
+
 	@Autowired
 	private InterestIdolService interestIdolService;
-	
+
 	@Autowired
 	private InterestSongService interestSongService;
 
@@ -45,17 +45,18 @@ public class UserInterestController{
 
 	@ApiOperation(value = "유저가 선택한 취향 저장", response = ResponseEntity.class)
 	@PostMapping
-	public void saveInterest(InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}} 이런 형식으로 값이 들어왔으면 좋겠음
+	public void saveInterest(InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}} 이런 형식으로 값이 들어왔으면
+																// 좋겠음
 		int userId = interestSaveDto.getUserId();
 		List<Integer> IdolList = interestSaveDto.getIdolList();
 		List<Integer> SongList = interestSaveDto.getSongList();
-		for (int i = 0; i < SongList.size(); i++) {		
-			interestSongService.addSongFavorite(userId,SongList.get(i));
+		for (int i = 0; i < SongList.size(); i++) {
+			interestSongService.addSongFavorite(userId, SongList.get(i));
 		}
-		for (int i = 0; i < IdolList.size(); i++) {		
-			interestIdolService.addIdolFavorite(userId,IdolList.get(i));
+		for (int i = 0; i < IdolList.size(); i++) {
+			interestIdolService.addIdolFavorite(userId, IdolList.get(i));
 		}
-		
+
 	}
 
 	@ApiOperation(value = "모든 노래 정보 반환", response = ResponseEntity.class)

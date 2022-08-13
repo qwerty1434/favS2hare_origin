@@ -33,27 +33,26 @@ public class YoutubeController {
 		// 로그인 안한 경우에는 userId 값이 0으로 넘어온다.
 		try {
 			boolean hasInterestIdol = youtubeService.hasInterestIdol(userId);
-			List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
+			List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
 			HashMap<String, Object> urlMap = new HashMap<String, Object>();
 
 			List<String> urlList;
-			
-			if(userId == 0 || !hasInterestIdol) {
+
+			if (userId == 0 || !hasInterestIdol) {
 				urlList = youtubeService.getAlgoUrlByNoId(userId);
-			}
-			else {
-				
+			} else {
+
 				urlList = youtubeService.getAlgoUrlByUserId(userId);
 			}
-			
-			for(int i = 0; i < urlList.size(); i++) {
+
+			for (int i = 0; i < urlList.size(); i++) {
 				urlMap = new HashMap<String, Object>();
-				urlMap.put("youtubeId" , urlList.get(i));
+				urlMap.put("youtubeId", urlList.get(i));
 				result.add(urlMap);
 			}
-			
+
 			return new ResponseEntity<List<HashMap<String, Object>>>(result, HttpStatus.OK);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<List<HashMap<String, Object>>>(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -63,11 +62,11 @@ public class YoutubeController {
 	public ResponseEntity<YoutubeDetailDto> showYoutubeDetil(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
 			YoutubeDetailDto youtubeDetailDto = youtubeService.getDetailByUrl(youtubeUserIdDto);
-			return new ResponseEntity<YoutubeDetailDto>(youtubeDetailDto, HttpStatus.OK);  
-		}catch(Exception e) {
-			return new ResponseEntity<YoutubeDetailDto>(HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<YoutubeDetailDto>(youtubeDetailDto, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<YoutubeDetailDto>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
-	
+
 }

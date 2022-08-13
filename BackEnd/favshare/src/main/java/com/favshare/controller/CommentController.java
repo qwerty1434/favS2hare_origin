@@ -30,7 +30,6 @@ public class CommentController {
 	@Autowired
 	private UserService userService;
 
-
 	@ApiOperation(value = "댓글 버튼 클릭시 - 댓글 리스트 반환", response = ResponseEntity.class)
 	@GetMapping("/{popId}")
 	public ResponseEntity<List<CommentDto>> showCommentList(@PathVariable("popId") int popId) {

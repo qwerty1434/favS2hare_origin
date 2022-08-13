@@ -55,12 +55,12 @@ public class UserProfileController {
 			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@ApiOperation(value = "프로필 보기 중간부분(피드 리스트)", response = ResponseEntity.class)
 	@GetMapping("/feed/{userId}")
-	public ResponseEntity<List<FeedDto>> showMiddle(@PathVariable("userId") int userId){
+	public ResponseEntity<List<FeedDto>> showMiddle(@PathVariable("userId") int userId) {
 		List<FeedDto> feedDtoList = userService.getFeedList(userId);
-		return new ResponseEntity<List<FeedDto>>(feedDtoList,HttpStatus.OK);
+		return new ResponseEntity<List<FeedDto>>(feedDtoList, HttpStatus.OK);
 	}
 
 	// feedController에 있어야 하는건가?
@@ -144,4 +144,3 @@ public class UserProfileController {
 		}
 	}
 }
-

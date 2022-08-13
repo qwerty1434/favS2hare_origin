@@ -1,6 +1,5 @@
 package com.favshare.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,23 +17,23 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/pop/likeComment")
 public class LikeCommentController {
-	
+
 	@Autowired
 	private LikeCommentService likeCommentService;
-	
-	@ApiOperation(value="댓글 좋아요 클릭 시",response=ResponseEntity.class)	
+
+	@ApiOperation(value = "댓글 좋아요 클릭 시", response = ResponseEntity.class)
 	@PostMapping
 	public ResponseEntity<?> addLikeComment(@RequestBody UserCommentIdDto userCommentIdDto) {
 		try {
 			likeCommentService.insertLike(userCommentIdDto);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			
+
 			return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
 		}
 	}
-	
-	@ApiOperation(value="댓글 좋아요 취소 시",response=ResponseEntity.class)	
+
+	@ApiOperation(value = "댓글 좋아요 취소 시", response = ResponseEntity.class)
 	@DeleteMapping
 	public ResponseEntity<?> deleteLikeComment(@RequestBody UserCommentIdDto userCommentIdDto) {
 		try {

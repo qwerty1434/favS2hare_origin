@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +32,6 @@ public class UserFollowController {
 
 	@Autowired
 	private UserService userService;
-
 
 	@ApiOperation(value = "내가 팔로우 하는 사람(팔로잉)", response = ResponseEntity.class)
 	@GetMapping("/from/{userId}")
