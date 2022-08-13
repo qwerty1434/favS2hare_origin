@@ -11,17 +11,15 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class IdolMemberEntity { //이 엔티티가 사용되는 곳이 있나?
+public class IdolMemberEntity { // 이 엔티티가 사용되는 곳이 있나?
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String name;
 
-	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name ="idol_id", nullable = false)
+	@JoinColumn(name = "idol_id", nullable = false)
 	private IdolEntity idolEntity;
-	
 
 }

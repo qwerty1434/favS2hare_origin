@@ -18,14 +18,13 @@ public class SongEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-    @Column(nullable = false)
+
+	@Column(nullable = false)
 	private String name;
 
-    private String content;
-    
-	@OneToMany(mappedBy="songEntity")
+	private String content;
+
+	@OneToMany(mappedBy = "songEntity")
 	private List<InterestSongEntity> interestSongList = new ArrayList<>();
-    
-	
+
 }
