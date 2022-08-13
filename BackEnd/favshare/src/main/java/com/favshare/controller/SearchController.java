@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.PopDto;
 import com.favshare.dto.UserProfileDto;
-import com.favshare.entity.UserEntity;
 import com.favshare.service.PopService;
 import com.favshare.service.UserService;
 import com.favshare.service.YoutubeService;
@@ -34,8 +33,8 @@ public class SearchController {
 
 	@ApiOperation(value="검색어를 입력하면 해당 키워드가 포함된 '팝리스트','동영상 리스트','유저 리스트' 반환")
 	@GetMapping("/{message}")
-	public ResponseEntity search(@PathVariable("message") String message){
-		HashMap<String,List> result = new HashMap<String,List>();
+	public ResponseEntity<?> search(@PathVariable("message") String message){
+		HashMap<String,List<?>> result = new HashMap<String,List<?>>();
 		
 		
 		List<PopDto> popList = popService.popDtoListByKeyword(message);
@@ -50,7 +49,7 @@ public class SearchController {
 
 		
 		
-		return new ResponseEntity(result,HttpStatus.OK);
+		return new ResponseEntity<>(result,HttpStatus.OK);
 		
 	}
 }

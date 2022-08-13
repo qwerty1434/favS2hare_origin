@@ -78,15 +78,15 @@ public class UserController {
 	
 	@ApiOperation(value="유효한 이메일인지 확인",response=ResponseEntity.class)
     @GetMapping("/signup/{email}")
-    public ResponseEntity checkEmail(@PathVariable("email") String email) {
+    public ResponseEntity<?> checkEmail(@PathVariable("email") String email) {
         try {
             if(userService.isExistUserByEmail(email)) {
-                return new ResponseEntity(HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.OK);
             }else {
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch(Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

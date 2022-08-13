@@ -1,11 +1,10 @@
 package com.favshare.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.favshare.dto.FollowDto;
 import com.favshare.dto.FromUserToUserDto;
 import com.favshare.entity.FollowEntity;
-import com.favshare.entity.UserEntity;
 import com.favshare.service.FollowService;
 import com.favshare.service.UserService;
 
@@ -36,8 +34,6 @@ public class UserFollowController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private ModelMapper modelMapper;
 
 	@ApiOperation(value = "내가 팔로우 하는 사람(팔로잉)", response = ResponseEntity.class)
 	@GetMapping("/from/{userId}")
@@ -87,15 +83,15 @@ public class UserFollowController {
 
 	@ApiOperation(value = "from이 to를 팔로우 함", response = ResponseEntity.class)
 	@PostMapping
-	public ResponseEntity addFollow(@RequestBody FromUserToUserDto fromUserToUserDto) {
+	public ResponseEntity<?> addFollow(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		try {
 			// 프론트에서 유저 id를 알고 있나요?
 			int fromUserId = fromUserToUserDto.getFromUserId();
 			int toUserId = fromUserToUserDto.getToUserId();
 			followService.insertFollow(fromUserId, toUserId);
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 

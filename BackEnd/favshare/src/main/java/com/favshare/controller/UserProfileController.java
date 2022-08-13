@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.FeedDto;
 import com.favshare.dto.FeedUserIdDto;
-import com.favshare.dto.FollowDto;
 import com.favshare.dto.FollowForFollowDto;
 import com.favshare.dto.PopDto;
-import com.favshare.dto.PopInFeedDto;
 import com.favshare.dto.UserProfileDto;
 import com.favshare.service.PopService;
 import com.favshare.service.UserService;
@@ -99,7 +97,7 @@ public class UserProfileController {
 
 	@ApiOperation(value = "프로필 수정", response = ResponseEntity.class)
 	@PutMapping
-	public ResponseEntity changeProfile(@RequestBody UserProfileDto userProfileDto) {
+	public ResponseEntity<?> changeProfile(@RequestBody UserProfileDto userProfileDto) {
 		try {
 			UserProfileDto result = userService.getUserProfileById(userProfileDto.getId());
 			result.setNickname(userProfileDto.getNickname());
@@ -108,9 +106,9 @@ public class UserProfileController {
 
 			userService.updateProfile(result);
 
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
