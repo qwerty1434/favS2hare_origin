@@ -11,22 +11,46 @@
           </v-row>
           <v-row class="pa-2 mt-300" justify="end">
             <!-- userId 영상제목 -->
-            <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="likePops">
+            <v-btn
+              class="mt-2"
+              text
+              icon
+              color="white"
+              v-if="!isLiked"
+              @click="likePops"
+            >
               <v-icon>mdi-heart-outline</v-icon>
             </v-btn>
-            <v-btn class="mt-2" text icon color="white" v-else @click="likePops">
+            <v-btn
+              class="mt-2"
+              text
+              icon
+              color="white"
+              v-else
+              @click="likePops"
+            >
               <v-icon>mdi-heart</v-icon>
             </v-btn>
-            <v-btn class="mt-2" text icon color="white" @click.stop="dialogInfo = true">
+            <v-btn
+              class="mt-2"
+              text
+              icon
+              color="white"
+              @click.stop="dialogInfo = true"
+            >
               <v-icon>mdi-information-outline</v-icon>
             </v-btn>
-            <pops-info-modal :value="dialogInfo" @input="dialogInfo = $event"></pops-info-modal>
+            <pops-info-modal
+              :value="dialogInfo"
+              @input="dialogInfo = $event"
+            ></pops-info-modal>
           </v-row>
         </v-img>
       </v-card>
     </router-link>
   </v-container>
 </template>
+
 <script>
 import PopsInfoModal from "@/components/Pops/PopsInfoModal.vue";
 

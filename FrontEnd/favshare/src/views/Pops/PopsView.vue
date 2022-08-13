@@ -7,11 +7,12 @@
         <pops-type-list @click-type="searchOnEnter"></pops-type-list>
       </div>
     </div>
+    <v-divider></v-divider>
     <div v-if="searchSuccess" class="pops-body">
       <pops-list :popsList="popsList"></pops-list>
     </div>
     <div class="bottom">
-      <bottom-navigation-bar></bottom-navigation-bar>
+      <bottom-navigation-bar class="bottom"></bottom-navigation-bar>
     </div>
   </div>
 </template>
@@ -75,9 +76,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .pops-body {
-  padding-top: 150px;
+  padding-top: 130px;
 }
 
 .pops-type {
@@ -85,5 +86,17 @@ export default {
   height: 100px;
   overflow: auto;
   white-space: nowrap;
+}
+
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.top {
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 </style>
