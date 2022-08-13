@@ -14,13 +14,13 @@ import com.favshare.repository.UserRepository;
 public class InterestSongService {
 	@Autowired
 	private InterestSongRepository interestSongRepository;
-	
+
 	@Autowired
-	private SongRepository songRepository;	
-	
+	private SongRepository songRepository;
+
 	@Autowired
-	private UserRepository userRepository;	
-	
+	private UserRepository userRepository;
+
 	public void addSongFavorite(int userId, int songId) {
 		SongEntity songEntity = songRepository.findById(songId).get();
 		UserEntity userEntity = userRepository.findById(userId).get();

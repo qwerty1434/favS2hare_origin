@@ -51,7 +51,7 @@ public class YoutubeService {
 
 	@Autowired
 	IdolRepository idolRepository;
-	
+
 	@Autowired
 	StoreYoutubeRepository storeYoutubeRepository;
 
@@ -91,22 +91,21 @@ public class YoutubeService {
 	public YoutubeDetailDto getDetailByUrl(YoutubeUserIdDto youtubeUSerIdDto) {
 		YoutubeEntity youtubeEntity;
 		youtubeEntity = youtubeRepository.findByUrl(youtubeUSerIdDto.getYoutubeUrl());
-		
+
 		List<PopDto> popList;
 		YoutubeDetailDto result;
 		int youtubeId = youtubeRepository.findByUrl(youtubeUSerIdDto.getYoutubeUrl()).getId();
 		boolean isBookmarked;
-		
+
 		// 해당 유튜브를 bookmark 했는지를 같이 반환
-		if(storeYoutubeRepository.isBookmarked(youtubeUSerIdDto.getUserId(), youtubeId) == 1) {
+		if (storeYoutubeRepository.isBookmarked(youtubeUSerIdDto.getUserId(), youtubeId) == 1) {
 			isBookmarked = true;
+		} else {
+			isBookmarked = false;
 		}
-		else {
-			isBookmarked = false;	
-		}
-			
+
 		result = new YoutubeDetailDto(youtubeUSerIdDto.getYoutubeUrl(), isBookmarked);
-		
+
 		if (youtubeEntity == null) {
 			popList = null;
 		} else {
@@ -265,7 +264,7 @@ public class YoutubeService {
 
 	public YoutubeInfoDto getEditInfoByUrl(YoutubeUserIdDto youtubeUserIdDto) {
 		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
-		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
+//		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
 
 		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeUserIdDto.getYoutubeUrl());
 		List<FeedDto> feedList = Arrays.asList(modelMapper.map(userEntity.getFeedList(), FeedDto[].class));
@@ -276,7 +275,7 @@ public class YoutubeService {
 
 	public List<String> getUrlByKeyword(String keyword) {
 		List<String> urlList = new ArrayList<String>();
-		
+
 		try {
 			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
 				@Override
@@ -296,7 +295,6 @@ public class YoutubeService {
 
 			searchResponse = search.execute();
 
-
 			List<SearchResult> searchResultList = searchResponse.getItems();
 			if (searchResultList != null) {
 				prettyPrint(searchResultList.iterator(), urlList);
@@ -313,7 +311,7 @@ public class YoutubeService {
 
 		Collections.shuffle(urlList);
 
-		return urlList;		
+		return urlList;
 	}
-	
+
 }

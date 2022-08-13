@@ -20,33 +20,32 @@ import com.favshare.repository.PopRepository;
 
 @Service
 public class PopInFeedService {
-	
+
 	@Autowired
 	private PopInFeedRepository popInFeedRepository;
-	
+
 	@Autowired
 	private FeedRepository feedRepository;
-	
+
 	@Autowired
 	private PopRepository popRepository;
-	
+
 	public void insertPopInFeed(List<FeedPopIdDto> feedPopIdDto) {
-		PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
-		
-		for(int i = 0; i < feedPopIdDto.size(); i++) {			
+
+		for (int i = 0; i < feedPopIdDto.size(); i++) {
 			FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.get(i).getFeedId()).get();
 			PopEntity popEntity = popRepository.findById(feedPopIdDto.get(i).getPopId()).get();
-			popInFeedEntity = popInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity).build();
+			PopInFeedEntity popInFeedEntity = PopInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity)
+					.build();
 			popInFeedRepository.save(popInFeedEntity);
 		}
-		
+
 	}
-	
+
 	public void deletePopInFeed(FeedPopIdDto feedPopIdDto) {
 		int feedId = feedPopIdDto.getFeedId();
 		int popId = feedPopIdDto.getPopId();
 		popInFeedRepository.deleteByPopFeedId(feedId, popId);
 	}
-	
-	
+
 }
