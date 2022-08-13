@@ -23,7 +23,7 @@ import axios from "axios";
 
 export default {
   name: "OriginalInfo",
-  props: ["youtube"],
+  props: ["youtubeUrl"],
   data() {
     return {
       title: "",
@@ -39,11 +39,10 @@ export default {
     getOriginalInfo() {
       const URL = "https://www.googleapis.com/youtube/v3/videos";
       const API_KEY = "AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A";
-      const youtubeId = this.youtube.youtubeUrl.slice(-11);
       const params = {
         key: API_KEY,
         part: "snippet",
-        id: youtubeId,
+        id: this.youtubeUrl,
       };
       axios
         .get(URL, { params })
@@ -51,7 +50,7 @@ export default {
           this.title = response.data.items[0].snippet.title;
           this.thumbnail = response.data.items[0].snippet.thumbnails.medium.url;
           let description = response.data.items[0].snippet.description;
-          if (description.length > 30) {
+          if (description.length > 120) {
             description = description.slice(0, 120) + "...";
           }
           this.description = description;
