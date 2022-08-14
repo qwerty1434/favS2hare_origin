@@ -1,37 +1,14 @@
 <template>
-  <v-row class="mt-1">
-    <v-sheet
-      v-model="type1"
-      color="red lighten-3"
-      class="pops-type-size"
-      :rounded="'xl'"
-      @click="SearchPopsByType()"
-    ></v-sheet>
-    <v-sheet
-      :rounded="'xl'"
-      color="yellow lighten-3"
-      class="pops-type-size"
-      @click="SearchPopsByType()"
-    ></v-sheet>
-    <v-sheet
-      :rounded="'xl'"
-      color="teal lighten-3"
-      class="pops-type-size"
-      @click="SearchPopsByType()"
-    ></v-sheet>
-    <v-sheet
-      :rounded="'xl'"
-      color="green lighten-3"
-      class="pops-type-size"
-      @click="SearchPopsByType()"
-    ></v-sheet>
-    <!-- <v-sheet
-      :rounded="'xl'"
-      color="blue lighten-3"
-      class="pops-type-size"
-      @click="SearchPopsByType()"
-    ></v-sheet> -->
-  </v-row>
+  <div class="pops-type">
+    <v-row class="pops-row">
+      <div>
+        <v-avatar>
+          <img :src="popsTypeItem.idolImageUrl" alt="" />
+        </v-avatar>
+        <div>{{ popsTypeItem.name }}</div>
+      </div>
+    </v-row>
+  </div>
 </template>
 <script>
 export default {
@@ -41,6 +18,9 @@ export default {
       type1: "type1",
     };
   },
+  props: {
+    popsTypeItem: Object,
+  },
   methods: {
     SearchPopsByType() {
       console.log("type click");
@@ -49,10 +29,21 @@ export default {
   },
 };
 </script>
+
 <style>
 .pops-type-size {
   height: 80px;
   width: 80px;
   margin: auto;
+}
+
+.pops-type {
+  width: 330px;
+  margin: auto;
+}
+
+.pops-row {
+  padding-top: 16px;
+  padding-left: 15px;
 }
 </style>
