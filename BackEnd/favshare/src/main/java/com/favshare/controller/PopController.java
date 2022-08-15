@@ -108,7 +108,8 @@ public class PopController {
 	@PostMapping("/info")
 	public ResponseEntity<HashMap<String, Object>> showPopInfo(@RequestBody UserPopIdDto userPopIdDto) {
 		try {
-			PopInfoDto popInfoDto = popService.getPopInfoById(userPopIdDto.getPopId());
+			PopInfoDto popInfoDto = popService.getPopInfoById(userPopIdDto.getPopId(),userPopIdDto.getUserId());
+			// liked추가
 			UserProfileDto userProfileDto = userService.getUserProfileById(userPopIdDto.getUserId());
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("popInfoDto", popInfoDto);

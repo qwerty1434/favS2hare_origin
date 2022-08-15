@@ -32,6 +32,7 @@ import com.favshare.repository.FeedRepository;
 import com.favshare.repository.IdolRepository;
 import com.favshare.repository.InterestIdolRepository;
 import com.favshare.repository.InterestSongRepository;
+import com.favshare.repository.LikePopRepository;
 import com.favshare.repository.PopInFeedRepository;
 import com.favshare.repository.PopRepository;
 import com.favshare.repository.ShowPopRepository;
@@ -70,6 +71,9 @@ public class PopService {
 	private InterestSongRepository interestSongRepository;
 	
 	@Autowired
+	private LikePopRepository likePopRepository;
+	
+	@Autowired
 	private ModelMapper modelMapper;
 	
 	public void updatePopView(int popId) {
@@ -78,12 +82,21 @@ public class PopService {
 		popRepository.save(popEntity);
 	}
 	
-	public PopInfoDto getPopInfoById(int popId) {
+	public PopInfoDto getPopInfoById(int popId, int userId) {
 		PopEntity popEntity = popRepository.findById(popId).get();
-		PopInfoDto popInfoDto = new PopInfoDto(popEntity, popEntity.getYoutubeEntity());
+		boolean isLiked = isLiked(userId,popId);
+		PopInfoDto popInfoDto = new PopInfoDto(popEntity, popEntity.getYoutubeEntity(), isLiked);
 		
 		return popInfoDto;
 	}
+	
+	public boolean isLiked(int userId, int popId) {
+		if(likePopRepository.isLiked(userId,popId) == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}		
 	
 	public PopDto getPopDtoById(int popId) {
 		PopEntity popEntity = popRepository.findById(popId).get();
