@@ -16,16 +16,19 @@
       <div class="video__details">
         <div class="author">
           <router-link
-            :to="{ name: 'feed', params: { userPk: feedPop.userId } }"
+            :to="{
+              name: 'feed',
+              params: { userPk: feedPop.userProfileDto.id },
+            }"
           >
-            <img :src="this.feedPop.profileImage" alt="" />
+            <img :src="this.feedPop.userProfileDto.profileImageUrl" alt="" />
           </router-link>
         </div>
         <div class="title">
           <h3>
-            {{ this.feedPop.userName }}
+            {{ this.feedPop.userProfileDto.nickname }}
           </h3>
-          <div class="pop-name">{{ feedPop.name }}</div>
+          <div class="pop-name">{{ feedPop.popDto.name }}</div>
         </div>
       </div>
     </v-sheet>
@@ -56,14 +59,14 @@ export default {
       },
       // tmp data
       section: {
-        start: this.feedPop.startSecond,
-        end: this.feedPop.endSecond,
+        start: this.feedPop.popDto.startSecond,
+        end: this.feedPop.popDto.endSecond,
       },
     };
   },
   computed: {
     youtubePk() {
-      return this.feedPop.youtubeUrl.slice(-11);
+      return this.feedPop.popDto.youtubeUrl;
     },
     player() {
       return this.$refs[`pops${this.feedPop.popsId}`].player;
