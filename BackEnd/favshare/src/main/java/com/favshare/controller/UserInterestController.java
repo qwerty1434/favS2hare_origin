@@ -45,8 +45,8 @@ public class UserInterestController {
 
 	@ApiOperation(value = "유저가 선택한 취향 저장", response = ResponseEntity.class)
 	@PostMapping
-	public void saveInterest(InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}} 이런 형식으로 값이 들어왔으면
-																// 좋겠음
+	public void saveInterest(InterestSaveDto interestSaveDto) {
+		
 		int userId = interestSaveDto.getUserId();
 		List<Integer> IdolList = interestSaveDto.getIdolList();
 		List<Integer> SongList = interestSaveDto.getSongList();

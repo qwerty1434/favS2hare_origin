@@ -37,19 +37,9 @@ public class UserFollowController {
 	@GetMapping("/from/{userId}")
 	public ResponseEntity<List<FollowDto>> showFollower(@PathVariable("userId") int userId) {
 		try {
-			List<FollowEntity> followEntityList = followService.getFollowingById(userId);
+			List<FollowDto> followEntityList = followService.getFollowingById(userId);
 
-			List<FollowDto> result = new ArrayList<>();
-
-			for (int i = 0; i < followEntityList.size(); i++) {
-				int fromUserId = followEntityList.get(i).getFromUserEntity().getId();
-				int toUserId = followEntityList.get(i).getToUserEntity().getId();
-				String nickname = followEntityList.get(i).getToUserEntity().getNickname();
-				String profileImageUrl = followEntityList.get(i).getToUserEntity().getProfileImageUrl();
-				result.add(new FollowDto(fromUserId, toUserId, nickname, false, profileImageUrl));
-			}
-
-			return new ResponseEntity<List<FollowDto>>(result, HttpStatus.OK);
+			return new ResponseEntity<List<FollowDto>>(followEntityList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<FollowDto>>(HttpStatus.BAD_REQUEST);
 		}
@@ -59,21 +49,9 @@ public class UserFollowController {
 	@GetMapping("to/{userId}")
 	public ResponseEntity<List<FollowDto>> showFollowing(@PathVariable("userId") int userId) {
 		try {
+			List<FollowDto> followEntityList = followService.getFollowerById(userId);
 
-			List<FollowEntity> followEntityList = followService.getFollowerById(userId);
-
-			List<FollowDto> result = new ArrayList<>();
-
-			for (int i = 0; i < followEntityList.size(); i++) {
-				int fromUserId = followEntityList.get(i).getFromUserEntity().getId();
-				int toUserId = followEntityList.get(i).getToUserEntity().getId();
-				String nickname = followEntityList.get(i).getFromUserEntity().getNickname();
-				boolean isFollowForFollow = userService.getFollowForFollow(userId, fromUserId);
-				String profileImageUrl = followEntityList.get(i).getFromUserEntity().getProfileImageUrl();
-				result.add(new FollowDto(fromUserId, toUserId, nickname, isFollowForFollow, profileImageUrl));
-			}
-
-			return new ResponseEntity<List<FollowDto>>(result, HttpStatus.OK);
+			return new ResponseEntity<List<FollowDto>>(followEntityList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<FollowDto>>(HttpStatus.BAD_REQUEST);
 		}

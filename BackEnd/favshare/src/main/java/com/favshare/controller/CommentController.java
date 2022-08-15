@@ -34,17 +34,9 @@ public class CommentController {
 	@GetMapping("/{popId}")
 	public ResponseEntity<List<CommentDto>> showCommentList(@PathVariable("popId") int popId) {
 		try {
-			List<CommentEntity> commentEntityList = commentService.getCommentList(popId);
-			List<CommentDto> result = new ArrayList<>();
-
-			for (int i = 0; i < commentEntityList.size(); i++) {
-				UserProfileDto user = userService.getUserProfileById(commentEntityList.get(i).getUserEntity().getId());
-				result.add(new CommentDto(commentEntityList.get(i), user.getNickname(), user.getProfileImageUrl()));
-			}
-
+			List<CommentDto> result = commentService.getCommentList(popId);
 			return new ResponseEntity<List<CommentDto>>(result, HttpStatus.OK);
 		} catch (Exception e) {
-
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}

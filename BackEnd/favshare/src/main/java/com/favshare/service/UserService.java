@@ -250,5 +250,9 @@ public class UserService {
 		List<UserProfileDto> userDtoList = Arrays.asList(modelMapper.map(userEntityList, UserProfileDto[].class));
 		return userDtoList;
 	}
+	
+	public int userCount() {
+		return (int)userRepository.count();
+	}
 
 }
