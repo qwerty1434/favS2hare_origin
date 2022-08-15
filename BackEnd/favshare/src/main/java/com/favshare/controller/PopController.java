@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.PopAlgoDto;
@@ -58,21 +59,24 @@ public class PopController {
 	@ApiOperation(value = "사용자에게 맞는 팝 리스트", response = List.class)
 	@PostMapping
 	public ResponseEntity<List<PopDto>> showPopList(@RequestBody IdolUserIdDto idolUserIdDto) {
+		
+		int idolId = idolUserIdDto.getIdolId();
+		int userId = idolUserIdDto.getUserId();
 
 		try {
 			List<PopDto> result = new ArrayList<PopDto>();
 
 			// userId랑 idolId가 모두 1 이상이라면, 로그인한 유저가 세부 카테고리를 선택했다는 것
-			if (idolUserIdDto.getUserId() >= 1 && idolUserIdDto.getIdolId() >= 1) {
+			if (userId >= 1 && idolId >= 1) {
 				List<PopAlgoDto> algoList = popService.getCategoryPopList(idolUserIdDto);
 
 				for (int i = 0; i < algoList.size(); i++) {
-					PopDto popDto = popService.getPopDtoById(algoList.get(i).getId());
+					PopDto popDto = popService.getPopDtoById(userId, algoList.get(i).getId());
 					result.add(popDto);
 				}
 			}
 			// userId랑 idolId가 모두 0이라면 로그인하지 않은 유저라는 것 => 전체 pop을 랜덤 알고리즘으로 반환
-			else if (idolUserIdDto.getUserId() == 0 && idolUserIdDto.getIdolId() == 0) {
+			else if (userId == 0 && idolId == 0) {
 
 				result = popService.getRandomPopList();
 			}
@@ -81,7 +85,7 @@ public class PopController {
 				List<PopAlgoDto> algoList = popService.getCustomPopList(idolUserIdDto.getUserId());
 
 				for (int i = 0; i < algoList.size(); i++) {
-					PopDto popDto = popService.getPopDtoById(algoList.get(i).getId());
+					PopDto popDto = popService.getPopDtoById(userId, algoList.get(i).getId());
 					result.add(popDto);
 				}
 			}
@@ -109,11 +113,14 @@ public class PopController {
 	public ResponseEntity<HashMap<String, Object>> showPopInfo(@RequestBody UserPopIdDto userPopIdDto) {
 		try {
 			PopInfoDto popInfoDto = popService.getPopInfoById(userPopIdDto.getPopId(),userPopIdDto.getUserId());
-			// liked추가
-			UserProfileDto userProfileDto = userService.getUserProfileById(userPopIdDto.getUserId());
+			// liked추가        
+			UserProfileDto userProfileDto = userService.getUserProfileById(popInfoDto.getUserId());
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("popInfoDto", popInfoDto);
 			map.put("userProfileDto", userProfileDto);
+			
+			// pop 시청
+			popService.insertShowPop(userPopIdDto.getPopId(), userPopIdDto.getUserId());
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
@@ -144,12 +151,14 @@ public class PopController {
 	}
 
 	@ApiOperation(value = "유튜브 원본 영상에 만들어진 팝 리스트", response = PopInfoDto.class)
-	@GetMapping("/youtube/{popId}")
-	public ResponseEntity<HashMap<String, Object>> showOrginYoutubePopInfo(@PathVariable("popId") int popId) {
+	@PostMapping("/youtube")
+	public ResponseEntity<HashMap<String, Object>> showOrginYoutubePopInfo(@RequestBody UserPopIdDto userPopIdDto) {
+		int userId = userPopIdDto.getUserId();
+		int popId = userPopIdDto.getPopId();
 		try {
 			HashMap<String, Object> result = new HashMap<String, Object>();
-			PopInfoDto popInfoDto = popService.getPopInfoById(popId);
-			List<PopDto> popList = popService.getPopListById(popInfoDto.getYoutubeId());
+			PopInfoDto popInfoDto = popService.getPopInfoById(popId, userId);
+			List<PopDto> popList = popService.getPopListById(userId, popId, popInfoDto.getYoutubeId());
 			int countPopByYoutubeId = popList.size();
 
 			result.put("countPopList", countPopByYoutubeId);

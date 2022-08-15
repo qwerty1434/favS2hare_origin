@@ -26,6 +26,7 @@ import com.favshare.entity.InterestIdolEntity;
 import com.favshare.entity.InterestSongEntity;
 import com.favshare.entity.PopEntity;
 import com.favshare.entity.PopInFeedEntity;
+import com.favshare.entity.ShowPopEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.entity.YoutubeEntity;
 import com.favshare.repository.FeedRepository;
@@ -73,6 +74,7 @@ public class PopService {
 	@Autowired
 	private LikePopRepository likePopRepository;
 	
+	
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -84,7 +86,11 @@ public class PopService {
 	
 	public PopInfoDto getPopInfoById(int popId, int userId) {
 		PopEntity popEntity = popRepository.findById(popId).get();
-		boolean isLiked = isLiked(userId,popId);
+		boolean isLiked;
+		
+		if(userId == 0) isLiked = false;
+		else isLiked = isLiked(userId,popId);
+		
 		PopInfoDto popInfoDto = new PopInfoDto(popEntity, popEntity.getYoutubeEntity(), isLiked);
 		
 		return popInfoDto;
@@ -98,7 +104,7 @@ public class PopService {
 		}
 	}		
 	
-	public PopDto getPopDtoById(int popId) {
+	public PopDto getPopDtoById(int userId, int popId) {
 		PopEntity popEntity = popRepository.findById(popId).get();
 		
 		// LazyLoading이 정상적으로 작동하는지 확인하기 위한 코드입니다
@@ -106,18 +112,20 @@ public class PopService {
 		// 콘솔의 출력 결과가 HibernateProxy로 적혀있다면 LazyLoading이 정상적으로 작동하는 겁니다
 //		System.out.println(popEntity.getYoutubeEntity().getClass()+"!!!!!!!!!!!!!!!!!!!");
 //		System.out.println(popEntity.getYoutubeEntity().getId()+"@@@@@@@@@@@@@@@");
-		PopDto popDto = new PopDto(popEntity);
+		boolean isLiked = isLiked(userId, popId);
+		PopDto popDto = new PopDto(popEntity, isLiked);
 		return popDto;
 	}
 
 	
 	
 	//유튜브 찾은 후 그에 맞는 
-	public List<PopDto> getPopListById(int youtubeId){
+	public List<PopDto> getPopListById(int userId, int popId, int youtubeId){
 		YoutubeEntity youtubeEntity = youtubeRepository.findById(youtubeId).get();
 		List<PopDto> popList = new ArrayList<>();
 		for(int i=0; i<youtubeEntity.getPopList().size(); i++) {
-			popList.add(new PopDto(youtubeEntity.getPopList().get(i)));
+			boolean isLiked = isLiked(userId, popId);
+			popList.add(new PopDto(youtubeEntity.getPopList().get(i), isLiked));
 		}
 		return popList;
 	}
@@ -172,7 +180,7 @@ public class PopService {
 		}
 	}
 	public boolean isWatched(int userId, int popId) {
-		if(showPopRepository.searchByUserPopId(userId, popId) == 1) {
+		if(showPopRepository.searchByUserPopId(userId, popId) >= 1) {
 			return true;
 		}
 		else return false;
@@ -351,5 +359,16 @@ public class PopService {
 		
 		return result;
 	}
+	
+	public void insertShowPop(int popId, int userId) {
+		PopEntity popEntity = popRepository.getById(popId);
+		UserEntity userEntity = userRepository.getById(userId);
+		
+		ShowPopEntity showPopEntity = ShowPopEntity.builder().popEntity(popEntity).userEntity(userEntity).build();
+		showPopRepository.save(showPopEntity);
+		
+	}
+	
+	
 	
 }

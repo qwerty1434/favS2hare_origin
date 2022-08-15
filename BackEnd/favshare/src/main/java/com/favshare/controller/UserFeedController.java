@@ -56,7 +56,7 @@ public class UserFeedController {
 		int popId = userPopIdDto.getPopId();
 
 		try {
-			PopDto popDto = popService.getPopDtoById(popId);
+			PopDto popDto = popService.getPopDtoById(userId, popId);
 			UserProfileDto userProfileDto = userService.getUserProfileById(userId);
 			
 			result.put("popInfo", popDto);

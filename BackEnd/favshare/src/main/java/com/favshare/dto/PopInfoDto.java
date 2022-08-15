@@ -19,6 +19,7 @@ public class PopInfoDto {
 	private LocalDateTime createDate;
 	private int views;
 	private int likeCount;
+	private int userId;
 	
 	private int youtubeId;
 	private String url;
@@ -36,5 +37,6 @@ public class PopInfoDto {
 		this.youtubeId = youtubeEntity.getId();
 		this.url = youtubeEntity.getUrl();
 		this.isLiked = isLiked;
+		this.userId = popEntity.getUserEntity().getId();
 	}
 }
