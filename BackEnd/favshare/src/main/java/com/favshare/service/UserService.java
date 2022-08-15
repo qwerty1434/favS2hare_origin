@@ -39,6 +39,7 @@ import com.favshare.repository.FeedRepository;
 import com.favshare.repository.FollowRepository;
 import com.favshare.repository.InterestIdolRepository;
 import com.favshare.repository.InterestSongRepository;
+import com.favshare.repository.LikePopRepository;
 import com.favshare.repository.PopRepository;
 import com.favshare.repository.UserRepository;
 import com.favshare.repository.YoutubeRepository;
@@ -58,8 +59,10 @@ public class UserService {
 	
 	@Autowired
 	private FollowRepository followRepository;
-
 	
+	@Autowired
+	private LikePopRepository likepopRepository;
+
 	@Autowired
 	private ModelMapper modelMapper;	
 	
@@ -150,18 +153,31 @@ public class UserService {
 		return result;
 	}
 	
-	public List<PopDto> getPopInFeedList(int feedId){
+	public List<PopDto> getPopInFeedList(int feedId, int userId){
 		FeedEntity feedEntity = feedRepository.findById(feedId).get();
 		List<PopInFeedEntity> popInFeedEntityList = feedEntity.getPopInFeedList();
 		
 		List<PopDto> result = new ArrayList<>(); 
-		
 		for(int i = 0; i < popInFeedEntityList.size(); i++) {
-			result.add(new PopDto(popInFeedEntityList.get(i).getPopEntity()));
+			PopEntity popEntity = popInFeedEntityList.get(i).getPopEntity();
+			boolean isLiked = isLiked(userId,popEntity.getId());
+			result.add(new PopDto(
+					popEntity,
+					isLiked
+					));
 		}
 		
 		return result;
 	}
+	
+	public boolean isLiked(int userId, int popId) {
+		if(likepopRepository.isLiked(userId,popId) == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}	
+	
 	
 	public boolean getFollowForFollow(int fromUserId, int toUserId) {
 		int countFromTo = followRepository.countFollowFByUserId(fromUserId, toUserId);

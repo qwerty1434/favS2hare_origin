@@ -69,13 +69,14 @@ public class UserProfileController {
 	@ApiOperation(value = "프로필 보기 아래 부분 - 피드별 poplist 출력 ", response = ResponseEntity.class)
 	@PostMapping("/popList")
 	public ResponseEntity<List<PopDto>> showPopInFeed(@RequestBody FeedUserIdDto feedUserIdDto) {
+		int userId = feedUserIdDto.getUserId();
 		List<PopDto> popInFeedDtoList;
 		if (feedUserIdDto.getFeedId() == 0) {
 			// feedId가 0이라는 것은 전체 피드라는 의미입니다.
 			popInFeedDtoList = userService.getAllPopList(feedUserIdDto);
 
 		} else { // 전체 피드가 아니라 각각의 피드일때
-			popInFeedDtoList = userService.getPopInFeedList(feedUserIdDto.getFeedId());
+			popInFeedDtoList = userService.getPopInFeedList(feedUserIdDto.getFeedId(),userId);
 		}
 		return new ResponseEntity<List<PopDto>>(popInFeedDtoList, HttpStatus.OK);
 
