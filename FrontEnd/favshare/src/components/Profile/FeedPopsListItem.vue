@@ -85,7 +85,7 @@ export default {
         url: "http://localhost:8080/feed/pop",
         data: {
           feedId: this.currentFeedId,
-          popId: this.feedPop.id,
+          popId: [this.feedPop.id],
         },
       }).then((res) => console.log(res));
     },

@@ -1,23 +1,47 @@
 <template>
-  <div class="unselected-youtube-container" @click="onClick">
-    <youtube
-      :ref="popsId"
-      :video-id="getYoutubeId"
-      :player-vars="playerVars"
-      width="160"
-      height="90"
-      @ready="onPlayerReady"
-      @playing="onPlaying"
-      @click="onClick"
-      style="pointer-events: none; border-radius: 8px"
-    ></youtube>
-  </div>
+  <v-col cols="6" align="center">
+    <div :id="id" class="unselected youtube-container" @click="onClick">
+      <v-btn
+        class="button-in-container"
+        v-if="!isSelected"
+        fab
+        x-small
+        height="18"
+        width="18"
+        elevation="1"
+      ></v-btn>
+      <v-btn
+        class="button-in-container"
+        v-if="isSelected"
+        fab
+        x-small
+        dark
+        color="#ff5d5d"
+        height="18"
+        width="18"
+        elevation="1"
+      >
+        <v-icon>mdi-check</v-icon>
+      </v-btn>
+      <youtube
+        :ref="id"
+        :video-id="youtubeUrl"
+        :player-vars="playerVars"
+        width="160"
+        height="90"
+        @ready="onPlayerReady"
+        @playing="onPlaying"
+        @click="onClick"
+        style="pointer-events: none; border-radius: 8px"
+      ></youtube>
+    </div>
+  </v-col>
 </template>
 
 <script>
 export default {
   name: "MyPopsListItem",
-  props: ["popsId", "youtubeUrl", "startSecond", "endSecond"],
+  props: ["id", "youtubeUrl", "startSecond", "endSecond"],
   data() {
     return {
       playerVars: {
@@ -33,12 +57,19 @@ export default {
       isSelected: false,
     };
   },
-  computed: {
-    getYoutubeId() {
-      return this.youtubeUrl.slice(-11);
+  watch: {
+    isSelected(newVal) {
+      const container = document.getElementById(`${this.id}`);
+      if (newVal) {
+        container.setAttribute("class", "selected youtube-container");
+      } else {
+        container.setAttribute("class", "unselected youtube-container");
+      }
     },
+  },
+  computed: {
     player() {
-      return this.$refs[this.popsId].player;
+      return this.$refs[this.id].player;
     },
   },
   methods: {
@@ -53,12 +84,10 @@ export default {
     restartVideoSection() {
       this.player.seekTo(this.section.start);
     },
-    onClick(event) {
+    onClick() {
       if (this.isSelected) {
-        event.target.setAttribute("class", "unselected-youtube-container");
         this.isSelected = false;
       } else {
-        event.target.setAttribute("class", "selected-youtube-container");
         this.isSelected = true;
       }
     },
@@ -68,19 +97,26 @@ export default {
 
 <style scoped>
 /* youtube 태그와 크기, border-radius 일치 */
-.unselected-youtube-container {
+.youtube-container {
   width: 160px;
   height: 90px;
   border-radius: 10px;
-  border: 2px solid #afb1b6;
   box-sizing: content-box;
+  margin-bottom: 6px;
+  position: relative;
 }
 
-.selected-youtube-container {
-  width: 160px;
-  height: 90px;
-  border-radius: 10px;
+.unselected {
+  border: 2px solid #afb1b6;
+}
+
+.selected {
   border: 2px solid #ff5d5d;
-  box-sizing: content-box;
+}
+
+.button-in-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 </style>
