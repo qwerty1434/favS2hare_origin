@@ -30,12 +30,12 @@ public class PopInFeedService {
 	@Autowired
 	private PopRepository popRepository;
 	
-	public void insertPopInFeed(List<FeedPopIdDto> feedPopIdDto) {
+	public void insertPopInFeed(FeedPopIdDto feedPopIdDto) {
 		PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
 		
-		for(int i = 0; i < feedPopIdDto.size(); i++) {			
-			FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.get(i).getFeedId()).get();
-			PopEntity popEntity = popRepository.findById(feedPopIdDto.get(i).getPopId()).get();
+		for(int i = 0; i < feedPopIdDto.getPopId().size(); i++) {			
+			FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.getFeedId()).get();
+			PopEntity popEntity = popRepository.findById(feedPopIdDto.getPopId().get(i)).get();
 			popInFeedEntity = popInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity).build();
 			popInFeedRepository.save(popInFeedEntity);
 		}
@@ -44,8 +44,10 @@ public class PopInFeedService {
 	
 	public void deletePopInFeed(FeedPopIdDto feedPopIdDto) {
 		int feedId = feedPopIdDto.getFeedId();
-		int popId = feedPopIdDto.getPopId();
-		popInFeedRepository.deleteByPopFeedId(feedId, popId);
+		List<Integer> popIdList = feedPopIdDto.getPopId();
+		for (int i = 0; i < popIdList.size(); i++) {			
+			popInFeedRepository.deleteByPopFeedId(feedId, popIdList.get(i));
+		}
 	}
 	
 	
