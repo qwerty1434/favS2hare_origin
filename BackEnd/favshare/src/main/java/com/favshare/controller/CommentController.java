@@ -1,6 +1,7 @@
 package com.favshare.controller;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 
 import java.util.HashMap;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.*;
 
 import com.favshare.dto.CommentDto;
 import com.favshare.dto.SongDto;
+import com.favshare.dto.UserPopIdDto;
 import com.favshare.dto.UserCommentContentIdDto;
 import com.favshare.dto.UserCommentIdDto;
 import com.favshare.dto.UserPopContentIdDto;
 import com.favshare.dto.UserProfileDto;
 import com.favshare.entity.CommentEntity;
 import com.favshare.service.CommentService;
+import com.favshare.service.LikeCommentService;
 import com.favshare.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -35,18 +38,27 @@ public class CommentController {
 	private UserService userService;
 
 	@Autowired
+	private LikeCommentService likeCommentService;
+	
+	@Autowired
 	private ModelMapper modelMapper;
 
 	@ApiOperation(value = "댓글 버튼 클릭시 - 댓글 리스트 반환", response = ResponseEntity.class)
-	@GetMapping("/{popId}")
-	public ResponseEntity<List<CommentDto>> showCommentList(@PathVariable("popId") int popId) {
+	@PostMapping("/list")
+	public ResponseEntity<List<CommentDto>> showCommentList(@RequestBody UserPopIdDto userPopIdDto) {
+		int userId = userPopIdDto.getUserId();
+		int popId = userPopIdDto.getPopId();
+		
 		try {
 			List<CommentEntity> commentEntityList = commentService.getCommentList(popId);
 			List<CommentDto> result = new ArrayList<>();
-
+			
 			for (int i = 0; i < commentEntityList.size(); i++) {
-				UserProfileDto user = userService.getUserProfileById(commentEntityList.get(i).getUserEntity().getId());
-				result.add(new CommentDto(commentEntityList.get(i), user.getNickname(), user.getProfileImageUrl()));
+				CommentEntity commentEntity = commentEntityList.get(i);
+				UserProfileDto user = userService.getUserProfileById(commentEntity.getUserEntity().getId());
+				boolean isLiked = likeCommentService.isLiked(userId, commentEntity.getId());
+				
+				result.add(new CommentDto(commentEntity, user.getNickname(), user.getProfileImageUrl(),isLiked));
 			}
 
 			return new ResponseEntity<List<CommentDto>>(result, HttpStatus.OK);
@@ -55,6 +67,7 @@ public class CommentController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
+
 
 	@ApiOperation(value = "댓글 등록", response = ResponseEntity.class)
 	@PostMapping

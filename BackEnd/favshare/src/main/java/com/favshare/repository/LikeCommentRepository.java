@@ -1,5 +1,7 @@
 package com.favshare.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +16,8 @@ public interface LikeCommentRepository extends JpaRepository<LikeCommentEntity, 
 	@Modifying 
 	@Query(value ="delete from like_comment where user_id = :userId and comment_id = :commentId", nativeQuery = true)
 	public void deleteLikeByUserCommentId(@Param("userId") int userId, @Param("commentId") int commentId);
+
+	@Query(value ="select count(*) from like_comment where user_id = :userId and comment_id = :commentId", nativeQuery = true)
+	public int isLiked(@Param("userId") int userId, @Param("commentId") int commentId);	
+	
 }

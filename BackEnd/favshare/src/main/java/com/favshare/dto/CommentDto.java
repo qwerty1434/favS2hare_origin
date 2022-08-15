@@ -23,8 +23,9 @@ public class CommentDto {
 	private String nickname;
 	private String profileImageUrl;
 	private int countCommentLikes;
+	private boolean isLiked;
 	
-	public CommentDto(CommentEntity commentEntity, String nickname, String profileImageUrl) {
+	public CommentDto(CommentEntity commentEntity, String nickname, String profileImageUrl, boolean isLiked) {
 		this.id = commentEntity.getId();
 		this.content = commentEntity.getContent();
 		this.createDate = commentEntity.getCreateDate();
@@ -34,6 +35,7 @@ public class CommentDto {
 		this.nickname = nickname;
 		this.profileImageUrl = profileImageUrl;
 		this.countCommentLikes = commentEntity.getLikeCommentList().size();
+		this.isLiked = isLiked;
 	}
 	
 }
