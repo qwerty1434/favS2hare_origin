@@ -24,9 +24,6 @@ export default {
   },
   methods: {
     ...mapActions([]),
-    goBack() {
-      this.$router.go(-1);
-    },
   },
 };
 </script>

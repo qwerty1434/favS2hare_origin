@@ -68,6 +68,7 @@
   </v-bottom-sheet>
 </template>
 <script>
+/* eslint-disable */
 import { mapGetters, mapActions } from "vuex";
 import dayjs from "dayjs";
 
@@ -101,9 +102,7 @@ export default {
       popId: this.popsIdInPopsTab,
       userId: this.userIdInPopsTab,
     });
-    this.createDate = dayjs(this.popsInfo.createDate).format(
-      "YYYY-MM-DD HH:mm"
-    );
+    this.createDate = dayjs(this.popsInfo.createDate).format("YYYY-MM-DD HH:mm");
   },
   computed: {
     ...mapGetters(["userIdInPopsTab", "popsIdInPopsTab", "popsInfo"]),

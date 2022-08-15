@@ -34,6 +34,32 @@ export default {
         commit("SET_POPS_INFO", res.data.popInfoDto);
       });
     },
+    likePops({ commit }, { popId, userId }) {
+      axios({
+        method: "post",
+        url: `http://localhost:8080/pop/like`,
+        data: {
+          popId: popId,
+          userId: userId,
+        },
+      }).then((res) => {
+        console.log(res.data.response);
+        commit("SET_POPS_INFO");
+      });
+    },
+    unLikePops({ commit }, { popId, userId }) {
+      axios({
+        method: "delete",
+        url: `http://localhost:8080/pop/like`,
+        data: {
+          popId: popId,
+          userId: userId,
+        },
+      }).then((res) => {
+        console.log(res.data.response);
+        commit("SET_POPS_INFO");
+      });
+    },
     getComment({ commit }, { popsIdInPopsTab }) {
       console.log(popsIdInPopsTab);
       axios({
@@ -44,7 +70,7 @@ export default {
         commit("SET_COMMENT_LIST", res.data);
       });
     },
-    insertConmment({ commit }, { content, popId, userId }) {
+    insertComment({ commit }, { content, popId, userId }) {
       console.log(content + " " + popId + " " + userId);
       axios({
         method: "post",
@@ -88,6 +114,32 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    likeComment({ commit }, { commentId, userId }) {
+      axios({
+        method: "post",
+        url: `http://localhost:8080/pop/like`,
+        data: {
+          commentId: commentId,
+          userId: userId,
+        },
+      }).then((res) => {
+        console.log(res.data.response);
+        commit("SET_COMMENT_LIST");
+      });
+    },
+    unLikeComment({ commit }, { commentId, userId }) {
+      axios({
+        method: "delete",
+        url: `http://localhost:8080/pop/like`,
+        data: {
+          commentId: commentId,
+          userId: userId,
+        },
+      }).then((res) => {
+        console.log(res.data.response);
+        commit("SET_COMMENT_LIST");
+      });
     },
   },
 };

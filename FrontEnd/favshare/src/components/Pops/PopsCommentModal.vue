@@ -84,12 +84,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getComment", "insertConmment"]),
+    ...mapActions(["getComment", "insertComment"]),
     btnInsertComment() {
       if (this.comment === "") {
         alert("댓글을 입력하세요.");
       } else {
-        this.insertConmment({
+        this.insertComment({
           content: this.comment,
           popId: this.popsIdInPopsTab,
           userId: this.userIdInPopsTab,

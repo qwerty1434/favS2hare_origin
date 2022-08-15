@@ -28,10 +28,10 @@
         </h6>
       </v-col>
       <v-col cols="2">
-        <v-btn class="mt-2" text icon color="red" v-if="!isLiked" @click="likeComments">
+        <v-btn class="mt-2" text icon color="red" v-if="!isLiked" @click="btnLikeComment">
           <v-icon small>mdi-heart-outline</v-icon>
         </v-btn>
-        <v-btn class="mt-2" text icon color="red" v-else @click="likeComments">
+        <v-btn class="mt-2" text icon color="red" v-else @click="btnLikeComment">
           <v-icon small>mdi-heart</v-icon>
         </v-btn>
       </v-col>
@@ -62,11 +62,13 @@ export default {
     ...mapGetters(["userIdInPopsTab"]),
   },
   methods: {
-    ...mapActions(["deleteComment"]),
-    likeComments() {
+    ...mapActions(["deleteComment", "likeComment", "unLikeComment"]),
+    btnLikeComment() {
       if (!this.isLiked) {
+        this.likeComment({ commentId: this.commentListItem.id, userId: this.userIdInPopsTab });
         this.isLiked = true;
       } else {
+        this.unLikeComment({ commentId: this.commentListItem.id, userId: this.userIdInPopsTab });
         this.isLiked = false;
       }
     },

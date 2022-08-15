@@ -5,7 +5,7 @@
       <v-img height="100%" src="@/assets/sample/popssample.jpg">
         <v-row class="pa-2" justify="end">
           <v-btn class="ma-2" text icon color="white">
-            <v-icon>mdi-arrow-left</v-icon>
+            <v-icon @click="goBack">mdi-arrow-left</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn class="ma-2" text icon color="white">
@@ -17,10 +17,10 @@
             <!-- popsView에서 pops클릭 후 userId pops제목 뿌려지는 부분 -->
           </v-col>
           <v-spacer></v-spacer>
-          <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="likePops">
+          <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
             <v-icon>mdi-heart-outline</v-icon>
           </v-btn>
-          <v-btn class="mt-2" text icon color="red" v-else @click="likePops">
+          <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
             <v-icon>mdi-heart</v-icon>
           </v-btn>
           <v-btn class="mt-2" text icon color="white" @click.stop="dialogComment = true">
@@ -45,6 +45,7 @@
 import PopsCommentModal from "@/components/Pops/PopsCommentModal.vue";
 import PopsInfoModal from "@/components/Pops/PopsInfoModal.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "PopsDetailView",
@@ -56,13 +57,29 @@ export default {
       dialogInfo: false,
     };
   },
+  computed: {
+    ...mapGetters(["userIdInPopsTab", "popsIdInPopsTab"]),
+  },
+  created() {},
   methods: {
-    likePops() {
+    ...mapActions(["likePops", "unLikePops"]),
+    btnLikePops() {
       if (!this.isLiked) {
+        this.likePops({
+          popId: this.popsIdInPopsTab,
+          userId: this.userIdInPopsTab,
+        });
         this.isLiked = true;
       } else {
+        this.unLikePops({
+          popId: this.popsIdInPopsTab,
+          userId: this.userIdInPopsTab,
+        });
         this.isLiked = false;
       }
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
 };
