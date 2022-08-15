@@ -1,5 +1,7 @@
 package com.favshare.dto;
 
+import java.util.List;
+
 import lombok.*;
 
 @Data
@@ -7,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class FeedPopIdDto {
 	int feedId;
-	int popId;
+	List<Integer> popId;
 	
 }
