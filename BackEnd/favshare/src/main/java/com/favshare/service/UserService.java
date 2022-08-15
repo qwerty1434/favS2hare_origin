@@ -251,8 +251,8 @@ public class UserService {
 		return userDtoList;
 	}
 	
-	public int userCount() {
-		return (int)userRepository.count();
+	public List<Integer> allUserId() {
+		return userRepository.findAllUserId();
 	}
 
 }

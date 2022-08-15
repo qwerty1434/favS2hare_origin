@@ -1,7 +1,7 @@
 package com.favshare.controller;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -182,14 +182,13 @@ public class PopController {
 		List<FriendFeedDto> friendsPopList = userService.getFollowingList(userId);
 
 		if (friendsPopList.size() == 0) { // 친구가 없으면 -> 알고리즘으로 뿌려주기
-			System.out.println("난 친구가 없어!!!!!!!!!!!!!!!!!!!!!!!!!");
 			List<FriendFeedDto> result = new ArrayList<FriendFeedDto>();
 
 			// 1. 나를 팔로우 한 사람
 			List<UserProfileDto> UserProfileDtoList = userService.getFollowerList(userId);
 			for (int i = 0; i < UserProfileDtoList.size(); i++) {
 				int id = UserProfileDtoList.get(i).getId();
-				// id로 이사람의 userProfileDto 가져오기
+				// id로 이사람의 userProfileDto가져오기
 				UserProfileDto userProfileDto = userService.getUserProfileById(id);
 				// id로 이사람의 popDtoList가져오기
 				List<PopDto> popDtoList = popService.popDtoListByUserId(id);
@@ -238,9 +237,25 @@ public class PopController {
 				}
 
 			}
+			// 4. 랜덤
+			// userProfileDto, popDtoList -> FriendFeedDto
+			List<Integer> userIdList = userService.allUserId();
+			Collections.shuffle(userIdList);
+			int count = userIdList.size();
+			for (int i = 0; i < Math.min(count, 50); i++) {
+				UserProfileDto userProfileDto = userService.getUserProfileById(userIdList.get(i));
+				List<PopDto> popDtoList = popService.popDtoListByUserId(userIdList.get(i));
+				for (int j = 0; j < popDtoList.size(); j++) {
+					result.add(new FriendFeedDto(userProfileDto, popDtoList.get(j)));
+				}
+
+			}
+			
+			// 전체 셔플
+			Collections.shuffle(result);
+			
 			return new ResponseEntity<List<FriendFeedDto>>(result, HttpStatus.OK);
 
-			// 4. 랜덤
 		} else { // 친구가 있으면 -> 내 친구들의 팝들 최신순으로 보여주기
 
 			friendsPopList.sort(new Comparator<FriendFeedDto>() {
