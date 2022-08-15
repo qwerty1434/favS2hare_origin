@@ -1,6 +1,6 @@
 <template>
   <v-col cols="6" align="center">
-    <div :id="popsId" class="unselected youtube-container" @click="onClick">
+    <div :id="id" class="unselected youtube-container" @click="onClick">
       <v-btn
         class="button-in-container"
         v-if="!isSelected"
@@ -24,8 +24,8 @@
         <v-icon>mdi-check</v-icon>
       </v-btn>
       <youtube
-        :ref="popsId"
-        :video-id="getYoutubeId"
+        :ref="id"
+        :video-id="youtubeUrl"
         :player-vars="playerVars"
         width="160"
         height="90"
@@ -41,7 +41,7 @@
 <script>
 export default {
   name: "MyPopsListItem",
-  props: ["popsId", "youtubeUrl", "startSecond", "endSecond"],
+  props: ["id", "youtubeUrl", "startSecond", "endSecond"],
   data() {
     return {
       playerVars: {
@@ -59,7 +59,7 @@ export default {
   },
   watch: {
     isSelected(newVal) {
-      const container = document.getElementById(`${this.popsId}`);
+      const container = document.getElementById(`${this.id}`);
       if (newVal) {
         container.setAttribute("class", "selected youtube-container");
       } else {
@@ -68,11 +68,8 @@ export default {
     },
   },
   computed: {
-    getYoutubeId() {
-      return this.youtubeUrl.slice(-11);
-    },
     player() {
-      return this.$refs[this.popsId].player;
+      return this.$refs[this.id].player;
     },
   },
   methods: {

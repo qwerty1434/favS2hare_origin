@@ -7,11 +7,11 @@
       <my-pops-list-item
         ref="myPopsListItem"
         v-for="myPopsListItem in myPopsList"
-        :popsId="myPopsListItem.popsId"
+        :id="myPopsListItem.id"
         :youtubeUrl="myPopsListItem.youtubeUrl"
         :startSecond="myPopsListItem.startSecond"
         :endSecond="myPopsListItem.endSecond"
-        :key="myPopsListItem.popsId"
+        :key="myPopsListItem.id"
       ></my-pops-list-item>
     </v-row>
   </v-container>
