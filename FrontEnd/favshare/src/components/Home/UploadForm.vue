@@ -1,40 +1,51 @@
 <template>
-  <div>
-    <form>
-      <label for="title">제목</label><br />
-      <input
-        type="text"
-        id="title"
-        name="title"
-        placeholder="제목을 입력하세요"
-        v-model="title"
-      /><br />
-      <label for="description">설명</label><br />
-      <input
-        type="text"
-        id="description"
-        name="description"
-        placeholder="설명을 입력하세요"
-        v-model="description"
-      />
-      <p>피드 선택</p>
-      <div v-if="feedList">
-        <div
-          class="unselected-feed"
+  <v-container>
+    <v-form class="form">
+      <v-row no-gutters>
+        <v-col cols="12">
+          <v-text-field
+            v-model="title"
+            label="제목"
+            placeholder="제목을 입력해주세요"
+            height="55"
+            outlined
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-textarea
+            v-model="description"
+            label="설명"
+            placeholder="설명을 입력해주세요"
+            outlined
+          ></v-textarea>
+        </v-col>
+      </v-row>
+    </v-form>
+    <v-row no-gutters>
+      <v-col cols="12">
+        <p>피드 선택</p>
+      </v-col>
+      <div class="scroll-horizontal">
+        <v-col
           v-for="feedListItem in feedList"
-          :id="feedListItem.feedId"
           :key="feedListItem.feedId"
-          @click="selectFeed"
+          cols="3"
+          align="center"
         >
-          {{ feedListItem.name }}
-        </div>
+          <div
+            class="unselected feed"
+            :id="feedListItem.feedId"
+            @click="selectFeed"
+          >
+            {{ feedListItem.name }}
+          </div>
+        </v-col>
+        <v-col cols="3" align="center">
+          <div class="unselected feed" id="0" @click="selectFeed">전체</div>
+        </v-col>
       </div>
-      <div v-else>
-        <div class="unselected-feed" :id="0" :key="0" @click="selectFeed"></div>
-        전체 피드
-      </div>
-    </form>
-  </div>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -45,44 +56,53 @@ export default {
     return {
       title: "",
       description: "",
-      feedId: 0,
+      selectedFeedId: 0,
     };
   },
   watch: {
-    feedId(newVal, oldVal) {
+    selectedFeedId(newVal, oldVal) {
       const selectedFeed = document.getElementById(newVal);
-      selectedFeed.setAttribute("class", "selected-feed");
+      selectedFeed.setAttribute("class", "selected feed");
 
       if (oldVal !== 0) {
         const unselectedFeed = document.getElementById(oldVal);
-        unselectedFeed.setAttribute("class", "unselected-feed");
+        unselectedFeed.setAttribute("class", "unselected feed");
       }
     },
   },
   methods: {
     selectFeed(event) {
-      this.feedId = event.target.getAttribute("id");
-      console.log(event.target.getAttribute("id"));
-      console.log(this.feedList);
+      this.selectedFeedId = event.target.getAttribute("id");
     },
   },
 };
 </script>
 
 <style scoped>
-.unselected-feed {
-  height: 64px;
-  width: 64px;
-  border: 2px solid #afb1b6;
-  border-radius: 50%;
-  background-color: #efeff0;
+.form {
+  margin-bottom: 20px;
 }
 
-.selected-feed {
-  height: 64px;
-  width: 64px;
-  border: 2px solid #ff5d5d;
-  border-radius: 50%;
+.scroll-horizontal {
+  overflow: auto;
+  white-space: nowrap;
+  display: flex;
+}
+
+.feed {
+  height: 70px;
+  width: 70px;
+  line-height: 70px;
   background-color: #efeff0;
+  border: 2px solid;
+  border-radius: 50%;
+}
+
+.unselected {
+  border-color: #afb1b6;
+}
+
+.selected {
+  border-color: #ff5d5d;
 }
 </style>

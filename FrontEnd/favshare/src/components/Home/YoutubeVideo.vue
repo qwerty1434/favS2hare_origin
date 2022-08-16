@@ -17,8 +17,8 @@
           :to="{
             name: 'youtubeedit',
             query: {
-              youtubePk: this.videoInfo.youtubeId,
-              youtubeId: this.videoInfo.videoId,
+              youtubeId: this.videoInfo.youtubeId,
+              youtubeUrl: this.videoInfo.videoId,
             },
           }"
         >
