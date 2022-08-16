@@ -1,8 +1,8 @@
 <template>
   <!-- eslint-disable -->
   <v-container class="pt-3">
-    <v-card height="720px">
-      <v-img height="100%" src="@/assets/sample/popssample.jpg">
+    <v-card color="black" height="720px">
+      <div class="mt-3">
         <v-row class="pa-2" justify="end">
           <v-btn class="ma-2" text icon color="white">
             <v-icon @click="goBack">mdi-arrow-left</v-icon>
@@ -12,10 +12,13 @@
             <v-icon>mdi-dots-horizontal</v-icon>
           </v-btn>
         </v-row>
+        <div class="pops-detail-body">
+          <div class="pops-title"><h2>pops제목</h2></div>
+          <!-- pops 재생화면 -->
+          <v-sheet class="pops-play">pops 재생</v-sheet>
+          <div class="pops-editer"><h2>user</h2></div>
+        </div>
         <v-row class="pa-2 mt-600" justify="end">
-          <v-col>
-            <!-- popsView에서 pops클릭 후 userId pops제목 뿌려지는 부분 -->
-          </v-col>
           <v-spacer></v-spacer>
           <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
             <v-icon>mdi-heart-outline</v-icon>
@@ -35,7 +38,7 @@
           </v-btn>
           <pops-info-modal :value="dialogInfo" @input="dialogInfo = $event"></pops-info-modal>
         </v-row>
-      </v-img>
+      </div>
     </v-card>
     <bottom-navigation-bar></bottom-navigation-bar>
   </v-container>
@@ -87,7 +90,23 @@ export default {
 
 <style>
 .mt-600 {
-  margin-top: 615px !important;
+  margin-top: 170px !important;
   margin-right: auto;
+}
+.pops-detail-body {
+  margin-top: 160px;
+}
+.pops-play {
+  margin-left: 8px;
+  height: 180px;
+  width: 320px;
+}
+.pops-title {
+  margin: 10px;
+  color: aliceblue;
+}
+.pops-editer {
+  margin: 10px;
+  color: aliceblue;
 }
 </style>

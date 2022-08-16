@@ -59,16 +59,24 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userIdInPopsTab"]),
+    ...mapGetters(["popsIdInPopsTab", "userIdInPopsTab"]),
   },
   methods: {
     ...mapActions(["deleteComment", "likeComment", "unLikeComment"]),
     btnLikeComment() {
       if (!this.isLiked) {
-        this.likeComment({ commentId: this.commentListItem.id, userId: this.userIdInPopsTab });
+        this.likeComment({
+          popId: this.popsIdInPopsTab,
+          commentId: this.commentListItem.id,
+          userId: this.userIdInPopsTab,
+        });
         this.isLiked = true;
       } else {
-        this.unLikeComment({ commentId: this.commentListItem.id, userId: this.userIdInPopsTab });
+        this.unLikeComment({
+          popId: this.popsIdInPopsTab,
+          commentId: this.commentListItem.id,
+          userId: this.userIdInPopsTab,
+        });
         this.isLiked = false;
       }
     },

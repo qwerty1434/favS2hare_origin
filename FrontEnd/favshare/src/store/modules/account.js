@@ -70,7 +70,6 @@ export default {
         });
     },
     getUserInfo({ commit }, { userId, password }) {
-      console.log(userId + " " + password);
       axios({
         method: "post",
         url: `http://localhost:8080/user/info`,

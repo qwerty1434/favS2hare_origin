@@ -21,7 +21,12 @@
             <img :src="userImgInPopsTab" alt="image" /> </v-avatar
         ></v-col>
         <v-col>
-          <v-text-field class="text-font" v-model="comment" dense></v-text-field>
+          <v-text-field
+            class="text-font"
+            v-model="comment"
+            dense
+            @keydown.enter="btnInsertComment"
+          ></v-text-field>
         </v-col>
         <v-col cols="2">
           <v-btn class="mt-2" icon text small @click="btnInsertComment">게시</v-btn>

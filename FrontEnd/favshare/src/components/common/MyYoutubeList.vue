@@ -8,7 +8,10 @@
       :key="youtubeItem.youtubeId"
     ></my-youtube-list-item> -->
     <div v-for="myYoutubeVideo in myYoutubeVideos" :key="myYoutubeVideo.id">
-      <my-youtube-list-item :my-youtube-video="myYoutubeVideo"></my-youtube-list-item>
+      <my-youtube-list-item
+        @delete-video="refreshCur"
+        :my-youtube-video="myYoutubeVideo"
+      ></my-youtube-list-item>
     </div>
   </div>
 </template>
@@ -25,7 +28,6 @@ export default {
     };
   },
   created() {
-    console.log(this.userIdInMyVideo);
     this.getMyVideo({ userIdInMyVideo: this.userIdInMyVideo });
     this.myYoutubeVideos = this.myVideoList;
     console.log(this.myYoutubeVideos);
@@ -35,6 +37,10 @@ export default {
   },
   methods: {
     ...mapActions(["getMyVideo"]),
+    refreshCur() {
+      console.log("삭제 이벤트 발생 " + this.myVideoList.length);
+      this.$router.go();
+    },
   },
 };
 </script>
