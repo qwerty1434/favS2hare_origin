@@ -11,7 +11,9 @@
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn @click="[routerPushes('pops'), fetchBottomValue(2)]">
+    <v-btn
+      @click="[routerPushes('pops'), fetchBottomValue(2), fetchPopList(0)]"
+    >
       <span>Pops</span>
       <v-icon>mdi-party-popper</v-icon>
     </v-btn>
@@ -52,7 +54,12 @@ export default {
     ...mapGetters(["userId", "bottomValue"]),
   },
   methods: {
-    ...mapActions(["fetchFeedUserInfo", "fetchFeedList", "fetchBottomValue"]),
+    ...mapActions([
+      "fetchFeedUserInfo",
+      "fetchFeedList",
+      "fetchBottomValue",
+      "fetchPopList",
+    ]),
     routerPushes(icon) {
       router.push({ name: icon });
     },

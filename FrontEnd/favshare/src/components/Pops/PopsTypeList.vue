@@ -10,33 +10,25 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import PopsTypeListItem from "./PopsTypeListItem.vue";
-import axios from "axios";
 
 export default {
   name: "PopsTypeList",
   components: { PopsTypeListItem },
-  data() {
-    return {
-      popsTypeList: Array,
-    };
-  },
+  // data() {
+  //   return {
+  //     popsTypeList: Array,
+  //   };
+  // },
   computed: {
-    ...mapGetters(["userId"]),
+    ...mapGetters(["userId", "popsTypeList"]),
   },
   methods: {
     searchPopsType: function (type) {
       this.$emit("click-type", type);
     },
-    fetchInterestIdol() {
-      axios({
-        method: "get",
-        url: `http://localhost:8080/pop/idolList/${this.userId}`,
-      }).then((res) => {
-        this.popsTypeList = res.data;
-      });
-    },
+    ...mapActions(["fetchInterestIdol"]),
   },
   created() {
     this.fetchInterestIdol();
