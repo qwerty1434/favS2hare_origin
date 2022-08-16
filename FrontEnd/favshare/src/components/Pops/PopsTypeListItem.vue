@@ -2,7 +2,7 @@
   <div class="pops-type">
     <v-row class="pops-row">
       <div>
-        <v-avatar>
+        <v-avatar @click="fetchPopList(popsTypeItem.id)">
           <img :src="popsTypeItem.idolImageUrl" alt="" />
         </v-avatar>
         <div>{{ popsTypeItem.name }}</div>
@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "PopsTypeListItem",
   data() {
@@ -22,6 +23,7 @@ export default {
     popsTypeItem: Object,
   },
   methods: {
+    ...mapActions(["fetchPopList"]),
     SearchPopsByType() {
       console.log("type click");
       this.$emit("click-type", this.type1);
