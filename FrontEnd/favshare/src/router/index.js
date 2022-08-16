@@ -57,7 +57,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/youtubeedit/:youtubePk",
+    path: "/youtubeedit",
     name: "youtubeedit",
     component: YoutubeEditView,
     props: true,
