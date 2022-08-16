@@ -1,68 +1,83 @@
 <template>
   <!-- eslint-disable -->
-  <div class="ma-2 div-center">
-    <div>
-      <v-row class="mb-n15 pb-1" align="center">
-        <v-col cols="3"><h5>이메일</h5></v-col>
-        <v-col>
-          <v-text-field v-model="userId" disabled></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row class="mb-n15" align="center">
-        <v-col cols="3"><h5>비밀번호</h5></v-col>
-        <v-col>
-          <v-text-field
-            type="password"
-            v-model="passwordNew"
-            :rules="user_pw_rule"
-            hide
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row class="mb-n15" align="center">
-        <v-col cols="4"><h5>비밀번호 확인</h5></v-col>
-        <v-col>
-          <v-text-field
-            type="password"
-            v-model="passwordCheck"
-            :rules="user_pw_rule2"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row class="mb-n15" align="center">
-        <v-col cols="2"><h5>이름</h5></v-col>
-        <v-col>
-          <v-text-field v-model="userInfo.name"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row class="mb-n15" align="center">
-        <v-col cols="3"><h5>전화번호</h5></v-col>
-        <v-col>
-          <v-text-field v-model="userInfo.phone"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row align="center">
-        <v-col cols="3"><h5>생년월일</h5></v-col>
-        <v-col>
-          <v-text-field v-model="userInfo.birthDate"></v-text-field>
+  <div>
+    <v-row class="pb-2">
+      <v-col cols="2">
+        <v-icon @click="goBack">mdi-arrow-left</v-icon>
+      </v-col>
+      <v-col cols="8" align="center">계정 정보</v-col>
+    </v-row>
+    <v-divider></v-divider>
+    <div class="ma-2 div-center">
+      <div>
+        <v-row class="mb-n15 pb-1" align="center">
+          <v-col cols="3"><h5>이메일</h5></v-col>
+          <v-col>
+            <v-text-field class="font-t" v-model="userId" disabled></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row class="mb-n15" align="center">
+          <v-col cols="3"><h5>비밀번호</h5></v-col>
+          <v-col>
+            <v-text-field
+              class="font-t"
+              type="password"
+              v-model="passwordNew"
+              :rules="user_pw_rule"
+              hide
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row class="mb-n15" align="center">
+          <v-col cols="4"><h5>비밀번호 확인</h5></v-col>
+          <v-col>
+            <v-text-field
+              class="font-t"
+              type="password"
+              v-model="passwordCheck"
+              :rules="user_pw_rule2"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row class="mb-n15" align="center">
+          <v-col cols="2"><h5>이름</h5></v-col>
+          <v-col>
+            <v-text-field class="font-t" v-model="userInfo.name"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row class="mb-n15" align="center">
+          <v-col cols="3"><h5>전화번호</h5></v-col>
+          <v-col>
+            <v-text-field class="font-t" v-model="userInfo.phone"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row align="center">
+          <v-col cols="3"><h5>생년월일</h5></v-col>
+          <v-col>
+            <v-text-field class="font-t" v-model="birthDateForm"></v-text-field>
+          </v-col>
+        </v-row>
+      </div>
+      <v-row>
+        <v-col align="center">
+          <v-btn class="white--text" color="grey darken-2" small rounded @click="updateProfile"
+            >정보 저장</v-btn
+          >
         </v-col>
       </v-row>
     </div>
-    <v-row>
-      <v-col align="center">
-        <v-btn small rounded @click="updateProfile">정보 저장</v-btn>
-      </v-col>
-    </v-row>
   </div>
 </template>
 <script>
 /* eslint-disable */
+import dayjs from "dayjs";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AccountEdit",
   data() {
     return {
+      birthDateForm: "",
       // sampleUser: {
       //   email: "ssafy7@ssafy.com",
       //   pw: "zxczxc",
@@ -85,6 +100,7 @@ export default {
     };
   },
   created() {
+    this.birthDateForm = dayjs(this.userInfo.birthDate).format("YYYY-MM-DD");
     // console.log(this.userInfo);
   },
   computed: {
@@ -109,6 +125,9 @@ export default {
       alert("계정 정보가 수정되었습니다.");
       this.$router.go();
     },
+    goBack() {
+      this.$router.go();
+    },
   },
 };
 </script>
@@ -117,5 +136,8 @@ export default {
   width: 90%;
   position: absolute;
   top: 20%;
+}
+.font-t {
+  font-size: 15px;
 }
 </style>
