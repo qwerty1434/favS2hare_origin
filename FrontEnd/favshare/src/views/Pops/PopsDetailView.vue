@@ -3,7 +3,7 @@
   <v-container class="pt-3">
     <v-card color="black" height="720px">
       <div class="mt-3">
-        <v-row class="pa-2" justify="end">
+        <v-row class="pl-2 pr-2" justify="end">
           <v-btn class="ma-2" text icon color="white">
             <v-icon @click="goBack">mdi-arrow-left</v-icon>
           </v-btn>
@@ -90,7 +90,7 @@ export default {
 
 <style>
 .mt-600 {
-  margin-top: 170px !important;
+  margin-top: 185px !important;
   margin-right: auto;
 }
 .pops-detail-body {
