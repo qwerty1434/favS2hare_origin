@@ -15,7 +15,7 @@
           <v-col class="ml-n2"><h5>정보</h5></v-col>
           <v-spacer></v-spacer>
           <v-col cols="2">
-            <v-btn text @click.stop="dialogInfo = false">
+            <v-btn text @click.stop="closeDialogInfo">
               <v-icon class="mr-2">mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -95,17 +95,23 @@ export default {
       type: Boolean,
       required: true,
     },
+    popsId: {
+      type: Number,
+    },
+    userId: {
+      type: Number,
+    },
   },
   created() {
-    console.log("popsInfo " + this.popsIdInPopsTab);
+    console.log("popsInfo " + this.popsId);
     this.getPopsInfo({
-      popId: this.popsIdInPopsTab,
-      userId: this.userIdInPopsTab,
+      popId: this.popsId,
+      userId: this.userId,
     });
     this.createDate = dayjs(this.popsInfo.createDate).format("YYYY-MM-DD HH:mm");
   },
   computed: {
-    ...mapGetters(["userIdInPopsTab", "popsIdInPopsTab", "popsInfo"]),
+    ...mapGetters(["popsInfo"]),
     dialogInfo: {
       get() {
         return this.value;
@@ -116,7 +122,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getPopsInfo"]),
+    ...mapActions(["getPopsInfo", "closeDialogInfo"]),
   },
 };
 </script>

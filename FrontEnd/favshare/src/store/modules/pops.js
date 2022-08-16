@@ -46,44 +46,22 @@ export default {
         commit("SET_POPS_INFO", res.data.popInfoDto);
       });
     },
-    likePops({ commit }, { popId, userId }) {
+    getComment({ commit }, { popId, userId }) {
+      console.log(popId + " " + userId);
       axios({
         method: "post",
-        url: `http://localhost:8080/pop/like`,
+        url: `http://localhost:8080/pop/comment/list`,
         data: {
           popId: popId,
           userId: userId,
         },
       })
         .then((res) => {
-          console.log(res);
-          commit("SET_POPS_INFO");
+          commit("SET_COMMENT_LIST", res.data);
         })
         .catch((err) => {
           console.log(err);
         });
-    },
-    unLikePops({ commit }, { popId, userId }) {
-      axios({
-        method: "delete",
-        url: `http://localhost:8080/pop/like`,
-        data: {
-          popId: popId,
-          userId: userId,
-        },
-      }).then((res) => {
-        console.log(res.data.response);
-        commit("SET_POPS_INFO");
-      });
-    },
-    getComment({ commit }, { popsIdInPopsTab }) {
-      console.log(popsIdInPopsTab);
-      axios({
-        method: "get",
-        url: `http://localhost:8080/pop/comment/${popsIdInPopsTab}`,
-      }).then((res) => {
-        commit("SET_COMMENT_LIST", res.data);
-      });
     },
     insertComment({ commit }, { content, popId, userId }) {
       console.log(content + " " + popId + " " + userId);
@@ -98,8 +76,12 @@ export default {
       })
         .then(() => {
           axios({
-            method: "get",
-            url: `http://localhost:8080/pop/comment/${popId}`,
+            method: "post",
+            url: `http://localhost:8080/pop/comment/list`,
+            data: {
+              popId: popId,
+              userId: userId,
+            },
           }).then((res) => {
             commit("SET_COMMENT_LIST", res.data);
           });
@@ -120,8 +102,12 @@ export default {
       })
         .then(() => {
           axios({
-            method: "get",
-            url: `http://localhost:8080/pop/comment/${popId}`,
+            method: "post",
+            url: `http://localhost:8080/pop/comment/list`,
+            data: {
+              popId: popId,
+              userId: userId,
+            },
           }).then((res) => {
             commit("SET_COMMENT_LIST", res.data);
           });
@@ -139,18 +125,17 @@ export default {
           userId: userId,
         },
       })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           axios({
-            method: "get",
-            url: `http://localhost:8080/pop/comment/${popId}`,
-          })
-            .then((res) => {
-              commit("SET_COMMENT_LIST", res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+            method: "post",
+            url: `http://localhost:8080/pop/comment/list`,
+            data: {
+              popId: popId,
+              userId: userId,
+            },
+          }).then((res) => {
+            commit("SET_COMMENT_LIST", res.data);
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -167,15 +152,15 @@ export default {
         },
       }).then(() => {
         axios({
-          method: "get",
-          url: `http://localhost:8080/pop/comment/${popId}`,
-        })
-          .then((res) => {
-            commit("SET_COMMENT_LIST", res.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+          method: "post",
+          url: `http://localhost:8080/pop/comment/list`,
+          data: {
+            popId: popId,
+            userId: userId,
+          },
+        }).then((res) => {
+          commit("SET_COMMENT_LIST", res.data);
+        });
       });
     },
     fetchInterestIdol({ commit, getters }) {
