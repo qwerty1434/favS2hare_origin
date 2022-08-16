@@ -40,45 +40,38 @@ export default {
   created() {
     this.youtubeId = this.$route.query.youtubeId;
     this.youtubeUrl = this.$route.query.youtubeUrl;
-    this.getDummyFeedList();
-    // this.getFeedList();
+    this.getFeedList();
   },
   methods: {
     // 해당 유저의 피드리스트 가져오기
     getFeedList() {
       axios({
         method: "post",
-        url: "http://localhost:8080/youtube/edit/info",
+        url: "http://13.124.112.241:8080/youtube/edit/info",
         data: {
           userId: this.userId,
           youtubeUrl: this.youtubeUrl,
         },
       })
         .then((res) => {
-          console.log(res);
+          // feedList에 어떤 column이 있는지 확인해야함
+          // id, name만 있다고 가정하고 작성
           this.feedList = res.data.feedList;
         })
         .catch((res) => {
           console.log(res);
         });
     },
-    getDummyFeedList() {
-      this.feedList = [
-        { feedId: 1, name: "대표" },
-        { feedId: 2, name: "아이돌1" },
-        { feedId: 3, name: "아이돌2" },
-        { feedId: 4, name: "아이돌3" },
-      ];
-    },
     // Pops 게시
     postPops() {
       axios({
         method: "post",
-        url: "http://localhost:8080/youtube/edit",
+        url: "http://13.124.112.241:8080/youtube/edit",
         data: {
           userId: this.userId,
           youtubeUrl: this.youtubeUrl,
-          feedId: Number(this.$refs.uploadForm.feedId),
+          // 전체 피드는 0
+          feedId: Number(this.$refs.uploadForm.selectedFeedId),
           name: this.$refs.uploadForm.title,
           content: this.$refs.uploadForm.description,
           startSecond: this.$refs.youtubeEditTool.range[0],
@@ -99,7 +92,7 @@ export default {
         name: "youtube",
         params: {
           videoInfo: {
-            videoId: this.videoInfo.youtubeId, // 유튜브 id -> 실제로 쓸 때는 this.videoId => homeYoutube로 바꾸기
+            videoId: this.videoInfo.videoId, // 유튜브 id -> 실제로 쓸 때는 this.videoId => homeYoutube로 바꾸기
             channelName: this.videoInfo.channelName,
             channelProfilePic: this.videoInfo.channelProfilePic,
             videoTitle: this.videoInfo.videoTitle,
