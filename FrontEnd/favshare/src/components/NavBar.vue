@@ -9,20 +9,39 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
+      <v-btn icon @click="goAlarm">
         <v-icon>mdi-alarm</v-icon>
       </v-btn>
 
-      <v-menu left bottom>
+      <v-menu transition="slide-y-transition" bottom dense>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
+          <v-btn icon v-bind="attrs" v-on="on" @click="openModal">
             <v-icon>mdi-format-list-bulleted</v-icon>
           </v-btn>
         </template>
 
-        <v-list>
-          <v-list-item v-for="n in 5" :key="n" @click="() => {}">
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
+        <v-list v-if="this.userId != 0" class="pa-0" align="center" dense>
+          <v-list-item class="pa-1">
+            <v-avatar class="ml-2" color="red" size="25">
+              <img :src="userInfo.profileImageUrl" alt="John" />
+            </v-avatar>
+            <v-list-item-title>{{ userInfo.nickname }}</v-list-item-title>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-list-item @click="goMyVideo">
+            <v-list-item-title>저장된 영상</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="goMyAccount">
+            <v-list-item-title>계정 정보</v-list-item-title>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-list-item @click="btnLogout">
+            <v-list-item-title>로그아웃</v-list-item-title>
+          </v-list-item>
+        </v-list>
+        <v-list v-else class="pa-0" align="center" dense>
+          <v-list-item @click="btnLogin">
+            <v-list-item-title>로그인</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -31,8 +50,52 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapGetters } from "vuex";
+
 export default {
   name: "NavBar",
+  data() {
+    return {
+      userInfo: {},
+    };
+  },
+  computed: {
+    ...mapGetters(["userId"]),
+  },
+  created() {},
+  methods: {
+    goAlarm() {
+      this.$router.push({ name: "alarm" });
+    },
+    openModal() {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/profile/${this.userId}`,
+        data: {
+          userId: this.userId,
+        },
+      }).then((res) => {
+        this.userInfo = res.data;
+        console.log(this.userInfo);
+      });
+    },
+    goMyVideo() {
+      this.$router.push({ name: "myyoutube" });
+    },
+    goMyAccount() {
+      this.$router.push({ name: "account" });
+    },
+    btnLogout() {
+      this.$store.commit("SET_USERID", 0);
+      this.$store.commit("SET_USER_INFO", null);
+      this.$store.commit("SET_IS_SIGNIN", false);
+      this.$router.push({ name: "home" });
+    },
+    btnLogin() {
+      this.$router.push({ name: "signin" });
+    },
+  },
 };
 </script>
 

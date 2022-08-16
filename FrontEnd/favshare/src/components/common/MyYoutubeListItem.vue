@@ -1,57 +1,90 @@
 <template>
-  <v-row>
-    <v-col>
-      <v-sheet color="grey lighten-3" class="my-video" elevation="1" rounded>
-        <h3>{{ myYoutubeVideo.url }}</h3>
-        <h5>영상 띄워주는 부분</h5>
-        <!-- <div class="video__thumbnail" style="text-align: center">
+  <div>
+    <v-row>
+      <v-col>
         <router-link
           :to="{
             name: 'youtube',
             params: {
               videoInfo: {
-                videoId: this.videoId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => homeYoutube로 바꾸기
+                videoId: this.myYoutubeVideo,
                 channelName: this.channelName,
                 channelProfilePic: this.channelProfilePic,
                 videoTitle: this.videoTitle,
               },
             },
           }"
-          style="text-align: center"
         >
-          <img :src="this.thumbNail" alt="" />
+          <img class="my-video" :src="this.thumbNail" alt="" />
         </router-link>
-      </div>
-      <div class="video__details">
-        <div class="author">
-          <img :src="this.channelProfilePic" alt="" />
-        </div>
-        <div class="title">
-          <h3>
-            {{ this.videoTitle }}
-          </h3>
-        </div>
-      </div> -->
-      </v-sheet>
-    </v-col>
-    <v-col class="ml-n5 mt-4">
-      <h4>youtube description</h4>
-      <h5>userId</h5>
-      <v-spacer></v-spacer>
-      <h6>
-        <v-icon small> mdi-close </v-icon>
-        제거
-      </h6>
-    </v-col>
-  </v-row>
+      </v-col>
+      <v-col class="ml-n5 mt-4">
+        <h5>{{ this.videoTitle.substr(0, 50) }} ...</h5>
+        <v-spacer></v-spacer>
+        <h6 @click="btnDeleteMyYoutube">
+          <v-icon small> mdi-close </v-icon>
+          제거
+        </h6>
+      </v-col>
+    </v-row>
+    <v-divider></v-divider>
+  </div>
 </template>
 <script>
+/* eslint-disable */
+import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "MyYouTubeListItem",
+  data() {
+    return {
+      //for-use data
+      thumbNail: String,
+      channelProfilePic: String,
+      channelName: String,
+      videoTitle: String,
+    };
+  },
   props: {
     myYoutubeVideo: Object,
   },
-  created: {},
+  computed: {
+    ...mapGetters(["userIdInMyVideo", "myVideoList"]),
+  },
+  created() {
+    this.getStoredVideoInfo();
+  },
+  methods: {
+    ...mapActions(["deleteMyVideo"]),
+    getStoredVideoInfo() {
+      // 썸네일, 채널 id 받아오기
+      axios({
+        method: "get",
+        url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.myYoutubeVideo}&key=AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A`,
+      }).then((res) => {
+        this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
+        this.videoTitle = res.data.items[0].snippet.title;
+        const tmpChannelId = res.data.items[0].snippet.channelId;
+        axios({
+          method: "get",
+          url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A`,
+        }).then((res) => {
+          this.channelProfilePic = res.data.items[0].snippet.thumbnails.default.url;
+          this.channelName = res.data.items[0].snippet.title;
+        });
+      });
+    },
+    btnDeleteMyYoutube() {
+      if (confirm("영상을 보관함에서 삭제하시겠습니까?")) {
+        this.deleteMyVideo({
+          userId: this.userIdInMyVideo,
+          youtubeUrl: this.myYoutubeVideo.url,
+        });
+      }
+      this.$emit("delete-video");
+    },
+  },
 };
 </script>
 <style>

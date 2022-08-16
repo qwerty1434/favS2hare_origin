@@ -9,11 +9,14 @@
     scrollable
   >
     <v-card>
-      <v-btn text @click.stop="dialogComment = false">
+      <v-btn text @click.stop="closeDialogComment">
         <v-icon>mdi-drag-horizontal-variant</v-icon>
       </v-btn>
       <div v-for="commentListItem in commentList" :key="commentListItem.id">
-        <pops-comment-item :comment-list-item="commentListItem"></pops-comment-item>
+        <pops-comment-item
+          :pops-id="popsId"
+          :comment-list-item="commentListItem"
+        ></pops-comment-item>
       </div>
       <v-row>
         <v-col cols="2"
@@ -21,7 +24,12 @@
             <img :src="userImgInPopsTab" alt="image" /> </v-avatar
         ></v-col>
         <v-col>
-          <v-text-field class="text-font" v-model="comment" dense></v-text-field>
+          <v-text-field
+            class="text-font"
+            v-model="comment"
+            dense
+            @keydown.enter="btnInsertComment"
+          ></v-text-field>
         </v-col>
         <v-col cols="2">
           <v-btn class="mt-2" icon text small @click="btnInsertComment">게시</v-btn>
@@ -68,9 +76,15 @@ export default {
       type: Boolean,
       required: true,
     },
+    popsId: {
+      type: Number,
+    },
+    userId: {
+      type: Number,
+    },
   },
   created() {
-    this.getComment({ popsIdInPopsTab: this.popsIdInPopsTab });
+    this.getComment({ popId: this.popsId, userId: this.userIdInPopsTab });
   },
   computed: {
     ...mapGetters(["userImgInPopsTab", "userIdInPopsTab", "popsIdInPopsTab", "commentList"]),
@@ -84,14 +98,14 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getComment", "insertComment"]),
+    ...mapActions(["getComment", "insertComment", "closeDialogComment"]),
     btnInsertComment() {
       if (this.comment === "") {
         alert("댓글을 입력하세요.");
       } else {
         this.insertComment({
           content: this.comment,
-          popId: this.popsIdInPopsTab,
+          popId: this.popsId,
           userId: this.userIdInPopsTab,
         });
         this.comment = "";

@@ -11,6 +11,7 @@ import profile from "./modules/profile";
 import account from "./modules/account";
 import myvideo from "./modules/myvideo";
 import pops from "./modules/pops";
+import dialog from "./modules/dialog";
 
 export default new Vuex.Store({
   state: {
@@ -28,15 +29,17 @@ export default new Vuex.Store({
     },
   },
   modules: {
-    search,
-    home,
-    profile,
-    account,
-    myvideo,
-    pops,
+    search: search,
+    home: home,
+    profile: profile,
+    account: account,
+    myvideo: myvideo,
+    pops: pops,
+    dialog: dialog,
   },
   plugins: [
     createPersistedState({
+      paths: ["search", "home", "profile", "account", "myvideo", "pops"],
       storage: sessionStorage,
     }),
   ],

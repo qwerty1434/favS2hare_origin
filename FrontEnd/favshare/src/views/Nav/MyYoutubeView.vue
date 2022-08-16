@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <v-container>
     <v-row class="pb-2">
       <v-col cols="1">
@@ -21,22 +22,20 @@ export default {
       youtubeList: [],
     };
   },
-  created() {
-    this.getSampleVideos();
-  },
+  created() {},
   methods: {
-    getSampleVideos() {
-      this.youtubeList = [
-        {
-          youtubeId: 1,
-          youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
-        },
-        {
-          youtubeId: 1,
-          youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
-        },
-      ];
-    },
+    // getSampleVideos() {
+    //   this.youtubeList = [
+    //     {
+    //       youtubeId: 1,
+    //       youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
+    //     },
+    //     {
+    //       youtubeId: 1,
+    //       youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
+    //     },
+    //   ];
+    // },
     goBack() {
       this.$router.go(-1);
     },

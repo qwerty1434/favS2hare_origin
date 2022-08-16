@@ -51,6 +51,9 @@ export default {
   },
   props: {
     commentListItem: Object,
+    popsId: {
+      type: Number,
+    },
   },
   data() {
     return {
@@ -59,16 +62,24 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userIdInPopsTab"]),
+    ...mapGetters(["popsIdInPopsTab", "userIdInPopsTab"]),
   },
   methods: {
     ...mapActions(["deleteComment", "likeComment", "unLikeComment"]),
     btnLikeComment() {
       if (!this.isLiked) {
-        this.likeComment({ commentId: this.commentListItem.id, userId: this.userIdInPopsTab });
+        this.likeComment({
+          popId: this.popsId,
+          commentId: this.commentListItem.id,
+          userId: this.userIdInPopsTab,
+        });
         this.isLiked = true;
       } else {
-        this.unLikeComment({ commentId: this.commentListItem.id, userId: this.userIdInPopsTab });
+        this.unLikeComment({
+          popId: this.popsId,
+          commentId: this.commentListItem.id,
+          userId: this.userIdInPopsTab,
+        });
         this.isLiked = false;
       }
     },
@@ -77,7 +88,7 @@ export default {
         this.deleteComment({
           commentId: this.commentListItem.id,
           userId: this.commentListItem.userId,
-          popId: this.commentListItem.popId,
+          popId: this.popsId,
         });
       }
     },

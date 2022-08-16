@@ -56,29 +56,6 @@ export default {
     };
   },
   methods: {
-    // tmp function
-    // getEx() {
-    //   const videoId = this.youtubeVideo.youtubeUrl.slice(-11);
-    //   this.videoId = videoId;
-    //   axios({
-    //     method: "get",
-    //     url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
-    //   }).then((res) => {
-    //     console.log("여기", res.data);
-    //     // res.data.items[0].snippet.thumbnails.medium => width:320, height: 180 짜리 썸네일
-    //     this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
-    //     this.videoTitle = res.data.items[0].snippet.title;
-    //     const tmpChannelId = res.data.items[0].snippet.channelId;
-    //     axios({
-    //       method: "get",
-    //       url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
-    //     }).then((res) => {
-    //       this.channelProfilePic =
-    //         res.data.items[0].snippet.thumbnails.default.url;
-    //       this.channelName = res.data.items[0].snippet.title;
-    //     });
-    //   });
-    // },
     // for-use-function
     getVideoInfo() {
       // 썸네일, 채널 id 받아오기
