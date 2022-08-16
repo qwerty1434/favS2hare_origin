@@ -49,11 +49,17 @@ export default {
           userId: this.userId,
           youtubeUrl: this.videoInfo.videoId,
         },
-      }).then((res) => {
-        console.log("릴레이티드 팝스 리스트", res.data);
-        this.popsList = res.data.popList;
-        this.url = res.data.youtubeUrl;
-      });
+      })
+        .then((res) => {
+          console.log("릴레이티드 팝스 리스트", res.data);
+          this.popsList = res.data.popList;
+          this.url = res.data.youtubeUrl;
+        })
+        .catch((res) => {
+          console.log(this.userId);
+          console.log(this.videoInfo.videoId);
+          console.log(res);
+        });
     },
     setDummyData() {
       this.popsList = [

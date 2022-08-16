@@ -99,7 +99,8 @@ export default {
         name: "youtube",
         params: {
           videoInfo: {
-            videoId: this.videoInfo.youtubeId, // 유튜브 id -> 실제로 쓸 때는 this.videoId => homeYoutube로 바꾸기
+            //여기부분 youtubeId아니고 videoId
+            videoId: this.videoInfo.videoId, // 유튜브 id -> 실제로 쓸 때는 this.videoId => homeYoutube로 바꾸기
             channelName: this.videoInfo.channelName,
             channelProfilePic: this.videoInfo.channelProfilePic,
             videoTitle: this.videoInfo.videoTitle,
