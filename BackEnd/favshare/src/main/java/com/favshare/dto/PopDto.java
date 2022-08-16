@@ -26,6 +26,7 @@ public class PopDto {
 	private String youtubeUrl;
 	private boolean isLiked;
 	private int userId;
+	private boolean isMuted;
 	
 	public PopDto(PopEntity popEntity, boolean isLiked) {
 		this.id = popEntity.getId();
@@ -39,5 +40,6 @@ public class PopDto {
 		this.youtubeUrl = popEntity.getYoutubeEntity().getUrl();
 		this.isLiked = isLiked;
 		this.userId = popEntity.getUserEntity().getId();
+		this.isMuted = popEntity.isMuted();
 	}
 }

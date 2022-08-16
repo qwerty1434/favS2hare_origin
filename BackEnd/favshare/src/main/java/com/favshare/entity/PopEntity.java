@@ -30,6 +30,8 @@ public class PopEntity {
 	private LocalDateTime createDate;
     @Column(nullable = false)
 	private int views;
+    @Column(name= "is_muted", nullable = false)
+	private boolean isMuted;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	// 1. @Column이 없는 Integer는 default로 not null속성이 추가됨
