@@ -8,9 +8,18 @@
             <v-icon @click="goBack">mdi-arrow-left</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn class="ma-2" text icon color="white">
-            <v-icon>mdi-dots-horizontal</v-icon>
-          </v-btn>
+          <v-menu transition="slide-y-transition" bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn class="ma-2" text icon color="white" v-bind="attrs" v-on="on">
+                <v-icon>mdi-dots-horizontal</v-icon>
+              </v-btn>
+            </template>
+            <v-list dense>
+              <v-list-item @click="btnDeletePops">
+                <v-list-item-title>pops 삭제</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-row>
         <div class="pops-detail-body">
           <div class="pops-title"><h2>pops제목</h2></div>
@@ -81,6 +90,7 @@ export default {
         this.isLiked = false;
       }
     },
+    btnDeletePops() {},
     goBack() {
       this.$router.go(-1);
     },

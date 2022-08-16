@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="pb-2">
       <v-col cols="2">
-        <v-icon>mdi-arrow-left</v-icon>
+        <v-icon @click="goBack">mdi-arrow-left</v-icon>
       </v-col>
       <v-col>알림</v-col>
     </v-row>
@@ -20,6 +20,11 @@ export default {
   components: { AlarmList },
   data() {
     return {};
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>
