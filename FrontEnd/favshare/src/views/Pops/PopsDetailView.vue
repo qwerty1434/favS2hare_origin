@@ -22,10 +22,28 @@
           </v-menu>
         </v-row>
         <div class="pops-detail-body">
-          <div class="pops-title"><h2>pops제목</h2></div>
+          <div class="pops-title">
+            <h2>{{ this.popsInfo.name }}</h2>
+          </div>
           <!-- pops 재생화면 -->
-          <v-sheet class="pops-play">pops 재생</v-sheet>
-          <div class="pops-editer"><h2>user</h2></div>
+          <v-sheet class="pops-play">
+            <div>
+              <youtube
+                :video-id="youtubePk"
+                :player-vars="playerVars"
+                :ref="'pops' + this.popsInfo.id"
+                @ready="onPlayerReady"
+                @playing="onPlaying"
+                :width="336"
+                :height="189"
+                style="pointer-events: none"
+              ></youtube>
+            </div>
+            <h1 class="white--text">{{ playerVars }}</h1>
+          </v-sheet>
+          <div class="pops-editer">
+            <h2>{{ this.popsInfo.userId }}</h2>
+          </div>
         </div>
         <v-row class="pa-2 mt-600" justify="end">
           <v-spacer></v-spacer>
@@ -35,17 +53,24 @@
           <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
             <v-icon>mdi-heart</v-icon>
           </v-btn>
-          <v-btn class="mt-2" text icon color="white" @click.stop="dialogComment = true">
+          <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogComment">
             <v-icon>mdi-comment-text-outline</v-icon>
           </v-btn>
           <pops-comment-modal
+            :pops-id="popsId"
+            :user-id="userId"
             :value="dialogComment"
             @input="dialogComment = $event"
           ></pops-comment-modal>
-          <v-btn class="mt-2" text icon color="white" @click.stop="dialogInfo = true">
+          <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogInfo">
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
-          <pops-info-modal :value="dialogInfo" @input="dialogInfo = $event"></pops-info-modal>
+          <pops-info-modal
+            :pops-id="popsId"
+            :user-id="userId"
+            :value="dialogInfo"
+            @input="dialogInfo = $event"
+          ></pops-info-modal>
         </v-row>
       </div>
     </v-card>
@@ -54,38 +79,91 @@
 </template>
 
 <script>
+/* eslint-disable */
 import PopsCommentModal from "@/components/Pops/PopsCommentModal.vue";
 import PopsInfoModal from "@/components/Pops/PopsInfoModal.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 import { mapActions, mapGetters } from "vuex";
+import VueYoutube from "vue-youtube";
+import Vue from "vue";
+
+Vue.use(VueYoutube);
 
 export default {
   name: "PopsDetailView",
   components: { PopsCommentModal, PopsInfoModal, BottomNavigationBar },
   data() {
     return {
-      isLiked: false,
-      dialogComment: false,
-      dialogInfo: false,
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        disablekb: 1,
+      },
+      section: {
+        start: this.popsInfo.startSecond,
+        end: this.popsInfo.endSecond,
+      },
     };
   },
-  computed: {
-    ...mapGetters(["userIdInPopsTab", "popsIdInPopsTab"]),
+  watch: {
+    "this.dialogComment": function () {
+      console.log(this.dialogComment);
+    },
   },
-  created() {},
+  props: {
+    popsId: {
+      type: Number,
+    },
+    userId: {
+      type: Number,
+    },
+  },
+  computed: {
+    ...mapGetters(["popsInfo", "isLiked", "dialogComment", "dialogInfo"]),
+    player() {
+      return this.$refs[`pops${this.popsInfo.id}`].player;
+    },
+    youtubePk() {
+      return this.popsInfo.youtubueUrl;
+    },
+  },
+  created() {
+    console.log("전달받은 popsID " + this.popsId);
+    console.log("전달받은 userID " + this.userId);
+    this.getPopsInfo({ popId: this.popsId, userId: this.userId });
+    console.log("pops생성 " + this.popsInfo.name);
+  },
   methods: {
-    ...mapActions(["likePops", "unLikePops"]),
+    ...mapActions([
+      "getPopsInfo",
+      "likePops",
+      "unLikePops",
+      "fetchDialogComment",
+      "fetchDialogInfo",
+    ]),
+    onPlayerReady() {
+      this.player.seekTo(this.section.start);
+      this.player.playVideo();
+    },
+    onPlaying() {
+      const duration = this.section.end - this.section.start;
+      setTimeout(this.restartVideoSection, duration * 1000);
+    },
+    restartVideoSection() {
+      this.player.seekTo(this.section.start);
+    },
     btnLikePops() {
       if (!this.isLiked) {
         this.likePops({
-          popId: this.popsIdInPopsTab,
-          userId: this.userIdInPopsTab,
+          popId: this.popsId,
+          userId: this.userId,
         });
         this.isLiked = true;
       } else {
         this.unLikePops({
-          popId: this.popsIdInPopsTab,
-          userId: this.userIdInPopsTab,
+          popId: this.popsId,
+          userId: this.userId,
         });
         this.isLiked = false;
       }
@@ -107,9 +185,8 @@ export default {
   margin-top: 160px;
 }
 .pops-play {
-  margin-left: 8px;
-  height: 180px;
-  width: 320px;
+  height: 189px;
+  width: 336px;
 }
 .pops-title {
   margin: 10px;

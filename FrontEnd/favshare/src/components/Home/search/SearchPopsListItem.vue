@@ -1,9 +1,20 @@
 <template>
   <!-- eslint-disable -->
   <div>
-    <v-card class="pops-size mr-4">
-      <v-img height="170" class="pops-size" src="@/assets/sample/popssample.jpg"> </v-img>
-      <v-card-actions class="mb-n3">
+    <v-card class="pops-size mr-4" @click="goPopsDetail">
+      <div>
+        <youtube
+          :video-id="youtubePk"
+          :player-vars="playerVars"
+          :ref="'pops' + this.popsListItem.id"
+          @ready="onPlayerReady"
+          @playing="onPlaying"
+          :width="150"
+          :height="167"
+          style="pointer-events: none; border-radius: 8px"
+        ></youtube>
+      </div>
+      <v-card-actions class="mt-n2 mb-n2">
         <h5>
           {{ popsListItem.name }}
         </h5>
@@ -24,21 +35,67 @@
   </div>
 </template>
 <script>
+import VueYoutube from "vue-youtube";
+import Vue from "vue";
+
+Vue.use(VueYoutube);
+
 export default {
   name: "SearchPopsListItem",
-
   data() {
     return {
-      searchedPops: [],
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        disablekb: 1,
+      },
+      section: {
+        start: this.popsListItem.startSecond,
+        end: this.popsListItem.endSecond,
+      },
     };
   },
   props: {
     popsListItem: Object,
   },
-  created() {},
+  created() {
+    console.log(this.popsListItem);
+  },
+  computed: {
+    player() {
+      return this.$refs[`pops${this.popsListItem.id}`].player;
+    },
+    youtubePk() {
+      return this.popsListItem.youtubueUrl;
+    },
+  },
+  methods: {
+    onPlayerReady() {
+      this.player.seekTo(this.section.start);
+      this.player.playVideo();
+    },
+    onPlaying() {
+      const duration = this.section.end - this.section.start;
+      setTimeout(this.restartVideoSection, duration * 1000);
+    },
+    restartVideoSection() {
+      this.player.seekTo(this.section.start);
+    },
+    goPopsDetail() {
+      console.log(this.popsListItem.id);
+      this.$router.push({
+        name: "popsdetail",
+        params: {
+          popsId: this.popsListItem.id,
+          userId: this.popsListItem.userId,
+        },
+      });
+    },
+  },
 };
 </script>
-<style>
+<style scoped>
 .pops-size {
   height: 230px;
   width: 150px;

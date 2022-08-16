@@ -146,6 +146,7 @@ const routes = [
     path: "/popsdetail",
     name: "popsdetail",
     component: PopsDetailView,
+    props: true,
   },
   {
     path: "/originallinkedpops/",
