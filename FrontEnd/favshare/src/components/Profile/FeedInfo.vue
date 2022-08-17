@@ -9,15 +9,15 @@
       <div class="profile-stats">
         <ul>
           <li>
-            <div>게시 '팝'</div>
+            <div class="stat-font">게시 팝</div>
             <div>{{ feedUserInfo.popCount }}</div>
           </li>
           <li @click="[setTabFollower, routerPushes('follow')]">
-            <div>팔로워 수</div>
+            <div class="stat-font">팔로워 수</div>
             <div>{{ feedUserInfo.followerNum }}</div>
           </li>
-          <li @click="[setTabFollowing, routerPushes('follow')]">
-            <div>팔로잉 수</div>
+          <li @click="[setTabFollower, routerPushes('follow')]">
+            <div class="stat-font">팔로잉 수</div>
             <div>{{ feedUserInfo.followingNum }}</div>
           </li>
         </ul>
@@ -25,14 +25,30 @@
     </div>
     <div class="follow-edit">
       <div v-if="feedUserInfo.id === userId">
-        <button @click="goProfileEdit">프로필 편집</button>
+        <v-btn
+          class="ma-2"
+          outlined
+          color="red lighten-1"
+          elevation="2"
+          @click="goProfileEdit"
+          >프로필 편집</v-btn
+        >
       </div>
       <div v-else>
         <div v-if="isFollowing">
-          <button @click="followBtn">팔로잉</button>
+          <v-btn class="ma-2" outlined color="red lighten-1" elevation="2"
+            >팔로잉</v-btn
+          >
         </div>
         <div v-else>
-          <button @click="fetchFollowInProfile(feedUserInfo.id)">팔로우</button>
+          <v-btn
+            class="ma-2"
+            outlined
+            color="red lighten-1"
+            elevation="2"
+            @click="fetchFollowInProfile(feedUserInfo.id)"
+            >팔로우</v-btn
+          >
         </div>
       </div>
     </div>
@@ -69,13 +85,17 @@ export default {
       console.log(this.$store.state.profile.isFollowing);
     },
   },
+  // created() {
+  //   this.fetchIsFollowing
+  // }
 };
 </script>
 
 <style scoped>
 .follow-edit {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-right: 30px;
 }
 .user-info {
@@ -90,12 +110,35 @@ export default {
   cursor: pointer;
   list-style-type: none;
   float: left;
-  padding-right: 10px;
+  padding-right: 20px;
   align-content: center;
   justify-content: center;
 }
 
 li {
   text-align: center;
+  font-family: "MabinogiClassicR" !important;
+}
+
+@font-face {
+  font-family: "EarlyFontDiary";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_220508@1.0/EarlyFontDiary.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Happiness-Sans-Title";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "MabinogiClassicR";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 </style>

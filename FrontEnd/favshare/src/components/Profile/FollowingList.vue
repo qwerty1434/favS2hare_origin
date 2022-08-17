@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="following">
     <div v-for="(followingItem, index) in followingList" :key="index">
       <following-list-item
         :following-item="followingItem"
@@ -25,4 +25,9 @@ export default {
   },
 };
 </script>
-<style></style>
+
+<style scoped>
+.following {
+  padding-top: 100px;
+}
+</style>

@@ -41,10 +41,12 @@ export default {
           popId: popId,
           userId: userId,
         },
-      }).then((res) => {
-        console.log(res.data.popInfoDto);
-        commit("SET_POPS_INFO", res.data.popInfoDto);
-      });
+      })
+        .then((res) => {
+          console.log("여기", res.data.popInfoDto);
+          commit("SET_POPS_INFO", res.data.popInfoDto);
+        })
+        .catch((err) => console.log("getPopsInfo 에러", err));
     },
     countView({ commit }, { popId }) {
       axios({

@@ -223,22 +223,33 @@ export default {
 
     // 다른 유저 프로필 화면 들어갈 때 팔로우 하고있는지 확인하기 위한 함수
     fetchIsFollowing({ commit, getters }, id) {
+      console.log("isFollowing 안에 왔음", id);
       axios({
         method: "get",
-        url: `http://localhost:8080/user/follow/from${getters.userId}`,
+        url: `http://13.124.112.241:8080/user/follow/from/${getters.userId}`,
       })
         .then((res) => {
+          console.log(".then 안에 왔음", res.data);
+          console.log("내 아이디", getters.userId, typeof getters.userId);
+          console.log(
+            "느그 아이디",
+            res.data[0].toUserId,
+            typeof res.data[0].toUserId
+          );
           const len = res.data.length;
           let tmp = 0;
           for (const user of res.data) {
+            console.log("for문 안", user);
             if (user.toUserId === id) {
               commit("SET_ISFOLLOWING", true);
               break;
             } else {
+              console.log("else안에");
               tmp++;
             }
           }
           if (tmp === len) {
+            console.log("여기왔냐!!!");
             commit("SET_ISFOLLOWING", false);
           }
         })
@@ -249,7 +260,7 @@ export default {
     fetchFollowInProfile({ commit, getters }, id) {
       axios({
         method: "post",
-        url: "http://localhost:8080/user/follow",
+        url: "http://13.124.112.241:8080/user/follow",
         data: {
           fromUserId: getters.userId,
           toUserId: id,
