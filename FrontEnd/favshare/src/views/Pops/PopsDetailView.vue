@@ -45,6 +45,10 @@
             <h2>{{ this.popsInfo.userId }}</h2>
           </div>
         </div>
+        <v-row class="mt-550">
+          <v-spacer></v-spacer>
+          <h6 class="like-count">{{ popsInfo.likeCount }}</h6>
+        </v-row>
         <v-row class="pa-2 mt-600" justify="end">
           <v-spacer></v-spacer>
           <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
@@ -129,9 +133,13 @@ export default {
     },
   },
   created() {
+    this.countView({ popId: this.popsId });
     console.log("전달받은 popsID " + this.popsId);
     console.log("전달받은 userID " + this.userId);
     this.getPopsInfo({ popId: this.popsId, userId: this.userId });
+    if (this.popsInfo.liked) {
+      this.isLiked = true;
+    }
     console.log("pops생성 " + this.popsInfo.name);
   },
   methods: {
@@ -141,6 +149,8 @@ export default {
       "unLikePops",
       "fetchDialogComment",
       "fetchDialogInfo",
+      "deletePopsOne",
+      "countView",
     ]),
     onPlayerReady() {
       this.player.seekTo(this.section.start);
@@ -159,16 +169,24 @@ export default {
           popId: this.popsId,
           userId: this.userId,
         });
-        this.isLiked = true;
       } else {
         this.unLikePops({
           popId: this.popsId,
           userId: this.userId,
         });
-        this.isLiked = false;
       }
     },
-    btnDeletePops() {},
+    btnDeletePops() {
+      if (this.popsInfo.userId == 1) {
+        if (confirm("해당 pop을 삭제하시겠습니까?")) {
+          this.deletePopsOne({ popId: this.popsId });
+          alert("삭제되었습니다.");
+          this.$router.push({ name: "feed" });
+        }
+      } else {
+        alert("본인이 편집한 pop만 삭제할 수 있습니다.");
+      }
+    },
     goBack() {
       this.$router.go(-1);
     },
@@ -177,8 +195,11 @@ export default {
 </script>
 
 <style>
+.mt-550 {
+  margin-top: 185px;
+}
 .mt-600 {
-  margin-top: 185px !important;
+  margin-top: 1px !important;
   margin-right: auto;
 }
 .pops-detail-body {
@@ -194,6 +215,11 @@ export default {
 }
 .pops-editer {
   margin: 10px;
+  color: aliceblue;
+}
+.like-count {
+  margin-right: 105px;
+  margin-bottom: -14px;
   color: aliceblue;
 }
 </style>

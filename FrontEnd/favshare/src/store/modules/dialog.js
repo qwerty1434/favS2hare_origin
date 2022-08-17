@@ -1,10 +1,9 @@
-import axios from "axios";
-
 export default {
   state: {
     dialogComment: false,
     dialogInfo: false,
     isLiked: false,
+    isLikedAny: false,
   },
   getters: {
     dialogComment: (state) => state.dialogComment,
@@ -29,36 +28,6 @@ export default {
     },
     closeDialogInfo({ commit }) {
       commit("SET_DIALOG_INFO", false);
-    },
-    likePops({ commit }, { popId, userId }) {
-      axios({
-        method: "post",
-        url: `http://localhost:8080/pop/like`,
-        data: {
-          popId: popId,
-          userId: userId,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          commit("SET_POPS_INFO");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    unLikePops({ commit }, { popId, userId }) {
-      axios({
-        method: "delete",
-        url: `http://localhost:8080/pop/like`,
-        data: {
-          popId: popId,
-          userId: userId,
-        },
-      }).then((res) => {
-        console.log(res.data.response);
-        commit("SET_POPS_INFO");
-      });
     },
   },
 };

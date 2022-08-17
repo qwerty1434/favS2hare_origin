@@ -46,6 +46,31 @@ export default {
         commit("SET_POPS_INFO", res.data.popInfoDto);
       });
     },
+    countView({ commit }, { popId }) {
+      axios({
+        method: "put",
+        url: `http://localhost:8080/pop/detail/${popId}`,
+      })
+        .then((res) => {
+          console.log("조회수 증가" + res.data);
+          commit("SET_POPS_INFO");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deletePopsOne({ commit }, { popId }) {
+      axios({
+        method: "delete",
+        url: `http://localhost:8080/pop`,
+        data: {
+          popId: popId,
+        },
+      }).then((res) => {
+        console.log(res.data);
+        commit("SET_POPS_INFO");
+      });
+    },
     getComment({ commit }, { popId, userId }) {
       console.log(popId + " " + userId);
       axios({
@@ -62,6 +87,56 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    likePops({ commit }, { popId, userId }) {
+      axios({
+        method: "post",
+        url: `http://localhost:8080/pop/like`,
+        data: {
+          popId: popId,
+          userId: userId,
+        },
+      })
+        .then(() => {
+          axios({
+            method: "post",
+            url: `http://localhost:8080/pop/info`,
+            data: {
+              popId: popId,
+              userId: userId,
+            },
+          }).then((res) => {
+            console.log(res.data.popInfoDto);
+            commit("SET_POPS_INFO", res.data.popInfoDto);
+            commit("SET_LIKE_POPS", true);
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    unLikePops({ commit }, { popId, userId }) {
+      axios({
+        method: "delete",
+        url: `http://localhost:8080/pop/like`,
+        data: {
+          popId: popId,
+          userId: userId,
+        },
+      }).then(() => {
+        axios({
+          method: "post",
+          url: `http://localhost:8080/pop/info`,
+          data: {
+            popId: popId,
+            userId: userId,
+          },
+        }).then((res) => {
+          console.log(res.data.popInfoDto);
+          commit("SET_POPS_INFO", res.data.popInfoDto);
+          commit("SET_LIKE_POPS", false);
+        });
+      });
     },
     insertComment({ commit }, { content, popId, userId }) {
       console.log(content + " " + popId + " " + userId);
