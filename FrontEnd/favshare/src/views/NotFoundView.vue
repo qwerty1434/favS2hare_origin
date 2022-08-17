@@ -14,7 +14,7 @@
       </v-row>
       <v-row>
         <v-col align="center">
-          <v-btn color="#ff5d5d" outlined elevation="5" @click="goHome">홈으로 이동</v-btn>
+          <v-btn color="#ff5d5d" rounded outlined elevation="5" @click="goHome">홈으로 이동</v-btn>
         </v-col>
       </v-row>
     </div>
