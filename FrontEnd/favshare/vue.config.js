@@ -5,4 +5,7 @@ module.exports = defineConfig({
     allowedHosts: "all",
     historyApiFallback: true,
   },
+  chainWebpack: (config) => {
+    config.module.rules.delete("eslint");
+  },
 });
