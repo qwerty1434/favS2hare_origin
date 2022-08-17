@@ -157,7 +157,7 @@
 
 <script>
 import axios from "axios";
-/* eslint-disable */
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "SignupView",
@@ -192,7 +192,11 @@ export default {
       receivedAuthNumber: "",
     };
   },
+  computed: {
+    ...mapState(["isSignin"]),
+  },
   methods: {
+    ...mapActions(["userConfirm"]),
     // 이메일 형식인지 확인
     checkEmail(email) {
       /* eslint-disable-next-line */
@@ -221,7 +225,6 @@ export default {
         // 에러 타입에 따라 if 문을 넣어야하나?
         // 400 에러 뜨면 통과인듯...?
         axios
-          // .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .then(() => {
             console.log("사용자에게는 이미 가입된 경우만 alert가 보여야 합니다");
@@ -273,7 +276,6 @@ export default {
       if (this.$refs.signupForm.validate()) {
         await axios
           .post(
-            // "http://13.124.112.241:8080/user/signup",
             "http://13.124.112.241:8080/user/signup",
             JSON.stringify(this.user),
             {
@@ -285,7 +287,15 @@ export default {
           .then(() => {
             // 회원가입 성공시 로그인 화면으로 이동
             alert("성공적으로 회원가입이 완료되었습니다");
-            this.$router.push({ name: "signin" });
+            // 자동으로 로그인
+            this.userConfirm({
+              email: this.user.email,
+              password: this.user.password,
+            });
+            // 로그인되었다면 취향 선택 화면으로 이동
+            if (this.isSignin) {
+              this.$router.push({ name: "interest" });
+            }
           })
           .catch((error) => {
             console.log(error);
