@@ -1,7 +1,7 @@
 <template>
   <!-- eslint-disable -->
   <div>
-    <v-card class="pops-size mr-4" @click="goPopsDetail">
+    <v-card class="pops-size ml-2 mr-2" @click="goPopsDetail">
       <div>
         <youtube
           :video-id="youtubePk"
