@@ -1,5 +1,12 @@
 <template>
+  <!-- eslint-disable -->
   <div>
+    <v-row class="related-font">
+      <v-col cols="4"> 관련 Pops </v-col>
+      <v-col class="ml-n9">
+        <h5 class="red--text">({{ popsList.length }})</h5>
+      </v-col>
+    </v-row>
     <!-- <v-sheet class="mx-auto" max-width="360">
       <v-slide-group multiple>
         <v-slide-item v-for="popsItem in popsList" :key="popsItem.id">
@@ -11,12 +18,11 @@
         </v-slide-item>
       </v-slide-group>
     </v-sheet> -->
-    <div v-for="popsItem in popsList" :key="popsItem.id" class="popsitem">
-      <related-pops-list-item
-        :pops-item="popsItem"
-        :url="url"
-      ></related-pops-list-item>
-    </div>
+    <v-row class="mt-n5 mb-14">
+      <v-col cols="6" align="center" v-for="popsItem in popsList" :key="popsItem.id">
+        <related-pops-list-item :pops-item="popsItem" :url="url"></related-pops-list-item>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -101,6 +107,11 @@ export default {
 
 <style>
 .popsitem {
-  padding-right: 10px;
+  margin-top: -25px;
+}
+.related-font {
+  padding-top: 5px;
+  padding-bottom: 6px;
+  font-weight: bold;
 }
 </style>
