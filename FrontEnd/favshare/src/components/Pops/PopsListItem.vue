@@ -1,6 +1,13 @@
 <template>
-  <div>
-    <v-card height="550px" color="grey lighten-1" class="pops-list-item">
+  <div
+    @click="
+      [
+        routerPushes('popsdetail'),
+        getPopsInfo({ popId: popItem.id, userId: userId }),
+      ]
+    "
+  >
+    <v-card width="336px" height="550px" color="black" class="pops-list-item">
       <div class="name-font">{{ popItem.name }}</div>
       <div class="video">
         <youtube
@@ -14,14 +21,16 @@
           style="pointer-events: none; border-radius: 8px"
         ></youtube>
       </div>
-      <div>{{ popItem.content }}</div>
+      <div class="content">{{ popItem.content }}</div>
     </v-card>
   </div>
 </template>
 
 <script>
+import router from "@/router";
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
+import { mapActions, mapGetters } from "vuex";
 
 Vue.use(VueYoutube);
 
@@ -48,6 +57,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["userId"]),
     player() {
       return this.$refs[`pops${this.popItem.id}`].player;
     },
@@ -56,6 +66,10 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["getPopsInfo"]),
+    routerPushes(icon) {
+      router.push({ name: icon });
+    },
     likePops() {
       if (!this.isLiked) {
         this.isLiked = true;
@@ -93,6 +107,11 @@ export default {
   text-align: center;
   font-size: 40px;
   padding-top: 60px;
+  color: white;
+}
+.content {
+  font-family: "EF_WAKEUP" !important;
+  color: white;
 }
 @font-face {
   font-family: "EF_WAKEUP";

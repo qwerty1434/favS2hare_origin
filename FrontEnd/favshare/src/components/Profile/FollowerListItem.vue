@@ -5,7 +5,14 @@
       <v-col>{{ followerItem.nickname }}</v-col>
       <v-col></v-col>
       <v-col align="right">
-        <v-btn small v-if="!isFollowing" @click="unFollow" color="primary">
+        <v-btn
+          small
+          outlined
+          color="red lighten-1"
+          elevation="2"
+          v-if="!isFollowing"
+          @click="unFollow"
+        >
           팔로우
         </v-btn>
         <v-btn small v-else @click="unFollow"> 팔로잉 </v-btn>
@@ -80,7 +87,8 @@ export default {
       }).then((res) => console.log(res.data));
     },
     initIsFollowing() {
-      if (this.followItem.followForFollow) {
+      console.log("init", this.followerItem);
+      if (this.followerItem.followForFollow) {
         this.isFollowing = true;
       }
     },

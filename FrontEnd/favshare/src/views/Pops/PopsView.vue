@@ -7,6 +7,7 @@
         <pops-type-list></pops-type-list>
       </div>
     </div>
+    <!-- <window-test class="tmp"></window-test> -->
     <div class="pops-list">
       <pops-list></pops-list>
     </div>
@@ -21,6 +22,7 @@ import PopsTypeList from "@/components/Pops/PopsTypeList.vue";
 import PopsList from "@/components/Pops/PopsList.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 import NavBar from "@/components/NavBar.vue";
+// import windowTest from "@/components/Pops/windowTest";
 
 export default {
   name: "PopsView",
@@ -29,6 +31,7 @@ export default {
     PopsList,
     BottomNavigationBar,
     NavBar,
+    // windowTest,
   },
 };
 </script>
@@ -46,14 +49,20 @@ export default {
   overflow: auto;
   white-space: nowrap;
   display: flex;
+  z-index: 2;
 }
 .pops-list {
   padding-top: 140px;
-  overflow: auto;
+  padding-left: 10px;
+  overflow: scroll;
 }
 .bottom {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+
+.tmp {
+  padding-top: 200px;
 }
 </style>

@@ -5,13 +5,21 @@
       <feed-info class="feed-view"></feed-info>
       <v-divider></v-divider>
       <div class="delete-button">
-        <h4>FEED</h4>
-        <div v-if="isDelete">
+        <h4>FEEDS</h4>
+        <div v-if="feedUserInfo.id === userId">
+          <div v-if="isDelete">
+            <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
+          </div>
+          <div v-else>
+            <button @click="fetchIsDelete(true)">[삭제완료]</button>
+          </div>
+        </div>
+        <!-- <div v-if="isDelete">
           <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
         </div>
         <div v-else>
           <button @click="fetchIsDelete(true)">[삭제완료]</button>
-        </div>
+        </div> -->
       </div>
       <feed-list class="rpops"></feed-list>
       <v-divider></v-divider>
@@ -44,7 +52,13 @@ export default {
   },
   name: "FeedView",
   computed: {
-    ...mapGetters(["isDelete", "feedList", "isSignin"]),
+    ...mapGetters([
+      "isDelete",
+      "feedList",
+      "isSignin",
+      "feedUserInfo",
+      "userId",
+    ]),
   },
   methods: {
     ...mapActions(["fetchIsDelete"]),
@@ -57,7 +71,7 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 40px;
-  padding-top: 20px;
+  padding-top: 15px;
   padding-bottom: 0px;
   justify-content: space-between;
 }

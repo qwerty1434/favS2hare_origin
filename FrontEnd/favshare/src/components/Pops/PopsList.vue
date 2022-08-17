@@ -47,7 +47,7 @@ export default {
 <style>
 .videos__container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   flex-wrap: wrap;
   border: 10px;
