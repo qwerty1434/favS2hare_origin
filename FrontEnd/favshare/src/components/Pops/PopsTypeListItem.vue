@@ -1,9 +1,12 @@
 <template>
-  <div class="pops-type">
-    <v-avatar @click="fetchPopList(popsTypeItem.id)">
+  <!-- eslint-disable -->
+  <div class="mt-n1" align="center">
+    <v-avatar size="60px" @click="fetchPopList(popsTypeItem.id)">
       <img :src="popsTypeItem.idolImageUrl" alt="" />
     </v-avatar>
-    <div>{{ popsTypeItem.name }}</div>
+    <div class="mt-2">
+      <h5>{{ popsTypeItem.name }}</h5>
+    </div>
   </div>
 </template>
 
@@ -31,14 +34,13 @@ export default {
 
 <style>
 .pops-type-size {
-  height: 80px;
-  width: 80px;
-  margin: auto;
+  margin-top: 15px;
+  height: 90px;
+  width: 90px;
 }
 
 .pops-type {
-  width: 50px;
-  padding-right: 20px;
+  width: 330px;
   margin: auto;
 }
 

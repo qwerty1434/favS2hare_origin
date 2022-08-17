@@ -1,5 +1,5 @@
 <template>
-  <v-card class="video-size mr-4">
+  <v-card class="video-size ml-2 mr-2">
     <router-link
       :to="{
         name: 'youtube',

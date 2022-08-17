@@ -11,7 +11,7 @@
           @playing="onPlaying"
           :width="150"
           :height="167"
-          style="pointer-events: none; border-radius: 8px"
+          style="pointer-events: none; border-top-left-radius: 8px; border-top-right-radius: 8px"
         ></youtube>
       </div>
       <v-card-actions class="mt-n2 mb-n2">
@@ -83,12 +83,12 @@ export default {
       this.player.seekTo(this.section.start);
     },
     goPopsDetail() {
-      console.log(this.popsListItem.id);
+      console.log(this.popsListItem.userId);
       this.$router.push({
         name: "popsdetail",
         params: {
           popsId: this.popsListItem.id,
-          userId: this.popsListItem.userId,
+          editorId: this.popsListItem.userId,
         },
       });
     },

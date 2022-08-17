@@ -6,6 +6,7 @@
     </div>
     <!-- v-if로 검색전, 검색후 화면 나누기 -->
     <div class="search-view" v-if="searchSuccess">
+      <!-- <div class="search-view"> -->
       <search-result
         :searched-keyword="keyword"
         :pops-list="popsList"
@@ -40,12 +41,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "userIdInPopsTab",
-      "searchedPopsList",
-      "searchedYoutubeList",
-      "searchedFollowingList",
-    ]),
+    ...mapGetters(["userId", "searchedPopsList", "searchedYoutubeList", "searchedFollowingList"]),
   },
   mounted() {
     this.paramsData = JSON.parse(this.$route.query.keyword);
@@ -62,11 +58,11 @@ export default {
         path: "search",
         query: { keyword: JSON.stringify(keyword) },
       });
-      this.getSearchedPopsList({ keyword: keyword, userId: this.userIdInPopsTab });
+      this.getSearchedPopsList({ keyword: keyword, userId: this.userId });
       this.popsList = this.searchedPopsList;
-      this.getSearchedYoutubeList({ keyword: keyword, userId: this.userIdInPopsTab });
+      this.getSearchedYoutubeList({ keyword: keyword, userId: this.userId });
       this.youtubeList = this.searchedYoutubeList;
-      this.getSearchedFollowingList({ keyword: keyword, userId: this.userIdInPopsTab });
+      this.getSearchedFollowingList({ keyword: keyword, userId: this.userId });
       this.userList = this.searchedFollowingList;
       this.searchSuccess = true;
     },

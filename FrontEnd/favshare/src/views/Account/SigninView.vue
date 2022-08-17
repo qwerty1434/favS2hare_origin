@@ -5,7 +5,7 @@
     <!-- 로고 -->
     <v-row class="logo-part text-center">
       <v-col>
-        <h3>FavS2hare</h3>
+        <img class="logo" src="@/assets/favshare.png" alt="Logo" />
       </v-col>
     </v-row>
     <!-- Login Form -->
@@ -156,7 +156,11 @@ export default {
 .logo-part {
   height: 220px;
   line-height: 220px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  height: 55px;
 }
 
 .text-field {

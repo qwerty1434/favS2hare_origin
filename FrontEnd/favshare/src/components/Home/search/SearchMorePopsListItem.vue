@@ -1,8 +1,19 @@
 <template>
   <!-- eslint-disable -->
-  <v-hover v-slot="{ hover }">
-    <v-card :elevation="hover ? 16 : 2" class="pops-size">
-      <v-img height="170" class="pops-size" src="@/assets/sample/popssample.jpg"> </v-img>
+  <div>
+    <v-card class="pops-size" @click="goPopsDetail">
+      <div>
+        <youtube
+          :video-id="youtubePk"
+          :player-vars="playerVars"
+          :ref="'pops' + this.searchedPopsListItem.id"
+          @ready="onPlayerReady"
+          @playing="onPlaying"
+          :width="150"
+          :height="167"
+          style="pointer-events: none; border-top-left-radius: 8px; border-top-right-radius: 8px"
+        ></youtube>
+      </div>
       <v-card-actions class="mb-n3">
         <h5>
           {{ searchedPopsListItem.name }}
@@ -21,28 +32,70 @@
         </h6>
       </v-card-actions>
     </v-card>
-  </v-hover>
+  </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import VueYoutube from "vue-youtube";
+import Vue from "vue";
+
+Vue.use(VueYoutube);
 
 export default {
   name: "SearchMorePopsListItem",
   data() {
-    return {};
+    return {
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        disablekb: 1,
+      },
+      section: {
+        start: this.searchedPopsListItem.startSecond,
+        end: this.searchedPopsListItem.endSecond,
+      },
+    };
   },
+  created() {},
   props: {
     searchedPopsListItem: Object,
   },
   computed: {
-    ...mapGetters([""]),
+    player() {
+      return this.$refs[`pops${this.searchedPopsListItem.id}`].player;
+    },
+    youtubePk() {
+      return this.searchedPopsListItem.youtubueUrl;
+    },
   },
-  methods: {},
+  methods: {
+    onPlayerReady() {
+      this.player.seekTo(this.section.start);
+      this.player.playVideo();
+    },
+    onPlaying() {
+      const duration = this.section.end - this.section.start;
+      setTimeout(this.restartVideoSection, duration * 1000);
+    },
+    restartVideoSection() {
+      this.player.seekTo(this.section.start);
+    },
+    goPopsDetail() {
+      console.log(this.searchedPopsListItem.userId);
+      this.$router.push({
+        name: "popsdetail",
+        params: {
+          popsId: this.searchedPopsListItem.id,
+          editorId: this.searchedPopsListItem.userId,
+        },
+      });
+    },
+  },
 };
 </script>
-<style lang="sass" scoped>
-.v-card.on-hover.theme--dark
-  background-color: rgba(#FFF, 0.8)
-  >.v-card__text
-    color: #000
+<style scoped>
+.pops-size {
+  height: 230px;
+  width: 150px;
+}
 </style>

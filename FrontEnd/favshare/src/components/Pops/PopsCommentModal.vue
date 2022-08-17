@@ -12,16 +12,17 @@
       <v-btn text @click.stop="closeDialogComment">
         <v-icon>mdi-drag-horizontal-variant</v-icon>
       </v-btn>
-      <div v-for="commentListItem in commentList" :key="commentListItem.id">
-        <pops-comment-item
-          :pops-id="popsId"
-          :user-id="userId"
-          :comment-list-item="commentListItem"
-        ></pops-comment-item>
-      </div>
-      <v-row>
+      <v-card-text class="comment-size">
+        <div v-for="commentListItem in commentList" :key="commentListItem.id">
+          <pops-comment-item
+            :pops-id="popsId"
+            :comment-list-item="commentListItem"
+          ></pops-comment-item>
+        </div>
+      </v-card-text>
+      <v-row class="input-back">
         <v-col cols="2"
-          ><v-avatar class="ml-4 mt-1" color="orange lighten-4" size="35">
+          ><v-avatar class="ml-4 mt-2" color="orange lighten-4" size="40">
             <img :src="userImgInPopsTab" alt="image" /> </v-avatar
         ></v-col>
         <v-col>
@@ -33,7 +34,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="2">
-          <v-btn class="mt-2" icon text small @click="btnInsertComment">게시</v-btn>
+          <v-btn class="mt-3" icon text small @click="btnInsertComment">게시</v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -80,15 +81,12 @@ export default {
     popsId: {
       type: Number,
     },
-    userId: {
-      type: Number,
-    },
   },
   created() {
-    this.getComment({ popId: this.popsId, userId: this.userIdInPopsTab });
+    this.getComment({ popId: this.popsId, userId: this.userId });
   },
   computed: {
-    ...mapGetters(["userImgInPopsTab", "userIdInPopsTab", "popsIdInPopsTab", "commentList"]),
+    ...mapGetters(["userImgInPopsTab", "userId", "commentList"]),
     dialogComment: {
       get() {
         return this.value;
@@ -107,7 +105,7 @@ export default {
         this.insertComment({
           content: this.comment,
           popId: this.popsId,
-          userId: this.userIdInPopsTab,
+          userId: this.userId,
         });
         this.comment = "";
       }
@@ -126,5 +124,10 @@ export default {
 }
 .text-font {
   font-size: 14px;
+}
+.comment-size {
+  height: 400px;
+  padding: 0 0 0 !important;
+  color: black !important;
 }
 </style>

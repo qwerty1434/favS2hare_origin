@@ -76,6 +76,7 @@ const routes = [
     path: "/searchmorepops/:keyword",
     name: "searchmorepops",
     component: SearchMorePopsView,
+    props: true,
   },
   {
     path: "/searchmoreyoutube/:keyword",

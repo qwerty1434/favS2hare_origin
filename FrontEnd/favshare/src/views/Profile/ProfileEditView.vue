@@ -18,11 +18,7 @@
       </v-col>
       <v-col class="ml-n100">
         <div>
-          <v-file-input
-            prepend-icon="mdi-image-plus-outline"
-            hide-input
-            label="프로필 사진 변경"
-          />
+          <v-file-input prepend-icon="mdi-image-plus-outline" hide-input label="프로필 사진 변경" />
         </div>
       </v-col>
       <div></div>
@@ -31,28 +27,18 @@
       <v-row align="center">
         <v-col cols="3"><h5>닉네임</h5></v-col>
         <v-col class="ml-n4">
-          <v-text-field class="font-t" v-model="editUserInfo.nickname" dense>
-          </v-text-field>
+          <v-text-field class="font-t" v-model="editUserInfo.nickname" dense> </v-text-field>
         </v-col>
       </v-row>
       <v-row class="mt-n5 mb-5" align="center">
         <v-col cols="4"><h5>프로필 소개</h5></v-col>
         <v-col class="ml-n3">
-          <v-text-field
-            class="font-t"
-            v-model="editUserInfo.content"
-            dense
-          ></v-text-field>
+          <v-text-field class="font-t" v-model="editUserInfo.content" dense></v-text-field>
         </v-col>
       </v-row>
     </div>
     <div align="center" class="ma-10">
-      <v-btn
-        class="white--text"
-        color="grey darken-1"
-        small
-        rounded
-        @click="updateProfile"
+      <v-btn class="white--text" color="grey darken-1" small rounded @click="updateProfile"
         >수정완료</v-btn
       >
     </div>

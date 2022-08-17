@@ -26,7 +26,7 @@
           {{ popsInfo.name }}
         </h2>
         <h5 class="mt-2">
-          {{ popsInfo.id }}
+          {{ popsInfo.userId }}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ createDate }}
         </h5>
         <v-row class="mt-3">

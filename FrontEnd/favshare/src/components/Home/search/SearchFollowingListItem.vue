@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable -->
-  <div class="mr-4">
+  <div class="ml-2 mr-2">
     <v-row>
       <v-col align="center">
         <v-avatar color="orange lighten-4" size="65" @click="goFriendFeed">

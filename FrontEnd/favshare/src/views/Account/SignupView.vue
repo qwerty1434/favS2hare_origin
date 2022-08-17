@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div>
     <v-container>
       <!-- 뒤로가기 -->
@@ -13,7 +14,7 @@
       <!-- 로고 -->
       <v-row class="logo-part text-center">
         <v-col>
-          <h3>FavS2hare</h3>
+          <img class="logo" src="@/assets/favshare.png" alt="Logo" />
         </v-col>
       </v-row>
       <!-- 인증번호전송 Form -->
@@ -36,12 +37,7 @@
             ></v-text-field>
           </v-col>
           <v-col v-if="!isSent" class="text-center" offset="7" cols="4">
-            <v-btn
-              @click.prevent="sendAuthNumber"
-              color="#ff5d5d"
-              class="btn"
-              rounded
-              dark
+            <v-btn @click.prevent="sendAuthNumber" color="#ff5d5d" class="btn" rounded dark
               >인증번호 발송</v-btn
             >
           </v-col>
@@ -153,14 +149,7 @@
         </v-row>
       </v-form>
     </v-container>
-    <v-btn
-      v-if="isConfirmed"
-      @click.prevent="signup"
-      color="#ff5d5d"
-      height="50"
-      block
-      dark
-      tile
+    <v-btn v-if="isConfirmed" @click.prevent="signup" color="#ff5d5d" height="50" block dark tile
       >Sign Up</v-btn
     >
   </div>
@@ -168,7 +157,7 @@
 
 <script>
 import axios from "axios";
-/* eslint-disable */
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "SignupView",
@@ -207,19 +196,21 @@ export default {
       receivedAuthNumber: "",
     };
   },
+  computed: {
+    ...mapState(["isSignin"]),
+  },
   methods: {
+    ...mapActions(["userConfirm"]),
     // 이메일 형식인지 확인
     checkEmail(email) {
       /* eslint-disable-next-line */
-      const reg =
-        /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+      const reg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       return reg.test(email);
     },
     // 생일 형식(YYYY-MM-DD) 확인
     checkBirthDate(birthDate) {
       /* eslint-disable-next-line */
-      const reg =
-        /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+      const reg = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
       return reg.test(birthDate);
     },
     // 전화번호 형식(010-0000-0000) 확인
@@ -238,7 +229,6 @@ export default {
         // 에러 타입에 따라 if 문을 넣어야하나?
         // 400 에러 뜨면 통과인듯...?
         axios
-          // .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .then(() => {
             console.log(
@@ -292,7 +282,6 @@ export default {
       if (this.$refs.signupForm.validate()) {
         await axios
           .post(
-            // "http://13.124.112.241:8080/user/signup",
             "http://13.124.112.241:8080/user/signup",
             JSON.stringify(this.user),
             {
@@ -304,7 +293,15 @@ export default {
           .then(() => {
             // 회원가입 성공시 로그인 화면으로 이동
             alert("성공적으로 회원가입이 완료되었습니다");
-            this.$router.push({ name: "signin" });
+            // 자동으로 로그인
+            this.userConfirm({
+              email: this.user.email,
+              password: this.user.password,
+            });
+            // 로그인되었다면 취향 선택 화면으로 이동
+            if (this.isSignin) {
+              this.$router.push({ name: "interest" });
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -342,7 +339,11 @@ export default {
 .logo-part {
   height: 220px;
   line-height: 220px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  height: 55px;
 }
 
 .btn {

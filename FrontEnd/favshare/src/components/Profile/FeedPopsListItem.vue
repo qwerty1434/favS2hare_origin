@@ -5,7 +5,7 @@
         fab
         x-small
         color="amber accent-1"
-        @click="[deleteFeedPop, spliceFeedPops(index)]"
+        @click="[deleteFeedPop(), spliceFeedPops(index)]"
       >
         <v-icon>mdi-minus-circle-outline</v-icon>
       </v-btn>
@@ -93,7 +93,13 @@ export default {
           feedId: this.currentFeedId,
           popId: [this.feedPop.id],
         },
-      }).then((res) => console.log(res));
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     },
     routerPush(name) {
       this.fetchFeedPop(this.feedPop);

@@ -23,10 +23,10 @@ export default {
     getSearchedPopsList({ commit }, { keyword, userId }) {
       console.log(keyword);
       axios({
-        method: "get",
+        method: "post",
         url: `http://13.124.112.241:8080/search`,
         data: {
-          keyword: keyword,
+          message: keyword,
           userId: userId,
         },
       }).then((res) => {
@@ -35,10 +35,10 @@ export default {
     },
     getSearchedYoutubeList({ commit }, { keyword, userId }) {
       axios({
-        method: "get",
+        method: "post",
         url: `http://13.124.112.241:8080/search`,
         data: {
-          keyword: keyword,
+          message: keyword,
           userId: userId,
         },
       }).then((res) => {
@@ -47,10 +47,10 @@ export default {
     },
     getSearchedFollowingList({ commit }, { keyword, userId }) {
       axios({
-        method: "get",
+        method: "post",
         url: `http://13.124.112.241:8080/search`,
         data: {
-          keyword: keyword,
+          message: keyword,
           userId: userId,
         },
       }).then((res) => {

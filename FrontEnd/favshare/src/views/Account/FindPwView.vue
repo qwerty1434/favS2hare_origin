@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div>
     <v-container>
       <!-- 뒤로가기 -->
@@ -10,7 +11,7 @@
       <!-- 로고 -->
       <v-row class="logo-part text-center">
         <v-col>
-          <h3>FavS2hare</h3>
+          <img class="logo" src="@/assets/favshare.png" alt="Logo" />
         </v-col>
       </v-row>
       <!-- 인증번호 전송 Form -->
@@ -32,12 +33,7 @@
             ></v-text-field>
           </v-col>
           <v-col v-if="!isSent" offset="7" cols="4">
-            <v-btn
-              class="btn"
-              color="#FF5D5D"
-              rounded
-              dark
-              @click.prevent="sendAuthNumber"
+            <v-btn class="btn" color="#FF5D5D" rounded dark @click.prevent="sendAuthNumber"
               >인증번호 발송</v-btn
             >
           </v-col>
@@ -60,12 +56,7 @@
             ></v-text-field>
           </v-col>
           <v-col offset="7" cols="4">
-            <v-btn
-              color="#ff5d5d"
-              class="btn"
-              rounded
-              dark
-              @click.prevent="checkAuthNumber"
+            <v-btn color="#ff5d5d" class="btn" rounded dark @click.prevent="checkAuthNumber"
               >확인</v-btn
             >
           </v-col>
@@ -138,11 +129,9 @@ export default {
       // 유효성검사 rule
       rules: {
         isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
-        authNumberLength: (value) =>
-          value.length == 15 || "인증번호는 15자입니다",
+        authNumberLength: (value) => value.length == 15 || "인증번호는 15자입니다",
         pwLength: (value) =>
-          (value.length >= 9 && value.length <= 16) ||
-          "PW는 8~16자로 작성해주세요",
+          (value.length >= 9 && value.length <= 16) || "PW는 8~16자로 작성해주세요",
         pwSame: (value) => value === this.password || "PW와 일치하지 않습니다",
       },
     };
@@ -151,8 +140,7 @@ export default {
     // 이메일 형식인지 확인
     checkEmail(email) {
       /* eslint-disable-next-line */
-      const reg =
-        /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+      const reg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 
       return reg.test(email);
     },
@@ -249,7 +237,11 @@ export default {
 .logo-part {
   height: 220px;
   line-height: 220px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  height: 55px;
 }
 
 .btn {
