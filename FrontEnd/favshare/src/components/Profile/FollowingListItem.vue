@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-row>
-      <v-col><img :src="feedUserInfo.userPicture" alt="John" /></v-col>
-      <v-col>{{ feedUserInfo.nickname }}</v-col>
+      <v-col><img :src="followingItem.profileImageUrl" alt="John" /></v-col>
+      <v-col>{{ followingItem.nickname }}</v-col>
       <v-col></v-col>
       <v-col cols="4" align="center"
         ><v-btn small v-if="isFollowing" @click="unFollow">팔로우 취소</v-btn>
@@ -31,7 +31,7 @@ export default {
     followingItem: Object,
   },
   computed: {
-    ...mapGetters(["feedUserInfo", "userId"]),
+    ...mapGetters(["userId"]),
   },
   methods: {
     unFollow(event) {
@@ -60,6 +60,12 @@ export default {
         }).then((res) => console.log(res));
       }
     },
+    printFollow() {
+      console.log(this.followingItem);
+    },
+  },
+  created() {
+    this.printFollow();
   },
 };
 </script>
