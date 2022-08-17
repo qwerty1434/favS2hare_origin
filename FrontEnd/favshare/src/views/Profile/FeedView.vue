@@ -1,27 +1,31 @@
 <template>
   <div>
     <nav-bar></nav-bar>
-    <feed-info class="feed-view"></feed-info>
-    <v-divider></v-divider>
-    <div class="delete-button">
-      <h4>FEED</h4>
-      <div v-if="isDelete">
-        <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
+    <div v-if="isSignin">
+      <feed-info class="feed-view"></feed-info>
+      <v-divider></v-divider>
+      <div class="delete-button">
+        <h4>FEED</h4>
+        <div v-if="isDelete">
+          <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
+        </div>
+        <div v-else>
+          <button @click="fetchIsDelete(true)">[삭제완료]</button>
+        </div>
       </div>
-      <div v-else>
-        <button @click="fetchIsDelete(true)">[삭제완료]</button>
-      </div>
+      <feed-list class="rpops"></feed-list>
+      <v-divider></v-divider>
+      <feed-pops-list></feed-pops-list>
     </div>
-    <feed-list class="rpops"></feed-list>
-    <v-divider></v-divider>
-    <feed-pops-list></feed-pops-list>
+    <div v-else>
+      <login-request-message></login-request-message>
+    </div>
     <bottom-navigation-bar></bottom-navigation-bar>
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import { mapGetters } from "vuex";
 import LoginRequestMessage from "@/components/Home/LoginRequestMessage.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 import FeedPopsList from "@/components/Profile/FeedPopsList.vue";
@@ -40,7 +44,7 @@ export default {
   },
   name: "FeedView",
   computed: {
-    ...mapGetters(["isDelete", "feedList"]),
+    ...mapGetters(["isDelete", "feedList", "isSignin"]),
   },
   methods: {
     ...mapActions(["fetchIsDelete"]),
