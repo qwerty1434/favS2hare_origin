@@ -47,11 +47,7 @@ export default {
     this.paramsData = JSON.parse(this.$route.query.keyword);
   },
   methods: {
-    ...mapActions([
-      "getSearchedPopsList",
-      "getSearchedYoutubeList",
-      "getSearchedFollowingList",
-    ]),
+    ...mapActions(["getSearchedPopsList", "getSearchedYoutubeList", "getSearchedFollowingList"]),
     // getSearchedAll() {
     //   console.log("search succeess");
     //   this.searchSuccess = true;
