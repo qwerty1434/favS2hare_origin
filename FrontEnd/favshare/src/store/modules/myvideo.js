@@ -17,7 +17,7 @@ export default {
       console.log(userIdInMyVideo);
       axios({
         method: "get",
-        url: `http://localhost:8080/youtube/bookmark/${userIdInMyVideo}`,
+        url: `http://13.124.112.241:8080/youtube/bookmark/${userIdInMyVideo}`,
       }).then((res) => {
         commit("SET_MY_YOUTUBE", res.data);
       });
@@ -25,7 +25,7 @@ export default {
     deleteMyVideo({ commit }, { userId, youtubeUrl }) {
       axios({
         method: "delete",
-        url: `http://localhost:8080/youtube/bookmark`,
+        url: `http://13.124.112.241:8080/youtube/bookmark`,
         data: {
           userId: userId,
           youtubeUrl: youtubeUrl,
@@ -34,7 +34,7 @@ export default {
         .then(() => {
           axios({
             method: "get",
-            url: `http://localhost:8080/youtube/bookmark/${userId}`,
+            url: `http://13.124.112.241:8080/youtube/bookmark/${userId}`,
           })
             .then((res) => {
               console.log("삭제 후 " + res.data.length);

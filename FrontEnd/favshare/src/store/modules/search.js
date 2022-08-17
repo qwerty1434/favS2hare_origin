@@ -24,7 +24,7 @@ export default {
       console.log(keyword);
       axios({
         method: "get",
-        url: `http://localhost:8080/search`,
+        url: `http://13.124.112.241:8080/search`,
         data: {
           keyword: keyword,
           userId: userId,
@@ -36,7 +36,7 @@ export default {
     getSearchedYoutubeList({ commit }, { keyword, userId }) {
       axios({
         method: "get",
-        url: `http://localhost:8080/search`,
+        url: `http://13.124.112.241:8080/search`,
         data: {
           keyword: keyword,
           userId: userId,
@@ -48,7 +48,7 @@ export default {
     getSearchedFollowingList({ commit }, { keyword, userId }) {
       axios({
         method: "get",
-        url: `http://localhost:8080/search`,
+        url: `http://13.124.112.241:8080/search`,
         data: {
           keyword: keyword,
           userId: userId,

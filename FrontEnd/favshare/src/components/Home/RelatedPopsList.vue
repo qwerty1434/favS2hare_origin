@@ -44,7 +44,7 @@ export default {
     getPopsList() {
       axios({
         method: "post",
-        url: "http://localhost:8080/youtube/detail",
+        url: "http://13.124.112.241:8080/youtube/detail",
         data: {
           userId: this.userId,
           youtubeUrl: this.videoInfo.videoId,

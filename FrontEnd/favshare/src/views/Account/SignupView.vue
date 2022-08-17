@@ -210,13 +210,15 @@ export default {
     // 이메일 형식인지 확인
     checkEmail(email) {
       /* eslint-disable-next-line */
-      const reg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+      const reg =
+        /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       return reg.test(email);
     },
     // 생일 형식(YYYY-MM-DD) 확인
     checkBirthDate(birthDate) {
       /* eslint-disable-next-line */
-      const reg = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+      const reg =
+        /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
       return reg.test(birthDate);
     },
     // 전화번호 형식(010-0000-0000) 확인
@@ -236,7 +238,7 @@ export default {
         // 400 에러 뜨면 통과인듯...?
         axios
           // .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
-          .get(`http://localhost:8080/user/signup/${this.user.email}`)
+          .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .then(() => {
             console.log(
               "사용자에게는 이미 가입된 경우만 alert가 보여야 합니다"
@@ -250,7 +252,7 @@ export default {
             axios
               .get(
                 // `http://13.124.112.241:8080/user/password/sendAuth/${this.user.email}`
-                `http://localhost:8080/user/password/sendAuth/${this.user.email}`
+                `http://13.124.112.241:8080/user/password/sendAuth/${this.user.email}`
               )
               .then((response) => {
                 // 요청 결과로 받은 인증번호 저장
@@ -290,7 +292,7 @@ export default {
         await axios
           .post(
             // "http://13.124.112.241:8080/user/signup",
-            "http://localhost:8080/user/signup",
+            "http://13.124.112.241:8080/user/signup",
             JSON.stringify(this.user),
             {
               headers: {

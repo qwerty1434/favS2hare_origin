@@ -60,8 +60,8 @@ export default {
       if (userId != 0) {
         axios({
           method: "get",
-          url: `http://localhost:8080/user/profile/${userId}`,
-          // url: `http://localhost:8080/user/profile/1`,
+          url: `http://13.124.112.241:8080/user/profile/${userId}`,
+          // url: `http://13.124.112.241:8080/user/profile/1`,
         }).then((res) => {
           commit("SET_FEEDUSERINFO", res.data);
           router.push({ name: "feed" });
@@ -78,8 +78,8 @@ export default {
       if (userId != 0) {
         axios({
           method: "get",
-          url: `http://localhost:8080/user/profile/feed/${userId}`,
-          // url: `http://localhost:8080/user/profile/feed/1`,
+          url: `http://13.124.112.241:8080/user/profile/feed/${userId}`,
+          // url: `http://13.124.112.241:8080/user/profile/feed/1`,
         }).then((res) => {
           console.log("피드리스트", res.data);
           if (res.data.length == 0) {
@@ -90,7 +90,7 @@ export default {
               console.log("3번");
               axios({
                 method: "post",
-                url: "http://localhost:8080/user/profile/popList",
+                url: "http://13.124.112.241:8080/user/profile/popList",
                 data: {
                   userId: getters.userId,
                   feedId: feed.id,
@@ -113,7 +113,7 @@ export default {
       console.log("3번");
       axios({
         method: "post",
-        url: `http://localhost:8080/user/profile/popList`,
+        url: `http://13.124.112.241:8080/user/profile/popList`,
         data: {
           userId: getters.feedUserInfo.id,
           feedId: feedId,
@@ -128,7 +128,7 @@ export default {
     fetchFriendInfo({ commit }, fromUserId, toUserId) {
       axios({
         method: "post",
-        url: `http://localhost:8080/user/profile/freind`,
+        url: `http://13.124.112.241:8080/user/profile/freind`,
         data: {
           fromUserId: fromUserId,
           toUserId: toUserId,
@@ -161,7 +161,7 @@ export default {
     getProfileInfo({ commit }, userId) {
       axios({
         method: "get",
-        url: `http://localhost:8080/user/profile/edit/${userId}`,
+        url: `http://13.124.112.241:8080/user/profile/edit/${userId}`,
       }).then((res) => {
         console.log(res);
         commit("SET_EDITUSERINFO", res.data);
@@ -173,7 +173,7 @@ export default {
       console.log(content);
       axios({
         method: "put",
-        url: `http://localhost:8080/user/profile`,
+        url: `http://13.124.112.241:8080/user/profile`,
         data: {
           id: userId,
           nickname: nickname,
@@ -201,7 +201,7 @@ export default {
     fetchFollowerList({ commit, getters }) {
       axios({
         method: "get",
-        url: `http://localhost:8080/user/follow/to/${getters.userId}`,
+        url: `http://13.124.112.241:8080/user/follow/to/${getters.userId}`,
       })
         .then((res) => {
           commit("SET_FOLLOWERLIST", res.data);
@@ -212,7 +212,7 @@ export default {
     fetchFollowingList({ commit, getters }) {
       axios({
         method: "get",
-        url: `http://localhost:8080/user/follow/from${getters.userID}`,
+        url: `http://13.124.112.241:8080/user/follow/from${getters.userID}`,
       }).then((res) => {
         commit("SET_FOLLOWINGLIST", res.data);
       });

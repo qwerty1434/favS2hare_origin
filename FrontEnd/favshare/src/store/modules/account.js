@@ -41,7 +41,7 @@ export default {
     async userConfirm({ commit }, user) {
       await axios
         // 주소 변경 필요
-        .post("http://localhost:8080/user/login", JSON.stringify(user), {
+        .post("http://13.124.112.241:8080/user/login", JSON.stringify(user), {
           headers: {
             "Content-Type": "application/json",
           },
@@ -72,7 +72,7 @@ export default {
     getUserInfo({ commit }, { userId, password }) {
       axios({
         method: "post",
-        url: `http://localhost:8080/user/info`,
+        url: `http://13.124.112.241:8080/user/info`,
         data: {
           id: userId,
           password: password,
@@ -96,7 +96,7 @@ export default {
       console.log(birthDate);
       axios({
         method: "put",
-        url: `http://localhost:8080/user/info`,
+        url: `http://13.124.112.241:8080/user/info`,
         data: {
           id: userId,
           password: password,
