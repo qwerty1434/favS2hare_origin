@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     // for-use function
-    ...mapActions(["fetchFeedPops"]),
+    ...mapActions(["fetchFriendFeedPops"]),
     // tmp function
     // setDummyFeedPops() {
     //   this.feedPops = [
@@ -74,7 +74,7 @@ export default {
     // *tmp function
     // this.setDummyFeedPops();
     // *for-use function
-    this.fetchFeedPops();
+    this.fetchFriendFeedPops();
   },
 };
 </script>
