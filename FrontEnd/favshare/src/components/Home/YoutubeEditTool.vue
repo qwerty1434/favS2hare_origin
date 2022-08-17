@@ -122,7 +122,7 @@ export default {
     // 영상의 길이 가져오기
     getYoutubeDuration() {
       const URL = "https://www.googleapis.com/youtube/v3/videos";
-      const API_KEY = "AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A";
+      const API_KEY = "AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk";
       const params = {
         key: API_KEY,
         part: "contentDetails",

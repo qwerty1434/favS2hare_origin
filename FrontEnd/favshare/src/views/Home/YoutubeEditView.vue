@@ -54,8 +54,7 @@ export default {
         },
       })
         .then((res) => {
-          // feedList에 어떤 column이 있는지 확인해야함
-          // id, name만 있다고 가정하고 작성
+          // feedList: [id, name, feedImageUrl, userId, first]
           this.feedList = res.data.feedList;
         })
         .catch((res) => {
