@@ -28,13 +28,13 @@
       <div class="scroll-horizontal">
         <v-col
           v-for="feedListItem in feedList"
-          :key="feedListItem.feedId"
+          :key="feedListItem.id"
           cols="3"
           align="center"
         >
           <div
             class="unselected feed"
-            :id="feedListItem.feedId"
+            :id="feedListItem.id"
             @click="selectFeed"
           >
             {{ feedListItem.name }}
