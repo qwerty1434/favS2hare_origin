@@ -50,7 +50,7 @@ export default {
     myYoutubeVideo: Object,
   },
   computed: {
-    ...mapGetters(["userIdInMyVideo", "myVideoList"]),
+    ...mapGetters(["userId", "myVideoList"]),
   },
   created() {
     this.getStoredVideoInfo();
@@ -78,7 +78,7 @@ export default {
     btnDeleteMyYoutube() {
       if (confirm("영상을 보관함에서 삭제하시겠습니까?")) {
         this.deleteMyVideo({
-          userId: this.userIdInMyVideo,
+          userId: this.userId,
           youtubeUrl: this.myYoutubeVideo.url,
         });
       }

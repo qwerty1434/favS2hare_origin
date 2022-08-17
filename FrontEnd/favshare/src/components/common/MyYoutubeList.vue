@@ -28,12 +28,12 @@ export default {
     };
   },
   created() {
-    this.getMyVideo({ userIdInMyVideo: this.userIdInMyVideo });
+    this.getMyVideo({ userId: this.userId });
     this.myYoutubeVideos = this.myVideoList;
     console.log(this.myYoutubeVideos);
   },
   computed: {
-    ...mapGetters(["userIdInMyVideo", "myVideoList"]),
+    ...mapGetters(["userId", "myVideoList"]),
   },
   methods: {
     ...mapActions(["getMyVideo"]),

@@ -119,12 +119,12 @@ export default {
     popsId: {
       type: Number,
     },
-    userId: {
+    editorId: {
       type: Number,
     },
   },
   computed: {
-    ...mapGetters(["popsInfo", "isLiked", "dialogComment", "dialogInfo"]),
+    ...mapGetters(["userId", "popsInfo", "isLiked", "dialogComment", "dialogInfo"]),
     player() {
       return this.$refs[`pops${this.popsInfo.id}`].player;
     },
@@ -135,8 +135,8 @@ export default {
   created() {
     this.countView({ popId: this.popsId });
     console.log("전달받은 popsID " + this.popsId);
-    console.log("전달받은 userID " + this.userId);
-    this.getPopsInfo({ popId: this.popsId, userId: this.userId });
+    console.log("전달받은 editorId " + this.editorId);
+    this.getPopsInfo({ popId: this.popsId, userId: this.editorId });
     if (this.popsInfo.liked) {
       this.isLiked = true;
     }
@@ -177,7 +177,7 @@ export default {
       }
     },
     btnDeletePops() {
-      if (this.popsInfo.userId == 1) {
+      if (this.popsInfo.userId == this.userId) {
         if (confirm("해당 pop을 삭제하시겠습니까?")) {
           this.deletePopsOne({ popId: this.popsId });
           alert("삭제되었습니다.");

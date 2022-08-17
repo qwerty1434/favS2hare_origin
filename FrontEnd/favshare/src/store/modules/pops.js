@@ -2,8 +2,8 @@ import axios from "axios";
 
 export default {
   state: {
-    userIdInPopsTab: 1,
-    popsIdInPopsTab: 1,
+    // userIdInPopsTab: 1,
+    // popsIdInPopsTab: 1,
     userImgInPopsTab: "image",
     commentList: [],
     popsInfo: {},
@@ -194,7 +194,7 @@ export default {
     likeComment({ commit }, { popId, commentId, userId }) {
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/pop/like`,
+        url: `http://13.124.112.241:8080/pop/likeComment`,
         data: {
           commentId: commentId,
           userId: userId,
@@ -219,7 +219,7 @@ export default {
     unLikeComment({ commit }, { popId, commentId, userId }) {
       axios({
         method: "delete",
-        url: `http://13.124.112.241:8080/pop/like`,
+        url: `http://13.124.112.241:8080/pop/likeComment`,
         data: {
           commentId: commentId,
           userId: userId,

@@ -41,12 +41,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "userIdInPopsTab",
-      "searchedPopsList",
-      "searchedYoutubeList",
-      "searchedFollowingList",
-    ]),
+    ...mapGetters(["userId", "searchedPopsList", "searchedYoutubeList", "searchedFollowingList"]),
   },
   mounted() {
     this.paramsData = JSON.parse(this.$route.query.keyword);
@@ -67,20 +62,11 @@ export default {
         path: "search",
         query: { keyword: JSON.stringify(keyword) },
       });
-      this.getSearchedPopsList({
-        keyword: keyword,
-        userId: this.userIdInPopsTab,
-      });
+      this.getSearchedPopsList({ keyword: keyword, userId: this.userId });
       this.popsList = this.searchedPopsList;
-      this.getSearchedYoutubeList({
-        keyword: keyword,
-        userId: this.userIdInPopsTab,
-      });
+      this.getSearchedYoutubeList({ keyword: keyword, userId: this.userId });
       this.youtubeList = this.searchedYoutubeList;
-      this.getSearchedFollowingList({
-        keyword: keyword,
-        userId: this.userIdInPopsTab,
-      });
+      this.getSearchedFollowingList({ keyword: keyword, userId: this.userId });
       this.userList = this.searchedFollowingList;
       this.searchSuccess = true;
     },

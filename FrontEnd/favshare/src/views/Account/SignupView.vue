@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div>
     <v-container>
       <!-- 뒤로가기 -->
@@ -36,12 +37,7 @@
             ></v-text-field>
           </v-col>
           <v-col v-if="!isSent" class="text-center" offset="7" cols="4">
-            <v-btn
-              @click.prevent="sendAuthNumber"
-              color="#ff5d5d"
-              class="btn"
-              rounded
-              dark
+            <v-btn @click.prevent="sendAuthNumber" color="#ff5d5d" class="btn" rounded dark
               >인증번호 발송</v-btn
             >
           </v-col>
@@ -153,14 +149,7 @@
         </v-row>
       </v-form>
     </v-container>
-    <v-btn
-      v-if="isConfirmed"
-      @click.prevent="signup"
-      color="#ff5d5d"
-      height="50"
-      block
-      dark
-      tile
+    <v-btn v-if="isConfirmed" @click.prevent="signup" color="#ff5d5d" height="50" block dark tile
       >Sign Up</v-btn
     >
   </div>
@@ -186,15 +175,11 @@ export default {
       password2: "",
       rules: {
         isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
-        authNumberLength: (value) =>
-          value.length == 15 || "인증번호는 15자입니다",
+        authNumberLength: (value) => value.length == 15 || "인증번호는 15자입니다",
         pwLength: (value) =>
-          (value.length >= 9 && value.length <= 16) ||
-          "PW는 8~16자로 작성해주세요",
-        pwSame: (value) =>
-          value === this.user.password || "PW와 일치하지 않습니다",
-        isBirthDate: (value) =>
-          this.checkBirthDate(value) || "올바르지 않은 형식의 생년월일입니다",
+          (value.length >= 9 && value.length <= 16) || "PW는 8~16자로 작성해주세요",
+        pwSame: (value) => value === this.user.password || "PW와 일치하지 않습니다",
+        isBirthDate: (value) => this.checkBirthDate(value) || "올바르지 않은 형식의 생년월일입니다",
         phoneNumber: (value) =>
           this.checkPhoneNumber(value) || "올바르지 않은 형식의 전화번호입니다",
       },
@@ -211,15 +196,13 @@ export default {
     // 이메일 형식인지 확인
     checkEmail(email) {
       /* eslint-disable-next-line */
-      const reg =
-        /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+      const reg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       return reg.test(email);
     },
     // 생일 형식(YYYY-MM-DD) 확인
     checkBirthDate(birthDate) {
       /* eslint-disable-next-line */
-      const reg =
-        /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+      const reg = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
       return reg.test(birthDate);
     },
     // 전화번호 형식(010-0000-0000) 확인
@@ -241,9 +224,7 @@ export default {
           // .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .then(() => {
-            console.log(
-              "사용자에게는 이미 가입된 경우만 alert가 보여야 합니다"
-            );
+            console.log("사용자에게는 이미 가입된 경우만 alert가 보여야 합니다");
             alert("이미 가입된 ID입니다");
           })
           .catch((error) => {
