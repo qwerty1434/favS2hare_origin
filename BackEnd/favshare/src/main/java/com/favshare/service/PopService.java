@@ -341,10 +341,15 @@ public class PopService {
 		return popDtoList;
 	}
 	
-	public List<PopDto> popDtoListByKeyword(String keyword){
+	public List<PopDto> popDtoListByKeyword(String keyword, int userId){
 		
 		List<PopEntity> popEntityList = popRepository.findByKeywordContains(keyword);
-		List<PopDto> popDtoList = Arrays.asList(modelMapper.map(popEntityList,PopDto[].class));
+		
+		List<PopDto> popDtoList = new ArrayList<PopDto>();
+		for(int i = 0; i < popEntityList.size(); i++) {
+			boolean isLiked = isLiked(userId, popEntityList.get(i).getId());
+			popDtoList.add(new PopDto(popEntityList.get(i), isLiked));
+		}
 		return popDtoList;
 	}
 	
