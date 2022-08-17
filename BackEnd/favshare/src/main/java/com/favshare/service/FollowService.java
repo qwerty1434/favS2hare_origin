@@ -30,10 +30,13 @@ public class FollowService {
 	}
 	
 	public void insertFollow(int fromUserId, int toUserId) {
-		UserEntity fromUserEntity = getUserById(fromUserId);		
-		UserEntity toUserEntity = getUserById(toUserId);
-		FollowEntity followEntity = FollowEntity.builder().toUserEntity(toUserEntity).fromUserEntity(fromUserEntity).build();
-		followRepository.save(followEntity);
+		if(followRepository.countFollowFByUserId(fromUserId, toUserId) < 1) {
+			UserEntity fromUserEntity = getUserById(fromUserId);		
+			UserEntity toUserEntity = getUserById(toUserId);
+			FollowEntity followEntity = FollowEntity.builder().toUserEntity(toUserEntity).fromUserEntity(fromUserEntity).build();
+			followRepository.save(followEntity);
+			
+		}
 		
 	}
 

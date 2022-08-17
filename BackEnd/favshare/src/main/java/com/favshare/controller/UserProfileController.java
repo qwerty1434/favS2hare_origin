@@ -125,6 +125,7 @@ public class UserProfileController {
 
 			boolean isFollowForFollow = userService.getFollowForFollow(followForFollowDto.getFromUserId(),
 					followForFollowDto.getToUserId());
+			boolean isFollow = userService.isFollow(followForFollowDto);
 
 			int popCount = popService.getPopCount(followForFollowDto.getToUserId());
 			int[] temp = userService.countFollow(followForFollowDto.getToUserId());
@@ -140,6 +141,7 @@ public class UserProfileController {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("friendProfileDto", userProfileDto);
 			map.put("isFollowForFollow", isFollowForFollow);
+			map.put("isFollow", isFollow);
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {

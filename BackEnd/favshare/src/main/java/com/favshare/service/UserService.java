@@ -14,6 +14,7 @@ import com.favshare.dto.EmailPasswordDto;
 import com.favshare.dto.FeedDto;
 import com.favshare.dto.FeedUserIdDto;
 import com.favshare.dto.FollowDto;
+import com.favshare.dto.FollowForFollowDto;
 import com.favshare.dto.FriendFeedDto;
 import com.favshare.dto.IdolDto;
 import com.favshare.dto.PopDto;
@@ -285,5 +286,13 @@ public class UserService {
 		List<UserProfileDto> userDtoList = Arrays.asList(modelMapper.map(userEntityList,UserProfileDto[].class));
 		return userDtoList;
 	}	
+	
+	public boolean isFollow(FollowForFollowDto followForFollowDto) {
+		int fromUserId = followForFollowDto.getFromUserId();
+		int toUserId = followForFollowDto.getToUserId();
+		
+		if(followRepository.countFollowFByUserId(fromUserId, toUserId) == 1) return true;
+		else return false;
+	}
 
 }
