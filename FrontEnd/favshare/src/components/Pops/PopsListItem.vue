@@ -16,7 +16,7 @@
         ></youtube>
       </div>
       <div class="content-font">{{ popItem.content }}</div>
-      <v-row class="pa-5 mt-100" justify="end">
+      <v-row v-if="isSignin" class="pa-5 mt-100" justify="end">
         <v-spacer></v-spacer>
         <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
           <v-icon>mdi-heart-outline</v-icon>
@@ -56,7 +56,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userId", "isLiked"]),
+    ...mapGetters(["isSignin", "userId", "isLiked"]),
     player() {
       return this.$refs[`pops${this.popItem.id}`].player;
     },

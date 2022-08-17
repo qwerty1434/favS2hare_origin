@@ -86,7 +86,7 @@ export default {
     this.getComment({ popId: this.popsId, userId: this.userId });
   },
   computed: {
-    ...mapGetters(["userImgInPopsTab", "userId", "commentList"]),
+    ...mapGetters(["isSignin", "userImgInPopsTab", "userId", "commentList"]),
     dialogComment: {
       get() {
         return this.value;
@@ -99,15 +99,19 @@ export default {
   methods: {
     ...mapActions(["getComment", "insertComment", "closeDialogComment"]),
     btnInsertComment() {
-      if (this.comment === "") {
-        alert("댓글을 입력하세요.");
+      if (this.isSignin) {
+        if (this.comment === "") {
+          alert("댓글을 입력하세요.");
+        } else {
+          this.insertComment({
+            content: this.comment,
+            popId: this.popsId,
+            userId: this.userId,
+          });
+          this.comment = "";
+        }
       } else {
-        this.insertComment({
-          content: this.comment,
-          popId: this.popsId,
-          userId: this.userId,
-        });
-        this.comment = "";
+        alert("로그인이 필요합니다.");
       }
     },
   },
