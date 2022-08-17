@@ -5,7 +5,7 @@
         <youtube
           :video-id="youtubePk"
           :player-vars="playerVars"
-          :ref="'pops' + this.feedPop.popsId"
+          :ref="'pops' + this.newsFeedPop.popsId"
           @ready="onPlayerReady"
           @playing="onPlaying"
           :width="320"
@@ -14,18 +14,24 @@
         ></youtube>
       </div>
       <div class="video__details">
-        <div class="author">
-          <router-link
-            :to="{ name: 'feed', params: { userPk: feedPop.userId } }"
-          >
-            <img :src="this.feedPop.profileImage" alt="" />
-          </router-link>
+        <div
+          class="author"
+          @click="
+            [
+              routerPushes('feed'),
+              fetchFeedUserInfo(newsFeedPops.userProfileDto.id),
+              fetchFeedList(newsFeedPops.userProfileDto.id),
+              fetchIsFollowing(newsFeedPops.userProfileDto.id),
+            ]
+          "
+        >
+          <img :src="this.newsFeedPop.userProfileDto.profileImageUrl" alt="" />
         </div>
         <div class="title">
           <h3>
-            {{ this.feedPop.userName }}
+            {{ this.newsFeedPop.userProfileDto.nickname }}
           </h3>
-          <div class="pop-name">{{ feedPop.name }}</div>
+          <div class="pop-name">{{ newsFeedPop.popDto.name }}</div>
         </div>
       </div>
     </v-sheet>
@@ -34,20 +40,22 @@
 
 <script>
 // 이 파일은 feedPop -> newsFeedPop 으로 다 바꿔서 해보면 됩니다.
-
+import router from "@/router";
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
+import { mapActions } from "vuex";
 
 Vue.use(VueYoutube);
 
 export default {
   name: "NewsFeedListItem",
   props: {
-    feedPop: Object,
+    newsFeedPop: Object,
     // newsFeedPop: Object, // {}
   },
   data() {
     return {
+      tmp: String,
       playerVars: {
         autoplay: 1,
         mute: 1,
@@ -56,20 +64,21 @@ export default {
       },
       // tmp data
       section: {
-        start: this.feedPop.startSecond,
-        end: this.feedPop.endSecond,
+        start: this.newsFeedPop.popDto.startSecond,
+        end: this.newsFeedPop.popDto.endSecond,
       },
     };
   },
   computed: {
     youtubePk() {
-      return this.feedPop.youtubeUrl.slice(-11);
+      return this.newsFeedPop.popDto.youtubeUrl;
     },
     player() {
-      return this.$refs[`pops${this.feedPop.popsId}`].player;
+      return this.$refs[`pops${this.newsFeedPop.popsId}`].player;
     },
   },
   methods: {
+    ...mapActions(["fetchFeedUserInfo", "fetchFeedList", "fetchIsFollowing"]),
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();
@@ -81,10 +90,17 @@ export default {
     restartVideoSection() {
       this.player.seekTo(this.section.start);
     },
+    printFeed() {
+      console.log(this.newsFeedPop);
+    },
+    routerPushes(icon) {
+      router.push({ name: icon });
+    },
   },
-  // created() {
-  //   this.playVideo();
-  // },
+  created() {
+    // this.playVideo();
+    this.printFeed();
+  },
 };
 </script>
 

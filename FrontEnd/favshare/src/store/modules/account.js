@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 export default {
   state: {
     isSignin: false,
-    userId: 1,
+    userId: 0,
     isSigninError: false,
     userInfo: null,
   },
@@ -14,6 +14,7 @@ export default {
     },
     userId: (state) => state.userId,
     userInfo: (state) => state.userInfo,
+    isSignin: (state) => state.isSignin,
   },
   mutations: {
     SET_IS_SIGNIN: (state, isSignin) => {
@@ -40,9 +41,13 @@ export default {
     async userConfirm({ commit }, user) {
       await axios
         // 주소 변경 필요
-        .post("http://localhost:8080/user/login", JSON.stringify(user), {
+        .post("http://13.124.112.241:8080/user/login", JSON.stringify(user), {
           headers: {
             "Content-Type": "application/json",
+          },
+          data: {
+            email: user.email,
+            password: user.password,
           },
         })
         .then((response) => {
@@ -60,13 +65,14 @@ export default {
             commit("SET_IS_SIGNIN_ERROR", true);
           }
         })
-        .catch(() => {});
+        .catch((response) => {
+          console.log(response);
+        });
     },
     getUserInfo({ commit }, { userId, password }) {
-      console.log("herere");
       axios({
         method: "post",
-        url: `http://localhost:8080/user/info`,
+        url: `http://13.124.112.241:8080/user/info`,
         data: {
           id: userId,
           password: password,
@@ -77,6 +83,7 @@ export default {
           commit("SET_USER_INFO", res.data);
         })
         .catch(() => {
+          console.log(userId);
           console.log("fail");
           commit("SET_USER_INFO", null);
         });
@@ -89,7 +96,7 @@ export default {
       console.log(birthDate);
       axios({
         method: "put",
-        url: `http://localhost:8080/user/info`,
+        url: `http://13.124.112.241:8080/user/info`,
         data: {
           id: userId,
           password: password,

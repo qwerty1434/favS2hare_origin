@@ -1,38 +1,46 @@
 <template>
-  <v-list two-line subheader>
-    <v-row>
-      <v-subheader>searchpopslist</v-subheader>
+  <!-- eslint-disable -->
+  <div>
+    <v-row class="mr-1 ml-1">
+      <v-subheader>POPS</v-subheader>
       <v-spacer></v-spacer>
-      <v-subheader>
-        <router-link to="/searchmorepops">더보기</router-link>
+      <v-subheader class="more-font">
+        <router-link :to="{ name: 'searchmorepops', params: { keyword: this.searchedKeyword } }"
+          >더보기</router-link
+        >
       </v-subheader>
     </v-row>
-    <v-list-item class="mb-2">
-      <search-pops-list></search-pops-list>
-    </v-list-item>
+    <div class="mt-n7">
+      <search-pops-list :pops-list="popsList"></search-pops-list>
+    </div>
     <v-divider></v-divider>
-    <v-row class="mt-1">
-      <v-subheader>searchvideolist</v-subheader>
+    <v-row class="mr-1 ml-1 mt-1">
+      <v-subheader>동영상</v-subheader>
       <v-spacer></v-spacer>
-      <v-subheader>
-        <router-link to="/searchmoreyoutube">더보기</router-link>
+      <v-subheader class="more-font">
+        <router-link :to="{ name: 'searchmoreyoutube', params: { keyword: this.searchedKeyword } }"
+          >더보기</router-link
+        >
       </v-subheader>
     </v-row>
-    <v-list-item class="mb-2">
-      <search-video-list></search-video-list>
-    </v-list-item>
+    <div class="mt-n7">
+      <search-video-list :youtube-list="youtubeList"></search-video-list>
+    </div>
     <v-divider></v-divider>
-    <v-row class="mt-1">
-      <v-subheader>searchfollowinglist</v-subheader>
+    <v-row class="mr-1 ml-1 mt-1">
+      <v-subheader>친구</v-subheader>
       <v-spacer></v-spacer>
-      <v-subheader>
-        <router-link to="/searchmorefollowing">더보기</router-link>
+      <v-subheader class="more-font">
+        <router-link
+          :to="{ name: 'searchmorefollowing', params: { keyword: this.searchedKeyword } }"
+          >더보기</router-link
+        >
       </v-subheader>
     </v-row>
-    <v-list-item class="mb-2">
-      <search-following-list> </search-following-list>
-    </v-list-item>
-  </v-list>
+    <div class="mt-n7">
+      <search-following-list :user-list="userList"> </search-following-list>
+    </div>
+  </div>
 </template>
 <script>
 import SearchPopsList from "@/components/Home/search/SearchPopsList.vue";
@@ -42,6 +50,17 @@ import SearchFollowingList from "./SearchFollowingList.vue";
 export default {
   name: "SearchResult",
   components: { SearchPopsList, SearchVideoList, SearchFollowingList },
+  props: {
+    popsList: Array,
+    youtubeList: Array,
+    userList: Array,
+    searchedKeyword: String,
+  },
+  created() {},
 };
 </script>
-<style></style>
+<style>
+.more-font {
+  font-size: 11px;
+}
+</style>

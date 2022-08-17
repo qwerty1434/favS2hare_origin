@@ -1,15 +1,20 @@
 <template>
-  <div>
-    <my-pops-list-item
-      ref="myPopsListItem"
-      v-for="myPopsListItem in myPopsList"
-      :popsId="myPopsListItem.popsId"
-      :youtubeUrl="myPopsListItem.youtubeUrl"
-      :startSecond="myPopsListItem.startSecond"
-      :endSecond="myPopsListItem.endSecond"
-      :key="myPopsListItem.popsId"
-    ></my-pops-list-item>
-  </div>
+  <v-container>
+    <div class="text-box">
+      <h3>전체 영상</h3>
+    </div>
+    <v-row no-gutters space-between>
+      <my-pops-list-item
+        ref="myPopsListItem"
+        v-for="myPopsListItem in myPopsList"
+        :id="myPopsListItem.id"
+        :youtubeUrl="myPopsListItem.youtubeUrl"
+        :startSecond="myPopsListItem.startSecond"
+        :endSecond="myPopsListItem.endSecond"
+        :key="myPopsListItem.id"
+      ></my-pops-list-item>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -22,4 +27,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.text-box {
+  margin-bottom: 20px;
+}
+</style>

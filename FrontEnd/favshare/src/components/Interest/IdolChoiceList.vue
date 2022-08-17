@@ -1,31 +1,34 @@
 <template>
   <v-row justify="space-between" no-gutters>
-    <v-col cols="6" align="center">
+    <v-col v-if="!isSearching" cols="6" align="center">
       <div id="non-choice" @click="select" class="option unselected-option">
         선택 안함
       </div>
     </v-col>
-    <song-choice-list-item
-      ref="songChoiceListItem"
-      v-for="songListItem in songList"
-      :id="songListItem.id"
-      :name="songListItem.name"
-      :key="songListItem.id"
-      @selectSong="emitSelectSong"
-      @unselectSong="emitUnselectSong"
-    ></song-choice-list-item>
+    <idol-choice-list-item
+      ref="idolChoiceListItem"
+      v-for="idolListItem in idolList"
+      :id="idolListItem.id"
+      :name="idolListItem.name"
+      :picture="idolListItem.picture"
+      :key="idolListItem.id"
+      @selectIdol="emitSelectIdol"
+      @unselectIdol="emitUnselectIdol"
+    ></idol-choice-list-item>
   </v-row>
 </template>
 
 <script>
-import SongChoiceListItem from "@/components/Interest/SongChoiceListItem.vue";
+import IdolChoiceListItem from "@/components/Interest/IdolChoiceListItem.vue";
 
 export default {
-  name: "SongChoiceList",
-  components: { SongChoiceListItem },
-  props: ["songList"],
+  name: "IdolChoiceList",
+  components: { IdolChoiceListItem },
+  props: ["idolList"],
   data() {
     return {
+      // 검색 중일 때는 보이지 않도록
+      isSearching: false,
       isSelected: false,
     };
   },
@@ -34,8 +37,9 @@ export default {
       const item = document.getElementById("non-choice");
       if (newVal) {
         item.setAttribute("class", "option selected-option");
-        if (this.$refs.songChoiceListItem) {
-          this.$refs.songChoiceListItem.forEach((item) => {
+        // 다른 선택지들 선택 취소
+        if (this.$refs.idolChoiceListItem) {
+          this.$refs.idolChoiceListItem.forEach((item) => {
             item.isSelected = false;
           });
         }
@@ -46,13 +50,13 @@ export default {
   },
   methods: {
     // 다른 선택지가 선택되면
-    emitSelectSong(id) {
+    emitSelectIdol(id) {
       // 선택안함 버튼은 선택 취소
       this.isSelected = false;
-      this.$emit("emitSelectSong", id);
+      this.$emit("emitSelectIdol", id);
     },
-    emitUnselectSong(id) {
-      this.$emit("emitUnselectSong", id);
+    emitUnselectIdol(id) {
+      this.$emit("emitUnselectIdol", id);
     },
     select() {
       // 이미 선택되어 있을 때

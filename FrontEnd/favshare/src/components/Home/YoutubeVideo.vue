@@ -12,24 +12,32 @@
       <div class="videoinfo">
         {{ this.videoInfo.channelName }}
       </div>
-      <div class="editicons">
-        <router-link
-          :to="{
-            name: 'youtubeedit',
-            query: {
-              youtubePk: this.videoInfo.youtubeId,
-              youtubeId: this.videoInfo.videoId,
-            },
-          }"
-        >
-          <v-icon class="icons">mdi-movie-open-edit-outline</v-icon>
-        </router-link>
-        <div v-if="this.isBookmarkClicked">
-          <v-icon @click="setBookmark">mdi-bookmark</v-icon>
+      <div v-if="isSignin">
+        <div class="editicons">
+          <router-link
+            :to="{
+              name: 'youtubeedit',
+              query: {
+                youtubeId: this.videoInfo.youtubeId,
+                youtubeUrl: this.videoInfo.videoId,
+              },
+            }"
+          >
+            <v-icon class="icons">mdi-movie-open-edit-outline</v-icon>
+          </router-link>
+          <div v-if="this.isBookmarkClicked">
+            <v-icon @click="setBookmark">mdi-bookmark</v-icon>
+          </div>
+          <div v-else>
+            <v-icon @click="setBookmark">mdi-bookmark-outline</v-icon>
+          </div>
+        </div>
+        <!-- <div v-if="this.isBookmarkClicked">
+          <v-icon @click="[setBookmark, postStoredYoutube]"></v-icon>
         </div>
         <div v-else>
-          <v-icon @click="setBookmark">mdi-bookmark-outline</v-icon>
-        </div>
+          <v-icon @click="[setBookmark, deleteStoredYoutube]"></v-icon>
+        </div> -->
       </div>
     </div>
   </div>
@@ -40,6 +48,7 @@
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 import { mapGetters } from "vuex";
+import axios from "axios";
 
 Vue.use(VueYoutube);
 
@@ -59,7 +68,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["videoInfo"]),
+    ...mapGetters(["videoInfo", "userId", "isSignin"]),
   },
   methods: {
     playVideo() {
@@ -71,23 +80,61 @@ export default {
     setBookmark() {
       if (this.isBookmarkClicked === 1) {
         this.isBookmarkClicked = 0;
+        this.deleteStoredYoutube();
       } else {
         this.isBookmarkClicked = 1;
+        this.postStoredYoutube();
       }
     },
-    // postStoredYoutube() {
-    //   axios({
-    //     method: "post",
-    //     url: "http://localhost:8080/youtube/bookmark",
-    //     data: { userId: this.userId, youtubeId: this.youtubePk },
-    //   }).then((res) => {
-    //     if (res.data != 200) {
-    //       console.log("something wrong");
-    //     }
-    //   });
-    // },
+    postStoredYoutube() {
+      axios({
+        method: "post",
+        url: "http://13.124.112.241:8080/youtube/bookmark",
+        data: { userId: this.userId, youtubeUrl: this.videoInfo.videoId },
+      })
+        .then((res) => {
+          if (res.data !== 200) {
+            console.log("something wrong");
+          }
+        })
+        .catch((res) => {
+          console.log(this.userId);
+          console.log(this.videoInfo.videoId);
+          console.log(res);
+        });
+    },
+    deleteStoredYoutube() {
+      axios({
+        method: "delete",
+        url: "http://13.124.112.241:8080/youtube/bookmark",
+        data: { userId: this.userId, youtubeUrl: this.videoInfo.videoId },
+      }).then((res) => {
+        if (res.data !== 200) {
+          console.log("something wrong");
+        }
+      });
+    },
+    isStoreYoutube() {
+      axios({
+        method: "post",
+        url: "http://13.124.112.241:8080/youtube/detail",
+        data: {
+          userId: this.userId,
+          youtubeUrl: this.videoInfo.videoId,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.isBookmarkClicked = res.data.bookmarked;
+          console.log(this.isBookmarkClicked);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
   },
   created() {
+    this.isStoreYoutube();
     this.playVideo();
   },
 };

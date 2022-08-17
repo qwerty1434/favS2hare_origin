@@ -57,7 +57,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/youtubeedit/:youtubePk",
+    path: "/youtubeedit",
     name: "youtubeedit",
     component: YoutubeEditView,
     props: true,
@@ -68,17 +68,22 @@ const routes = [
     component: SearchView,
   },
   {
-    path: "/searchmorepops",
+    path: "/search/:keyword",
+    name: "searchforword",
+    component: SearchView,
+  },
+  {
+    path: "/searchmorepops/:keyword",
     name: "searchmorepops",
     component: SearchMorePopsView,
   },
   {
-    path: "/searchmoreyoutube",
+    path: "/searchmoreyoutube/:keyword",
     name: "searchmoreyoutube",
     component: SearchMoreYoutubeView,
   },
   {
-    path: "/searchmorefollowing",
+    path: "/searchmorefollowing/:keyword",
     name: "searchmorefollowing",
     component: SearchMoreFollowingView,
   },
@@ -141,9 +146,10 @@ const routes = [
     path: "/popsdetail",
     name: "popsdetail",
     component: PopsDetailView,
+    props: true,
   },
   {
-    path: "/originallinkedpops",
+    path: "/originallinkedpops/",
     name: "originallinkedpops",
     component: OriginalLinkedPopsView,
   },

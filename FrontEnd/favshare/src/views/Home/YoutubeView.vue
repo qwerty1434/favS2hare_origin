@@ -17,7 +17,8 @@
   <div>
     <nav-bar class="top"></nav-bar>
     <youtube-video class="youtube__view"></youtube-video>
-    <related-pops-list class="rpops"></related-pops-list>
+    <v-divider class="ma-2"></v-divider>
+    <related-pops-list class="ml-5 mr-5"></related-pops-list>
     <div class="bottom">
       <bottom-navigation-bar></bottom-navigation-bar>
     </div>
@@ -46,14 +47,15 @@ export default {
     ...mapActions(["fetchYoutubeInfo"]),
   },
   created() {
-    const vuexYoutubeId = { youtubeId: this.youtubeId };
-    const vuexVideoInfo = Object.assign(this.videoInfo, vuexYoutubeId);
+    // const vuexYoutubeId = { youtubeId: this.youtubeId };
+    // const vuexVideoInfo = Object.assign(this.videoInfo, vuexYoutubeId);
+    const vuexVideoInfo = Object.assign(this.videoInfo);
     this.fetchYoutubeInfo(vuexVideoInfo);
   },
 };
 </script>
 
-<style>
+<style scoped>
 .top {
   position: fixed;
   width: 100%;
