@@ -14,7 +14,7 @@
       <v-menu transition="slide-y-transition" bottom dense>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" @click="openModal">
-            <v-icon>mdi-format-list-bulleted</v-icon>
+            <v-icon>mdi-account</v-icon>
           </v-btn>
         </template>
 

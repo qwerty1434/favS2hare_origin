@@ -27,7 +27,7 @@
           >
         </h5>
       </v-col>
-      <v-col cols="2">
+      <v-col v-if="isSignin" cols="2">
         <v-btn class="mt-2" text icon color="red" v-if="!isLiked" @click="btnLikeComment">
           <v-icon small>mdi-heart-outline</v-icon>
         </v-btn>
@@ -67,7 +67,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["userId"]),
+    ...mapGetters(["isSignin", "userId"]),
   },
   methods: {
     ...mapActions(["deleteComment", "likeComment", "unLikeComment"]),
@@ -98,7 +98,9 @@ export default {
       }
     },
     goFriendFeed() {
-      this.$router.push({ name: "feed", params: this.commentListItem.userId });
+      if (this.isSignin) {
+        this.$router.push({ name: "feed", params: this.commentListItem.userId });
+      }
     },
   },
 };
