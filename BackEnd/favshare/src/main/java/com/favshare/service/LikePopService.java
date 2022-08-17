@@ -31,9 +31,16 @@ public class LikePopService {
 		
 		UserEntity userEntity = userRepository.findById(userPopIdDto.getUserId()).get();
 		PopEntity popEntity = popRepository.findById(userPopIdDto.getPopId()).get(); 
-		likePopEntity = likePopEntity.builder().userEntity(userEntity).popEntity(popEntity).build();
 		
-		likePopRepository.save(likePopEntity);
+		int duplicate = likePopRepository.findByPopIdUserId(userEntity.getId(), popEntity.getId());
+		if(duplicate >= 1) {
+			
+		}else {
+			likePopEntity = likePopEntity.builder().userEntity(userEntity).popEntity(popEntity).build();		
+			likePopRepository.save(likePopEntity);
+			
+		}
+		
 	}
 	
 	public void deleteLikePop(UserPopIdDto userPopIdDto) {

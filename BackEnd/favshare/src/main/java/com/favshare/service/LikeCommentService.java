@@ -40,11 +40,17 @@ public class LikeCommentService {
 		LikeCommentEntity likeCommentEntity = new LikeCommentEntity();
 
 		UserEntity userEntity = userRepository.findById(userCommentIdDto.getUserId()).get();
-		CommentEntity commentEntity = commentRepository.findById(userCommentIdDto.getCommentId())
-				.get();
+		CommentEntity commentEntity = commentRepository.findById(userCommentIdDto.getCommentId()).get();
 
-		likeCommentEntity = likeCommentEntity.builder().userEntity(userEntity).commentEntity(commentEntity).build();
-		likeCommentRepository.save(likeCommentEntity);
+		int duplicate = likeCommentRepository.findByUserIdCommentID(userId, commentEntity.getId());
+		if(duplicate >= 1) {
+			
+		}else {
+			
+			likeCommentEntity = likeCommentEntity.builder().userEntity(userEntity).commentEntity(commentEntity).build();			
+			likeCommentRepository.save(likeCommentEntity);
+		}
+		
 	}
 
 	public void deleteCommentLike(@RequestBody UserCommentIdDto userCommentIdDto) {

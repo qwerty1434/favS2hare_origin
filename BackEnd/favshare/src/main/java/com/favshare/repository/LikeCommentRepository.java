@@ -20,4 +20,6 @@ public interface LikeCommentRepository extends JpaRepository<LikeCommentEntity, 
 	@Query(value ="select count(*) from like_comment where user_id = :userId and comment_id = :commentId", nativeQuery = true)
 	public int isLiked(@Param("userId") int userId, @Param("commentId") int commentId);	
 	
+	@Query(value ="SELECT COUNT(*) FROM like_comment WHERE user_id = :userId AND comment_id = :commentId", nativeQuery = true)
+	public int findByUserIdCommentID(@Param("userId") int userId, @Param("commentId") int commentId);
 }
