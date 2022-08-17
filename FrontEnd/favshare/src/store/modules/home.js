@@ -33,7 +33,7 @@ export default {
       console.log(`http://localhost/8080/pop/friend/${getters.userId}`);
       axios({
         method: "get",
-        url: `http://localhost/8080/pop/friend/${getters.userId}`,
+        url: `http://localhost:8080/pop/friend/${getters.userId}`,
       })
         .then((res) => {
           commit("SET_FEEDPOPS", res.data);

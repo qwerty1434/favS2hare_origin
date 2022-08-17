@@ -14,18 +14,18 @@
         ></youtube>
       </div>
       <div class="video__details">
-        <div class="author">
-          <router-link
-            :to="{
-              name: 'feed',
-              params: { userPk: newsFeedPop.userProfileDto.id },
-            }"
-          >
-            <img
-              :src="this.newsFeedPop.userProfileDto.profileImageUrl"
-              alt=""
-            />
-          </router-link>
+        <div
+          class="author"
+          @click="
+            [
+              routerPushes('feed'),
+              fetchFeedUserInfo(newsFeedPops.userProfileDto.id),
+              fetchFeedList(newsFeedPops.userProfileDto.id),
+              fetchIsFollowing(newsFeedPops.userProfileDto.id),
+            ]
+          "
+        >
+          <img :src="this.newsFeedPop.userProfileDto.profileImageUrl" alt="" />
         </div>
         <div class="title">
           <h3>
@@ -40,9 +40,10 @@
 
 <script>
 // 이 파일은 feedPop -> newsFeedPop 으로 다 바꿔서 해보면 됩니다.
-
+import router from "@/router";
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
+import { mapActions } from "vuex";
 
 Vue.use(VueYoutube);
 
@@ -77,6 +78,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["fetchFeedUserInfo", "fetchFeedList", "fetchIsFollowing"]),
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();
@@ -90,6 +92,9 @@ export default {
     },
     printFeed() {
       console.log(this.newsFeedPop);
+    },
+    routerPushes(icon) {
+      router.push({ name: icon });
     },
   },
   created() {
