@@ -1,7 +1,12 @@
 <template>
   <!-- eslint-disable -->
   <div>
-    <v-card height="550px" color="black" class="pops-list-item" @click="goPopsDetail">
+    <v-card
+      height="550px"
+      color="black"
+      class="pops-list-item"
+      @click="goPopsDetail"
+    >
       <div class="name-font">{{ popItem.name }}</div>
       <div class="video">
         <youtube
@@ -18,7 +23,14 @@
       <div class="content-font">{{ popItem.content }}</div>
       <v-row class="pa-5 mt-100" justify="end">
         <v-spacer></v-spacer>
-        <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
+        <v-btn
+          class="mt-2"
+          text
+          icon
+          color="white"
+          v-if="!isLiked"
+          @click="btnLikePops"
+        >
           <v-icon>mdi-heart-outline</v-icon>
         </v-btn>
         <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
@@ -33,7 +45,6 @@
 import { mapActions, mapGetters } from "vuex";
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
-import { mapActions, mapGetters } from "vuex";
 
 Vue.use(VueYoutube);
 
