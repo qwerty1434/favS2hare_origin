@@ -3,7 +3,7 @@
     <div class="user-info">
       <div class="user-pic">
         <v-avatar>
-          <img :src="feedUserInfo.userPicture" alt="" />
+          <img :src="feedUserInfo.profileImageUrl" alt="John" />
         </v-avatar>
       </div>
       <div class="profile-stats">
@@ -28,7 +28,9 @@
         <button @click="goProfileEdit">프로필 편집</button>
       </div>
       <div v-else>
-        <button>팔로우/팔로잉</button>
+        <div>
+          <button @click="followBtn">팔로우/팔로잉</button>
+        </div>
       </div>
     </div>
   </div>
