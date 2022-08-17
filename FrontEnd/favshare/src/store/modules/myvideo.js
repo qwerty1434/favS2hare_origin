@@ -6,18 +6,17 @@ export default {
     myVideoList: [],
   },
   getters: {
-    userIdInMyVideo: (state) => state.userIdInMyVideo,
     myVideoList: (state) => state.myVideoList,
   },
   mutations: {
     SET_MY_YOUTUBE: (state, myVideoList) => (state.myVideoList = myVideoList),
   },
   actions: {
-    getMyVideo({ commit }, { userIdInMyVideo }) {
-      console.log(userIdInMyVideo);
+    getMyVideo({ commit }, { userId }) {
+      console.log(userId);
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/youtube/bookmark/${userIdInMyVideo}`,
+        url: `http://13.124.112.241:8080/youtube/bookmark/${userId}`,
       }).then((res) => {
         commit("SET_MY_YOUTUBE", res.data);
       });

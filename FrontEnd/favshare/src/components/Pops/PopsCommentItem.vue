@@ -3,29 +3,29 @@
   <div class="mt-2 dialog-item">
     <v-row>
       <v-col cols="2">
-        <v-avatar class="ml-3" color="orange lighten-4" size="35">
+        <v-avatar class="ml-3" color="orange lighten-4" size="40" @click="goFriendFeed">
           <img :src="commentListItem.profileImageUrl" alt="image" />
         </v-avatar>
       </v-col>
       <v-col cols="8">
         <h5>
-          {{ commentListItem.userId }}
-          &nbsp;&nbsp;{{ commentListItem.content }}
+          {{ commentListItem.nickname }}
+          &nbsp;&nbsp;&nbsp;&nbsp;{{ commentListItem.content }}
         </h5>
-        <h6 class="mt-1">
+        <h5>
           <!-- {{ commentListItem.createDate }} -->
           {{ createDate }}
           &nbsp;&nbsp;&nbsp;좋아요 {{ commentListItem.countCommentLikes }}개
           <v-btn
             class="delete-btn"
             depressed
-            x-small
+            small
             text
-            v-if="commentListItem.userId == userIdInPopsTab"
+            v-if="commentListItem.userId == userId"
             @click="btnDeleteComment"
             >삭제</v-btn
           >
-        </h6>
+        </h5>
       </v-col>
       <v-col cols="2">
         <v-btn class="mt-2" text icon color="red" v-if="!isLiked" @click="btnLikeComment">
@@ -54,9 +54,6 @@ export default {
     popsId: {
       type: Number,
     },
-    userId: {
-      type: Number,
-    },
   },
   data() {
     return {
@@ -70,7 +67,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["popsIdInPopsTab", "userIdInPopsTab"]),
+    ...mapGetters(["userId"]),
   },
   methods: {
     ...mapActions(["deleteComment", "likeComment", "unLikeComment"]),
@@ -79,14 +76,14 @@ export default {
         this.likeComment({
           popId: this.popsId,
           commentId: this.commentListItem.id,
-          userId: this.userIdInPopsTab,
+          userId: this.userId,
         });
         this.isLiked = true;
       } else {
         this.unLikeComment({
           popId: this.popsId,
           commentId: this.commentListItem.id,
-          userId: this.userIdInPopsTab,
+          userId: this.userId,
         });
         this.isLiked = false;
       }
@@ -99,6 +96,9 @@ export default {
           popId: this.popsId,
         });
       }
+    },
+    goFriendFeed() {
+      this.$router.push({ name: "feed", params: this.commentListItem.userId });
     },
   },
 };

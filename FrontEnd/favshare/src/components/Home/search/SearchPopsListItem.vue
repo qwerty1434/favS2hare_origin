@@ -83,12 +83,12 @@ export default {
       this.player.seekTo(this.section.start);
     },
     goPopsDetail() {
-      console.log(this.popsListItem.id);
+      console.log(this.popsListItem.userId);
       this.$router.push({
         name: "popsdetail",
         params: {
           popsId: this.popsListItem.id,
-          userId: this.popsListItem.userId,
+          editorId: this.popsListItem.userId,
         },
       });
     },
