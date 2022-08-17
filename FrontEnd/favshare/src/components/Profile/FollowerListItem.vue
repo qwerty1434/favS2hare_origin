@@ -51,6 +51,8 @@ export default {
   methods: {
     unFollow(event) {
       console.log(event.target.textContent);
+      console.log(this.followerItem);
+      console.log(this.userId);
       if (!this.isFollowing) {
         this.isFollowing = true;
         event.target.textContent = "팔로잉";
@@ -59,7 +61,7 @@ export default {
           url: "http://13.124.112.241:8080/user/follow",
           data: {
             fromUserId: this.userId,
-            toUserId: this.followeItem.toUserId,
+            toUserId: this.followerItem.fromUserId,
           },
         }).then((res) => console.log(res.data));
       } else {
@@ -69,8 +71,8 @@ export default {
           method: "delete",
           url: "http://13.124.112.241:8080/user/follow/from",
           data: {
-            fromUserId: this.followeItem.toUserId,
-            toUserId: this.userId,
+            fromUserId: this.userId,
+            toUserId: this.followerItem.fromUserId,
           },
         });
       }
@@ -81,10 +83,13 @@ export default {
         method: "delete",
         url: `http://13.124.112.241:8080/user/follow/to`,
         data: {
-          fromUserId: this.followerItem.toUserId,
+          fromUserId: this.followerItem.fromUserId,
           toUserId: this.userId,
         },
-      }).then((res) => console.log(res.data));
+      }).then((res) => {
+        console.log(res.data);
+        this.$router.push({ name: "follow" });
+      });
     },
     initIsFollowing() {
       console.log("init", this.followerItem);
