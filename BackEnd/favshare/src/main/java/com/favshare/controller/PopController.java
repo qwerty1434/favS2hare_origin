@@ -114,7 +114,7 @@ public class PopController {
 		try {
 			PopInfoDto popInfoDto = popService.getPopInfoById(userPopIdDto.getPopId(),userPopIdDto.getUserId());
 			// liked추가        
-			UserProfileDto userProfileDto = userService.getUserProfileById(popInfoDto.getUserId());
+			UserProfileDto userProfileDto = userService.getUserProfileById(userPopIdDto.getUserId());
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("popInfoDto", popInfoDto);
 			map.put("userProfileDto", userProfileDto);
