@@ -5,9 +5,7 @@
       <v-subheader>POPS</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader class="more-font">
-        <router-link :to="{ name: 'searchmorepops', params: { keyword: this.searchedKeyword } }"
-          >더보기</router-link
-        >
+        <v-card class="blue--text" elevation="0" @click="goSearchedPopsMore">더보기</v-card>
       </v-subheader>
     </v-row>
     <div class="mt-n7">
@@ -57,6 +55,14 @@ export default {
     searchedKeyword: String,
   },
   created() {},
+  methods: {
+    goSearchedPopsMore() {
+      this.$router.push({
+        name: "searchmorepops",
+        params: { keyword: this.searchedKeyword },
+      });
+    },
+  },
 };
 </script>
 <style>

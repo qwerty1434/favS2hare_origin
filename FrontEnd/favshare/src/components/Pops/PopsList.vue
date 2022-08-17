@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <div>
     <div v-for="popItem in popList" :key="popItem.id" class="videos__container">
       <pops-list-item :pop-item="popItem"></pops-list-item>
