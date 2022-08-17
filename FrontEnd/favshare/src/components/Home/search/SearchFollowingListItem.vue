@@ -3,7 +3,7 @@
   <div class="mr-4">
     <v-row>
       <v-col align="center">
-        <v-avatar color="orange lighten-4" size="65">
+        <v-avatar color="orange lighten-4" size="65" @click="goFriendFeed">
           <img class="following-size" :src="userListItem.profileImageUrl" alt="image" />
         </v-avatar>
         <h6 class="mt-3">
@@ -21,6 +21,11 @@ export default {
   },
   props: {
     userListItem: Object,
+  },
+  methods: {
+    goFriendFeed() {
+      this.$router.push({ name: "feed", params: this.userListItem.id });
+    },
   },
 };
 </script>

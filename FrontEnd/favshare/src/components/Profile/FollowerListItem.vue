@@ -49,7 +49,7 @@ export default {
         event.target.textContent = "팔로잉";
         axios({
           method: "post",
-          url: "http://localhost:8080/user/follow",
+          url: "http://13.124.112.241:8080/user/follow",
           data: {
             fromUserId: this.userId,
             toUserId: this.followeItem.toUserId,
@@ -60,7 +60,7 @@ export default {
         event.target.textContent = "팔로우";
         axios({
           method: "delete",
-          url: "http://localhost:8080/user/follow/from",
+          url: "http://13.124.112.241:8080/user/follow/from",
           data: {
             fromUserId: this.followeItem.toUserId,
             toUserId: this.userId,
@@ -72,7 +72,7 @@ export default {
       console.log("follower 삭제");
       axios({
         method: "delete",
-        url: `http://localhost:8080/user/follow/to`,
+        url: `http://13.124.112.241:8080/user/follow/to`,
         data: {
           fromUserId: this.followerItem.toUserId,
           toUserId: this.userId,

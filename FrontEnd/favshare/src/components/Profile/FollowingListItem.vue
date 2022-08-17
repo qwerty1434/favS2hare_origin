@@ -41,7 +41,7 @@ export default {
         event.target.textContent = "팔로우";
         axios({
           method: "post",
-          url: "http://localhost:8080/user/follow",
+          url: "http://13.124.112.241:8080/user/follow",
           data: {
             fromUserId: this.userId,
             toUserId: this.followingItem.toUserId,

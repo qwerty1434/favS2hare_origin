@@ -3,7 +3,7 @@
   <v-hover>
     <v-row @click="">
       <v-col align="center" cols="3">
-        <v-avatar color="orange lighten-4" size="55">
+        <v-avatar color="orange lighten-4" size="55" @click="goFriendFeed">
           <img
             class="following-size"
             :src="searchedFollowingListItem.profileImageUrl"
@@ -35,6 +35,14 @@ export default {
   },
   computed: {
     ...mapGetters([""]),
+  },
+  methods: {
+    goFriendFeed() {
+      this.$router.push({
+        name: "feed",
+        params: this.searchedFollowingListItem.id,
+      });
+    },
   },
 };
 </script>

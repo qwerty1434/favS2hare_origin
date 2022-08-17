@@ -1,7 +1,7 @@
 <template>
   <!-- eslint-disable -->
-  <div class="rpops">
-    <div class="wrap-vertical" v-for="popsListItem in popsList">
+  <div class="pops-search mt-5">
+    <div v-for="popsListItem in popsList">
       <search-pops-list-item :pops-list-item="popsListItem"></search-pops-list-item>
     </div>
   </div>
@@ -25,4 +25,12 @@ export default {
   created() {},
 };
 </script>
-<style></style>
+<style>
+.pops-search {
+  /* 가로 스크롤 */
+  height: 250px;
+  overflow: scroll;
+  white-space: nowrap;
+  display: flex;
+}
+</style>

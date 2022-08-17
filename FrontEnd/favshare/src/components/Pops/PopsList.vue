@@ -30,7 +30,7 @@ export default {
   //   fetchPopList() {
   //     axios({
   //       method: "post",
-  //       url: "http://localhost:8080/pop",
+  //       url: "http://13.124.112.241:8080/pop",
   //       data: {
   //         idolId: 0,
   //         userId: this.userId,

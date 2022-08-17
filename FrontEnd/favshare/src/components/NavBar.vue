@@ -34,6 +34,9 @@
           <v-list-item @click="goMyAccount">
             <v-list-item-title>계정 정보</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="goMyInterest">
+            <v-list-item-title>관심사 변경</v-list-item-title>
+          </v-list-item>
           <v-divider></v-divider>
           <v-list-item @click="btnLogout">
             <v-list-item-title>로그아웃</v-list-item-title>
@@ -71,7 +74,7 @@ export default {
     openModal() {
       axios({
         method: "get",
-        url: `http://localhost:8080/user/profile/${this.userId}`,
+        url: `http://13.124.112.241:8080/user/profile/${this.userId}`,
         data: {
           userId: this.userId,
         },
@@ -85,6 +88,9 @@ export default {
     },
     goMyAccount() {
       this.$router.push({ name: "account" });
+    },
+    goMyInterest() {
+      this.$router.push({ name: "interest" });
     },
     btnLogout() {
       this.$store.commit("SET_USERID", 0);

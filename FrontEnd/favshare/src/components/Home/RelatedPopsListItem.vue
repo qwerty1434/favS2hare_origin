@@ -1,18 +1,18 @@
 <template>
   <div>
     <youtube
-      :video-id="this.youtubeUrl"
+      :video-id="url"
       :player-vars="playerVars"
       ref="youtube"
       :width="200"
       :height="112"
-      @playing="playing"
-      style="pointer-events: none"
     ></youtube>
   </div>
 </template>
 
 <script>
+// @playing="playing"
+// style="pointer-events: none"
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 

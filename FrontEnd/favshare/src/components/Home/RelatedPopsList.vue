@@ -14,7 +14,7 @@
     <div v-for="popsItem in popsList" :key="popsItem.id" class="popsitem">
       <related-pops-list-item
         :pops-item="popsItem"
-        :youtube-url="youtubeUrl"
+        :url="url"
       ></related-pops-list-item>
     </div>
   </div>
@@ -44,7 +44,7 @@ export default {
     getPopsList() {
       axios({
         method: "post",
-        url: "http://localhost:8080/youtube/detail",
+        url: "http://13.124.112.241:8080/youtube/detail",
         data: {
           userId: this.userId,
           youtubeUrl: this.videoInfo.videoId,
@@ -53,7 +53,9 @@ export default {
         .then((res) => {
           console.log("릴레이티드 팝스 리스트", res.data);
           this.popsList = res.data.popList;
-          this.url = res.data.youtubeUrl;
+          this.url = res.data.url;
+          console.log(this.popsList);
+          console.log(this.url);
         })
         .catch((res) => {
           console.log(this.userId);

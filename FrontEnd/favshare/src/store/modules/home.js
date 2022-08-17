@@ -22,7 +22,7 @@ export default {
     // YoutubeList.vue 에서 사용
     fetchHomeYoutubes({ commit, getters }) {
       axios({
-        url: `http://localhost:8080/youtube/${getters.userId}`,
+        url: `http://13.124.112.241:8080/youtube/${getters.userId}`,
         method: "get",
       })
         .then((res) => commit("SET_HOMEYOUTUBES", res.data))
@@ -30,10 +30,10 @@ export default {
     },
     // NewsFeedList.vue 에서 사용
     fetchFriendFeedPops({ commit, getters }) {
-      console.log(`http://localhost/8080/pop/friend/${getters.userId}`);
+      console.log(`http://13.124.112.241:8080/pop/friend/${getters.userId}`);
       axios({
         method: "get",
-        url: `http://localhost:8080/pop/friend/${getters.userId}`,
+        url: `http://13.124.112.241:8080/pop/friend/${getters.userId}`,
       })
         .then((res) => {
           commit("SET_FEEDPOPS", res.data);
