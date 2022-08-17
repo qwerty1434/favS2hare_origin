@@ -12,23 +12,25 @@
       <div class="videoinfo">
         {{ this.videoInfo.channelName }}
       </div>
-      <div class="editicons">
-        <router-link
-          :to="{
-            name: 'youtubeedit',
-            query: {
-              youtubeId: this.videoInfo.youtubeId,
-              youtubeUrl: this.videoInfo.videoId,
-            },
-          }"
-        >
-          <v-icon class="icons">mdi-movie-open-edit-outline</v-icon>
-        </router-link>
-        <div v-if="this.isBookmarkClicked">
-          <v-icon @click="setBookmark">mdi-bookmark</v-icon>
-        </div>
-        <div v-else>
-          <v-icon @click="setBookmark">mdi-bookmark-outline</v-icon>
+      <div v-if="isSignin">
+        <div class="editicons">
+          <router-link
+            :to="{
+              name: 'youtubeedit',
+              query: {
+                youtubeId: this.videoInfo.youtubeId,
+                youtubeUrl: this.videoInfo.videoId,
+              },
+            }"
+          >
+            <v-icon class="icons">mdi-movie-open-edit-outline</v-icon>
+          </router-link>
+          <div v-if="this.isBookmarkClicked">
+            <v-icon @click="setBookmark">mdi-bookmark</v-icon>
+          </div>
+          <div v-else>
+            <v-icon @click="setBookmark">mdi-bookmark-outline</v-icon>
+          </div>
         </div>
         <!-- <div v-if="this.isBookmarkClicked">
           <v-icon @click="[setBookmark, postStoredYoutube]"></v-icon>
@@ -66,7 +68,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["videoInfo", "userId"]),
+    ...mapGetters(["videoInfo", "userId", "isSignin"]),
   },
   methods: {
     playVideo() {
