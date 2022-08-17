@@ -23,7 +23,7 @@
         </ul>
       </div>
     </div>
-    <div>
+    <div class="follow-edit">
       <div v-if="feedUserInfo.id === userId">
         <button @click="goProfileEdit">프로필 편집</button>
       </div>
@@ -91,7 +91,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.follow-edit {
+  text-align: center;
+  padding-top: 30px;
+  padding-right: 30px;
+}
 .user-info {
   display: flex;
 }
@@ -107,5 +112,9 @@ export default {
   padding-right: 10px;
   align-content: center;
   justify-content: center;
+}
+
+li {
+  text-align: center;
 }
 </style>

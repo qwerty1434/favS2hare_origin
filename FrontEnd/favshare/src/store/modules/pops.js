@@ -116,10 +116,10 @@ export default {
           console.log(err);
         });
     },
-    likeComment({ commit }, { popId, commentId, userId }) {
+    likeComment({ commit }, { commentId, userId }) {
       axios({
         method: "post",
-        url: `http://localhost:8080/pop/likeComment`,
+        url: `http://localhost:8080/pop/like`,
         data: {
           commentId: commentId,
           userId: userId,
@@ -141,12 +141,11 @@ export default {
           console.log(err);
         });
     },
-    unLikeComment({ commit }, { popId, commentId, userId }) {
+    unLikeComment({ commit }, { commentId, userId }) {
       axios({
         method: "delete",
-        url: `http://localhost:8080/pop/likeComment`,
+        url: `http://localhost:8080/pop/like`,
         data: {
-          popId: popId,
           commentId: commentId,
           userId: userId,
         },

@@ -40,10 +40,12 @@ export default {
 .top {
   position: fixed;
   width: 100%;
-  top: 0;
 }
 .pops-view {
-  padding-top: 5px;
+  padding: 20px;
+  overflow: auto;
+  white-space: nowrap;
+  display: flex;
 }
 .pops-list {
   padding-top: 140px;
@@ -53,17 +55,5 @@ export default {
   position: fixed;
   width: 100%;
   bottom: 0;
-}
-
-.bottom {
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-}
-
-.top {
-  position: fixed;
-  width: 100%;
-  top: 0;
 }
 </style>
