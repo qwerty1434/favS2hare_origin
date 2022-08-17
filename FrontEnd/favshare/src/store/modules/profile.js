@@ -16,6 +16,7 @@ export default {
     followingList: [],
     editUserInfo: {},
     currentFeedId: 0,
+    isFollowing: false,
   },
   getters: {
     feedUserInfo: (state) => state.feedUserInfo,
@@ -30,6 +31,7 @@ export default {
     followingList: (state) => state.followingList,
     editUserInfo: (state) => state.editUserInfo,
     currentFeedId: (state) => state.currentFeedId,
+    isFollowing: (state) => state.isFollowing,
   },
   mutations: {
     SET_FEEDUSERINFO: (state, feedUserInfo) =>
@@ -51,6 +53,7 @@ export default {
       (state.followerList = followerList),
     SET_FOLLOWINGLIST: (state, followingList) =>
       (state.followingList = followingList),
+    SET_ISFOLLOWING: (state, isFollowing) => (state.isFollowing = isFollowing),
   },
   actions: {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
@@ -216,6 +219,43 @@ export default {
       }).then((res) => {
         commit("SET_FOLLOWINGLIST", res.data);
       });
+    },
+
+    // 다른 유저 프로필 화면 들어갈 때 팔로우 하고있는지 확인하기 위한 함수
+    fetchIsFollowing({ commit, getters }, id) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/user/follow/from${getters.userId}`,
+      })
+        .then((res) => {
+          const len = res.data.length;
+          let tmp = 0;
+          for (const user of res.data) {
+            if (user.toUserId === id) {
+              commit("SET_ISFOLLOWING", true);
+              break;
+            } else {
+              tmp++;
+            }
+          }
+          if (tmp === len) {
+            commit("SET_ISFOLLOWING", false);
+          }
+        })
+        .catch((err) => console.log(err));
+    },
+
+    // 다른 유저 프로필 화면에서 팔로우를 눌렀을 때 함수
+    fetchFollowInProfile({ commit, getters }, id) {
+      axios({
+        method: "post",
+        url: "http://localhost:8080/user/follow",
+        data: {
+          fromUserId: getters.userId,
+          toUserId: id,
+        },
+      }).then((res) => console.log(res));
+      commit("SET_ISFOLLOWING", true);
     },
   },
 };
