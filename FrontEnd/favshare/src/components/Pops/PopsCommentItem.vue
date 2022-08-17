@@ -51,6 +51,9 @@ export default {
   },
   props: {
     commentListItem: Object,
+    popsId: {
+      type: Number,
+    },
   },
   data() {
     return {
@@ -66,14 +69,14 @@ export default {
     btnLikeComment() {
       if (!this.isLiked) {
         this.likeComment({
-          popId: this.popsIdInPopsTab,
+          popId: this.popsId,
           commentId: this.commentListItem.id,
           userId: this.userIdInPopsTab,
         });
         this.isLiked = true;
       } else {
         this.unLikeComment({
-          popId: this.popsIdInPopsTab,
+          popId: this.popsId,
           commentId: this.commentListItem.id,
           userId: this.userIdInPopsTab,
         });
@@ -85,7 +88,7 @@ export default {
         this.deleteComment({
           commentId: this.commentListItem.id,
           userId: this.commentListItem.userId,
-          popId: this.commentListItem.popId,
+          popId: this.popsId,
         });
       }
     },

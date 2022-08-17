@@ -1,9 +1,9 @@
 <template>
   <!-- tmp html -->
   <div>
-    <button @click="getLogin">[ 로그인하기 ]</button>
-    <button @click="getLogout">[ 로그아웃하기 ]</button>
-    <div v-if="isLogin">
+    <!-- <button @click="getLogin">[ 로그인하기 ]</button>
+    <button @click="getLogout">[ 로그아웃하기 ]</button> -->
+    <div v-if="isSignin">
       <news-feed-list></news-feed-list>
     </div>
     <div v-else>
@@ -23,7 +23,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import LoginRequestMessage from "./LoginRequestMessage.vue";
+import LoginRequestMessage from "@/components/Home/LoginRequestMessage.vue";
 import NewsFeedList from "./NewsFeedList.vue";
 
 export default {
@@ -35,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userId"]),
+    ...mapGetters(["userId", "isSignin"]),
   },
   methods: {
     // 밑에 두개 다 tmp용

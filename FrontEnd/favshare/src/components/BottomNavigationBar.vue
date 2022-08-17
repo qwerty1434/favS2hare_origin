@@ -1,6 +1,6 @@
 <template>
   <v-bottom-navigation
-    :value="bottomValue"
+    :value="bottomValue - 1"
     grow
     color="teal"
     absolute
@@ -66,6 +66,7 @@ export default {
   },
   watch: {
     "$store.state.bottomValue": function () {
+      console.log("-------------------");
       console.log(this.$store.state.bottomValue);
     },
   },

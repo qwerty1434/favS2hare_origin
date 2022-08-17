@@ -20,7 +20,7 @@
           </v-btn>
         </template>
 
-        <v-list class="pa-0" align="center" dense>
+        <v-list v-if="this.userId != 0" class="pa-0" align="center" dense>
           <v-list-item class="pa-1">
             <v-avatar class="ml-2" color="red" size="25">
               <img :src="userInfo.profileImageUrl" alt="John" />
@@ -37,6 +37,11 @@
           <v-divider></v-divider>
           <v-list-item @click="btnLogout">
             <v-list-item-title>로그아웃</v-list-item-title>
+          </v-list-item>
+        </v-list>
+        <v-list v-else class="pa-0" align="center" dense>
+          <v-list-item @click="btnLogin">
+            <v-list-item-title>로그인</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -81,7 +86,15 @@ export default {
     goMyAccount() {
       this.$router.push({ name: "account" });
     },
-    btnLogout() {},
+    btnLogout() {
+      this.$store.commit("SET_USERID", 0);
+      this.$store.commit("SET_USER_INFO", null);
+      this.$store.commit("SET_IS_SIGNIN", false);
+      this.$router.push({ name: "home" });
+    },
+    btnLogin() {
+      this.$router.push({ name: "signin" });
+    },
   },
 };
 </script>

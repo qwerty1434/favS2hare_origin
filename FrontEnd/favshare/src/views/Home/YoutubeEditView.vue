@@ -1,12 +1,15 @@
 <template>
   <div>
-    <v-icon>mdi-close</v-icon>
-    <div @click="postPops">게시</div>
+    <v-app-bar color="white" dense flat>
+      <v-icon @click="moveToYoutube">mdi-close</v-icon>
+      <v-spacer></v-spacer>
+      <div class="post-button" @click="postPops">게시</div>
+    </v-app-bar>
     <!-- eslint-disable-next-line -->
     <youtube-edit-tool
       ref="youtubeEditTool"
-      :youtubePk="youtubePk"
       :youtubeId="youtubeId"
+      :youtubeUrl="youtubeUrl"
     ></youtube-edit-tool>
     <upload-form ref="uploadForm" :feedList="feedList"></upload-form>
   </div>
@@ -22,12 +25,12 @@ import { mapGetters } from "vuex";
 export default {
   name: "YoutubeEditView",
   components: { YoutubeEditTool, UploadForm },
-  // youtubePk: DB에서 영상을 분류하는 번호
-  // youtubeId: youtube에서 영상을 불러오는 ID
+  // youtubeId: DB에서 영상을 분류하는 번호
+  // youtubeUrl: youtube에서 영상을 불러오는 11자리 key
   data() {
     return {
-      youtubePk: null,
       youtubeId: null,
+      youtubeUrl: null,
       feedList: [],
     };
   },
@@ -35,9 +38,8 @@ export default {
     ...mapGetters(["userId", "videoInfo"]),
   },
   created() {
-    this.youtubePk = this.$route.query.youtubePk;
     this.youtubeId = this.$route.query.youtubeId;
-    // this.getDummyFeedList();
+    this.youtubeUrl = this.$route.query.youtubeUrl;
     this.getFeedList();
   },
   methods: {
@@ -45,73 +47,64 @@ export default {
     getFeedList() {
       axios({
         method: "post",
-        url: "http://localhost:8080/youtube/edit/info",
+        url: "http://13.124.112.241:8080/youtube/edit/info",
         data: {
           userId: this.userId,
-          youtubeUrl: this.youtubeId,
+          youtubeUrl: this.youtubeUrl,
         },
       })
         .then((res) => {
-          console.log(res);
+          // feedList: [id, name, feedImageUrl, userId, first]
           this.feedList = res.data.feedList;
         })
         .catch((res) => {
           console.log(res);
         });
     },
-    getDummyFeedList() {
-      this.feedList = [
-        { feedId: 1, name: "대표" },
-        { feedId: 2, name: "아이돌1" },
-        { feedId: 3, name: "아이돌2" },
-        { feedId: 4, name: "아이돌3" },
-      ];
-    },
-    // input 서버에 전송
+    // Pops 게시
     postPops() {
-      console.log({
-        // + userId
-        userId: this.userId,
-        youtubeUrl: this.youtubeId,
-        feedId: Number(this.$refs.uploadForm.feedId),
-        name: this.$refs.uploadForm.title,
-        content: this.$refs.uploadForm.description,
-        startSecond: this.$refs.youtubeEditTool.range[0],
-        endSecond: this.$refs.youtubeEditTool.range[1],
-      });
       axios({
         method: "post",
-        url: "http://localhost:8080/youtube/edit",
+        url: "http://13.124.112.241:8080/youtube/edit",
         data: {
           userId: this.userId,
-          youtubeUrl: this.youtubeId,
-          feedId: Number(this.$refs.uploadForm.feedId),
+          youtubeUrl: this.youtubeUrl,
+          // 전체 피드는 0
+          feedId: Number(this.$refs.uploadForm.selectedFeedId),
           name: this.$refs.uploadForm.title,
           content: this.$refs.uploadForm.description,
           startSecond: this.$refs.youtubeEditTool.range[0],
           endSecond: this.$refs.youtubeEditTool.range[1],
         },
       })
-        .then((res) => {
-          console.log(res);
-          this.$router.push({
-            name: "youtube",
-            params: {
-              videoInfo: {
-                videoId: this.videoInfo.youtubeId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => homeYoutube로 바꾸기
-                channelName: this.videoInfo.channelName,
-                channelProfilePic: this.videoInfo.channelProfilePic,
-                videoTitle: this.videoInfo.videoTitle,
-              },
-            },
-          });
+        .then(() => {
+          // 게시 성공 후엔 YoutubeView로 이동
+          this.moveToYoutube();
         })
         .catch((res) => {
           console.log(res);
         });
     },
+    // YoutubeView로 이동하기
+    moveToYoutube() {
+      this.$router.push({
+        name: "youtube",
+        params: {
+          videoInfo: {
+            videoId: this.videoInfo.videoId, // 유튜브 id -> 실제로 쓸 때는 this.videoId => homeYoutube로 바꾸기
+            channelName: this.videoInfo.channelName,
+            channelProfilePic: this.videoInfo.channelProfilePic,
+            videoTitle: this.videoInfo.videoTitle,
+          },
+        },
+      });
+    },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.post-button {
+  color: #ff5d5d;
+}
+</style>

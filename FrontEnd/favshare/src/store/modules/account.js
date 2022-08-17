@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 export default {
   state: {
     isSignin: false,
-    userId: 1,
+    userId: 0,
     isSigninError: false,
     userInfo: null,
   },
@@ -83,6 +83,7 @@ export default {
           commit("SET_USER_INFO", res.data);
         })
         .catch(() => {
+          console.log(userId);
           console.log("fail");
           commit("SET_USER_INFO", null);
         });

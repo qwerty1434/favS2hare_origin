@@ -57,7 +57,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/youtubeedit/:youtubePk",
+    path: "/youtubeedit",
     name: "youtubeedit",
     component: YoutubeEditView,
     props: true,
@@ -146,6 +146,7 @@ const routes = [
     path: "/popsdetail",
     name: "popsdetail",
     component: PopsDetailView,
+    props: true,
   },
   {
     path: "/originallinkedpops/",

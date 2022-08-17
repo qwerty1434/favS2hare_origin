@@ -21,7 +21,8 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-
+import { mapGetters } from "vuex";
+import LoginRequestMessage from "@/components/Home/LoginRequestMessage.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 import FeedPopsList from "@/components/Profile/FeedPopsList.vue";
 import FeedInfo from "@/components/Profile/FeedInfo.vue";
@@ -29,7 +30,14 @@ import FeedList from "@/components/Profile/FeedList.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  components: { NavBar, BottomNavigationBar, FeedPopsList, FeedInfo, FeedList },
+  components: {
+    NavBar,
+    BottomNavigationBar,
+    FeedPopsList,
+    FeedInfo,
+    FeedList,
+    LoginRequestMessage,
+  },
   name: "FeedView",
   computed: {
     ...mapGetters(["isDelete", "feedList"]),

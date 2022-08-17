@@ -25,7 +25,7 @@
     </div>
     <div class="follow-edit">
       <div v-if="feedUserInfo.id === userId">
-        <button>프로필 편집</button>
+        <button @click="goProfileEdit">프로필 편집</button>
       </div>
       <div v-else>
         <button>팔로우/팔로잉</button>
@@ -76,6 +76,9 @@ export default {
     ...mapActions(["setTabFollower", "setTabFollowing"]),
     routerPushes(name) {
       router.push({ name: name });
+    },
+    goProfileEdit() {
+      this.$router.push({ name: "profileedit" });
     },
   },
   watch: {
