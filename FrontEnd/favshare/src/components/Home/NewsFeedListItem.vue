@@ -19,9 +19,9 @@
           @click="
             [
               routerPushes('feed'),
-              fetchFeedUserInfo(newsFeedPops.userProfileDto.id),
-              fetchFeedList(newsFeedPops.userProfileDto.id),
-              fetchIsFollowing(newsFeedPops.userProfileDto.id),
+              fetchFeedUserInfo(newsFeedPop.userProfileDto.id),
+              fetchFeedList(newsFeedPop.userProfileDto.id),
+              fetchIsFollowing(newsFeedPop.userProfileDto.id),
             ]
           "
         >
@@ -91,6 +91,7 @@ export default {
       this.player.seekTo(this.section.start);
     },
     printFeed() {
+      console.log("herer");
       console.log(this.newsFeedPop);
     },
     routerPushes(icon) {
