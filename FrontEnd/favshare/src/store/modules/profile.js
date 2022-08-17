@@ -40,13 +40,7 @@ export default {
     SET_FOLLOWTAB: (state, followtab) => (state.followtab = followtab),
     SET_ISDELETE: (state, isDelete) => (state.isDelete = isDelete),
     SPLICE_FEEDPOPS: function (state, id) {
-      for (const tmp in state.feedPops) {
-        if (tmp + 1 === id) {
-          delete state.feedPops.tmp;
-          break;
-        }
-      }
-      console.log("됐냐");
+      state.feedPops.splice(id, 1);
     },
     SET_FEEDPOP: (state, feedPop) => (state.feedPop = feedPop),
     SET_EDITUSERINFO: (state, editUserInfo) =>
@@ -157,6 +151,7 @@ export default {
     },
 
     spliceFeedPops({ commit }, id) {
+      console.log("actions", id);
       commit("SPLICE_FEEDPOPS", id);
     },
     getProfileInfo({ commit }, userId) {

@@ -6,8 +6,11 @@
   </div> -->
   <v-container>
     <v-row justify="space-around" no-gutters>
-      <v-col v-for="feedPop in feedPops" :key="feedPop.id" col="6">
-        <feed-pops-list-item :feed-pop="feedPop"></feed-pops-list-item>
+      <v-col v-for="(feedPop, index) in feedPops" :key="index" col="6">
+        <feed-pops-list-item
+          :feed-pop="feedPop"
+          :index="index"
+        ></feed-pops-list-item>
       </v-col>
     </v-row>
   </v-container>

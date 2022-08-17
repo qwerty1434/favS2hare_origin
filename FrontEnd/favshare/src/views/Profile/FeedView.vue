@@ -3,6 +3,15 @@
     <nav-bar></nav-bar>
     <feed-info class="feed-view"></feed-info>
     <v-divider></v-divider>
+    <div class="delete-button">
+      <h4>FEED</h4>
+      <div v-if="isDelete">
+        <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
+      </div>
+      <div v-else>
+        <button @click="fetchIsDelete(true)">[삭제완료]</button>
+      </div>
+    </div>
     <feed-list class="rpops"></feed-list>
     <v-divider></v-divider>
     <feed-pops-list></feed-pops-list>
@@ -17,23 +26,38 @@ import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 import FeedPopsList from "@/components/Profile/FeedPopsList.vue";
 import FeedInfo from "@/components/Profile/FeedInfo.vue";
 import FeedList from "@/components/Profile/FeedList.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: { NavBar, BottomNavigationBar, FeedPopsList, FeedInfo, FeedList },
   name: "FeedView",
+  computed: {
+    ...mapGetters(["isDelete", "feedList"]),
+  },
+  methods: {
+    ...mapActions(["fetchIsDelete"]),
+  },
 };
 </script>
 
-<style>
+<style scoped>
+.delete-button {
+  display: flex;
+  flex-direction: row;
+  padding: 40px;
+  padding-top: 20px;
+  padding-bottom: 0px;
+  justify-content: space-between;
+}
 .feed-view {
-  padding-top: 50px;
-  padding-left: 40px;
+  padding-top: 20px;
+  padding-left: 30px;
 }
 
 .rpops {
   width: 360px;
-  padding-top: 40px;
   padding: 20px;
+  padding-top: 10px;
   overflow: scroll;
   overflow: auto;
   white-space: nowrap;

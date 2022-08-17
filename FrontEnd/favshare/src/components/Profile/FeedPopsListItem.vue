@@ -1,7 +1,12 @@
 <template>
-  <div>
+  <div class="pops-all">
     <div v-if="!isDelete" class="delete-button">
-      <v-btn fab x-small @click="[deleteFeedPop, spliceFeedPops(feedPop.id)]">
+      <v-btn
+        fab
+        x-small
+        color="amber accent-1"
+        @click="[deleteFeedPop, spliceFeedPops(index)]"
+      >
         <v-icon>mdi-minus-circle-outline</v-icon>
       </v-btn>
     </div>
@@ -52,6 +57,7 @@ export default {
   },
   props: {
     feedPop: Object, // { id(pops), name, *youtubeUrl(추가필요), startSecond, endSecond, content, createDate, views, likeCount }
+    index: Number,
   },
   computed: {
     player() {
@@ -106,9 +112,13 @@ export default {
 </script>
 
 <style scoped>
+/* .pops-all {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+} */
 .delete-button {
-  left: 10px;
-  top: 10px;
+  left: 50px;
 }
 
 .feed-pops-item {

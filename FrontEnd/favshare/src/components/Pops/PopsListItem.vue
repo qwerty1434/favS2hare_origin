@@ -51,6 +51,9 @@ export default {
     player() {
       return this.$refs[`pops${this.popItem.id}`].player;
     },
+    youtubePk() {
+      return this.popItem.youtubueUrl;
+    },
   },
   methods: {
     likePops() {

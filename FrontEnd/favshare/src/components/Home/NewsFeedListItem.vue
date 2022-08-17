@@ -51,6 +51,7 @@ export default {
   },
   data() {
     return {
+      tmp: String,
       playerVars: {
         autoplay: 1,
         mute: 1,

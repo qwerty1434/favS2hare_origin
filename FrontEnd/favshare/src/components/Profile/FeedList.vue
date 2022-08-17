@@ -1,14 +1,5 @@
 <template>
   <div>
-    <div>
-      <h4>FEED</h4>
-      <div v-if="isDelete">
-        <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
-      </div>
-      <div v-else>
-        <button @click="fetchIsDelete(true)">[삭제완료]</button>
-      </div>
-    </div>
     <!-- <v-divider></v-divider>
     <div>
       <v-icon @click="fetchIsDelete(false)">mdi-video-input-component</v-icon>
@@ -82,7 +73,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .popsitem {
   padding-right: 10px;
 }
