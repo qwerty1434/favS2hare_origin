@@ -127,8 +127,8 @@ public class UserService {
 	
 	public int[] countFollow(int userId) {
 		UserEntity userEntity = userRepository.findById(userId).get();
-		int followerNum = userEntity.getFromUserEntityList().size();
-		int followingNum = userEntity.getToUserEntityList().size();
+		int followingNum = userEntity.getFromUserEntityList().size();
+		int followerNum = userEntity.getToUserEntityList().size();
 		return new int[] {followerNum, followingNum};
 	}
 	
