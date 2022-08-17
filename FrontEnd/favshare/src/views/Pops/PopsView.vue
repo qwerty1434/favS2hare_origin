@@ -1,11 +1,11 @@
 <template>
   <!-- eslint-disable -->
-  <div>
+  <div class="no-scroll">
     <div class="top">
       <nav-bar></nav-bar>
-      <div class="pops-view">
+      <v-sheet class="pops-view">
         <pops-type-list></pops-type-list>
-      </div>
+      </v-sheet>
     </div>
     <div class="pops-list">
       <pops-list></pops-list>
@@ -40,20 +40,22 @@ export default {
 .top {
   position: fixed;
   width: 100%;
+  top: 0;
+  z-index: 2;
 }
 .pops-view {
-  padding: 20px;
-  overflow: auto;
-  white-space: nowrap;
-  display: flex;
+  padding-top: 5px;
 }
 .pops-list {
-  padding-top: 140px;
-  overflow: auto;
+  padding-top: 160px;
 }
 .bottom {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+/* 스크롤바 제거 */
+.no-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 </style>
