@@ -1,10 +1,8 @@
 <template>
   <div>
-    <v-app-bar dense>
+    <v-app-bar color="white" elevation="0" dense>
       <router-link :to="{ name: 'home' }" active-class="navbar-active">
-        <v-toolbar-title color="black" class="nav-font"
-          >Fav<span style="color: red">S2</span>hare</v-toolbar-title
-        >
+        <img class="navbar__logo" src="@/assets/favshare.png" alt="Logo" />
       </router-link>
 
       <v-spacer></v-spacer>
@@ -49,6 +47,7 @@
         </v-list>
       </v-menu>
     </v-app-bar>
+    <v-divider></v-divider>
   </div>
 </template>
 
@@ -124,8 +123,7 @@ a {
 }
 
 .navbar__logo {
-  font-size: 24px;
-  color: black;
+  height: 30px;
 }
 
 .navbar__icons {

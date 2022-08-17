@@ -14,7 +14,7 @@
       <!-- 로고 -->
       <v-row class="logo-part text-center">
         <v-col>
-          <h3>FavS2hare</h3>
+          <img class="logo" src="@/assets/favshare.png" alt="Logo" />
         </v-col>
       </v-row>
       <!-- 인증번호전송 Form -->
@@ -175,11 +175,15 @@ export default {
       password2: "",
       rules: {
         isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
-        authNumberLength: (value) => value.length == 15 || "인증번호는 15자입니다",
+        authNumberLength: (value) =>
+          value.length == 15 || "인증번호는 15자입니다",
         pwLength: (value) =>
-          (value.length >= 9 && value.length <= 16) || "PW는 8~16자로 작성해주세요",
-        pwSame: (value) => value === this.user.password || "PW와 일치하지 않습니다",
-        isBirthDate: (value) => this.checkBirthDate(value) || "올바르지 않은 형식의 생년월일입니다",
+          (value.length >= 9 && value.length <= 16) ||
+          "PW는 8~16자로 작성해주세요",
+        pwSame: (value) =>
+          value === this.user.password || "PW와 일치하지 않습니다",
+        isBirthDate: (value) =>
+          this.checkBirthDate(value) || "올바르지 않은 형식의 생년월일입니다",
         phoneNumber: (value) =>
           this.checkPhoneNumber(value) || "올바르지 않은 형식의 전화번호입니다",
       },
@@ -227,7 +231,9 @@ export default {
         axios
           .get(`http://13.124.112.241:8080/user/signup/${this.user.email}`)
           .then(() => {
-            console.log("사용자에게는 이미 가입된 경우만 alert가 보여야 합니다");
+            console.log(
+              "사용자에게는 이미 가입된 경우만 alert가 보여야 합니다"
+            );
             alert("이미 가입된 ID입니다");
           })
           .catch((error) => {
@@ -333,7 +339,11 @@ export default {
 .logo-part {
   height: 220px;
   line-height: 220px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  height: 55px;
 }
 
 .btn {

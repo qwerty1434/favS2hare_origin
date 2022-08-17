@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- 로고 -->
-    <div class="logo-part">
-      <h3>FavS2hare</h3>
-    </div>
+    <v-app-bar color="white" elevation="0" dense>
+      <img class="logo" src="@/assets/favshare.png" alt="Logo" />
+    </v-app-bar>
     <v-divider></v-divider>
     <v-container class="container">
       <v-row align="center" no-gutters>
@@ -234,6 +234,10 @@ export default {
   height: 65px;
   line-height: 65px;
   padding-left: 15px;
+}
+
+.logo {
+  height: 30px;
 }
 
 .progress-bar {
