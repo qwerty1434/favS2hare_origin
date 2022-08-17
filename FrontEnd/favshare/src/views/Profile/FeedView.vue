@@ -1,8 +1,8 @@
 <template>
   <div>
+    <nav-bar></nav-bar>
     <div v-if="isSignin">
       <feed-info class="feed-view"></feed-info>
-      <nav-bar></nav-bar>
       <v-divider></v-divider>
       <feed-list class="rpops"></feed-list>
       <v-divider></v-divider>
