@@ -22,6 +22,7 @@ public class YoutubeEditPopDto {
 	private String content;
 	private LocalDateTime createDate;
 	private int views;
+	private boolean isMuted;
 	
 	public YoutubeEditPopDto(PopEntity popEntity, FeedEntity feedEntity) {
 		this.userId = popEntity.getUserEntity().getId();
@@ -33,5 +34,6 @@ public class YoutubeEditPopDto {
 		this.content = popEntity.getContent();
 		this.createDate = LocalDateTime.now();
 		this.views = 0;
+		this.isMuted = popEntity.isMuted();
 	}
 }
