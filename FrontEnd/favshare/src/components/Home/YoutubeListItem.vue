@@ -7,7 +7,7 @@
             name: 'youtube',
             params: {
               videoInfo: {
-                videoId: this.homeYoutube.videoId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => homeYoutube로 바꾸기
+                videoId: this.homeYoutube.youtubeId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => homeYoutube로 바꾸기
                 channelName: this.channelName,
                 channelProfilePic: this.channelProfilePic,
                 videoTitle: this.videoTitle,

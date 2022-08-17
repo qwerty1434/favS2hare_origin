@@ -120,7 +120,7 @@
 
 <script>
 import axios from "axios";
-
+/* eslint-disable */
 export default {
   name: "FindPwView",
   data() {
@@ -153,6 +153,7 @@ export default {
       /* eslint-disable-next-line */
       const reg =
         /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+
       return reg.test(email);
     },
     // 인증번호 발송
