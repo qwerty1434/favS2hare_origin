@@ -36,8 +36,13 @@
       </div>
       <div v-else>
         <div v-if="isFollowing">
-          <v-btn class="ma-2" outlined color="red lighten-1" elevation="2"
-            >팔로잉</v-btn
+          <v-btn
+            class="ma-2"
+            outlined
+            color="red lighten-1"
+            elevation="2"
+            @click="cancelFollowing"
+            >팔로우 취소</v-btn
           >
         </div>
         <div v-else>
@@ -57,6 +62,7 @@
 
 <script>
 import router from "@/router";
+import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -69,12 +75,31 @@ export default {
       "setTabFollower",
       "setTabFollowing",
       "fetchFollowInProfile",
+      "fetchFeedUserInfo",
     ]),
     routerPushes(name) {
       router.push({ name: name });
     },
     goProfileEdit() {
       this.$router.push({ name: "profileedit" });
+    },
+    cancelFollowing() {
+      console.log(this.userId);
+      console.log(this.feedUserInfo.id);
+      axios({
+        method: "delete",
+        url: "http://13.124.112.241:8080/user/follow/from",
+        data: {
+          fromUserId: this.userId,
+          toUserId: this.feedUserInfo.id,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.$store.commit("SET_ISFOLLOWING", false);
+          this.fetchFeedUserInfo(this.feedUserInfo.id);
+        })
+        .catch((res) => console.log(res));
     },
   },
   watch: {

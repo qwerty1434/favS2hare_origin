@@ -52,7 +52,7 @@ export default {
         event.target.textContent = "팔로우 취소";
         axios({
           method: "delete",
-          url: "http://loaclhost:8080/user/follow/from",
+          url: "http://13.124.112.241:8080/user/follow/from",
           data: {
             fromUserId: this.userId,
             toUserId: this.followingItem.toUserId,

@@ -258,6 +258,7 @@ export default {
 
     // 다른 유저 프로필 화면에서 팔로우를 눌렀을 때 함수
     fetchFollowInProfile({ commit, getters }, id) {
+      console.log(id);
       axios({
         method: "post",
         url: "http://13.124.112.241:8080/user/follow",
@@ -265,7 +266,10 @@ export default {
           fromUserId: getters.userId,
           toUserId: id,
         },
-      }).then((res) => console.log(res));
+      }).then((res) => {
+        console.log(res);
+        this.dispatch("fetchFeedUserInfo", id);
+      });
       commit("SET_ISFOLLOWING", true);
     },
   },
