@@ -123,12 +123,13 @@ export default {
   object-fit: cover;
   height: 100%;
   width: 100%;
+  border-radius: 10%;
 }
 
 .video__details {
   display: flex;
   padding-top: 10px;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 
 .author img {
@@ -142,7 +143,6 @@ export default {
 .title {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
 }
 
 .title h3 {

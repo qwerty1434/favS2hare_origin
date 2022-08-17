@@ -1,20 +1,9 @@
 <template>
-  <!-- tmp html -->
-  <!-- <div class="videos">
-    <div
-      v-for="feedPop in feedPops"
-      :key="feedPop.id"
-      class="videos__container"
-    >
-      <news-feed-list-item :feed-pop="feedPop"></news-feed-list-item>
-    </div>
-  </div> -->
-  <!-- for-use html -->
   <div>
     <div
       v-for="(newsFeedPop, index) in newsFeedPops"
       :key="index"
-      class="video__container"
+      class="videos__container"
     >
       <news-feed-list-item :news-feed-pop="newsFeedPop"></news-feed-list-item>
     </div>
@@ -94,5 +83,6 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
+  padding: 15px;
 }
 </style>

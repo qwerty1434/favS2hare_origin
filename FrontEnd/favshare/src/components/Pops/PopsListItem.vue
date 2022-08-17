@@ -33,6 +33,7 @@
 import { mapActions, mapGetters } from "vuex";
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
+import { mapActions, mapGetters } from "vuex";
 
 Vue.use(VueYoutube);
 
@@ -114,6 +115,11 @@ export default {
   text-align: center;
   font-size: 40px;
   padding-top: 60px;
+  color: white;
+}
+.content {
+  font-family: "EF_WAKEUP" !important;
+  color: white;
 }
 @font-face {
   font-family: "EF_WAKEUP";

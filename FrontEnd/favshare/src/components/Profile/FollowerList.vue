@@ -1,15 +1,16 @@
 <template>
-  <v-container>
+  <v-container class="follower">
     <div v-for="(followerItem, index) in followerList" :key="index">
       <follower-list-item :follower-item="followerItem"></follower-list-item>
     </div>
   </v-container>
 </template>
+
 <script>
 import { mapActions, mapGetters } from "vuex";
 import FollowerListItem from "./FollowerListItem.vue";
 export default {
-  name: "FollowerLsit",
+  name: "FollowerList",
   components: { FollowerListItem },
   computed: {
     ...mapGetters(["followerList"]),
@@ -22,4 +23,9 @@ export default {
   },
 };
 </script>
-<style></style>
+
+<style scoped>
+.follower {
+  padding-top: 100px;
+}
+</style>
