@@ -35,13 +35,17 @@ public class StoreYoutubeService {
 		StoreYoutubeEntity storeYoutubeEntity = new StoreYoutubeEntity();
 		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
 		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
-		if(youtubeEntity == null) {
-			youtubeEntity = youtubeEntity.builder().url(youtubeUserIdDto.getYoutubeUrl()).build();
-			youtubeRepository.save(youtubeEntity);
-		}
-		storeYoutubeEntity = storeYoutubeEntity.builder().userEntity(userEntity).youtubeEntity(youtubeEntity).build();
 		
-		storeYoutubeRepository.save(storeYoutubeEntity);
+		if(storeYoutubeRepository.isBookmarked(userEntity.getId(), youtubeEntity.getId()) < 1) {
+			
+			if(youtubeEntity == null) {
+				youtubeEntity = youtubeEntity.builder().url(youtubeUserIdDto.getYoutubeUrl()).build();
+				youtubeRepository.save(youtubeEntity);
+			}
+			storeYoutubeEntity = storeYoutubeEntity.builder().userEntity(userEntity).youtubeEntity(youtubeEntity).build();
+			
+			storeYoutubeRepository.save(storeYoutubeEntity);
+		}
 	}
 	
 	public List<YoutubeDto> getYoutubeBookmarkById(int id) {
