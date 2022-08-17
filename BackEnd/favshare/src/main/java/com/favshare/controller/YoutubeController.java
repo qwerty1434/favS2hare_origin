@@ -50,18 +50,22 @@ public class YoutubeController {
 	public ResponseEntity<List<HashMap<String, Object>>> showYoutubeList(@PathVariable("userId") int userId) {
 		// 로그인 안한 경우에는 userId 값이 0으로 넘어온다.
 		try {
-			boolean hasInterestIdol = youtubeService.hasInterestIdol(userId);
 			List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
 			HashMap<String, Object> urlMap = new HashMap<String, Object>();
 
 			List<String> urlList;
-			
-			if(userId == 0 || !hasInterestIdol) {
-				urlList = youtubeService.getAlgoUrlByNoId(userId);
+			System.out.println("!!!!!!!!!!" + userId);
+			if(userId == 0) {
+				urlList = youtubeService.getAlgoUrlByNoId();
 			}
 			else {
-				
-				urlList = youtubeService.getAlgoUrlByUserId(userId);
+				boolean hasInterestIdol = youtubeService.hasInterestIdol(userId);
+				if(!hasInterestIdol) {
+					urlList = youtubeService.getAlgoUrlByNoId();
+				}
+				else {
+					urlList = youtubeService.getAlgoUrlByUserId(userId);
+				}
 			}
 			
 			for(int i = 0; i < urlList.size(); i++) {

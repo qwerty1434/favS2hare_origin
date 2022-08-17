@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import javax.sound.midi.Soundbank;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -170,29 +172,30 @@ public class YoutubeService {
 	}
 
 	// 로그인 하지 않은 사용자 or 선호하는 아이돌이 없는 경우에 사용되는 api
-	public List<String> getAlgoUrlByNoId(int userId) {
+	public List<String> getAlgoUrlByNoId() {
 
-		int idolListSize = interestIdolRepository.findAll().size();
 		List<String> urlList = new ArrayList<String>();
 
 		Random r = new Random();
 		int[] idList = new int[5];
-		String queryList = "";
+		String queryList = "";	
 
 		// 랜덤으로 아이돌 추출해서 검색어 쿼리 만드는 반복문
-		for (int i = 0; i < 5; i++) {
-			idList[i] = r.nextInt(idolListSize) + 1;
+		for (int i = 0; i < idList.length; i++) {
+			idList[i] = r.nextInt(5) + 1;
 			for (int j = 0; j < i; j++) {
 				if (idList[i] == idList[j])
 					i--;
 			}
 		}
 
+		
 		for (int i = 0; i < idList.length; i++) {
 			queryList += idolRepository.findById(idList[i]).get().getName();
-			if (i < 4)
+			if (i < idList.length - 1)
 				queryList += "or";
 		}
+
 
 		try {
 			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
@@ -200,9 +203,8 @@ public class YoutubeService {
 				public void initialize(HttpRequest request) throws IOException {
 				}
 			}).setApplicationName("youtube-cmdline-search-sample").build();
-
+			
 			SearchListResponse searchResponse = null;
-
 			YouTube.Search.List search = youtube.search().list("id,snippet");
 
 			search.setKey(API_KEY);
@@ -213,7 +215,6 @@ public class YoutubeService {
 
 			searchResponse = search.execute();
 
-			System.out.println("@@@@@@@@ : " + queryList);
 
 			List<SearchResult> searchResultList = searchResponse.getItems();
 			if (searchResultList != null) {
@@ -230,6 +231,7 @@ public class YoutubeService {
 		}
 
 		Collections.shuffle(urlList);
+		
 
 		return urlList;
 	}

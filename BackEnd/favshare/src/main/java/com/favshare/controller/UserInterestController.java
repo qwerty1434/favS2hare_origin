@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,7 +52,7 @@ public class UserInterestController{
 
 	@ApiOperation(value = "유저가 선택한 취향 저장", response = ResponseEntity.class)
 	@PostMapping
-	public void saveInterest(InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}}
+	public void saveInterest(@RequestBody InterestSaveDto interestSaveDto) { // {userId:1,Idol:{1,2,3},Song:{1,2,3}}
 		int userId = interestSaveDto.getUserId();
 		List<Integer> IdolList = interestSaveDto.getIdolList();
 		List<Integer> SongList = interestSaveDto.getSongList();
@@ -80,7 +81,7 @@ public class UserInterestController{
 	
 	@ApiOperation(value = "유저의 선호정보 변경", response = ResponseEntity.class)
 	@PutMapping("/interestList/{userId}")
-	public void changeInterest(InterestSaveDto interestSaveDto) {
+	public void changeInterest(@RequestBody InterestSaveDto interestSaveDto) {
 		deleteInterest(interestSaveDto.getUserId()); // 기존의 선호정보 삭제
 		saveInterest(interestSaveDto); // 유저가 입력한 선호정보로 변경
 	}
