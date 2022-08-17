@@ -40,13 +40,7 @@ export default {
     SET_FOLLOWTAB: (state, followtab) => (state.followtab = followtab),
     SET_ISDELETE: (state, isDelete) => (state.isDelete = isDelete),
     SPLICE_FEEDPOPS: function (state, id) {
-      for (const tmp in state.feedPops) {
-        if (tmp + 1 === id) {
-          delete state.feedPops.tmp;
-          break;
-        }
-      }
-      console.log("됐냐");
+      state.feedPops.splice(id, 1);
     },
     SET_FEEDPOP: (state, feedPop) => (state.feedPop = feedPop),
     SET_EDITUSERINFO: (state, editUserInfo) =>
@@ -63,14 +57,16 @@ export default {
     // 어떤 유저인지를 입력변수로 받음
     fetchFeedUserInfo({ commit }, userId) {
       console.log("우선 여기", userId);
-      axios({
-        method: "get",
-        url: `http://localhost:8080/user/profile/${userId}`,
-        // url: `http://localhost:8080/user/profile/1`,
-      }).then((res) => {
-        commit("SET_FEEDUSERINFO", res.data);
-        router.push({ name: "feed" });
-      });
+      if (userId != 0) {
+        axios({
+          method: "get",
+          url: `http://localhost:8080/user/profile/${userId}`,
+          // url: `http://localhost:8080/user/profile/1`,
+        }).then((res) => {
+          commit("SET_FEEDUSERINFO", res.data);
+          router.push({ name: "feed" });
+        });
+      }
     },
 
     // 마이 프로필 화면 중간 피드 목록 받는 함수
@@ -79,35 +75,37 @@ export default {
     // fetchFeedList({ commit, getters }, userId) {
     fetchFeedList({ commit, getters }, userId) {
       console.log("2번");
-      axios({
-        method: "get",
-        url: `http://localhost:8080/user/profile/feed/${userId}`,
-        // url: `http://localhost:8080/user/profile/feed/1`,
-      }).then((res) => {
-        console.log("피드리스트", res.data);
-        if (res.data.length == 0) {
-          commit("SET_FEEDPOPS", []);
-        }
-        for (const feed of res.data) {
-          if (feed.first) {
-            console.log("3번");
-            axios({
-              method: "post",
-              url: "http://localhost:8080/user/profile/popList",
-              data: {
-                userId: getters.userId,
-                feedId: feed.id,
-              },
-            }).then((res) => {
-              console.log(getters.userId);
-              console.log(getters.userId);
-              console.log("피드 팝스", res.data);
-              commit("SET_FEEDPOPS", res.data);
-            });
+      if (userId != 0) {
+        axios({
+          method: "get",
+          url: `http://localhost:8080/user/profile/feed/${userId}`,
+          // url: `http://localhost:8080/user/profile/feed/1`,
+        }).then((res) => {
+          console.log("피드리스트", res.data);
+          if (res.data.length == 0) {
+            commit("SET_FEEDPOPS", []);
           }
-        }
-        commit("SET_FEEDLIST", res.data);
-      });
+          for (const feed of res.data) {
+            if (feed.first) {
+              console.log("3번");
+              axios({
+                method: "post",
+                url: "http://localhost:8080/user/profile/popList",
+                data: {
+                  userId: getters.userId,
+                  feedId: feed.id,
+                },
+              }).then((res) => {
+                console.log(getters.userId);
+                console.log(getters.userId);
+                console.log("피드 팝스", res.data);
+                commit("SET_FEEDPOPS", res.data);
+              });
+            }
+          }
+          commit("SET_FEEDLIST", res.data);
+        });
+      }
     },
 
     // 피드 클릭 시 피드의 팝스들을 리스트로 받는 함수
@@ -157,6 +155,7 @@ export default {
     },
 
     spliceFeedPops({ commit }, id) {
+      console.log("actions", id);
       commit("SPLICE_FEEDPOPS", id);
     },
     getProfileInfo({ commit }, userId) {

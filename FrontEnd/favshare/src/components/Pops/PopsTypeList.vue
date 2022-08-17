@@ -1,11 +1,26 @@
 <template>
-  <div class="pops-type mt-2">
+  <!-- <div class="pops-type mt-2">
     <div v-for="popsTypeItem in popsTypeList" :key="popsTypeItem.id">
       <pops-type-list-item
         @click-type="searchPopsType"
         :pops-type-item="popsTypeItem"
       ></pops-type-list-item>
     </div>
+  </div> -->
+  <div>
+    <v-sheet class="mx-auto" max-width="330">
+      <v-slide-group multiple>
+        <v-slide-item
+          v-for="popsTypeItem in popsTypeList"
+          :key="popsTypeItem.id"
+        >
+          <pops-type-list-item
+            @click-type="searchPopsType"
+            :pops-type-item="popsTypeItem"
+          ></pops-type-list-item>
+        </v-slide-item>
+      </v-slide-group>
+    </v-sheet>
   </div>
 </template>
 
@@ -36,11 +51,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .pops-type {
-  /* 가로 스크롤 */
-  height: 100px;
-  overflow: auto;
-  white-space: nowrap;
+  margin: auto;
 }
 </style>

@@ -25,26 +25,26 @@
       <v-col cols="12">
         <p>피드 선택</p>
       </v-col>
-      <div class="scroll-horizontal">
-        <v-col
-          v-for="feedListItem in feedList"
-          :key="feedListItem.feedId"
-          cols="3"
-          align="center"
-        >
-          <div
-            class="unselected feed"
-            :id="feedListItem.feedId"
-            @click="selectFeed"
-          >
-            {{ feedListItem.name }}
-          </div>
-        </v-col>
-        <v-col cols="3" align="center">
-          <div class="unselected feed" id="0" @click="selectFeed">전체</div>
-        </v-col>
-      </div>
     </v-row>
+    <div class="scroll-horizontal" no-gutters>
+      <div
+        v-for="feedListItem in feedList"
+        :key="feedListItem.id"
+        align="center"
+      >
+        <div
+          class="unselected feed"
+          :id="feedListItem.id"
+          @click="selectFeed"
+          :style="`background-image: url(${feedListItem.feedImageUrl})`"
+        >
+          {{ feedListItem.name }}
+        </div>
+      </div>
+      <div align="center">
+        <div class="unselected feed" id="0" @click="selectFeed">전체</div>
+      </div>
+    </div>
   </v-container>
 </template>
 
@@ -84,9 +84,11 @@ export default {
 }
 
 .scroll-horizontal {
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
   display: flex;
+  height: 100px;
 }
 
 .feed {
@@ -96,6 +98,9 @@ export default {
   background-color: #efeff0;
   border: 2px solid;
   border-radius: 50%;
+  margin-right: 15px;
+  padding-top: 45px;
+  font-size: 12px;
 }
 
 .unselected {

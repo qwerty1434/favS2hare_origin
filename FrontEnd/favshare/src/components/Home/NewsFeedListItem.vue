@@ -5,7 +5,7 @@
         <youtube
           :video-id="youtubePk"
           :player-vars="playerVars"
-          :ref="'pops' + this.feedPop.popsId"
+          :ref="'pops' + this.newsFeedPop.popsId"
           @ready="onPlayerReady"
           @playing="onPlaying"
           :width="320"
@@ -18,17 +18,20 @@
           <router-link
             :to="{
               name: 'feed',
-              params: { userPk: feedPop.userProfileDto.id },
+              params: { userPk: newsFeedPop.userProfileDto.id },
             }"
           >
-            <img :src="this.feedPop.userProfileDto.profileImageUrl" alt="" />
+            <img
+              :src="this.newsFeedPop.userProfileDto.profileImageUrl"
+              alt=""
+            />
           </router-link>
         </div>
         <div class="title">
           <h3>
-            {{ this.feedPop.userProfileDto.nickname }}
+            {{ this.newsFeedPop.userProfileDto.nickname }}
           </h3>
-          <div class="pop-name">{{ feedPop.popDto.name }}</div>
+          <div class="pop-name">{{ newsFeedPop.popDto.name }}</div>
         </div>
       </div>
     </v-sheet>
@@ -46,11 +49,12 @@ Vue.use(VueYoutube);
 export default {
   name: "NewsFeedListItem",
   props: {
-    feedPop: Object,
+    newsFeedPop: Object,
     // newsFeedPop: Object, // {}
   },
   data() {
     return {
+      tmp: String,
       playerVars: {
         autoplay: 1,
         mute: 1,
@@ -59,17 +63,17 @@ export default {
       },
       // tmp data
       section: {
-        start: this.feedPop.popDto.startSecond,
-        end: this.feedPop.popDto.endSecond,
+        start: this.newsFeedPop.popDto.startSecond,
+        end: this.newsFeedPop.popDto.endSecond,
       },
     };
   },
   computed: {
     youtubePk() {
-      return this.feedPop.popDto.youtubeUrl;
+      return this.newsFeedPop.popDto.youtubeUrl;
     },
     player() {
-      return this.$refs[`pops${this.feedPop.popsId}`].player;
+      return this.$refs[`pops${this.newsFeedPop.popsId}`].player;
     },
   },
   methods: {
@@ -84,10 +88,14 @@ export default {
     restartVideoSection() {
       this.player.seekTo(this.section.start);
     },
+    printFeed() {
+      console.log(this.newsFeedPop);
+    },
   },
-  // created() {
-  //   this.playVideo();
-  // },
+  created() {
+    // this.playVideo();
+    this.printFeed();
+  },
 };
 </script>
 

@@ -3,5 +3,6 @@ module.exports = defineConfig({
   transpileDependencies: ["vuetify"],
   devServer: {
     allowedHosts: "all",
+    historyApiFallback: true,
   },
 });

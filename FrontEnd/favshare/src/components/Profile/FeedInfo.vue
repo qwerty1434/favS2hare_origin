@@ -3,7 +3,7 @@
     <div class="user-info">
       <div class="user-pic">
         <v-avatar>
-          <img :src="feedUserInfo.userPicture" alt="John" />
+          <img :src="feedUserInfo.profileImageUrl" alt="John" />
         </v-avatar>
       </div>
       <div class="profile-stats">
@@ -23,12 +23,14 @@
         </ul>
       </div>
     </div>
-    <div>
+    <div class="follow-edit">
       <div v-if="feedUserInfo.id === userId">
-        <button>프로필 편집</button>
+        <button @click="goProfileEdit">프로필 편집</button>
       </div>
       <div v-else>
-        <button>팔로우/팔로잉</button>
+        <div>
+          <button @click="followBtn">팔로우/팔로잉</button>
+        </div>
       </div>
     </div>
   </div>
@@ -77,6 +79,9 @@ export default {
     routerPushes(name) {
       router.push({ name: name });
     },
+    goProfileEdit() {
+      this.$router.push({ name: "profileedit" });
+    },
   },
   watch: {
     "$store.state.profile.feedUserInfo": function () {
@@ -86,7 +91,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.follow-edit {
+  text-align: center;
+  padding-top: 30px;
+  padding-right: 30px;
+}
 .user-info {
   display: flex;
 }
@@ -102,5 +112,9 @@ export default {
   padding-right: 10px;
   align-content: center;
   justify-content: center;
+}
+
+li {
+  text-align: center;
 }
 </style>

@@ -1,15 +1,12 @@
 <template>
   <div class="pops-type">
-    <v-row class="pops-row">
-      <div>
-        <v-avatar @click="fetchPopList(popsTypeItem.id)">
-          <img :src="popsTypeItem.idolImageUrl" alt="" />
-        </v-avatar>
-        <div>{{ popsTypeItem.name }}</div>
-      </div>
-    </v-row>
+    <v-avatar @click="fetchPopList(popsTypeItem.id)">
+      <img :src="popsTypeItem.idolImageUrl" alt="" />
+    </v-avatar>
+    <div>{{ popsTypeItem.name }}</div>
   </div>
 </template>
+
 <script>
 import { mapActions } from "vuex";
 export default {
@@ -40,7 +37,8 @@ export default {
 }
 
 .pops-type {
-  width: 330px;
+  width: 50px;
+  padding-right: 20px;
   margin: auto;
 }
 

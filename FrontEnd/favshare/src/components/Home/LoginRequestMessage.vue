@@ -6,7 +6,7 @@
       <button>로그인 하러 가기</button>
     </router-link> -->
     <div class="LRM-font rl text-center">
-      <v-btn rounded> 로그인 하러 가기 </v-btn>
+      <v-btn rounded @click="goSignin"> 로그인 하러 가기 </v-btn>
     </div>
   </div>
 </template>
@@ -16,6 +16,11 @@ export default {
   name: "LoginRequestMessage",
   data() {
     return {};
+  },
+  methods: {
+    goSignin() {
+      this.$router.push({ name: "signin" });
+    },
   },
 };
 </script>
