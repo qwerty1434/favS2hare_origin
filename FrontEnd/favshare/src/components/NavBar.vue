@@ -9,9 +9,9 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="goAlarm">
+      <!-- <v-btn icon @click="goAlarm">
         <v-icon>mdi-alarm</v-icon>
-      </v-btn>
+      </v-btn> -->
 
       <v-menu transition="slide-y-transition" bottom dense>
         <template v-slot:activator="{ on, attrs }">
