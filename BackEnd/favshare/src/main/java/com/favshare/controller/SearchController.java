@@ -40,7 +40,7 @@ public class SearchController {
 	public ResponseEntity search(@RequestBody UserIdMessageDto userIdMessageDto){
 		HashMap<String,List> result = new HashMap<String,List>();
 		int userId = userIdMessageDto.getUserId();
-		String message = userIdMessageDto.getMessage();
+		String message = userIdMessageDto.getMessage(); 
 		
 		List<PopDto> popList = popService.popDtoListByKeyword(message, userId);
 		result.put("pop",popList);

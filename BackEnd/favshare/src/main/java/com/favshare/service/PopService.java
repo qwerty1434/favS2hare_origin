@@ -344,7 +344,7 @@ public class PopService {
 	public List<PopDto> popDtoListByKeyword(String keyword, int userId){
 		
 		List<PopEntity> popEntityList = popRepository.findByKeywordContains(keyword);
-		
+		 
 		List<PopDto> popDtoList = new ArrayList<PopDto>();
 		for(int i = 0; i < popEntityList.size(); i++) {
 			boolean isLiked = isLiked(userId, popEntityList.get(i).getId());
