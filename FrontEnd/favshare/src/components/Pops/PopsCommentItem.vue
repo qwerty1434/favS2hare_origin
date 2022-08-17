@@ -54,12 +54,20 @@ export default {
     popsId: {
       type: Number,
     },
+    userId: {
+      type: Number,
+    },
   },
   data() {
     return {
       createDate: dayjs(this.commentListItem.createDate).format("YYYY-MM-DD HH:mm"),
       isLiked: false,
     };
+  },
+  created() {
+    if (this.commentListItem.liked) {
+      this.isLiked = true;
+    }
   },
   computed: {
     ...mapGetters(["popsIdInPopsTab", "userIdInPopsTab"]),

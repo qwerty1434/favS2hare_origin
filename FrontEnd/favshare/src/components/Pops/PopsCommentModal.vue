@@ -15,6 +15,7 @@
       <div v-for="commentListItem in commentList" :key="commentListItem.id">
         <pops-comment-item
           :pops-id="popsId"
+          :user-id="userId"
           :comment-list-item="commentListItem"
         ></pops-comment-item>
       </div>

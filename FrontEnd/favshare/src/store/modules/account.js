@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 export default {
   state: {
     isSignin: false,
-    userId: 1,
+    // userId: 1,
     isSigninError: false,
     userInfo: null,
   },

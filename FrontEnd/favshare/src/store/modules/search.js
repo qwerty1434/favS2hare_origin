@@ -20,27 +20,39 @@ export default {
       (state.searchedFollowingList = searchedFollowingList),
   },
   actions: {
-    getSearchedPopsList({ commit }, { keyword }) {
+    getSearchedPopsList({ commit }, { keyword, userId }) {
       console.log(keyword);
       axios({
         method: "get",
-        url: `http://localhost:8080/search/${keyword}`,
+        url: `http://localhost:8080/search`,
+        data: {
+          keyword: keyword,
+          userId: userId,
+        },
       }).then((res) => {
         commit("SET_SEARCHEDPOPS_LIST", res.data.pop);
       });
     },
-    getSearchedYoutubeList({ commit }, { keyword }) {
+    getSearchedYoutubeList({ commit }, { keyword, userId }) {
       axios({
         method: "get",
-        url: `http://localhost:8080/search/${keyword}`,
+        url: `http://localhost:8080/search`,
+        data: {
+          keyword: keyword,
+          userId: userId,
+        },
       }).then((res) => {
         commit("SET_SEARCHEDYOUTUBE_LIST", res.data.youtube);
       });
     },
-    getSearchedFollowingList({ commit }, { keyword }) {
+    getSearchedFollowingList({ commit }, { keyword, userId }) {
       axios({
         method: "get",
-        url: `http://localhost:8080/search/${keyword}`,
+        url: `http://localhost:8080/search`,
+        data: {
+          keyword: keyword,
+          userId: userId,
+        },
       }).then((res) => {
         console.log(res.data);
         commit("SET_SEARCHEDFOLLOWING_LIST", res.data.user);

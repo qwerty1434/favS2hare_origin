@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   state: {
-    userIdInMyVideo: 1,
+    // userIdInMyVideo: 1,
     myVideoList: [],
   },
   getters: {
