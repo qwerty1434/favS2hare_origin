@@ -32,6 +32,9 @@ public class StoreYoutubeService {
 	
 	//교차엔티티에 값을 넣어줘야함
 	public void insertBookmark(YoutubeUserIdDto youtubeUserIdDto) {
+		
+		insertYoutube(youtubeUserIdDto);
+
 		StoreYoutubeEntity storeYoutubeEntity = new StoreYoutubeEntity();
 		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
 		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
@@ -40,11 +43,18 @@ public class StoreYoutubeService {
 			
 			if(youtubeEntity == null) {
 				youtubeEntity = youtubeEntity.builder().url(youtubeUserIdDto.getYoutubeUrl()).build();
-				youtubeRepository.save(youtubeEntity);
 			}
 			storeYoutubeEntity = storeYoutubeEntity.builder().userEntity(userEntity).youtubeEntity(youtubeEntity).build();
 			
 			storeYoutubeRepository.save(storeYoutubeEntity);
+		}
+	}
+	
+	public void insertYoutube(YoutubeUserIdDto youtubeUserIdDto) {
+		if(youtubeRepository.isDuplicated(youtubeUserIdDto.getYoutubeUrl()) < 1) {
+			
+			YoutubeEntity youtubeEntity = YoutubeEntity.builder().url(youtubeUserIdDto.getYoutubeUrl()).build();
+			youtubeRepository.save(youtubeEntity);
 		}
 	}
 	
