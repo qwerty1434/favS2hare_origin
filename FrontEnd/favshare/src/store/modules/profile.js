@@ -212,7 +212,7 @@ export default {
     fetchFollowingList({ commit, getters }) {
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/user/follow/from${getters.userID}`,
+        url: `http://13.124.112.241:8080/user/follow/from/${getters.userId}`,
       }).then((res) => {
         commit("SET_FOLLOWINGLIST", res.data);
       });

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div v-for="(follwerItem, index) in follwerList" :key="index">
+    <div v-for="(followerItem, index) in followerList" :key="index">
       <follower-list-item :follower-item="followerItem"></follower-list-item>
     </div>
   </v-container>

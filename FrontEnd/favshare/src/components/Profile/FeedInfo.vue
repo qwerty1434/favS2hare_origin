@@ -16,7 +16,7 @@
             <div>팔로워 수</div>
             <div>{{ feedUserInfo.followerNum }}</div>
           </li>
-          <li @click="[setTabFollower, routerPushes('follow')]">
+          <li @click="[setTabFollowing, routerPushes('follow')]">
             <div>팔로잉 수</div>
             <div>{{ feedUserInfo.followingNum }}</div>
           </li>
