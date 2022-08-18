@@ -58,7 +58,7 @@ public class UserPasswordController {
 	public ResponseEntity<String> sendAuth(@PathVariable("email") String email) {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper;
-		try {
+		try { 
 			helper = new MimeMessageHelper(message, true);
 			helper.setFrom("favshare" + FROM_ADDRESS);
 			helper.setTo(email);
