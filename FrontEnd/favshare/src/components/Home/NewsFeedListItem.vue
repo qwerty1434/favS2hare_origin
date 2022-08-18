@@ -1,7 +1,12 @@
 <template>
+  <!-- eslint-disable -->
   <div>
-    <v-sheet class="video" elevation="2" rounded="xl">
-      <div class="video__thumbnail">
+    <v-sheet
+      class="video"
+      elevation="2"
+      style="border-bottom-left-radius: 8px; border-bottom-right-radius: 8px"
+    >
+      <div class="video__thumbnail" @click="goPopsDetail">
         <youtube
           :video-id="youtubePk"
           :player-vars="playerVars"
@@ -10,10 +15,11 @@
           @playing="onPlaying"
           :width="320"
           :height="180"
-          style="pointer-events: none; border-radius: 8px"
+          style="pointer-events: none; border-top-left-radius: 8px; border-top-right-radius: 8px"
         ></youtube>
       </div>
-      <div class="video__details">
+      <div class="pop-name"></div>
+      <div class="video__details row-title">
         <div
           class="author"
           @click="
@@ -27,11 +33,29 @@
         >
           <img :src="this.newsFeedPop.userProfileDto.profileImageUrl" alt="" />
         </div>
-        <div class="title">
-          <h3>
-            {{ this.newsFeedPop.userProfileDto.nickname }}
-          </h3>
-          <div class="pop-name">{{ newsFeedPop.popDto.name }}</div>
+        <div class="row-title">
+          <v-row class="">
+            <v-col>
+              <h3>
+                {{ newsFeedPop.popDto.name }}
+              </h3>
+            </v-col>
+          </v-row>
+          <v-row class="mt-n5 row-title">
+            <v-col cols="7">
+              <h5 class="grey--text">
+                {{ this.newsFeedPop.userProfileDto.nickname }}
+              </h5>
+            </v-col>
+            <v-col>
+              <h4>
+                <v-icon small> mdi-eye </v-icon>
+                {{ newsFeedPop.popDto.views }}&nbsp;&nbsp;
+                <v-icon small> mdi-heart </v-icon>
+                {{ newsFeedPop.popDto.likeCount }}
+              </h4>
+            </v-col>
+          </v-row>
         </div>
       </div>
     </v-sheet>
@@ -97,6 +121,16 @@ export default {
     routerPushes(icon) {
       router.push({ name: icon });
     },
+    goPopsDetail() {
+      console.log(this.newsFeedPop.userId);
+      this.$router.push({
+        name: "popsdetail",
+        params: {
+          popsId: this.newsFeedPop.popDto.id,
+          editorId: this.newsFeedPop.popDto.userId,
+        },
+      });
+    },
   },
   created() {
     // this.playVideo();
@@ -107,8 +141,9 @@ export default {
 
 <style scoped>
 .video {
+  height: 250px;
   width: 320px;
-  margin-bottom: 10px;
+  margin-top: -10px;
 }
 
 .video__thumbnail {
@@ -135,8 +170,8 @@ export default {
 .author img {
   object-fit: cover;
   border-radius: 50%;
-  height: 30px;
-  width: 30px;
+  height: 50px;
+  width: 50px;
   margin-right: 10px;
 }
 
@@ -145,16 +180,12 @@ export default {
   flex-direction: row;
 }
 
-.title h3 {
-  color: rgb(3, 3, 3);
-  line-height: 18px;
-  font-size: 14px;
-  margin-bottom: 6px;
+.row-title {
+  width: 260px;
 }
 
 .pop-name {
-  padding-left: 30px;
-  text-align: center;
+  padding-left: 10px;
   font-size: 20px;
 }
 </style>

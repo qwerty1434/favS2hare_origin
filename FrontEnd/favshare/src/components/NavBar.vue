@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar color="white" elevation="0" dense>
+    <v-app-bar color="white" elevation="1" dense>
       <router-link :to="{ name: 'home' }" active-class="navbar-active">
         <img class="navbar__logo" src="@/assets/favshare.png" alt="Logo" />
       </router-link>
@@ -47,7 +47,6 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-    <v-divider></v-divider>
   </div>
 </template>
 
