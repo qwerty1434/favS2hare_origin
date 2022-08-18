@@ -122,12 +122,12 @@ export default {
       router.push({ name: icon });
     },
     goPopsDetail() {
-      console.log(this.newsFeedPop.userId);
+      console.log(this.newsFeedPop.userProfileDto.nickname);
       this.$router.push({
         name: "popsdetail",
         params: {
           popsId: this.newsFeedPop.popDto.id,
-          editorId: this.newsFeedPop.popDto.userId,
+          editorId: this.newsFeedPop.userProfileDto.nickname,
         },
       });
     },

@@ -47,10 +47,9 @@
               ></youtube>
               <!-- style="pointer-events: none" -->
             </div>
-            <h1 class="white--text">{{ playerVars }}</h1>
           </v-sheet>
           <div class="pops-editer">
-            <h2>{{ this.popsInfo.userId }}</h2>
+            <h3>{{ editorId }}</h3>
           </div>
         </div>
         <v-row class="mt-550">
@@ -69,21 +68,21 @@
               <v-icon>mdi-heart</v-icon>
             </v-btn>
           </div>
-          <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogComment">
+          <v-btn class="mt-2" text icon color="white" @click.stop="dialogComment = true">
             <v-icon>mdi-comment-text-outline</v-icon>
           </v-btn>
           <pops-comment-modal
             :pops-id="popsId"
-            :user-id="userId"
+            :editor-id="editorId"
             :value="dialogComment"
             @input="dialogComment = $event"
           ></pops-comment-modal>
-          <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogInfo">
+          <v-btn class="mt-2" text icon color="white" @click.stop="dialogInfo = true">
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
           <pops-info-modal
             :pops-id="popsId"
-            :user-id="userId"
+            :editor-id="editorId"
             :value="dialogInfo"
             @input="dialogInfo = $event"
           ></pops-info-modal>
@@ -110,38 +109,39 @@ export default {
   components: { PopsCommentModal, PopsInfoModal, BottomNavigationBar },
   data() {
     return {
-      playerVars: {
-        autoplay: 1,
-        mute: 1,
-        controls: 0,
-        disablekb: 1,
-      },
-      section: {
-        start: this.popsInfo.startSecond,
-        end: this.popsInfo.endSecond,
-      },
+      dialogComment: false,
+      dialogInfo: false,
     };
-  },
-  watch: {
-    "this.dialogComment": function () {
-      console.log(this.dialogComment);
-    },
   },
   props: {
     popsId: {
       type: Number,
     },
     editorId: {
-      type: Number,
+      type: String,
     },
   },
   computed: {
-    ...mapGetters(["isSignin", "userId", "popsInfo", "isLiked", "dialogComment", "dialogInfo"]),
+    ...mapGetters(["isSignin", "userId", "popsInfo", "isLiked"]),
     player() {
       return this.$refs[`pops${this.popsInfo.id}`].player;
     },
     youtubePk() {
       return this.popsInfo.url;
+    },
+    playerVars() {
+      return {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        disablekb: 1,
+      };
+    },
+    section() {
+      return {
+        start: this.popsInfo.startSecond,
+        end: this.popsInfo.endSecond,
+      };
     },
   },
   created() {
@@ -149,22 +149,14 @@ export default {
     this.countView({ popId: this.popsId });
     console.log("전달받은 popsID " + this.popsId);
     console.log("전달받은 editorId " + this.editorId);
-    this.getPopsInfo({ popId: this.popsId, userId: this.editorId });
+    this.getPopsInfo({ popId: this.popsId, userId: this.userId });
     if (this.popsInfo.liked) {
       this.isLiked = true;
     }
     console.log("pops생성 " + this.popsInfo.name);
   },
   methods: {
-    ...mapActions([
-      "getPopsInfo",
-      "likePops",
-      "unLikePops",
-      "fetchDialogComment",
-      "fetchDialogInfo",
-      "deletePopsOne",
-      "countView",
-    ]),
+    ...mapActions(["getPopsInfo", "likePops", "unLikePops", "deletePopsOne", "countView"]),
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();
