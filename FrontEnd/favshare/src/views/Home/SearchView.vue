@@ -1,18 +1,24 @@
 <template>
   <!-- eslint-disable -->
   <div>
-    <div class="top">
-      <search-bar @input-change="searchOnEnter"></search-bar>
+    <div v-if="isSignin">
+      <div class="top">
+        <search-bar @input-change="searchOnEnter"></search-bar>
+      </div>
+      <!-- v-if로 검색전, 검색후 화면 나누기 -->
+      <div class="search-view" v-if="searchSuccess">
+        <!-- <div class="search-view"> -->
+        <search-result
+          :searched-keyword="keyword"
+          :pops-list="popsList"
+          :youtube-list="youtubeList"
+          :user-list="userList"
+        ></search-result>
+      </div>
     </div>
-    <!-- v-if로 검색전, 검색후 화면 나누기 -->
-    <div class="search-view" v-if="searchSuccess">
-      <!-- <div class="search-view"> -->
-      <search-result
-        :searched-keyword="keyword"
-        :pops-list="popsList"
-        :youtube-list="youtubeList"
-        :user-list="userList"
-      ></search-result>
+    <div v-else>
+      <nav-bar></nav-bar>
+      <login-request-message></login-request-message>
     </div>
     <div class="bottom">
       <bottom-navigation-bar></bottom-navigation-bar>
@@ -22,6 +28,8 @@
 
 <script>
 /* eslint-disable */
+import NavBar from "@/components/NavBar.vue";
+import LoginRequestMessage from "@/components/Home/LoginRequestMessage.vue";
 import SearchBar from "@/components/common/SearchBar.vue";
 import SearchResult from "@/components/Home/search/SearchResult.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
@@ -29,7 +37,7 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "SearchView",
-  components: { SearchBar, SearchResult, BottomNavigationBar },
+  components: { NavBar, LoginRequestMessage, SearchBar, SearchResult, BottomNavigationBar },
   data() {
     return {
       searchSuccess: false,
@@ -41,7 +49,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["userId", "searchedPopsList", "searchedYoutubeList", "searchedFollowingList"]),
+    ...mapGetters([
+      "isSignin",
+      "userId",
+      "searchedPopsList",
+      "searchedYoutubeList",
+      "searchedFollowingList",
+    ]),
   },
   mounted() {
     this.paramsData = JSON.parse(this.$route.query.keyword);
