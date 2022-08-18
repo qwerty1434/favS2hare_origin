@@ -12,11 +12,27 @@
             <div class="stat-font">게시 팝</div>
             <div>{{ feedUserInfo.popCount }}</div>
           </li>
-          <li @click="[setTabFollower, routerPushes('follow')]">
+          <li
+            @click="
+              [
+                setTabFollower,
+                routerPushes('follow'),
+                fetchFollowerList(feedUserInfo.id),
+              ]
+            "
+          >
             <div class="stat-font">팔로워 수</div>
             <div>{{ feedUserInfo.followerNum }}</div>
           </li>
-          <li @click="[setTabFollower, routerPushes('follow')]">
+          <li
+            @click="
+              [
+                setTabFollower,
+                routerPushes('follow'),
+                fetchFollowingList(feedUserInfo.id),
+              ]
+            "
+          >
             <div class="stat-font">팔로잉 수</div>
             <div>{{ feedUserInfo.followingNum }}</div>
           </li>

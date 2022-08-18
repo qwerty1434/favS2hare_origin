@@ -18,9 +18,6 @@ export default {
   methods: {
     ...mapActions(["fetchFollowerList"]),
   },
-  created() {
-    this.fetchFollowerList();
-  },
 };
 </script>
 

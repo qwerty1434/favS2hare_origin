@@ -1,16 +1,17 @@
 <template>
   <div class="pops-all">
-    <div v-if="!isDelete" class="delete-button">
+    <div v-if="!isDelete" style="position: relative; padding-left: 68px">
       <v-btn
         fab
         x-small
         color="amber accent-1"
+        absolute
         @click="[deleteFeedPop(), spliceFeedPops(index)]"
       >
         <v-icon>mdi-minus-circle-outline</v-icon>
       </v-btn>
     </div>
-    <div class="feed-pops-item" @click="routerPush('popsinfeed')">
+    <div class="feed-pops-item" @click="goPopsDetail">
       <youtube
         :video-id="feedPop.youtubeUrl"
         :player-vars="playerVars"
@@ -67,6 +68,15 @@ export default {
   },
   methods: {
     ...mapActions(["spliceFeedPops", "fetchFeedPop"]),
+    goPopsDetail() {
+      this.$router.push({
+        name: "popsdetail",
+        params: {
+          popsId: this.feedPop.id,
+          editorId: this.feedPop.userId,
+        },
+      });
+    },
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();
@@ -122,10 +132,12 @@ export default {
   display: flex;
   text-align: center;
   justify-content: center;
+  width: 164px;
+  height: 92.25px;
 } */
-.delete-button {
+/* .delete-button {
   left: 50px;
-}
+} */
 
 .feed-pops-item {
   margin: auto;
