@@ -35,6 +35,7 @@
 
 <script>
 import axios from "axios";
+import googleAPI from "@/api/googleAPI";
 
 export default {
   name: "YoutubeListItem",
@@ -60,23 +61,29 @@ export default {
     getVideoInfo() {
       // 썸네일, 채널 id 받아오기
       // console.log(this.homeYoutube.youtubeId);
-      axios({
-        method: "get",
-        url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.homeYoutube.youtubeId}&key=AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A`,
-      }).then((res) => {
+      const API_KEY = process.env.VUE_APP_API_KEY_1;
+      const params = {
+        key: API_KEY,
+        part: "snippet",
+        id: this.homeYoutube.youtubeId,
+      };
+      axios.get(googleAPI.videos(), { params }).then((res) => {
         this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
         this.videoTitle = res.data.items[0].snippet.title;
         const tmpChannelId = res.data.items[0].snippet.channelId;
-        axios({
-          method: "get",
-          url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A`,
-        }).then((res) => {
-          // console.log(res);
-          // console.log(res.data.items[0].snippet.thumbnails.default.url);
-          this.channelProfilePic =
-            res.data.items[0].snippet.thumbnails.default.url;
-          this.channelName = res.data.items[0].snippet.title;
-        });
+        axios
+          .get(googleAPI.channels(), {
+            key: API_KEY,
+            part: "snippet",
+            id: tmpChannelId,
+          })
+          .then((res) => {
+            // console.log(res);
+            // console.log(res.data.items[0].snippet.thumbnails.default.url);
+            this.channelProfilePic =
+              res.data.items[0].snippet.thumbnails.default.url;
+            this.channelName = res.data.items[0].snippet.title;
+          });
       });
     },
   },

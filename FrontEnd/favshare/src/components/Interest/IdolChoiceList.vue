@@ -10,7 +10,7 @@
       v-for="idolListItem in idolList"
       :id="idolListItem.id"
       :name="idolListItem.name"
-      :picture="idolListItem.picture"
+      :picture="idolListItem.idolImageUrl"
       :key="idolListItem.id"
       @selectIdol="emitSelectIdol"
       @unselectIdol="emitUnselectIdol"

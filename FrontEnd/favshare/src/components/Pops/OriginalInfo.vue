@@ -20,6 +20,7 @@
 
 <script>
 import axios from "axios";
+import googleAPI from "@/api/googleAPI";
 
 export default {
   name: "OriginalInfo",
@@ -37,15 +38,14 @@ export default {
   methods: {
     // youtube api: 원본 동영상에 대한 정보 요청
     getOriginalInfo() {
-      const URL = "https://www.googleapis.com/youtube/v3/videos";
-      const API_KEY = "AIzaSyDzn6H3ySugFQgEV9RaH0fV4-HBYXRWZ6A";
+      const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {
         key: API_KEY,
         part: "snippet",
         id: this.youtubeUrl,
       };
       axios
-        .get(URL, { params })
+        .get(googleAPI.videos(), { params })
         .then((response) => {
           this.title = response.data.items[0].snippet.title;
           this.thumbnail = response.data.items[0].snippet.thumbnails.medium.url;

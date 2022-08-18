@@ -6,24 +6,29 @@
     absolute
     class="bottom"
   >
-    <v-btn @click="[routerPushes('home'), fetchBottomValue(1)]">
+    <v-btn class="pinkBtn" @click="[routerPushes('home'), fetchBottomValue(1)]">
       <span>Home</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
     <v-btn
+      class="pinkBtn"
       @click="[routerPushes('pops'), fetchBottomValue(2), fetchPopList(0)]"
     >
       <span>Pops</span>
       <v-icon>mdi-party-popper</v-icon>
     </v-btn>
 
-    <v-btn @click="[routerPushes('search'), fetchBottomValue(3)]">
+    <v-btn
+      class="pinkBtn"
+      @click="[routerPushes('search'), fetchBottomValue(3)]"
+    >
       <span>Search</span>
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
     <v-btn
+      class="pinkBtn"
       @click="
         [
           fetchFeedUserInfo(userId),
@@ -86,4 +91,8 @@ export default {
 .bnav-active {
   color: #ff5d5d !important;
 } */
+
+.v-btn.pinkBtn {
+  color: #ff5d5d !important;
+}
 </style>
