@@ -59,7 +59,7 @@ export default {
       playerVars: {
         autoplay: 1,
         mute: 1,
-        contros: 0,
+        controls: 0,
         disablekb: 1,
       },
       // tmp data

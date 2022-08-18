@@ -11,7 +11,16 @@
             <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
           </div>
           <div v-else>
-            <button @click="fetchIsDelete(true)">[삭제완료]</button>
+            <v-btn
+              class="ma-2"
+              outlined
+              color="red lighten-1"
+              elevation="2"
+              small
+              @click="fetchIsDelete(true)"
+              >삭제완료</v-btn
+            >
+            <!-- <button @click="fetchIsDelete(true)">삭제</button> -->
           </div>
         </div>
         <!-- <div v-if="isDelete">
