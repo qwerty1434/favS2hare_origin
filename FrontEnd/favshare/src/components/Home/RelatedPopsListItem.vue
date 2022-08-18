@@ -9,7 +9,13 @@
           ref="youtube"
           :width="150"
           :height="167"
-          style="pointer-events: none; border-top-left-radius: 8px; border-top-right-radius: 8px"
+          @ready="onPlayerReady"
+          @playing="onPlaying"
+          style="
+            pointer-events: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+          "
         ></youtube>
       </div>
       <v-card-actions class="mt-n2 mb-n2">
@@ -58,6 +64,7 @@ export default {
         autoplay: 1,
         controls: 0,
         mute: 1,
+        disablekb: 1,
       },
       section: {
         start: this.popsItem.startSecond,
