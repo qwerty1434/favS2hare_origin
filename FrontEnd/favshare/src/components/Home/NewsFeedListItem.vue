@@ -10,7 +10,7 @@
         <youtube
           :video-id="youtubePk"
           :player-vars="playerVars"
-          :ref="'pops' + this.newsFeedPop.popsId"
+          :ref="'pops' + this.newsFeedPop.popDto.id"
           @ready="onPlayerReady"
           @playing="onPlaying"
           :width="320"
@@ -98,11 +98,20 @@ export default {
       return this.newsFeedPop.popDto.youtubeUrl;
     },
     player() {
-      return this.$refs[`pops${this.newsFeedPop.popsId}`].player;
+      return this.$refs[`pops${this.newsFeedPop.popDto.id}`].player;
     },
   },
   methods: {
     ...mapActions(["fetchFeedUserInfo", "fetchFeedList", "fetchIsFollowing"]),
+    goPopsDetail() {
+      this.$router.push({
+        name: "popsdetail",
+        params: {
+          popsId: this.newsFeedPop.popDto.id,
+          editorId: this.newsFeedPop.popDto.userId,
+        },
+      });
+    },
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();
