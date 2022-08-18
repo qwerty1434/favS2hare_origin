@@ -87,7 +87,7 @@ export default {
     profilePopList: () => HOST + USER_PROFILE + "/popList", //post, get
   },
   youtube: {
-    youtube: (userId) => HOST + YOUTUBE + `${userId}`, // get
+    youtube: (userId) => HOST + YOUTUBE + `/${userId}`, // get
     detail: () => HOST + YOUTUBE + "/detail", // post
   },
   youtubeBookmark: {
