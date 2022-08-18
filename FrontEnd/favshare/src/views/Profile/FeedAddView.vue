@@ -24,6 +24,7 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import api from "@/api/springRestAPI";
 
 import MyPopsList from "@/components/Profile/MyPopsList.vue";
 
@@ -44,11 +45,15 @@ export default {
   methods: {
     getMyPopsList() {
       axios
-        .post("http://13.124.112.241:8080/user/profile/popList", {
-          // 전체 피드 조회는 feedId에 0 값
-          feedId: 0,
-          userId: this.userId,
-        })
+        .post(
+          // "http://13.124.112.241:8080/user/profile/popList"
+          api.userProfile.profilePopList(),
+          {
+            // 전체 피드 조회는 feedId에 0 값
+            feedId: 0,
+            userId: this.userId,
+          }
+        )
         .then((response) => {
           this.myPopsList = response.data;
           console.log(response.data);
@@ -70,10 +75,14 @@ export default {
       });
       // 선택된 Pops들 요청 보내기
       axios
-        .post("http://13.124.112.241:8080/feed/pop", {
-          feedId: this.currentFeedId,
-          popId: selectedList,
-        })
+        .post(
+          // "http://13.124.112.241:8080/feed/pop"
+          api.feed.pop(),
+          {
+            feedId: this.currentFeedId,
+            popId: selectedList,
+          }
+        )
         .then((response) => {
           console.log(response);
         })

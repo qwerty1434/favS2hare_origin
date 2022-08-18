@@ -6,6 +6,7 @@
     >
       <img :src="feedInfo.feedImageUrl" alt="" />
     </v-avatar>
+    <div v-if="feedInfo.first"></div>
     <div class="feed-name">{{ feedInfo.name }}</div>
   </div>
 </template>

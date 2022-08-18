@@ -18,8 +18,9 @@
 // 팔로우 버튼 누를 시 -> post요청 => fromUserId: 자기아이디, toUserId: 상대아이디
 // 팔로잉취수 버튼 누를 시 -> delete user/follow/from => fromUserId: 자기아이디, toUserId: 상대아이디
 import axios from "axios";
-
+import api from "@/api/springRestAPI";
 import { mapGetters } from "vuex";
+
 export default {
   name: "FollowingListItem",
   data() {
@@ -41,7 +42,7 @@ export default {
         event.target.textContent = "팔로우";
         axios({
           method: "post",
-          url: "http://13.124.112.241:8080/user/follow",
+          url: api.userFollow.follow(),
           data: {
             fromUserId: this.userId,
             toUserId: this.followingItem.toUserId,
@@ -52,7 +53,7 @@ export default {
         event.target.textContent = "팔로우 취소";
         axios({
           method: "delete",
-          url: "http://13.124.112.241:8080/user/follow/from",
+          url: api.userFollow.followFromDelete(),
           data: {
             fromUserId: this.userId,
             toUserId: this.followingItem.toUserId,

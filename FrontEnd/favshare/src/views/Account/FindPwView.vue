@@ -33,7 +33,12 @@
             ></v-text-field>
           </v-col>
           <v-col v-if="!isSent" offset="7" cols="4">
-            <v-btn class="btn" color="#FF5D5D" rounded dark @click.prevent="sendAuthNumber"
+            <v-btn
+              class="btn"
+              color="#FF5D5D"
+              rounded
+              dark
+              @click.prevent="sendAuthNumber"
               >인증번호 발송</v-btn
             >
           </v-col>
@@ -56,7 +61,12 @@
             ></v-text-field>
           </v-col>
           <v-col offset="7" cols="4">
-            <v-btn color="#ff5d5d" class="btn" rounded dark @click.prevent="checkAuthNumber"
+            <v-btn
+              color="#ff5d5d"
+              class="btn"
+              rounded
+              dark
+              @click.prevent="checkAuthNumber"
               >확인</v-btn
             >
           </v-col>
@@ -111,6 +121,7 @@
 
 <script>
 import axios from "axios";
+import api from "@/api/springRestAPI";
 /* eslint-disable */
 export default {
   name: "FindPwView",
@@ -129,9 +140,11 @@ export default {
       // 유효성검사 rule
       rules: {
         isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
-        authNumberLength: (value) => value.length == 15 || "인증번호는 15자입니다",
+        authNumberLength: (value) =>
+          value.length == 15 || "인증번호는 15자입니다",
         pwLength: (value) =>
-          (value.length >= 9 && value.length <= 16) || "PW는 8~16자로 작성해주세요",
+          (value.length >= 9 && value.length <= 16) ||
+          "PW는 8~16자로 작성해주세요",
         pwSame: (value) => value === this.password || "PW와 일치하지 않습니다",
       },
     };
@@ -140,7 +153,8 @@ export default {
     // 이메일 형식인지 확인
     checkEmail(email) {
       /* eslint-disable-next-line */
-      const reg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+      const reg =
+        /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 
       return reg.test(email);
     },
@@ -152,13 +166,13 @@ export default {
         // 가입된 사용자 => then, 가입되지 않은 사용자 catch
         axios
           // .get(`http://13.124.112.241:8080/user/signup/${this.email}`)
-          .get(`http://13.124.112.241:8080/user/signup/${this.email}`)
+          .get(api.user.email(this.email))
           .then(() => {
             // 가입된 사용자만 인증번호 전송
             axios
               .get(
                 // `http://13.124.112.241:8080/user/password/sendAuth/${this.email}`
-                `http://13.124.112.241:8080/user/password/sendAuth/${this.email}`
+                api.userPassword.sendAuthToEmail(this.email)
               )
               .then((response) => {
                 // 요청 결과로 받은 인증번호 저장
@@ -201,7 +215,8 @@ export default {
         axios
           // .put("http://13.124.112.241:8080/user/password", {
           .put(
-            "http://13.124.112.241:8080/user/password",
+            // "http://13.124.112.241:8080/user/password",
+            api.userPassword.updatePw(),
             {},
             {
               params: {

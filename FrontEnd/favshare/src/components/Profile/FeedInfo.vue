@@ -80,6 +80,7 @@
 import router from "@/router";
 import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
+import api from "@/api/springRestAPI";
 
 export default {
   name: "FeedInfo",
@@ -104,7 +105,7 @@ export default {
       console.log(this.feedUserInfo.id);
       axios({
         method: "delete",
-        url: "http://13.124.112.241:8080/user/follow/from",
+        url: api.userFollow.followFromDelete(),
         data: {
           fromUserId: this.userId,
           toUserId: this.feedUserInfo.id,

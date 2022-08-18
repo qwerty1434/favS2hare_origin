@@ -21,6 +21,7 @@ import UploadForm from "@/components/Home/UploadForm.vue";
 
 import axios from "axios";
 import { mapGetters } from "vuex";
+import api from "@/api/springRestAPI";
 
 export default {
   name: "YoutubeEditView",
@@ -47,7 +48,8 @@ export default {
     getFeedList() {
       axios({
         method: "post",
-        url: "http://13.124.112.241:8080/youtube/edit/info",
+        // url: "http://13.124.112.241:8080/youtube/edit/info",
+        url: api.youtubeEdit.info(),
         data: {
           userId: this.userId,
           youtubeUrl: this.youtubeUrl,
@@ -65,7 +67,8 @@ export default {
     postPops() {
       axios({
         method: "post",
-        url: "http://13.124.112.241:8080/youtube/edit",
+        // url: "http://13.124.112.241:8080/youtube/edit",
+        url: api.youtubeEdit.youtubeEdit(),
         data: {
           userId: this.userId,
           youtubeUrl: this.youtubeUrl,

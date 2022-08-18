@@ -1,5 +1,6 @@
 // import router from "@/router";
 import axios from "axios";
+import api from "@/api/springRestAPI";
 
 export default {
   state: {
@@ -22,7 +23,8 @@ export default {
     // YoutubeList.vue 에서 사용
     fetchHomeYoutubes({ commit, getters }) {
       axios({
-        url: `http://13.124.112.241:8080/youtube/${getters.userId}`,
+        // url: `http://13.124.112.241:8080/youtube/${getters.userId}`,
+        url: api.youtube.youtube(getters.userId),
         method: "get",
       })
         .then((res) => commit("SET_HOMEYOUTUBES", res.data))
@@ -30,10 +32,10 @@ export default {
     },
     // NewsFeedList.vue 에서 사용
     fetchFriendFeedPops({ commit, getters }) {
-      console.log(`http://13.124.112.241:8080/pop/friend/${getters.userId}`);
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/pop/friend/${getters.userId}`,
+        // url: `http://13.124.112.241:8080/pop/friend/${getters.userId}`,
+        url: api.pop.friend(getters.userId),
       })
         .then((res) => {
           commit("SET_FEEDPOPS", res.data);

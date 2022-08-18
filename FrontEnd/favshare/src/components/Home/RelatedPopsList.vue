@@ -19,8 +19,16 @@
       </v-slide-group>
     </v-sheet> -->
     <v-row class="mt-n5 mb-14">
-      <v-col cols="6" align="center" v-for="popsItem in popsList" :key="popsItem.id">
-        <related-pops-list-item :pops-item="popsItem" :url="url"></related-pops-list-item>
+      <v-col
+        cols="6"
+        align="center"
+        v-for="popsItem in popsList"
+        :key="popsItem.id"
+      >
+        <related-pops-list-item
+          :pops-item="popsItem"
+          :url="url"
+        ></related-pops-list-item>
       </v-col>
     </v-row>
   </div>
@@ -30,6 +38,7 @@
 import axios from "axios";
 import RelatedPopsListItem from "./RelatedPopsListItem.vue";
 import { mapGetters } from "vuex";
+import api from "@/api/springRestAPI";
 
 export default {
   components: { RelatedPopsListItem },
@@ -50,7 +59,7 @@ export default {
     getPopsList() {
       axios({
         method: "post",
-        url: "http://13.124.112.241:8080/youtube/detail",
+        url: api.youtube.detail(),
         data: {
           userId: this.userId,
           youtubeUrl: this.videoInfo.videoId,
