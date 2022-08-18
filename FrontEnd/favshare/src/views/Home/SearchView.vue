@@ -60,7 +60,7 @@ export default {
       });
       this.getSearchedPopsList({ keyword: keyword, userId: this.userId });
       this.popsList = this.searchedPopsList;
-      this.getSearchedYoutubeList({ keyword: keyword, userId: this.userId });
+      this.getSearchedYoutubeList({ keyword: keyword });
       this.youtubeList = this.searchedYoutubeList;
       this.getSearchedFollowingList({ keyword: keyword, userId: this.userId });
       this.userList = this.searchedFollowingList;
