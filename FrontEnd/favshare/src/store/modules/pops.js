@@ -266,6 +266,7 @@ export default {
       });
     },
     fetchPopList({ commit, getters }, idolId) {
+      console.log("여기 PopList");
       axios({
         method: "post",
         // url: "http://13.124.112.241:8080/pop",
@@ -275,6 +276,7 @@ export default {
           userId: getters.userId,
         },
       }).then((res) => {
+        console.log(res.data);
         commit("SET_POPLIST", res.data);
       });
     },

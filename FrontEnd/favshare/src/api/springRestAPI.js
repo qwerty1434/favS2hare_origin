@@ -1,4 +1,4 @@
-const HOST = "http://localhost:8080";
+const HOST = "http://localhost:8080/api";
 
 // controller별로 변수 선언
 const COMMENT = "/pop/comment";
