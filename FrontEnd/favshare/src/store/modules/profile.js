@@ -171,7 +171,10 @@ export default {
         commit("SET_EDITUSERINFO", res.data);
       });
     },
-    updateProfileInfo({ commit }, { userId, nickname, content }) {
+    updateProfileInfo(
+      { commit },
+      { userId, nickname, content, profileImageUrl }
+    ) {
       console.log(userId);
       console.log(nickname);
       console.log(content);
@@ -182,6 +185,7 @@ export default {
           id: userId,
           nickname: nickname,
           content: content,
+          profileImageUrl: profileImageUrl,
         },
       })
         .then((res) => {
