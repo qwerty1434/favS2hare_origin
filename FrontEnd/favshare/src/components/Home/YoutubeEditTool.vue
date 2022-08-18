@@ -65,6 +65,7 @@
 
 <script>
 import axios from "axios";
+import googleAPI from "@/api/googleAPI";
 
 export default {
   name: "YoutubeEditTool",
@@ -121,15 +122,14 @@ export default {
   methods: {
     // 영상의 길이 가져오기
     getYoutubeDuration() {
-      const URL = "https://www.googleapis.com/youtube/v3/videos";
-      const API_KEY = "AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk";
+      const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {
         key: API_KEY,
         part: "contentDetails",
         id: this.$route.query.youtubeUrl,
       };
       axios
-        .get(URL, { params })
+        .get(googleAPI.videos(), { params })
         .then((response) => {
           // 응답으로 받아온 duration은 PT15M51S 형식
           // 해당 문자는 15분 51초를 뜻함
