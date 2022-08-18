@@ -91,6 +91,7 @@ export default {
       this.player.seekTo(this.section.start);
     },
     printFeed() {
+      console.log("herer");
       console.log(this.newsFeedPop);
     },
     routerPushes(icon) {

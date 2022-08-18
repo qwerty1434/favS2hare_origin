@@ -10,7 +10,15 @@
           <v-spacer></v-spacer>
           <v-menu transition="slide-y-transition" bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn class="ma-2" text icon color="white" v-bind="attrs" v-on="on">
+              <v-btn
+                v-if="popsInfo.userId == this.userId"
+                class="ma-2"
+                text
+                icon
+                color="white"
+                v-bind="attrs"
+                v-on="on"
+              >
                 <v-icon>mdi-dots-horizontal</v-icon>
               </v-btn>
             </template>
@@ -47,16 +55,20 @@
         </div>
         <v-row class="mt-550">
           <v-spacer></v-spacer>
-          <h6 class="like-count">{{ popsInfo.likeCount }}</h6>
+          <div v-if="isSignin">
+            <h6 class="like-count">{{ popsInfo.likeCount }}</h6>
+          </div>
         </v-row>
         <v-row class="pa-2 mt-600" justify="end">
           <v-spacer></v-spacer>
-          <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
-            <v-icon>mdi-heart-outline</v-icon>
-          </v-btn>
-          <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
+          <div v-if="isSignin">
+            <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
+              <v-icon>mdi-heart-outline</v-icon>
+            </v-btn>
+            <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+          </div>
           <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogComment">
             <v-icon>mdi-comment-text-outline</v-icon>
           </v-btn>
@@ -124,7 +136,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["userId", "popsInfo", "isLiked", "dialogComment", "dialogInfo"]),
+    ...mapGetters(["isSignin", "userId", "popsInfo", "isLiked", "dialogComment", "dialogInfo"]),
     player() {
       return this.$refs[`pops${this.popsInfo.id}`].player;
     },
@@ -133,6 +145,7 @@ export default {
     },
   },
   created() {
+    console.log(this.isSignin);
     this.countView({ popId: this.popsId });
     console.log("전달받은 popsID " + this.popsId);
     console.log("전달받은 editorId " + this.editorId);
