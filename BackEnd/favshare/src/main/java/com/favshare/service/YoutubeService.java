@@ -60,11 +60,7 @@ public class YoutubeService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-<<<<<<< HEAD
 	private static final String API_KEY = "AIzaSyAjABtMPYPbfd8-_MCPfbRpxFHWfsnpRjw";
-=======
-	private static final String API_KEY = "AIzaSyDa9rP1jNDYhS1g-pgBYJSjAV0-KZKeg_c";
->>>>>>> branch 'backend' of https://lab.ssafy.com/s07-webmobile2-sub2/S07P12A803.git
 
 	/** Global instance properties filename. */
 	private static String PROPERTIES_FILENAME = "youtube.properties";
