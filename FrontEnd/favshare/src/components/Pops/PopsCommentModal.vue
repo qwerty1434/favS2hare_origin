@@ -12,7 +12,7 @@
       <v-btn text @click.stop="dialogComment = false">
         <v-icon>mdi-drag-horizontal-variant</v-icon>
       </v-btn>
-      <v-card-text class="comment-size">
+      <v-card-text class="comment-size no-scroll">
         <div v-for="commentListItem in commentList" :key="commentListItem.id">
           <pops-comment-item
             :pops-id="popsId"

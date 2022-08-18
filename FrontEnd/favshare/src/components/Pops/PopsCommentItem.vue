@@ -112,4 +112,8 @@ export default {
 .delete-btn {
   color: red !important;
 }
+/* 스크롤바 제거 */
+.no-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 </style>

@@ -1,64 +1,76 @@
 <template>
+  <!-- eslint-disable -->
   <div>
     <div class="user-info">
       <div class="user-pic">
-        <v-avatar>
+        <v-avatar size="65">
           <img :src="feedUserInfo.profileImageUrl" alt="John" />
         </v-avatar>
       </div>
-      <div class="profile-stats">
+      <div class="ml-4 mt-3 profile-stats">
         <ul>
           <li>
-            <div class="stat-font">게시 팝</div>
-            <div>{{ feedUserInfo.popCount }}</div>
+            <div><h4 class="user-descip">게시 팝</h4></div>
+            <div class="mt-1">
+              <h4>{{ feedUserInfo.popCount }}</h4>
+            </div>
           </li>
-          <li
-            @click="
-              [setTabFollower, routerPushes('follow'), fetchFollowerList()]
-            "
-          >
-            <div class="stat-font">팔로워 수</div>
-            <div>{{ feedUserInfo.followerNum }}</div>
+          <li @click="[setTabFollower, routerPushes('follow'), fetchFollowerList()]">
+            <div><h4 class="user-descip">팔로워</h4></div>
+            <div class="mt-1">
+              <h4>{{ feedUserInfo.followerNum }}</h4>
+            </div>
           </li>
-          <li
-            @click="
-              [setTabFollower, routerPushes('follow'), fetchFollowingList()]
-            "
-          >
-            <div class="stat-font">팔로잉 수</div>
-            <div>{{ feedUserInfo.followingNum }}</div>
+          <li @click="[setTabFollower, routerPushes('follow'), fetchFollowingList()]">
+            <div><h4 class="user-descip">팔로잉</h4></div>
+            <div class="mt-1">
+              <h4>{{ feedUserInfo.followingNum }}</h4>
+            </div>
           </li>
         </ul>
       </div>
+    </div>
+    <div class="mt-3">
+      <h4 class="user-name">{{ feedUserInfo.nickname }}</h4>
+    </div>
+    <div>
+      <h5 class="user-content">{{ feedUserInfo.content }}</h5>
     </div>
     <div class="follow-edit">
       <div v-if="feedUserInfo.id === userId">
         <v-btn
           class="ma-2"
           outlined
-          color="red lighten-1"
-          elevation="2"
+          rounded
+          small
+          color="#FF5D5D"
+          elevation="1"
           @click="goProfileEdit"
+          style="width: 250px"
           >프로필 편집</v-btn
         >
       </div>
       <div v-else>
         <div v-if="isFollowing">
           <v-btn
-            class="ma-2"
-            outlined
-            color="red lighten-1"
-            elevation="2"
+            class="ma-2 white--text"
+            small
+            rounded
+            color="grey"
+            elevation="1"
+            style="width: 250px"
             @click="cancelFollowing"
             >팔로우 취소</v-btn
           >
         </div>
         <div v-else>
           <v-btn
-            class="ma-2"
-            outlined
-            color="red lighten-1"
-            elevation="2"
+            class="ma-2 white--text"
+            small
+            rounded
+            color="#FF5D5D"
+            elevation="1"
+            style="width: 250px"
             @click="fetchFollowInProfile(feedUserInfo.id)"
             >팔로우</v-btn
           >
@@ -153,5 +165,16 @@ export default {
 
 li {
   text-align: center;
+}
+
+.user-descip {
+  font-weight: 400;
+}
+
+.user-name {
+  font-size: 15px;
+}
+.user-content {
+  font-weight: 400;
 }
 </style>
