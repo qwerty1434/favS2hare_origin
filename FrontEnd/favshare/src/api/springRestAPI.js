@@ -1,6 +1,6 @@
-// const HOST = "http://localhost:8080/api";
+const HOST = "http://localhost:8080/api";
 // const HOST = "http://localhost:8080";
-const HOST = "https://i7a803.p.ssafy.io/api";
+// const HOST = "https://i7a803.p.ssafy.io/api";
 
 // controller별로 변수 선언
 const COMMENT = "/pop/comment";
