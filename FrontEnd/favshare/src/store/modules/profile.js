@@ -201,10 +201,10 @@ export default {
       commit("SET_CURRENTFEEDID", currentFeedId);
     },
 
-    fetchFollowerList({ commit, getters }) {
+    fetchFollowerList({ commit }, id) {
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/user/follow/to/${getters.userId}`,
+        url: `http://13.124.112.241:8080/user/follow/to/${id}`,
       })
         .then((res) => {
           commit("SET_FOLLOWERLIST", res.data);
@@ -212,10 +212,10 @@ export default {
         .catch((err) => console.log(err));
     },
 
-    fetchFollowingList({ commit, getters }) {
+    fetchFollowingList({ commit }, id) {
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/user/follow/from/${getters.userId}`,
+        url: `http://13.124.112.241:8080/user/follow/from/${id}`,
       }).then((res) => {
         commit("SET_FOLLOWINGLIST", res.data);
       });
