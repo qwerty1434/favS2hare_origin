@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable -->
   <v-container>
     <!-- 뒤로가기 -->
     <div class="bar-top"></div>
@@ -45,17 +46,11 @@
     </v-form>
     <v-row>
       <v-col class="text-center" cols="12">
-        <v-btn
-          @click.prevent="confirm"
-          color="#ff5d5d"
-          class="signin-button"
-          rounded
-          >로그인</v-btn
-        >
+        <v-btn @click.prevent="confirm" color="#ff5d5d" class="signin-button" rounded>로그인</v-btn>
       </v-col>
     </v-row>
     <!-- 소셜 로그인 버튼 -->
-    <v-row class="social-icon-container">
+    <!-- <v-row class="social-icon-container">
       <v-col class="d-flex justify-center">
         <img
           src="@/assets/google.png"
@@ -76,19 +71,20 @@
           class="social-icon"
         />
       </v-col>
-    </v-row>
+    </v-row> -->
     <!-- 회원가입, 비밀번호찾기로 이동 -->
     <v-row class="message-container">
       <v-col class="text-center" cols="12">
         <router-link to="signup">아직 FavS2hare 회원이 아니신가요?</router-link>
       </v-col>
-      <v-col class="text-center" cols="12">
+      <v-col class="text-center mt-n3" cols="12">
         <router-link to="findpw">비밀번호가 기억나지 않아요.</router-link>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
+/* eslint-disable */
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -103,8 +99,7 @@ export default {
       rules: {
         IsEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
         pwLength: (value) =>
-          (value.length >= 8 && value.length <= 16) ||
-          "PW는 8~16자로 작성해주세요",
+          (value.length >= 8 && value.length <= 16) || "PW는 8~16자로 작성해주세요",
       },
     };
   },

@@ -48,13 +48,21 @@
         <v-row class="mb-n15" align="center">
           <v-col cols="3"><h5>전화번호</h5></v-col>
           <v-col>
-            <v-text-field class="font-t" v-model="userInfo.phone" :rules="phoneNumber"></v-text-field>
+            <v-text-field
+              class="font-t"
+              v-model="userInfo.phone"
+              :rules="phoneNumber"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row align="center">
           <v-col cols="3"><h5>생년월일</h5></v-col>
           <v-col>
-            <v-text-field class="font-t" v-model="birthDateForm" :rules="isBirthDate"></v-text-field>
+            <v-text-field
+              class="font-t"
+              v-model="birthDateForm"
+              :rules="isBirthDate"
+            ></v-text-field>
           </v-col>
         </v-row>
       </v-form>
@@ -98,10 +106,8 @@ export default {
         (v) => v === this.passwordNew || "패스워드가 일치하지 않습니다.",
       ],
       isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
-      isBirthDate: (value) =>
-          this.checkBirthDate(value) || "올바르지 않은 형식의 생년월일입니다",
-      phoneNumber: (value) =>
-          this.checkPhoneNumber(value) || "올바르지 않은 형식의 전화번호입니다",
+      isBirthDate: (value) => this.checkBirthDate(value) || "올바르지 않은 형식의 생년월일입니다",
+      phoneNumber: (value) => this.checkPhoneNumber(value) || "올바르지 않은 형식의 전화번호입니다",
     };
   },
   created() {
