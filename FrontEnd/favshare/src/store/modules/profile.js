@@ -18,6 +18,7 @@ export default {
     editUserInfo: {},
     currentFeedId: 0,
     isFollowing: false,
+    followActiveTab: 0,
   },
   getters: {
     feedUserInfo: (state) => state.feedUserInfo,
@@ -33,6 +34,7 @@ export default {
     editUserInfo: (state) => state.editUserInfo,
     currentFeedId: (state) => state.currentFeedId,
     isFollowing: (state) => state.isFollowing,
+    followActiveTab: (state) => state.followActiveTab,
   },
   mutations: {
     SET_FEEDUSERINFO: (state, feedUserInfo) =>
@@ -55,6 +57,8 @@ export default {
     SET_FOLLOWINGLIST: (state, followingList) =>
       (state.followingList = followingList),
     SET_ISFOLLOWING: (state, isFollowing) => (state.isFollowing = isFollowing),
+    SET_FOLLOWACTIVETAB: (state, followActiveTab) =>
+      (state.followActiveTab = followActiveTab),
   },
   actions: {
     // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
@@ -144,10 +148,12 @@ export default {
 
     setTabFollower({ commit }) {
       commit("SET_FOLLOWTAB", 0);
+      commit("SET_FOLLOWACTIVETAB", 0);
     },
 
     setTabFollowing({ commit }) {
       commit("SET_FOLLOWTAB", 1);
+      commit("SET_FOLLOWACTIVETAB", 1);
     },
 
     fetchIsDelete({ commit }, isDelete) {
@@ -171,7 +177,10 @@ export default {
         commit("SET_EDITUSERINFO", res.data);
       });
     },
-    updateProfileInfo({ commit }, { userId, nickname, content }) {
+    updateProfileInfo(
+      { commit },
+      { userId, nickname, content, profileImageUrl }
+    ) {
       console.log(userId);
       console.log(nickname);
       console.log(content);
@@ -182,6 +191,7 @@ export default {
           id: userId,
           nickname: nickname,
           content: content,
+          profileImageUrl: profileImageUrl,
         },
       })
         .then((res) => {

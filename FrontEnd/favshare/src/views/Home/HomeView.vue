@@ -2,7 +2,13 @@
   <div>
     <div class="top">
       <nav-bar></nav-bar>
-      <v-tabs fixed-tabs active-class="active-tab" hide-slider class="tab-font">
+      <v-tabs
+        fixed-tabs
+        active-class="active-tab"
+        hide-slider
+        class="tab-font"
+        v-model="active_tab"
+      >
         <v-tab @click="setTabYoutube"> 동영상 탭 </v-tab>
         <v-tab @click="setTabFeed"> 친구 피드 </v-tab>
       </v-tabs>
@@ -24,23 +30,35 @@ import NewsFeed from "../../components/Home/NewsFeed.vue";
 import YoutubeList from "../../components/Home/YoutubeList.vue";
 import NavBar from "../../components/NavBar.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: { YoutubeList, NewsFeed, NavBar, BottomNavigationBar },
   name: "HomeView",
   data() {
     return {
-      isFeed: false, // -> 친구피드 탭이면 true, 동영상 탭이면 false
-      //
+      active_tab: this.homeActiveTab,
     };
   },
+  computed: {
+    ...mapGetters(["isFeed", "homeActiveTab"]),
+  },
   methods: {
-    setTabYoutube() {
-      this.isFeed = false;
+    ...mapActions(["setTabYoutube", "setTabFeed"]),
+    // setTabYoutube() {
+    //   this.isFeed = false;
+    // },
+    // setTabFeed() {
+    //   this.isFeed = true;
+    // },
+  },
+  watch: {
+    "$store.state.home.homeActiveTab": function () {
+      console.log(this.$store.state.home.homeActiveTab);
     },
-    setTabFeed() {
-      this.isFeed = true;
-    },
+  },
+  created() {
+    this.active_tab = this.homeActiveTab;
   },
 };
 </script>
