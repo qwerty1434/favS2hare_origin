@@ -63,7 +63,9 @@ export default {
     return {
       playerVars: {
         autoplay: 1,
-        controls: 1,
+        mute: 1,
+        controls: 0,
+        diablekb: 1,
       },
       isBookmarkClicked: 0,
     };
