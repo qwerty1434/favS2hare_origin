@@ -48,12 +48,12 @@
               </h5>
             </v-col>
             <v-col>
-              <h4>
+              <h5>
                 <v-icon small> mdi-eye </v-icon>
                 {{ newsFeedPop.popDto.views }}&nbsp;&nbsp;
                 <v-icon small> mdi-heart </v-icon>
                 {{ newsFeedPop.popDto.likeCount }}
-              </h4>
+              </h5>
             </v-col>
           </v-row>
         </div>
