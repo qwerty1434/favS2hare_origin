@@ -60,7 +60,7 @@ public class YoutubeService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	private static final String API_KEY = "AIzaSyCj3WWR7IRe4nXKGzX5QppcRImaewZuqlk";
+	private static final String API_KEY = "AIzaSyAjABtMPYPbfd8-_MCPfbRpxFHWfsnpRjw";
 
 	/** Global instance properties filename. */
 	private static String PROPERTIES_FILENAME = "youtube.properties";
@@ -119,7 +119,7 @@ public class YoutubeService {
 		return result;
 	}
 
-	public List<String> getAlgoUrlByUserId(int userId) {
+	public String getAlgoUrlByUserId(int userId) {
 		List<InterestIdolEntity> interestIdolEntityList;
 		interestIdolEntityList = interestIdolRepository.findAllByUserId(userId);
 
@@ -133,46 +133,48 @@ public class YoutubeService {
 				queryList += "or";
 		}
 
-		try {
-			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
-				@Override
-				public void initialize(HttpRequest request) throws IOException {
-				}
-			}).setApplicationName("youtube-cmdline-search-sample").build();
-
-			SearchListResponse searchResponse = null;
-
-			YouTube.Search.List search = youtube.search().list("id,snippet");
-
-			search.setKey(API_KEY);
-			search.setType("video");
-			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
-			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
-			search.setQ(queryList);
-
-			searchResponse = search.execute();
-
-			List<SearchResult> searchResultList = searchResponse.getItems();
-			if (searchResultList != null) {
-				prettyPrint(searchResultList.iterator(), urlList);
-			}
-
-		} catch (GoogleJsonResponseException e) {
-			System.err.println(
-					"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
-		} catch (IOException e) {
-			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-
-		Collections.shuffle(urlList);
-
-		return urlList;
+		return queryList;
+		
+//		try {
+//			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+//				@Override
+//				public void initialize(HttpRequest request) throws IOException {
+//				}
+//			}).setApplicationName("youtube-cmdline-search-sample").build();
+//
+//			SearchListResponse searchResponse = null;
+//
+//			YouTube.Search.List search = youtube.search().list("id,snippet");
+//
+//			search.setKey(API_KEY);
+//			search.setType("video");
+//			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+//			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+//			search.setQ(queryList);
+//
+//			searchResponse = search.execute();
+//
+//			List<SearchResult> searchResultList = searchResponse.getItems();
+//			if (searchResultList != null) {
+//				prettyPrint(searchResultList.iterator(), urlList);
+//			}
+//
+//		} catch (GoogleJsonResponseException e) {
+//			System.err.println(
+//					"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
+//		} catch (IOException e) {
+//			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
+//		} catch (Throwable t) {
+//			t.printStackTrace();
+//		}
+//
+//		Collections.shuffle(urlList);
+//
+//		return urlList;
 	}
 
 	// 로그인 하지 않은 사용자 or 선호하는 아이돌이 없는 경우에 사용되는 api
-	public List<String> getAlgoUrlByNoId() {
+	public String getAlgoUrlByNoId() {
 
 		List<String> urlList = new ArrayList<String>();
 
@@ -195,45 +197,48 @@ public class YoutubeService {
 			if (i < idList.length - 1)
 				queryList += "or";
 		}
+		return queryList;
 
-
-		try {
-			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
-				@Override
-				public void initialize(HttpRequest request) throws IOException {
-				}
-			}).setApplicationName("youtube-cmdline-search-sample").build();
-			
-			SearchListResponse searchResponse = null;
-			YouTube.Search.List search = youtube.search().list("id,snippet");
-
-			search.setKey(API_KEY);
-			search.setType("video");
-			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
-			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
-			search.setQ(queryList);
-
-			searchResponse = search.execute();
-
-
-			List<SearchResult> searchResultList = searchResponse.getItems();
-			if (searchResultList != null) {
-				prettyPrint(searchResultList.iterator(), urlList);
-			}
-
-		} catch (GoogleJsonResponseException e) {
-			System.err.println(
-					"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
-		} catch (IOException e) {
-			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-
-		Collections.shuffle(urlList);
-		
-
-		return urlList;
+//		try {
+//			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+//				@Override
+//				public void initialize(HttpRequest request) throws IOException {
+//				}
+//			}).setApplicationName("youtube-cmdline-search-sample").build();
+//			
+//			SearchListResponse searchResponse = null;
+//			YouTube.Search.List search = youtube.search().list("id,snippet");
+//
+//			search.setKey(API_KEY);
+//			search.setType("video");
+//			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+//			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+//			search.setQ(queryList);
+//
+//			searchResponse = search.execute();
+//			
+//			System.out.println(queryList);
+//			System.out.println(search.toString()+"!!!!!!!!!!!!!!!!!!!!!");
+//			System.out.println(searchResponse.toString()+"@@@@@@@@@@@@@@@@");
+//
+//			List<SearchResult> searchResultList = searchResponse.getItems();
+//			if (searchResultList != null) {
+//				prettyPrint(searchResultList.iterator(), urlList);
+//			}
+//
+//		} catch (GoogleJsonResponseException e) {
+//			System.err.println(
+//					"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
+//		} catch (IOException e) {
+//			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
+//		} catch (Throwable t) {
+//			t.printStackTrace();
+//		}
+//
+//		Collections.shuffle(urlList);
+//		
+//
+//		return urlList;
 	}
 
 	private static void prettyPrint(Iterator<SearchResult> iteratorSearchResults, List<String> urlList) {

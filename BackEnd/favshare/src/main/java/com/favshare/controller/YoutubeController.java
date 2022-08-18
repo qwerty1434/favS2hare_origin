@@ -47,13 +47,13 @@ public class YoutubeController {
 
 	@ApiOperation(value = "사용자에게 맞는 유튜브 리스트", response = List.class)
 	@GetMapping("/{userId}")
-	public ResponseEntity<List<HashMap<String, Object>>> showYoutubeList(@PathVariable("userId") int userId) {
+	public ResponseEntity<String> showYoutubeList(@PathVariable("userId") int userId) {
 		// 로그인 안한 경우에는 userId 값이 0으로 넘어온다.
 		try {
-			List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
+//			List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
 			HashMap<String, Object> urlMap = new HashMap<String, Object>();
 
-			List<String> urlList;
+			String urlList;
 			System.out.println("!!!!!!!!!!" + userId);
 			if(userId == 0) {
 				urlList = youtubeService.getAlgoUrlByNoId();
@@ -68,15 +68,15 @@ public class YoutubeController {
 				}
 			}
 			
-			for(int i = 0; i < urlList.size(); i++) {
-				urlMap = new HashMap<String, Object>();
-				urlMap.put("youtubeId" , urlList.get(i));
-				result.add(urlMap);
-			}
+//			for(int i = 0; i < urlList.size(); i++) {
+//				urlMap = new HashMap<String, Object>();
+//				urlMap.put("youtubeId" , urlList.get(i));
+//				result.add(urlMap);
+//			}
 			
-			return new ResponseEntity<List<HashMap<String, Object>>>(result, HttpStatus.OK);
+			return new ResponseEntity<String>(urlList, HttpStatus.OK);
 		}catch (Exception e) {
-			return new ResponseEntity<List<HashMap<String, Object>>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
 

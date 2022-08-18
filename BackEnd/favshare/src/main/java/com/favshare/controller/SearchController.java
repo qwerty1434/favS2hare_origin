@@ -45,8 +45,8 @@ public class SearchController {
 		List<PopDto> popList = popService.popDtoListByKeyword(message, userId);
 		result.put("pop",popList);
 		
-		List<String> youtubeList = youtubeService.getUrlByKeyword(message);
-		result.put("youtube", youtubeList);
+//		List<String> youtubeList = youtubeService.getUrlByKeyword(message);
+//		result.put("youtube", youtubeList);
 		
 		
 		List<UserProfileDto> userList = userService.userDtoListByKeyword(message); // userprofiledto정보인 nickname, content, profile사진 3개만 반환함
