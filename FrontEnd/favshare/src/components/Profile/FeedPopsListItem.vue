@@ -20,7 +20,7 @@
         @playing="onPlaying"
         :width="164"
         :height="92.25"
-        style="pointer-events: none; border-radius: 16px"
+        style="pointer-events: none; border-radius: 8px"
       >
       </youtube>
     </div>

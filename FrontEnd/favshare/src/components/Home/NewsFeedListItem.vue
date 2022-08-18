@@ -20,8 +20,9 @@
       </div>
       <div class="pop-name"></div>
       <div class="video__details row-title">
-        <div
+        <v-avatar
           class="author"
+          color="red"
           @click="
             [
               routerPushes('feed'),
@@ -32,13 +33,13 @@
           "
         >
           <img :src="this.newsFeedPop.userProfileDto.profileImageUrl" alt="" />
-        </div>
-        <div class="row-title">
+        </v-avatar>
+        <div class="ml-4 row-title">
           <v-row class="">
             <v-col>
-              <h3>
+              <h4>
                 {{ newsFeedPop.popDto.name }}
-              </h3>
+              </h4>
             </v-col>
           </v-row>
           <v-row class="mt-n5 row-title">

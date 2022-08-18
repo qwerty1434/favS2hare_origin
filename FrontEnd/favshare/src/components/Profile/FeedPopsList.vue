@@ -1,11 +1,9 @@
 <template>
-  <v-container>
+  <!-- eslint-disable -->
+  <v-container class="pt-1">
     <v-row justify="space-around" no-gutters>
       <v-col v-for="(feedPop, index) in feedPops" :key="index" col="6">
-        <feed-pops-list-item
-          :feed-pop="feedPop"
-          :index="index"
-        ></feed-pops-list-item>
+        <feed-pops-list-item :feed-pop="feedPop" :index="index"></feed-pops-list-item>
       </v-col>
     </v-row>
   </v-container>

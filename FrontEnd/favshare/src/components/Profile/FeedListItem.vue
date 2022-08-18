@@ -1,20 +1,15 @@
 <template>
-  <div class="feed-item">
+  <!-- eslint-disable -->
+  <div class="feed-item ml-1 mr-1">
     <div v-if="feedInfo.first">
       <v-badge icon="mdi-star" bordered overlap avatar color="red lighten-1">
-        <v-avatar
-          size="70"
-          @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)"
-        >
+        <v-avatar size="60" @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)">
           <img :src="feedInfo.feedImageUrl" alt="" />
         </v-avatar>
       </v-badge>
     </div>
     <div v-else>
-      <v-avatar
-        size="70"
-        @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)"
-      >
+      <v-avatar size="60" @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)">
         <img :src="feedInfo.feedImageUrl" alt="" />
       </v-avatar>
     </div>
@@ -25,7 +20,7 @@
       <img :src="feedInfo.feedImageUrl" alt="" />
     </v-avatar> -->
     <div v-if="feedInfo.first"></div>
-    <div class="feed-name">{{ feedInfo.name }}</div>
+    <div class="mt-2 feed-name">{{ feedInfo.name }}</div>
   </div>
 </template>
 
@@ -48,6 +43,6 @@ export default {
   text-align: center;
 }
 .feed-name {
-  font-size: medium;
+  font-size: 15px;
 }
 </style>

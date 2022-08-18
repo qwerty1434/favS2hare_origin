@@ -3,7 +3,18 @@
   <v-hover>
     <v-row @click="">
       <v-col align="center" cols="3">
-        <v-avatar color="orange lighten-4" size="55" @click="goFriendFeed">
+        <v-avatar
+          color="orange lighten-4"
+          size="55"
+          @click="
+            [
+              routerPushes('feed'),
+              fetchFeedUserInfo(searchedFollowingListItem.id),
+              fetchFeedList(searchedFollowingListItemid),
+              fetchIsFollowing(searchedFollowingListItemid),
+            ]
+          "
+        >
           <img
             class="following-size"
             :src="searchedFollowingListItem.profileImageUrl"
@@ -23,7 +34,8 @@
   </v-hover>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import router from "@/router";
 
 export default {
   name: "SearchMoreFollowingListItem",
@@ -37,11 +49,15 @@ export default {
     ...mapGetters([""]),
   },
   methods: {
-    goFriendFeed() {
-      this.$router.push({
-        name: "feed",
-        params: this.searchedFollowingListItem.id,
-      });
+    ...mapActions(["fetchFeedUserInfo", "fetchFeedList", "fetchIsFollowing"]),
+    // goFriendFeed() {
+    //   this.$router.push({
+    //     name: "feed",
+    //     params: this.searchedFollowingListItem.id,
+    //   });
+    // },
+    routerPushes(icon) {
+      router.push({ name: icon });
     },
   },
 };
