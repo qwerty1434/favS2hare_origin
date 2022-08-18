@@ -40,5 +40,6 @@ export default {
 <style scoped>
 .popsitem {
   padding-right: 10px;
+  padding-top: 40px;
 }
 </style>

@@ -14,11 +14,7 @@
           </li>
           <li
             @click="
-              [
-                setTabFollower,
-                routerPushes('follow'),
-                fetchFollowerList(feedUserInfo.id),
-              ]
+              [setTabFollower, routerPushes('follow'), fetchFollowerList()]
             "
           >
             <div class="stat-font">팔로워 수</div>
@@ -26,11 +22,7 @@
           </li>
           <li
             @click="
-              [
-                setTabFollower,
-                routerPushes('follow'),
-                fetchFollowingList(feedUserInfo.id),
-              ]
+              [setTabFollower, routerPushes('follow'), fetchFollowingList()]
             "
           >
             <div class="stat-font">팔로잉 수</div>
@@ -93,6 +85,8 @@ export default {
       "setTabFollowing",
       "fetchFollowInProfile",
       "fetchFeedUserInfo",
+      "fetchFollowerList",
+      "fetchFollowingList",
     ]),
     routerPushes(name) {
       router.push({ name: name });
