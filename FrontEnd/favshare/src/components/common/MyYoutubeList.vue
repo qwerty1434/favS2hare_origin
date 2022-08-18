@@ -7,7 +7,7 @@
       :youtubeUrl="youtubeItem.youtubeUrl"
       :key="youtubeItem.youtubeId"
     ></my-youtube-list-item> -->
-    <div v-for="myYoutubeVideo in myYoutubeVideos" :key="myYoutubeVideo.id">
+    <div v-for="myYoutubeVideo in myVideoList" :key="myVideoList.id">
       <my-youtube-list-item
         @delete-video="refreshCur"
         :my-youtube-video="myYoutubeVideo"
@@ -17,7 +17,7 @@
 </template>
 <script>
 import MyYoutubeListItem from "./MyYoutubeListItem.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "MyYoutubeList",
@@ -28,15 +28,17 @@ export default {
     };
   },
   created() {
-    this.getMyVideo({ userId: this.userId });
-    this.myYoutubeVideos = this.myVideoList;
-    console.log(this.myYoutubeVideos);
+    // this.getMyVideo({ userId: this.userId });
+    // this.myYoutubeVideos = this.myVideoList;
+    // console.log("vidididdidi");
+    // console.log(this.myYoutubeVideos);
+    this.reload();
   },
   computed: {
-    ...mapGetters(["userId", "myVideoList"]),
+    ...mapGetters(["myVideoList"]),
   },
   methods: {
-    ...mapActions(["getMyVideo"]),
+    // ...mapActions(["getMyVideo"]),
     refreshCur() {
       console.log("삭제 이벤트 발생 " + this.myVideoList.length);
       this.$router.go();

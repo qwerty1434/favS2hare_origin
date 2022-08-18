@@ -73,7 +73,7 @@ export default {
     followerItem: Object, // {nickname: ~~}
   },
   computed: {
-    ...mapGetters(["userId"]),
+    ...mapGetters(["userId", "feedUserInfo"]),
   },
   methods: {
     unFollow(event) {
@@ -87,7 +87,7 @@ export default {
           method: "post",
           url: api.userFollow.follow(),
           data: {
-            fromUserId: this.userId,
+            fromUserId: this.feed,
             toUserId: this.followerItem.fromUserId,
           },
         }).then((res) => console.log(res.data));

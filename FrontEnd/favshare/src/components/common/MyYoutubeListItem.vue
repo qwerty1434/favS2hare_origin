@@ -7,7 +7,7 @@
             name: 'youtube',
             params: {
               videoInfo: {
-                videoId: this.myYoutubeVideo,
+                videoId: this.myYoutubeVideo.url,
                 channelName: this.channelName,
                 channelProfilePic: this.channelProfilePic,
                 videoTitle: this.videoTitle,
@@ -55,18 +55,22 @@ export default {
   },
   created() {
     this.getStoredVideoInfo();
+    this.reload();
   },
   methods: {
     ...mapActions(["deleteMyVideo"]),
     getStoredVideoInfo() {
       // 썸네일, 채널 id 받아오기
+
       const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {
         key: API_KEY,
         part: "snippet",
-        id: this.myYoutubeVideo,
+        id: this.myYoutubeVideo.url,
       };
+      console.log(params);
       axios.get(googleAPI.videos(), { params }).then((res) => {
+        console.log(res);
         this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
         this.videoTitle = res.data.items[0].snippet.title;
         const tmpChannelId = res.data.items[0].snippet.channelId;
@@ -90,6 +94,7 @@ export default {
         });
       }
       this.$emit("delete-video");
+      this.reload();
     },
   },
 };

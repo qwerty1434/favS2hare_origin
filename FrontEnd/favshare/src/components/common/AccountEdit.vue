@@ -13,7 +13,12 @@
         <v-row class="mb-n15 pb-1" align="center">
           <v-col cols="3"><h5>이메일</h5></v-col>
           <v-col>
-            <v-text-field class="font-t" v-model="userId" :rules="isEmail" disabled></v-text-field>
+            <v-text-field
+              class="font-t"
+              v-model="userInfo.email"
+              :rules="isEmail"
+              disabled
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row class="mb-n15" align="center">

@@ -2,7 +2,9 @@
   <div>
     <!-- 로고 -->
     <v-app-bar color="white" elevation="0" dense>
-      <img class="logo" src="@/assets/favshare.png" alt="Logo" />
+      <router-link :to="{ name: 'home' }" active-class="navbar-active">
+        <img class="navbar__logo" src="@/assets/favshare.png" alt="Logo" />
+      </router-link>
     </v-app-bar>
     <v-divider></v-divider>
     <v-container class="container">

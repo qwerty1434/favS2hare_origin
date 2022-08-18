@@ -8,12 +8,12 @@
       <v-col class="ml-2"><h4>저장된 영상</h4></v-col>
     </v-row>
     <v-divider></v-divider>
-    <my-youtube-list :youtubeList="youtubeList"></my-youtube-list>
+    <my-youtube-list></my-youtube-list>
   </v-container>
 </template>
 <script>
 import MyYoutubeList from "@/components/common/MyYoutubeList.vue";
-
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "MyYoutubeView",
   components: { MyYoutubeList },
@@ -22,20 +22,15 @@ export default {
       youtubeList: [],
     };
   },
-  created() {},
+  created() {
+    this.getMyVideo({ userId: this.userId });
+    // this.myYoutubeVideos = this.myVideoList;
+  },
+  computed: {
+    ...mapGetters(["userId"]),
+  },
   methods: {
-    // getSampleVideos() {
-    //   this.youtubeList = [
-    //     {
-    //       youtubeId: 1,
-    //       youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
-    //     },
-    //     {
-    //       youtubeId: 1,
-    //       youtubeUrl: "https://www.youtube.com/watch?v=f6YDKF0LVWw",
-    //     },
-    //   ];
-    // },
+    ...mapActions(["getMyVideo"]),
     goBack() {
       this.$router.go(-1);
     },

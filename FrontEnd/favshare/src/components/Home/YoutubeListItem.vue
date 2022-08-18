@@ -34,9 +34,13 @@
 </template>
 
 <script>
+/* eslint-disable */
 import axios from "axios";
 import googleAPI from "@/api/googleAPI";
-
+// import qs from "qs";
+// axios.defaults.paramsSerializer = (pa) => {
+//   return qs.stringify(params);
+// };
 export default {
   name: "YoutubeListItem",
   props: {
@@ -60,31 +64,40 @@ export default {
     // for-use-function
     getVideoInfo() {
       // 썸네일, 채널 id 받아오기
-      // console.log(this.homeYoutube.youtubeId);
       const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {
         key: API_KEY,
         part: "snippet",
         id: this.homeYoutube.youtubeId,
       };
-      axios.get(googleAPI.videos(), { params }).then((res) => {
-        this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
-        this.videoTitle = res.data.items[0].snippet.title;
-        const tmpChannelId = res.data.items[0].snippet.channelId;
-        axios
-          .get(googleAPI.channels(), {
-            key: API_KEY,
-            part: "snippet",
-            id: tmpChannelId,
-          })
-          .then((res) => {
-            // console.log(res);
-            // console.log(res.data.items[0].snippet.thumbnails.default.url);
-            this.channelProfilePic =
-              res.data.items[0].snippet.thumbnails.default.url;
-            this.channelName = res.data.items[0].snippet.title;
-          });
-      });
+      console.log(params);
+      axios
+        .get(googleAPI.videos(), { params })
+        .then((res) => {
+          console.log(res);
+          this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
+          this.videoTitle = res.data.items[0].snippet.title;
+          const tmpChannelId = res.data.items[0].snippet.channelId;
+          console.log(tmpChannelId);
+          axios
+            .get(
+              `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=${API_KEY}`
+            )
+            .then((res) => {
+              console.log(res);
+              // console.log(res.data.items[0].snippet.thumbnails.default.url);
+              this.channelProfilePic = res.data.items[0].snippet.thumbnails.default.url;
+              this.channelName = res.data.items[0].snippet.title;
+            })
+            .catch((res) => {
+              console.log("herer");
+              console.log(res);
+            });
+        })
+        .catch((res) => {
+          console.log("here");
+          console.log(res);
+        });
     },
   },
   created() {
