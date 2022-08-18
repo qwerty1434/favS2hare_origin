@@ -60,7 +60,11 @@ public class YoutubeService {
 	@Autowired
 	private ModelMapper modelMapper;
 
+<<<<<<< HEAD
 	private static final String API_KEY = "AIzaSyAjABtMPYPbfd8-_MCPfbRpxFHWfsnpRjw";
+=======
+	private static final String API_KEY = "AIzaSyDa9rP1jNDYhS1g-pgBYJSjAV0-KZKeg_c";
+>>>>>>> branch 'backend' of https://lab.ssafy.com/s07-webmobile2-sub2/S07P12A803.git
 
 	/** Global instance properties filename. */
 	private static String PROPERTIES_FILENAME = "youtube.properties";
@@ -172,7 +176,7 @@ public class YoutubeService {
 //
 //		return urlList;
 	}
-
+ 
 	// 로그인 하지 않은 사용자 or 선호하는 아이돌이 없는 경우에 사용되는 api
 	public String getAlgoUrlByNoId() {
 

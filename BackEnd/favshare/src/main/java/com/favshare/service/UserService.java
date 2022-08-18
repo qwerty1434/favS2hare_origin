@@ -138,7 +138,7 @@ public class UserService {
 		List<FeedDto> feedDtoList = Arrays.asList(modelMapper.map(feedEntityList, FeedDto[].class));
 		return feedDtoList;
 	}
-	
+	 
 	public void updateAuth(String email, String auth) {
 		UserEntity userEntity;
 		userEntity = userRepository.findByEmail(email);

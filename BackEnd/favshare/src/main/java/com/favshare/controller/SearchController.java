@@ -34,7 +34,7 @@ public class SearchController {
 	
 	@Autowired
 	private UserService userService;
-
+ 
 	@ApiOperation(value="검색어를 입력하면 해당 키워드가 포함된 '팝리스트','동영상 리스트','유저 리스트' 반환")
 	@PostMapping
 	public ResponseEntity search(@RequestBody UserIdMessageDto userIdMessageDto){
