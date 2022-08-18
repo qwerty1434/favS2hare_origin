@@ -31,7 +31,7 @@
         </v-row>
         <div class="pops-detail-body">
           <div class="pops-title">
-            <h2>{{ this.popsInfo.name }}</h2>
+            <h1>{{ this.popsInfo.name }}</h1>
           </div>
           <!-- pops 재생화면 -->
           <v-sheet class="pops-play">
@@ -44,8 +44,8 @@
                 @playing="onPlaying"
                 :width="336"
                 :height="189"
-                style="pointer-events: none"
               ></youtube>
+              <!-- style="pointer-events: none" -->
             </div>
             <h1 class="white--text">{{ playerVars }}</h1>
           </v-sheet>
@@ -62,14 +62,34 @@
         <v-row class="pa-2 mt-600" justify="end">
           <v-spacer></v-spacer>
           <div v-if="isSignin">
-            <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
+            <v-btn
+              class="mt-2"
+              text
+              icon
+              color="white"
+              v-if="!isLiked"
+              @click="btnLikePops"
+            >
               <v-icon>mdi-heart-outline</v-icon>
             </v-btn>
-            <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
+            <v-btn
+              class="mt-2"
+              text
+              icon
+              color="red"
+              v-else
+              @click="btnLikePops"
+            >
               <v-icon>mdi-heart</v-icon>
             </v-btn>
           </div>
-          <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogComment">
+          <v-btn
+            class="mt-2"
+            text
+            icon
+            color="white"
+            @click.stop="fetchDialogComment"
+          >
             <v-icon>mdi-comment-text-outline</v-icon>
           </v-btn>
           <pops-comment-modal
@@ -78,7 +98,13 @@
             :value="dialogComment"
             @input="dialogComment = $event"
           ></pops-comment-modal>
-          <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogInfo">
+          <v-btn
+            class="mt-2"
+            text
+            icon
+            color="white"
+            @click.stop="fetchDialogInfo"
+          >
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
           <pops-info-modal
@@ -136,12 +162,19 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["isSignin", "userId", "popsInfo", "isLiked", "dialogComment", "dialogInfo"]),
+    ...mapGetters([
+      "isSignin",
+      "userId",
+      "popsInfo",
+      "isLiked",
+      "dialogComment",
+      "dialogInfo",
+    ]),
     player() {
       return this.$refs[`pops${this.popsInfo.id}`].player;
     },
     youtubePk() {
-      return this.popsInfo.youtubueUrl;
+      return this.popsInfo.url;
     },
   },
   created() {
@@ -225,6 +258,7 @@ export default {
 .pops-title {
   margin: 10px;
   color: aliceblue;
+  padding-left: 130px;
 }
 .pops-editer {
   margin: 10px;
