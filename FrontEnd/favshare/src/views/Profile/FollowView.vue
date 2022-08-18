@@ -2,7 +2,13 @@
   <div>
     <div class="top">
       <nav-bar></nav-bar>
-      <v-tabs fixed-tabs active-class="active-tab" hide-slider class="tab-font">
+      <v-tabs
+        fixed-tabs
+        active-class="active-tab"
+        hide-slider
+        class="tab-font"
+        v-model="active_tab"
+      >
         <v-tab @click="setTabFollower"> 팔로워 </v-tab>
         <v-tab @click="setTabFollowing"> 팔로잉 </v-tab>
       </v-tabs>
@@ -30,14 +36,21 @@ export default {
   name: "FollowView",
   components: { NavBar, FollowerList, FollowingList, BottomNavigationBar },
   data() {
-    return {};
+    return {
+      active_tab: this.followActiveTab,
+    };
   },
   created() {
     this.isFollowingTab();
+    this.active_tab = this.followActiveTab;
+    console.log("aaaaaaaaaa", this.followtab);
   },
   watch: {
     "$store.state.profile.followtab": function () {
       console.log(this.$store.state.profile.followtab);
+    },
+    "$store.state.profile.followActiveTab": function () {
+      console.log(this.$store.state.profile.followActiveTab);
     },
   },
   methods: {
@@ -49,7 +62,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["followtab"]),
+    ...mapGetters(["followtab", "followActiveTab"]),
   },
 };
 </script>
