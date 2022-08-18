@@ -1,12 +1,7 @@
 <template>
   <!-- eslint-disable -->
   <div>
-    <v-card
-      height="550px"
-      color="black"
-      class="pops-list-item"
-      @click="goPopsDetail"
-    >
+    <v-card height="550px" color="black" class="pops-list-item" @click="goPopsDetail">
       <div class="name-font">{{ popItem.name }}</div>
       <div class="video">
         <youtube
@@ -15,22 +10,15 @@
           :ref="'pops' + this.popItem.id"
           @ready="onPlayerReady"
           @playing="onPlaying"
-          :width="336"
-          :height="189"
+          :width="360"
+          :height="202"
           style="pointer-events: none"
         ></youtube>
       </div>
       <div class="content-font">{{ popItem.content }}</div>
       <v-row v-if="isSignin" class="pa-5 mt-100" justify="end">
         <v-spacer></v-spacer>
-        <v-btn
-          class="mt-2"
-          text
-          icon
-          color="white"
-          v-if="!isLiked"
-          @click="btnLikePops"
-        >
+        <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
           <v-icon>mdi-heart-outline</v-icon>
         </v-btn>
         <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
@@ -98,13 +86,22 @@ export default {
     },
     goPopsDetail() {
       console.log(this.popItem.userId);
-      this.$router.push({
-        name: "popsdetail",
-        params: {
-          popsId: this.popItem.id,
-          editorId: this.popItem.userId,
-        },
-      });
+      if (this.isSignin) {
+        this.$router.push({
+          name: "popsdetail",
+          params: {
+            popsId: this.popItem.id,
+            editorId: this.popItem.userId,
+          },
+        });
+      } else {
+        this.$router.push({
+          name: "popsdetail",
+          params: {
+            popsId: this.popItem.id,
+          },
+        });
+      }
     },
   },
 };
@@ -117,15 +114,14 @@ export default {
 }
 
 .video {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .name-font {
   color: aliceblue;
-  font-family: "EF_WAKEUP" !important;
   text-align: center;
-  font-size: 40px;
-  padding-top: 60px;
+  font-size: 25px;
+  padding-top: 100px;
   color: white;
 }
 .content {
@@ -142,6 +138,7 @@ export default {
 
 .content-font {
   color: aliceblue;
+  font-size: large;
 }
 .mt-100 {
   margin-top: 80px;
