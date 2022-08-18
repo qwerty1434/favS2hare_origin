@@ -71,14 +71,7 @@ export default {
 }
 
 .tab-font {
-  font-family: "Bingrae", sans-serif !important;
   text-align: center;
   font-size: 20px;
-}
-@font-face {
-  font-family: "Bingrae";
-  src: url("@/assets/fonts/Binggrae-Bold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
 }
 </style>
