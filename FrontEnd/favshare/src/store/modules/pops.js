@@ -25,7 +25,7 @@ export default {
     SET_POPS_INFO: (state, popsInfo) => (state.popsInfo = popsInfo),
     SET_POPSTYPELIST(state, popsTypeList) {
       const tmpArray = [
-        { id: 0, name: "none", content: "none", idolImage: "none" },
+        { id: 0, name: "전체", content: "none", idolImage: "none" },
       ];
       tmpArray.push(...popsTypeList);
       state.popsTypeList = tmpArray;
