@@ -7,17 +7,23 @@ export default {
     homeYoutubes: [],
     newsFeedPops: [],
     videoInfo: {}, // { videoId: ?, channelName: ?, channelProfilePic: ?, videoTitle: ? }
+    isFeed: false,
+    homeActiveTab: 0,
   },
   getters: {
     homeYoutubes: (state) => state.homeYoutubes,
     newsFeedPops: (state) => state.newsFeedPops,
     videoInfo: (state) => state.videoInfo,
+    isFeed: (state) => state.isFeed,
+    homeActiveTab: (state) => state.homeActiveTab,
   },
   mutations: {
     SET_HOMEYOUTUBES: (state, homeYoutubes) =>
       (state.homeYoutubes = homeYoutubes),
     SET_FEEDPOPS: (state, newsFeedPops) => (state.newsFeedPops = newsFeedPops),
     SET_VIDEOINFO: (state, videoInfo) => (state.videoInfo = videoInfo),
+    SET_ISFEED: (state, isFeed) => (state.isFeed = isFeed),
+    SET_HOMEACTIVETAB: (state, num) => (state.homeActiveTab = num),
   },
   actions: {
     // YoutubeList.vue 에서 사용
@@ -48,6 +54,15 @@ export default {
     // YoutubeView에서 YoutubeListItem에서 params로 넘겨 받은 데이터 저장
     fetchYoutubeInfo({ commit }, videoInfo) {
       commit("SET_VIDEOINFO", videoInfo);
+    },
+
+    setTabYoutube({ commit }) {
+      commit("SET_ISFEED", false);
+      commit("SET_HOMEACTIVETAB", 0);
+    },
+    setTabFeed({ commit }) {
+      commit("SET_ISFEED", true);
+      commit("SET_HOMEACTIVETAB", 1);
     },
   },
 };

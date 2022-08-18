@@ -15,14 +15,18 @@
               <h4>{{ feedUserInfo.popCount }}</h4>
             </div>
           </li>
-          <li @click="[setTabFollower, routerPushes('follow'), fetchFollowerList()]">
-            <div><h4 class="user-descip">팔로워</h4></div>
+          <li @click="[routerPushes('follow'), fetchFollowerList()]">
+            <div @click="setTabFollower">
+              <h4 class="user-descip">팔로워</h4>
+            </div>
             <div class="mt-1">
               <h4>{{ feedUserInfo.followerNum }}</h4>
             </div>
           </li>
-          <li @click="[setTabFollower, routerPushes('follow'), fetchFollowingList()]">
-            <div><h4 class="user-descip">팔로잉</h4></div>
+          <li @click="[routerPushes('follow'), fetchFollowingList()]">
+            <div @click="setTabFollowing">
+              <h4 class="user-descip">팔로잉</h4>
+            </div>
             <div class="mt-1">
               <h4>{{ feedUserInfo.followingNum }}</h4>
             </div>
