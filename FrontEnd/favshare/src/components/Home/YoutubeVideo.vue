@@ -49,6 +49,7 @@ import VueYoutube from "vue-youtube";
 import Vue from "vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
+import api from "@/api/springRestAPI";
 
 Vue.use(VueYoutube);
 
@@ -89,7 +90,7 @@ export default {
     postStoredYoutube() {
       axios({
         method: "post",
-        url: "http://13.124.112.241:8080/youtube/bookmark",
+        url: api.youtubeBookmark.youtubeBookmark(),
         data: { userId: this.userId, youtubeUrl: this.videoInfo.videoId },
       })
         .then((res) => {
@@ -106,7 +107,7 @@ export default {
     deleteStoredYoutube() {
       axios({
         method: "delete",
-        url: "http://13.124.112.241:8080/youtube/bookmark",
+        url: api.youtubeBookmark.youtubeBookmark(),
         data: { userId: this.userId, youtubeUrl: this.videoInfo.videoId },
       }).then((res) => {
         if (res.data !== 200) {
@@ -117,7 +118,7 @@ export default {
     isStoreYoutube() {
       axios({
         method: "post",
-        url: "http://13.124.112.241:8080/youtube/detail",
+        url: api.youtube.detail(),
         data: {
           userId: this.userId,
           youtubeUrl: this.videoInfo.videoId,

@@ -105,6 +105,7 @@ import InterestProgress from "@/components/Interest/InterestProgress.vue";
 import IdolChoiceList from "@/components/Interest/IdolChoiceList.vue";
 import SongChoiceList from "@/components/Interest/SongChoiceList.vue";
 import { mapGetters } from "vuex";
+import api from "@/api/springRestAPI";
 
 export default {
   name: "InterestView",
@@ -148,7 +149,7 @@ export default {
     // 좋아하는 가수 선택사항 요청
     getIdolList() {
       axios
-        .get("http://13.124.112.241:8080/user/interest/idol")
+        .get(api.userInterest.getIdolInfo())
         .then((response) => {
           this.idolList = response.data;
         })
@@ -159,7 +160,7 @@ export default {
     // 좋아하는 노래 선택사항 요청
     getSongList() {
       axios
-        .get("http://13.124.112.241:8080/user/interest/song")
+        .get(api.userInterest.getInterestSong())
         .then((response) => {
           this.songList = response.data;
         })
@@ -183,10 +184,7 @@ export default {
     },
     search() {
       axios
-        .get(
-          `http://13.124.112.241:8080/user/interest/findIdol/${this.keyword}`
-        )
-        .then((response) => {
+        .get((response) => {
           // "선택 안함" 안보이게 하기
           this.$refs.idolChoiceList.isSearching = true;
           this.idolList = response.data;
@@ -207,7 +205,7 @@ export default {
     // 각각 사용자가 선택한 id들을 담고 있고, 정렬되어 있지 않은 상태
     sendInterest() {
       axios
-        .post("http://13.124.112.241:8080/user/interest/", {
+        .post(api.userInterest.selectInterest(), {
           userId: this.userId,
           idolList: this.idolChoiceList,
           songList: this.songChoiceList,

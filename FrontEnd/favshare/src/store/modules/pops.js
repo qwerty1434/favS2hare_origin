@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "@/api/springRestAPI";
 
 export default {
   state: {
@@ -36,7 +37,8 @@ export default {
       console.log(popId + " " + userId);
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/pop/info`,
+        // url: `http://13.124.112.241:8080/pop/info`,
+        url: api.pop.info(),
         data: {
           popId: popId,
           userId: userId,
@@ -51,7 +53,8 @@ export default {
     countView({ commit }, { popId }) {
       axios({
         method: "put",
-        url: `http://13.124.112.241:8080/pop/detail/${popId}`,
+        // url: `http://13.124.112.241:8080/pop/detail/${popId}`,
+        url: api.pop.detail(popId),
       })
         .then((res) => {
           console.log("조회수 증가" + res.data);
@@ -64,7 +67,8 @@ export default {
     deletePopsOne({ commit }, { popId }) {
       axios({
         method: "delete",
-        url: `http://13.124.112.241:8080/pop`,
+        // url: `http://13.124.112.241:8080/pop`,
+        url: api.pop.pop(),
         data: {
           popId: popId,
         },
@@ -77,7 +81,8 @@ export default {
       console.log(popId + " " + userId);
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/pop/comment/list`,
+        // url: `http://13.124.112.241:8080/pop/comment/list`,
+        url: api.comment.list(),
         data: {
           popId: popId,
           userId: userId,
@@ -93,7 +98,8 @@ export default {
     likePops({ commit }, { popId, userId }) {
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/pop/like`,
+        // url: `http://13.124.112.241:8080/pop/like`,
+        url: api.pop.like(),
         data: {
           popId: popId,
           userId: userId,
@@ -102,7 +108,8 @@ export default {
         .then(() => {
           axios({
             method: "post",
-            url: `http://13.124.112.241:8080/pop/info`,
+            // url: `http://13.124.112.241:8080/pop/info`,
+            url: api.pop.info(),
             data: {
               popId: popId,
               userId: userId,
@@ -120,7 +127,8 @@ export default {
     unLikePops({ commit }, { popId, userId }) {
       axios({
         method: "delete",
-        url: `http://13.124.112.241:8080/pop/like`,
+        // url: `http://13.124.112.241:8080/pop/like`,
+        url: api.pop.like(),
         data: {
           popId: popId,
           userId: userId,
@@ -128,7 +136,8 @@ export default {
       }).then(() => {
         axios({
           method: "post",
-          url: `http://13.124.112.241:8080/pop/info`,
+          // url: `http://13.124.112.241:8080/pop/info`,
+          url: api.pop.info(),
           data: {
             popId: popId,
             userId: userId,
@@ -144,7 +153,8 @@ export default {
       console.log(content + " " + popId + " " + userId);
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/pop/comment`,
+        // url: `http://13.124.112.241:8080/pop/comment`,
+        url: api.comment.all(),
         data: {
           content: content,
           popId: popId,
@@ -154,7 +164,8 @@ export default {
         .then(() => {
           axios({
             method: "post",
-            url: `http://13.124.112.241:8080/pop/comment/list`,
+            // url: `http://13.124.112.241:8080/pop/comment/list`,
+            url: api.comment.list(),
             data: {
               popId: popId,
               userId: userId,
@@ -171,7 +182,8 @@ export default {
       console.log(commentId + " " + userId + " " + popId);
       axios({
         method: "delete",
-        url: `http://13.124.112.241:8080/pop/comment`,
+        // url: `http://13.124.112.241:8080/pop/comment`,
+        url: api.comment.all(),
         data: {
           commentId: commentId,
           userId: userId,
@@ -180,7 +192,8 @@ export default {
         .then(() => {
           axios({
             method: "post",
-            url: `http://13.124.112.241:8080/pop/comment/list`,
+            // url: `http://13.124.112.241:8080/pop/comment/list`,
+            url: api.comment.list(),
             data: {
               popId: popId,
               userId: userId,
@@ -196,7 +209,8 @@ export default {
     likeComment({ commit }, { popId, commentId, userId }) {
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/pop/likeComment`,
+        // url: `http://13.124.112.241:8080/pop/likeComment`,
+        url: api.likeComment.likeComment(),
         data: {
           commentId: commentId,
           userId: userId,
@@ -205,7 +219,8 @@ export default {
         .then(() => {
           axios({
             method: "post",
-            url: `http://13.124.112.241:8080/pop/comment/list`,
+            // url: `http://13.124.112.241:8080/pop/comment/list`,
+            url: api.comment.list(),
             data: {
               popId: popId,
               userId: userId,
@@ -221,7 +236,8 @@ export default {
     unLikeComment({ commit }, { popId, commentId, userId }) {
       axios({
         method: "delete",
-        url: `http://13.124.112.241:8080/pop/likeComment`,
+        // url: `http://13.124.112.241:8080/pop/likeComment`,
+        url: api.likeComment.likeComment(),
         data: {
           commentId: commentId,
           userId: userId,
@@ -229,7 +245,8 @@ export default {
       }).then(() => {
         axios({
           method: "post",
-          url: `http://13.124.112.241:8080/pop/comment/list`,
+          // url: `http://13.124.112.241:8080/pop/comment/list`,
+          url: api.comment.list(),
           data: {
             popId: popId,
             userId: userId,
@@ -242,7 +259,8 @@ export default {
     fetchInterestIdol({ commit, getters }) {
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/pop/idolList/${getters.userId}`,
+        // url: `http://13.124.112.241:8080/pop/idolList/${getters.userId}`,
+        url: api.pop.idolList(getters.userId),
       }).then((res) => {
         commit("SET_POPSTYPELIST", res.data);
       });
@@ -250,7 +268,8 @@ export default {
     fetchPopList({ commit, getters }, idolId) {
       axios({
         method: "post",
-        url: "http://13.124.112.241:8080/pop",
+        // url: "http://13.124.112.241:8080/pop",
+        url: api.pop.pop(),
         data: {
           idolId: idolId,
           userId: getters.userId,

@@ -1,5 +1,6 @@
 import router from "@/router";
 import axios from "axios";
+import api from "@/api/springRestAPI";
 
 export default {
   state: {
@@ -63,7 +64,7 @@ export default {
       if (userId != 0) {
         axios({
           method: "get",
-          url: `http://13.124.112.241:8080/user/profile/${userId}`,
+          url: api.userProfile.profileGet(userId),
           // url: `http://13.124.112.241:8080/user/profile/1`,
         }).then((res) => {
           commit("SET_FEEDUSERINFO", res.data);
@@ -81,7 +82,7 @@ export default {
       if (userId != 0) {
         axios({
           method: "get",
-          url: `http://13.124.112.241:8080/user/profile/feed/${userId}`,
+          url: api.userProfile.profileFeed(userId),
           // url: `http://13.124.112.241:8080/user/profile/feed/1`,
         }).then((res) => {
           console.log("피드리스트", res.data);
@@ -93,7 +94,7 @@ export default {
               console.log("3번");
               axios({
                 method: "post",
-                url: "http://13.124.112.241:8080/user/profile/popList",
+                url: api.userProfile.profilePopList(),
                 data: {
                   userId: getters.userId,
                   feedId: feed.id,
@@ -116,7 +117,7 @@ export default {
       console.log("3번");
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/user/profile/popList`,
+        url: api.userProfile.profilePopList(),
         data: {
           userId: getters.feedUserInfo.id,
           feedId: feedId,
@@ -131,7 +132,7 @@ export default {
     fetchFriendInfo({ commit }, fromUserId, toUserId) {
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/user/profile/freind`,
+        url: api.userProfile.profileFriend(),
         data: {
           fromUserId: fromUserId,
           toUserId: toUserId,
@@ -164,7 +165,7 @@ export default {
     getProfileInfo({ commit }, userId) {
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/user/profile/edit/${userId}`,
+        url: api.userProfile.profileEdit(userId),
       }).then((res) => {
         console.log(res);
         commit("SET_EDITUSERINFO", res.data);
@@ -176,7 +177,7 @@ export default {
       console.log(content);
       axios({
         method: "put",
-        url: `http://13.124.112.241:8080/user/profile`,
+        url: api.userProfile.profile(),
         data: {
           id: userId,
           nickname: nickname,
@@ -204,7 +205,8 @@ export default {
     fetchFollowerList({ commit, getters }) {
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/user/follow/to/${getters.feedUserInfo.id}`,
+        // url: `http://13.124.112.241:8080/user/follow/to/${getters.feedUserInfo.id}`,
+        url: api.userFollow.followTo(getters.feedUserInfo.id),
       })
         .then((res) => {
           commit("SET_FOLLOWERLIST", res.data);
@@ -215,7 +217,7 @@ export default {
     fetchFollowingList({ commit, getters }) {
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/user/follow/from/${getters.feedUserInfo.id}`,
+        url: api.userFollow.followFrom(getters.feedUserInfo.id),
       }).then((res) => {
         commit("SET_FOLLOWINGLIST", res.data);
       });
@@ -226,7 +228,8 @@ export default {
       console.log("isFollowing 안에 왔음", id);
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/user/follow/from/${getters.userId}`,
+        // url: `http://13.124.112.241:8080/user/follow/from/${getters.userId}`,
+        url: api.userFollow.followFrom(getters.userId),
       })
         .then((res) => {
           console.log(".then 안에 왔음", res.data);
@@ -261,7 +264,7 @@ export default {
       console.log(id);
       axios({
         method: "post",
-        url: "http://13.124.112.241:8080/user/follow",
+        url: api.userFollow.follow(),
         data: {
           fromUserId: getters.userId,
           toUserId: id,

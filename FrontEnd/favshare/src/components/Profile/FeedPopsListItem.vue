@@ -36,6 +36,7 @@ import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 import router from "@/router";
+import api from "@/api/springRestAPI";
 
 Vue.use(VueYoutube);
 
@@ -98,7 +99,7 @@ export default {
     deleteFeedPop() {
       axios({
         method: "delete",
-        url: "http://13.124.112.241:8080/feed/pop",
+        url: api.feed.pop(),
         data: {
           feedId: this.currentFeedId,
           popId: [this.feedPop.id],

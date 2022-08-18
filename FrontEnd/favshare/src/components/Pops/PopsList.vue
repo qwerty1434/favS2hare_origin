@@ -10,6 +10,7 @@
 <script>
 import { mapGetters } from "vuex";
 import PopsListItem from "./PopsListItem.vue";
+// import api from "@/api/springRestAPI";
 
 export default {
   name: "PopsList",
@@ -31,7 +32,7 @@ export default {
   //   fetchPopList() {
   //     axios({
   //       method: "post",
-  //       url: "http://13.124.112.241:8080/pop",
+  //       url: api.pop.pop(),
   //       data: {
   //         idolId: 0,
   //         userId: this.userId,

@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "@/api/springRestAPI";
 
 export default {
   state: {
@@ -24,7 +25,7 @@ export default {
       console.log(keyword);
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/search`,
+        url: api.search.search(),
         data: {
           message: keyword,
           userId: userId,
@@ -36,7 +37,7 @@ export default {
     getSearchedYoutubeList({ commit }, { keyword, userId }) {
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/search`,
+        url: api.search.search(),
         data: {
           message: keyword,
           userId: userId,
@@ -48,7 +49,7 @@ export default {
     getSearchedFollowingList({ commit }, { keyword, userId }) {
       axios({
         method: "post",
-        url: `http://13.124.112.241:8080/search`,
+        url: api.search.search(),
         data: {
           message: keyword,
           userId: userId,

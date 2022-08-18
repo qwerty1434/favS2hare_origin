@@ -54,6 +54,7 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import api from "@/api/springRestAPI";
 
 export default {
   name: "NavBar",
@@ -73,7 +74,7 @@ export default {
     openModal() {
       axios({
         method: "get",
-        url: `http://13.124.112.241:8080/user/profile/${this.userId}`,
+        url: api.userProfile.profileGet(this.userId),
         data: {
           userId: this.userId,
         },

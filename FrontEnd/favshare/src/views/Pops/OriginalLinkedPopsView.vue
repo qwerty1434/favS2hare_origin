@@ -21,6 +21,8 @@ import axios from "axios";
 import OriginalInfo from "@/components/Pops/OriginalInfo.vue";
 import LinkedPopsList from "@/components/Pops/LinkedPopsList.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
+import api from "@/api/springRestAPI";
+import { mapGetters } from "vuex";
 
 export default {
   name: "OriginalLinkedPopsView",
@@ -31,14 +33,22 @@ export default {
       countLinkedPopsList: 0,
     };
   },
+  computed: {
+    ...mapGetters(["userId"]),
+  },
   created() {
     this.getOriginalAndPops();
   },
   methods: {
     getOriginalAndPops() {
       axios
-        .get(
-          `http://13.124.112.241:8080/pop/youtube/${this.$route.query.popsId}`
+        .post(
+          // `http://13.124.112.241:8080/pop/youtube/${this.$route.query.popsId}`
+          api.pop.youtube(),
+          {
+            userId: this.userId,
+            popId: this.$route.query.popsId,
+          }
         )
         .then((response) => {
           this.linkedPopsList = response.data.popInfo;
