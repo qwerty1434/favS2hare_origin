@@ -9,7 +9,7 @@
     scrollable
   >
     <v-card>
-      <v-btn text @click.stop="closeDialogComment">
+      <v-btn text @click.stop="dialogComment = false">
         <v-icon>mdi-drag-horizontal-variant</v-icon>
       </v-btn>
       <v-card-text class="comment-size">

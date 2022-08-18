@@ -1,17 +1,38 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col><img :src="followingItem.profileImageUrl" alt="John" /></v-col>
-      <v-col>{{ followingItem.nickname }}</v-col>
-      <v-col></v-col>
+  <!-- eslint-disable -->
+  <div class="ma-3">
+    <v-row align="center">
+      <v-col
+        ><v-avatar size="45px"><img :src="followingItem.profileImageUrl" alt="image" /></v-avatar
+      ></v-col>
+      <v-col class="ml-n3" cols="4"
+        ><h5>{{ followingItem.nickname }}</h5></v-col
+      >
+      <v-spacer></v-spacer>
       <v-col cols="4" align="center"
-        ><v-btn small v-if="isFollowing" @click="unFollow">팔로우 취소</v-btn>
-        <v-btn small v-else @click="unFollow" color="primary"
+        ><v-btn
+          class="white--text"
+          elevation="0"
+          color="grey lighten"
+          rounded
+          small
+          v-if="isFollowing"
+          @click="unFollow"
+          >팔로우 취소</v-btn
+        >
+        <v-btn
+          class="mr-n5 white--text"
+          color="red lighten-1"
+          elevation="0"
+          rounded
+          small
+          v-else
+          @click="unFollow"
           >팔로우</v-btn
         ></v-col
       >
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

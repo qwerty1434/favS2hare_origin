@@ -52,12 +52,12 @@
               </h5>
             </v-col>
             <v-col>
-              <h4>
+              <h5>
                 <v-icon small> mdi-eye </v-icon>
                 {{ newsFeedPop.popDto.views }}&nbsp;&nbsp;
                 <v-icon small> mdi-heart </v-icon>
                 {{ newsFeedPop.popDto.likeCount }}
-              </h4>
+              </h5>
             </v-col>
           </v-row>
         </div>
@@ -133,6 +133,16 @@ export default {
     },
     routerPushes(icon) {
       router.push({ name: icon });
+    },
+    goPopsDetail() {
+      console.log(this.newsFeedPop.userProfileDto.nickname);
+      this.$router.push({
+        name: "popsdetail",
+        params: {
+          popsId: this.newsFeedPop.popDto.id,
+          editorId: this.newsFeedPop.userProfileDto.nickname,
+        },
+      });
     },
   },
   created() {

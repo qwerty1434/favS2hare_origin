@@ -15,7 +15,7 @@
           <v-col class="ml-n2"><h5>정보</h5></v-col>
           <v-spacer></v-spacer>
           <v-col cols="2">
-            <v-btn text @click.stop="closeDialogInfo">
+            <v-btn text @click.stop="dialogInfo = false">
               <v-icon class="mr-2">mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -26,7 +26,7 @@
           {{ popsInfo.name }}
         </h2>
         <h5 class="mt-2">
-          {{ popsInfo.userId }}
+          {{ editorId }}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ createDate }}
         </h5>
         <v-row class="mt-3">
@@ -98,8 +98,8 @@ export default {
     popsId: {
       type: Number,
     },
-    userId: {
-      type: Number,
+    editorId: {
+      type: String,
     },
   },
   created() {
@@ -122,7 +122,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getPopsInfo", "closeDialogInfo"]),
+    ...mapActions(["getPopsInfo"]),
+    closePopsInfoModal() {
+      this.value = false;
+    },
   },
 };
 </script>

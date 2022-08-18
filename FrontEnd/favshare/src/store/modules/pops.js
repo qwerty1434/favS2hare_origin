@@ -117,7 +117,6 @@ export default {
           }).then((res) => {
             console.log(res.data.popInfoDto);
             commit("SET_POPS_INFO", res.data.popInfoDto);
-            commit("SET_LIKE_POPS", true);
           });
         })
         .catch((err) => {
@@ -145,7 +144,6 @@ export default {
         }).then((res) => {
           console.log(res.data.popInfoDto);
           commit("SET_POPS_INFO", res.data.popInfoDto);
-          commit("SET_LIKE_POPS", false);
         });
       });
     },
