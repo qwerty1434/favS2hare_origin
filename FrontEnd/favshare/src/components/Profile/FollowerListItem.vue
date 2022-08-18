@@ -1,27 +1,53 @@
 <template>
-  <v-container>
+  <!-- eslint-disable -->
+  <div class="ma-3">
     <v-row align="center">
-      <v-col><img :src="followerItem.profileImageUrl" alt="" /></v-col>
-      <v-col>{{ followerItem.nickname }}</v-col>
-      <v-col></v-col>
-      <v-col align="right">
+      <v-col
+        ><v-avatar size="45px"><img :src="followerItem.profileImageUrl" alt="" /></v-avatar
+      ></v-col>
+      <v-col class="ml-n3" cols="4"
+        ><h5>{{ followerItem.nickname }}</h5></v-col
+      >
+      <v-spacer></v-spacer>
+      <v-col align="center">
         <v-btn
+          class="mr-n5 white--text"
+          rounded
           small
-          outlined
           color="red lighten-1"
-          elevation="2"
+          elevation="0"
           v-if="!isFollowing"
           @click="unFollow"
         >
           팔로우
         </v-btn>
-        <v-btn small v-else @click="unFollow"> 팔로잉 </v-btn>
+        <v-btn
+          class="mr-n5 white--text"
+          color="red lighten-1"
+          elevation="0"
+          rounded
+          outlined
+          small
+          v-else
+          @click="unFollow"
+        >
+          팔로잉
+        </v-btn>
       </v-col>
-      <v-col align="right">
-        <v-btn small @click="deleteFollower">삭제</v-btn>
+      <v-col align="center">
+        <v-btn
+          class="white--text"
+          elevation="0"
+          color="grey lighten"
+          rounded
+          small
+          @click="deleteFollower"
+          >삭제</v-btn
+        >
       </v-col>
     </v-row>
-  </v-container>
+    <!-- <v-divider class="mt-3"></v-divider> -->
+  </div>
 </template>
 
 <script>

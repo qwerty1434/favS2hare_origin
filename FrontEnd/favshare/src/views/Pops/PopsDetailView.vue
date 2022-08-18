@@ -109,6 +109,7 @@ export default {
   components: { PopsCommentModal, PopsInfoModal, BottomNavigationBar },
   data() {
     return {
+      isLiked: false,
       dialogComment: false,
       dialogInfo: false,
     };
@@ -122,7 +123,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["isSignin", "userId", "popsInfo", "isLiked"]),
+    ...mapGetters(["isSignin", "userId", "popsInfo"]),
     player() {
       return this.$refs[`pops${this.popsInfo.id}`].player;
     },
@@ -152,6 +153,8 @@ export default {
     this.getPopsInfo({ popId: this.popsId, userId: this.userId });
     if (this.popsInfo.liked) {
       this.isLiked = true;
+    } else {
+      this.isLiked = false;
     }
     console.log("pops생성 " + this.popsInfo.name);
   },
@@ -174,11 +177,13 @@ export default {
           popId: this.popsId,
           userId: this.userId,
         });
+        this.isLiked = true;
       } else {
         this.unLikePops({
           popId: this.popsId,
           userId: this.userId,
         });
+        this.isLiked = false;
       }
     },
     btnDeletePops() {
