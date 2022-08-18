@@ -181,10 +181,11 @@ public class YoutubeService {
 		Random r = new Random();
 		int[] idList = new int[5];
 		String queryList = "";	
-
+		int size = idolRepository.findAll().size();
+		
 		// 랜덤으로 아이돌 추출해서 검색어 쿼리 만드는 반복문
 		for (int i = 0; i < idList.length; i++) {
-			idList[i] = r.nextInt(5) + 1;
+			idList[i] = r.nextInt(size) + 1;
 			for (int j = 0; j < i; j++) {
 				if (idList[i] == idList[j])
 					i--;
