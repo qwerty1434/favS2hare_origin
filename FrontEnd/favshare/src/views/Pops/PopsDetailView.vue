@@ -31,7 +31,7 @@
         </v-row>
         <div class="pops-detail-body">
           <div class="pops-title">
-            <h1>{{ this.popsInfo.name }}</h1>
+            <h2>{{ popsInfo.name }}</h2>
           </div>
           <!-- pops 재생화면 -->
           <v-sheet class="pops-play">
@@ -49,7 +49,7 @@
             </div>
           </v-sheet>
           <div class="pops-editer">
-            <h3>{{ editorId }}</h3>
+            <h3>{{ popsInfo.content }}</h3>
           </div>
         </div>
         <v-row class="mt-550">
@@ -58,7 +58,7 @@
             <h6 class="like-count">{{ popsInfo.likeCount }}</h6>
           </div>
         </v-row>
-        <v-row class="pa-2 mt-600" justify="end">
+        <v-row class="pa-2 mt-600">
           <v-spacer></v-spacer>
           <div v-if="isSignin">
             <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
@@ -206,7 +206,7 @@ export default {
 
 <style>
 .mt-550 {
-  margin-top: 185px;
+  margin-top: 195px;
 }
 .mt-600 {
   margin-top: 1px !important;
@@ -229,7 +229,7 @@ export default {
   color: aliceblue;
 }
 .like-count {
-  margin-right: 105px;
+  margin-right: 106px;
   margin-bottom: -14px;
   color: aliceblue;
 }
