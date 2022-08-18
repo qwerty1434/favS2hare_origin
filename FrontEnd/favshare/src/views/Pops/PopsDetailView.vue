@@ -62,34 +62,14 @@
         <v-row class="pa-2 mt-600" justify="end">
           <v-spacer></v-spacer>
           <div v-if="isSignin">
-            <v-btn
-              class="mt-2"
-              text
-              icon
-              color="white"
-              v-if="!isLiked"
-              @click="btnLikePops"
-            >
+            <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
               <v-icon>mdi-heart-outline</v-icon>
             </v-btn>
-            <v-btn
-              class="mt-2"
-              text
-              icon
-              color="red"
-              v-else
-              @click="btnLikePops"
-            >
+            <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
               <v-icon>mdi-heart</v-icon>
             </v-btn>
           </div>
-          <v-btn
-            class="mt-2"
-            text
-            icon
-            color="white"
-            @click.stop="fetchDialogComment"
-          >
+          <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogComment">
             <v-icon>mdi-comment-text-outline</v-icon>
           </v-btn>
           <pops-comment-modal
@@ -98,13 +78,7 @@
             :value="dialogComment"
             @input="dialogComment = $event"
           ></pops-comment-modal>
-          <v-btn
-            class="mt-2"
-            text
-            icon
-            color="white"
-            @click.stop="fetchDialogInfo"
-          >
+          <v-btn class="mt-2" text icon color="white" @click.stop="fetchDialogInfo">
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
           <pops-info-modal
@@ -162,14 +136,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
-      "isSignin",
-      "userId",
-      "popsInfo",
-      "isLiked",
-      "dialogComment",
-      "dialogInfo",
-    ]),
+    ...mapGetters(["isSignin", "userId", "popsInfo", "isLiked", "dialogComment", "dialogInfo"]),
     player() {
       return this.$refs[`pops${this.popsInfo.id}`].player;
     },

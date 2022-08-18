@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <div
-      v-for="(newsFeedPop, index) in newsFeedPops"
-      :key="index"
-      class="videos__container"
-    >
+  <!-- eslint-disable -->
+  <div class="mb-15">
+    <div v-for="(newsFeedPop, index) in newsFeedPops" :key="index" class="videos__container">
       <news-feed-list-item :news-feed-pop="newsFeedPop"></news-feed-list-item>
     </div>
   </div>
