@@ -92,7 +92,7 @@ public class UserPasswordController {
 			return null;
 		}
 
-	}
+	} 
 
 	@ApiOperation(value = "인증번호 입력 후 확인 클릭시", response = ResponseEntity.class)
 	@PostMapping("/auth")
