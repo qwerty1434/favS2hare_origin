@@ -158,28 +158,5 @@ export default {
 
 li {
   text-align: center;
-  font-family: "MabinogiClassicR" !important;
-}
-
-@font-face {
-  font-family: "EarlyFontDiary";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_220508@1.0/EarlyFontDiary.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Happiness-Sans-Title";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "MabinogiClassicR";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: normal;
 }
 </style>
