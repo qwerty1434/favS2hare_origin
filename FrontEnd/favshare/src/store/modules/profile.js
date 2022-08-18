@@ -201,7 +201,7 @@ export default {
       commit("SET_CURRENTFEEDID", currentFeedId);
     },
 
-    fetchFollowerList({ commit }, id) {
+    fetchFollowerList({ commit, getters }) {
       axios({
         method: "get",
         url: `http://13.124.112.241:8080/user/follow/to/${getters.feedUserInfo.id}`,
@@ -212,7 +212,7 @@ export default {
         .catch((err) => console.log(err));
     },
 
-    fetchFollowingList({ commit }, id) {
+    fetchFollowingList({ commit, getters }) {
       axios({
         method: "get",
         url: `http://13.124.112.241:8080/user/follow/from/${getters.feedUserInfo.id}`,
