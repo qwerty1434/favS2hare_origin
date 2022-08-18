@@ -15,7 +15,11 @@
           @playing="onPlaying"
           :width="320"
           :height="180"
-          style="pointer-events: none; border-top-left-radius: 8px; border-top-right-radius: 8px"
+          style="
+            pointer-events: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+          "
         ></youtube>
       </div>
       <div class="pop-name"></div>
@@ -129,16 +133,6 @@ export default {
     },
     routerPushes(icon) {
       router.push({ name: icon });
-    },
-    goPopsDetail() {
-      console.log(this.newsFeedPop.userId);
-      this.$router.push({
-        name: "popsdetail",
-        params: {
-          popsId: this.newsFeedPop.popDto.id,
-          editorId: this.newsFeedPop.popDto.userId,
-        },
-      });
     },
   },
   created() {
