@@ -3,10 +3,11 @@
     <youtube
       :video-id="this.videoInfo.videoId"
       :player-vars="playerVars"
+      @playing="onPlaying"
+      @ready="onPlayerReady"
       ref="youtube"
       :width="330"
       :height="186"
-      @playing="playing"
     ></youtube>
     <div class="videoinfo__icons">
       <div class="videoinfo">
