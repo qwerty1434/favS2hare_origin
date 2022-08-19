@@ -20,6 +20,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import SearchMoreFollowingList from "@/components/Home/search/SearchMoreFollowingList.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 
@@ -29,6 +30,7 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+      const searched = JSON.parse(sessionStorage.getItem("vuex"));
     },
   },
 };

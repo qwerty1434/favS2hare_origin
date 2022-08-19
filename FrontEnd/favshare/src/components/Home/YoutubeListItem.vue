@@ -70,7 +70,6 @@ export default {
         part: "snippet",
         id: this.homeYoutube.youtubeId,
       };
-      console.log(params);
       axios
         .get(googleAPI.videos(), { params })
         .then((res) => {
@@ -78,7 +77,6 @@ export default {
           this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
           this.videoTitle = res.data.items[0].snippet.title;
           const tmpChannelId = res.data.items[0].snippet.channelId;
-          console.log(tmpChannelId);
           axios
             .get(
               `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=${API_KEY}`

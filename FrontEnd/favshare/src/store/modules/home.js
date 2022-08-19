@@ -28,12 +28,30 @@ export default {
   actions: {
     // YoutubeList.vue 에서 사용
     fetchHomeYoutubes({ commit, getters }) {
+      const API_KEY = process.env.VUE_APP_API_KEY_1;
       axios({
         // url: `http://13.124.112.241:8080/youtube/${getters.userId}`,
         url: api.youtube.youtube(getters.userId),
         method: "get",
       })
-        .then((res) => commit("SET_HOMEYOUTUBES", res.data))
+        // 백엔드에서 받은 res.data는 "아이유or아이브"와 같은 문자열 형태
+        .then((res) => {
+          axios
+            .get(
+              `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${res.data}&key=${API_KEY}`
+            )
+            .then((res) => {
+              const homeYoutubes = res.data.items.map(function (item) {
+                return {
+                  youtubeId: item.id.videoId,
+                };
+              });
+              commit("SET_HOMEYOUTUBES", homeYoutubes);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
         .catch((err) => console.log(err));
     },
     // NewsFeedList.vue 에서 사용
