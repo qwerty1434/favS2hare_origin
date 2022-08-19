@@ -1,4 +1,5 @@
 // import router from "@/router";
+/* eslint-disable */
 import axios from "axios";
 import api from "@/api/springRestAPI";
 
@@ -18,8 +19,7 @@ export default {
     homeActiveTab: (state) => state.homeActiveTab,
   },
   mutations: {
-    SET_HOMEYOUTUBES: (state, homeYoutubes) =>
-      (state.homeYoutubes = homeYoutubes),
+    SET_HOMEYOUTUBES: (state, homeYoutubes) => (state.homeYoutubes = homeYoutubes),
     SET_FEEDPOPS: (state, newsFeedPops) => (state.newsFeedPops = newsFeedPops),
     SET_VIDEOINFO: (state, videoInfo) => (state.videoInfo = videoInfo),
     SET_ISFEED: (state, isFeed) => (state.isFeed = isFeed),
@@ -38,7 +38,7 @@ export default {
         .then((res) => {
           axios
             .get(
-              `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${res.data}&key=${API_KEY}`
+              `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${res.data}&key=${API_KEY}&maxResults=50`
             )
             .then((res) => {
               const homeYoutubes = res.data.items.map(function (item) {
