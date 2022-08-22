@@ -47,6 +47,7 @@
 - [API](./docs/API.md)
 - [ERD](./docs/ERD.md)
 - [기술스택](./docs/기술스택.md)
+- [UCC](./docs/UCC.md)
 
 ## ✔ 프로젝트 결과물
 - [중간발표자료](./docs/ppt/)
