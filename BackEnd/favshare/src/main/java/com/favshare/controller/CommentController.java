@@ -39,7 +39,7 @@ public class CommentController {
 
 	@Autowired
 	private LikeCommentService likeCommentService;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -48,17 +48,17 @@ public class CommentController {
 	public ResponseEntity<List<CommentDto>> showCommentList(@RequestBody UserPopIdDto userPopIdDto) {
 		int userId = userPopIdDto.getUserId();
 		int popId = userPopIdDto.getPopId();
-		
+
 		try {
 			List<CommentEntity> commentEntityList = commentService.getCommentList(popId);
 			List<CommentDto> result = new ArrayList<>();
-			
+
 			for (int i = 0; i < commentEntityList.size(); i++) {
 				CommentEntity commentEntity = commentEntityList.get(i);
 				UserProfileDto user = userService.getUserProfileById(commentEntity.getUserEntity().getId());
 				boolean isLiked = likeCommentService.isLiked(userId, commentEntity.getId());
-				
-				result.add(new CommentDto(commentEntity, user.getNickname(), user.getProfileImageUrl(),isLiked));
+
+				result.add(new CommentDto(commentEntity, user.getNickname(), user.getProfileImageUrl(), isLiked));
 			}
 
 			return new ResponseEntity<List<CommentDto>>(result, HttpStatus.OK);
@@ -67,7 +67,6 @@ public class CommentController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
-
 
 	@ApiOperation(value = "댓글 등록", response = ResponseEntity.class)
 	@PostMapping

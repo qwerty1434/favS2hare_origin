@@ -10,5 +10,5 @@ import lombok.*;
 public class FeedPopIdDto {
 	int feedId;
 	List<Integer> popId;
-	
+
 }

@@ -31,14 +31,11 @@ public class UserInfoController {
 	@PostMapping
 	public ResponseEntity<UserInfoDto> checkPassword(@RequestBody IdPasswordDto idPasswordDto) {
 
-		// id 값이 int로 넘어오는지 string 으로 넘어오는지 //
 		UserInfoDto userInfoDto = userService.getUserInfoById(idPasswordDto.getId());
 
 		if (userInfoDto.getPassword().equals(idPasswordDto.getPassword())) {
-		
 			return new ResponseEntity<UserInfoDto>(userInfoDto, HttpStatus.OK);
 		} else {
-			// 정보 보내주지 않음
 			return new ResponseEntity<UserInfoDto>(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -54,22 +51,20 @@ public class UserInfoController {
 			result.setBirthDate(userInfoDto.getBirthDate());
 
 			userService.updateUserInfo(result);
-			
+
 			return new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 
 	}
-	
-	@ApiOperation(value="회원탈퇴",response=ResponseEntity.class)
+
+	@ApiOperation(value = "회원탈퇴", response = ResponseEntity.class)
 	@DeleteMapping("/{userId}")
 	public ResponseEntity usersignUp(@PathVariable int userId) {
 
-		// 유효하다는걸 어떻게 확인하지? Auth쓰는건가? //유저의 토큰가 토큰을 보내도록 해서 해당 토큰이 DB토큰이랑 값이 같은지 확인해야 하는가?
-//		if(validate) {}
 		userService.deleteByUserId(userId);
 		return new ResponseEntity(HttpStatus.OK);
-	}	
+	}
 
 }

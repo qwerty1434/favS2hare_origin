@@ -59,7 +59,7 @@ public class PopController {
 	@ApiOperation(value = "사용자에게 맞는 팝 리스트", response = List.class)
 	@PostMapping
 	public ResponseEntity<List<PopDto>> showPopList(@RequestBody IdolUserIdDto idolUserIdDto) {
-		
+
 		int idolId = idolUserIdDto.getIdolId();
 		int userId = idolUserIdDto.getUserId();
 
@@ -112,14 +112,13 @@ public class PopController {
 	@PostMapping("/info")
 	public ResponseEntity<HashMap<String, Object>> showPopInfo(@RequestBody UserPopIdDto userPopIdDto) {
 		try {
-			PopInfoDto popInfoDto = popService.getPopInfoById(userPopIdDto.getPopId(),userPopIdDto.getUserId());
-			// liked추가        
+			PopInfoDto popInfoDto = popService.getPopInfoById(userPopIdDto.getPopId(), userPopIdDto.getUserId());
+
 			UserProfileDto userProfileDto = userService.getUserProfileById(userPopIdDto.getUserId());
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("popInfoDto", popInfoDto);
 			map.put("userProfileDto", userProfileDto);
-			
-			// pop 시청
+
 			popService.insertShowPop(userPopIdDto.getPopId(), userPopIdDto.getUserId());
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
@@ -180,7 +179,7 @@ public class PopController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@ApiOperation(value = "팝 탭 상단의 카테고리 리스트 - 아이돌1, 아이돌 2 등등", response = PopInfoDto.class)
 	@GetMapping("/idolList/{userId}")
 	public ResponseEntity<List<IdolDto>> getInterestIdolList(@PathVariable int userId) {
@@ -199,7 +198,6 @@ public class PopController {
 		List<FriendFeedDto> friendsPopList = userService.getFollowingList(userId);
 
 		if (friendsPopList.size() == 0) { // 친구가 없으면 -> 알고리즘으로 뿌려주기
-			System.out.println("난 친구가 없어!!!!!!!!!!!!!!!!!!!!!!!!!");
 			List<FriendFeedDto> result = new ArrayList<FriendFeedDto>();
 
 			// 1. 나를 팔로우 한 사람

@@ -16,23 +16,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-	
-	@Bean
-    public Docket restAPI() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.favshare"))
-                .paths(PathSelectors.any())
-                .build();
-    }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("favshare Spring Boot REST API")
-                .version("1.0.0")
-                .description("favshare swagger api 입니다.")
-                .build();
-    }
+	@Bean
+	public Docket restAPI() {
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
+				.apis(RequestHandlerSelectors.basePackage("com.favshare")).paths(PathSelectors.any()).build();
+	}
+
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title("favshare Spring Boot REST API").version("1.0.0")
+				.description("favshare swagger api 입니다.").build();
+	}
 
 }

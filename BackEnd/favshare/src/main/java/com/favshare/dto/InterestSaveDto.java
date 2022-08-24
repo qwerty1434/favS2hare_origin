@@ -11,6 +11,5 @@ public class InterestSaveDto {
 	int userId;
 	List<Integer> IdolList;
 	List<Integer> SongList;
-	
-	
+
 }

@@ -8,6 +8,5 @@ import lombok.*;
 public class YoutubeUserIdDto {
 	int userId;
 	String youtubeUrl;
-	
-	
+
 }

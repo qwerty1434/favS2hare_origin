@@ -8,5 +8,5 @@ import lombok.*;
 public class UserCommentIdDto {
 	int userId;
 	int commentId;
-	
+
 }

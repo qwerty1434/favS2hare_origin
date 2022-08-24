@@ -32,16 +32,13 @@ public class InterestIdolService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-
 	public void addIdolFavorite(int userId, int idolId) {
 		IdolEntity idolEntity = idolRepository.findById(idolId).get();
 		UserEntity userEntity = userRepository.findById(userId).get();
 
 		int duplicate = interestIdolRepository.findByIdolIdUserId(userEntity.getId(), idolEntity.getId());
 		if (duplicate >= 1) {
-			// 중복이라면 넣지않음
 		} else {
-			// 하나도 없다면 입력
 			InterestIdolEntity result = new InterestIdolEntity(idolEntity, userEntity);
 			interestIdolRepository.save(result);
 		}

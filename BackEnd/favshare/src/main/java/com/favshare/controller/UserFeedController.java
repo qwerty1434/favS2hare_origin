@@ -34,22 +34,21 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("user/feed")
 public class UserFeedController {
-	
+
 	@Autowired
 	private FeedService feedService;
-	
+
 	@Autowired
 	private PopService popService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private YoutubeService youtubeService;
-	
-	
-	@ApiOperation(value="feed에서 pop 하나 선택 시 pop의 재생 화면 나타내기",response=ResponseEntity.class)	
-	@PostMapping("/pop")		
+
+	@ApiOperation(value = "feed에서 pop 하나 선택 시 pop의 재생 화면 나타내기", response = ResponseEntity.class)
+	@PostMapping("/pop")
 	public ResponseEntity<HashMap<String, Object>> showOnePop(@RequestBody UserPopIdDto userPopIdDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		int userId = userPopIdDto.getUserId();
@@ -58,17 +57,16 @@ public class UserFeedController {
 		try {
 			PopDto popDto = popService.getPopDtoById(userId, popId);
 			UserProfileDto userProfileDto = userService.getUserProfileById(userId);
-			
+
 			result.put("popInfo", popDto);
 			result.put("userInfo", userProfileDto);
-			
+
 			return new ResponseEntity<HashMap<String, Object>>(result, HttpStatus.OK);
-			
+
 		} catch (Exception e) {
 			return new ResponseEntity<HashMap<String, Object>>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 	}
-	
-	
+
 }

@@ -31,42 +31,42 @@ public class YoutubeBookmarkController {
 
 	@Autowired
 	private YoutubeService youtubeService;
-	
+
 	@Autowired
 	private StoreYoutubeService storeYoutubeService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@ApiOperation(value = "유튜브 저장", response = ResponseEntity.class)
 	@PostMapping
 	public ResponseEntity storeYoutube(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
 			storeYoutubeService.insertBookmark(youtubeUserIdDto);
 			return new ResponseEntity(HttpStatus.OK);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@ApiOperation(value = "유튜브 저장 목록 확인", response = YoutubeBookmarkDto.class)
 	@GetMapping("/{userId}")
 	public ResponseEntity<List<YoutubeDto>> showYoutubeBookmark(@PathVariable("userId") int userId) {
 		try {
 			List<YoutubeDto> youtubeBookmarkList = storeYoutubeService.getYoutubeBookmarkById(userId);
-			return new ResponseEntity<List<YoutubeDto>>(youtubeBookmarkList,HttpStatus.OK);
-		}catch (Exception e) {
+			return new ResponseEntity<List<YoutubeDto>>(youtubeBookmarkList, HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<List<YoutubeDto>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@ApiOperation(value = "유튜브 저장 삭제", response = ResponseEntity.class)
 	@DeleteMapping
 	public ResponseEntity deleteYoutubeBookMark(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
 			storeYoutubeService.deleteYoutubeBookMarkById(youtubeUserIdDto);
 			return new ResponseEntity(HttpStatus.OK);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}

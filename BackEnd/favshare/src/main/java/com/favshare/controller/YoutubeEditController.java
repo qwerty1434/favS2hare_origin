@@ -26,32 +26,32 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/youtube/edit")
 public class YoutubeEditController {
-	
+
 	@Autowired
 	private YoutubeService youtubeService;
-	
+
 	@Autowired
 	private PopService PopService;
-	
+
 	@ApiOperation(value = "유튜브 편집 화면 정보", response = List.class)
 	@PostMapping("/info")
 	public ResponseEntity<YoutubeInfoDto> showYoutubeEdit(@RequestBody YoutubeUserIdDto youtubeUserIdDto) {
 		try {
 			YoutubeInfoDto youtubeEditDto = youtubeService.getEditInfoByUrl(youtubeUserIdDto);
-			return new ResponseEntity<YoutubeInfoDto>(youtubeEditDto, HttpStatus.OK);  
-		}catch (Exception e) {
-			return new ResponseEntity<YoutubeInfoDto>(HttpStatus.BAD_REQUEST);  
+			return new ResponseEntity<YoutubeInfoDto>(youtubeEditDto, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<YoutubeInfoDto>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@ApiOperation(value = "유튜브 편집 정보 저장", response = ResponseEntity.class)
 	@PostMapping
 	public ResponseEntity saveYoutubeEdit(@RequestBody YoutubeEditPopDto youtubeEditPopDto) {
 		try {
 			PopService.insertPop(youtubeEditPopDto);
-			return new ResponseEntity(HttpStatus.OK);  
-		}catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);  
+			return new ResponseEntity(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

@@ -17,17 +17,16 @@ public class PopDto {
 	private int id;
 	private String name;
 	private int startSecond;
-	private int endSecond; 
+	private int endSecond;
 	private String content;
 	private LocalDateTime createDate;
 	private int views;
 	private int likeCount;
-	
 	private String youtubeUrl;
 	private boolean isLiked;
 	private int userId;
 	private boolean isMuted;
-	
+
 	public PopDto(PopEntity popEntity, boolean isLiked) {
 		this.id = popEntity.getId();
 		this.name = popEntity.getName();

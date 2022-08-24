@@ -57,26 +57,26 @@ public class UserProfileController {
 			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@ApiOperation(value = "프로필 보기 중간부분(피드 리스트)", response = ResponseEntity.class)
 	@GetMapping("/feed/{userId}")
-	public ResponseEntity<List<FeedDto>> showMiddle(@PathVariable("userId") int userId){
+	public ResponseEntity<List<FeedDto>> showMiddle(@PathVariable("userId") int userId) {
 		List<FeedDto> feedDtoList = userService.getFeedList(userId);
-		return new ResponseEntity<List<FeedDto>>(feedDtoList,HttpStatus.OK);
+		return new ResponseEntity<List<FeedDto>>(feedDtoList, HttpStatus.OK);
 	}
 
-	// feedController에 있어야 하는건가?
 	@ApiOperation(value = "프로필 보기 아래 부분 - 피드별 poplist 출력 ", response = ResponseEntity.class)
 	@PostMapping("/popList")
 	public ResponseEntity<List<PopDto>> showPopInFeed(@RequestBody FeedUserIdDto feedUserIdDto) {
 		int userId = feedUserIdDto.getUserId();
 		List<PopDto> popInFeedDtoList;
+
+		// feedId가 0이라는 것은 전체 피드라는 의미
 		if (feedUserIdDto.getFeedId() == 0) {
-			// feedId가 0이라는 것은 전체 피드라는 의미입니다.
 			popInFeedDtoList = userService.getAllPopList(feedUserIdDto);
 
-		} else { // 전체 피드가 아니라 각각의 피드일때
-			popInFeedDtoList = userService.getPopInFeedList(feedUserIdDto.getFeedId(),userId);
+		} else { // 전체 피드 말고, 각각의 피드일때
+			popInFeedDtoList = userService.getPopInFeedList(feedUserIdDto.getFeedId(), userId);
 		}
 		return new ResponseEntity<List<PopDto>>(popInFeedDtoList, HttpStatus.OK);
 
@@ -85,14 +85,12 @@ public class UserProfileController {
 	@ApiOperation(value = "프로필 수정 화면 들어올 시", response = ResponseEntity.class)
 	@GetMapping("/edit/{userId}")
 	public ResponseEntity<UserProfileDto> showEditProfile(@PathVariable("userId") int userId) {
-//		UserProfileDto userProfileDto = userService.getUserProfileById(userId);
 		try {
 
 			UserProfileDto userProfileDto = userService.getUserProfileById(userId);
 
 			return new ResponseEntity<UserProfileDto>(userProfileDto, HttpStatus.OK);
 		} catch (Exception e) {
-			// 왜 되지..???????객체 없이 httpstatus만 반환 가능?
 			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
 		}
 
@@ -120,7 +118,6 @@ public class UserProfileController {
 	@PostMapping("/friend")
 	public ResponseEntity<HashMap<String, Object>> showFreindProfileHead(
 			@RequestBody FollowForFollowDto followForFollowDto) {
-		// {UserProfileDto, 맞팔 여부}를 반환해야 됨
 		try {
 
 			boolean isFollowForFollow = userService.getFollowForFollow(followForFollowDto.getFromUserId(),
@@ -149,4 +146,3 @@ public class UserProfileController {
 		}
 	}
 }
-

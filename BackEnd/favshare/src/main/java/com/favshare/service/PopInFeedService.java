@@ -20,37 +20,34 @@ import com.favshare.repository.PopRepository;
 
 @Service
 public class PopInFeedService {
-	
+
 	@Autowired
 	private PopInFeedRepository popInFeedRepository;
-	
+
 	@Autowired
 	private FeedRepository feedRepository;
-	
+
 	@Autowired
 	private PopRepository popRepository;
-	
+
 	public void insertPopInFeed(FeedPopIdDto feedPopIdDto) {
 		PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
-		System.out.println(feedPopIdDto.toString());
-		for(int i = 0; i < feedPopIdDto.getPopId().size(); i++) {		
-			System.out.println(feedPopIdDto.getFeedId()+"!!!!!!!");
-			System.out.println(feedPopIdDto.getPopId().get(i)+"@@@@@@@@@@");
+
+		for (int i = 0; i < feedPopIdDto.getPopId().size(); i++) {
 			FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.getFeedId()).get();
 			PopEntity popEntity = popRepository.findById(feedPopIdDto.getPopId().get(i)).get();
 			popInFeedEntity = popInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity).build();
 			popInFeedRepository.save(popInFeedEntity);
 		}
-		
+
 	}
-	
+
 	public void deletePopInFeed(FeedPopIdDto feedPopIdDto) {
 		int feedId = feedPopIdDto.getFeedId();
 		List<Integer> popIdList = feedPopIdDto.getPopId();
-		for (int i = 0; i < popIdList.size(); i++) {			
+		for (int i = 0; i < popIdList.size(); i++) {
 			popInFeedRepository.deleteByPopFeedId(feedId, popIdList.get(i));
 		}
 	}
-	
-	
+
 }

@@ -11,19 +11,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class YoutubeEditPopDto {
-	//userId, youtubeId, startSecond, endSecond, bgm(심화과정), title, content,feedId
-	
+
 	private int userId;
 	private String youtubeUrl;
 	private int feedId;
 	private String name;
 	private int startSecond;
-	private int endSecond; 
+	private int endSecond;
 	private String content;
 	private LocalDateTime createDate;
 	private int views;
 	private boolean isMuted;
-	
+
 	public YoutubeEditPopDto(PopEntity popEntity, FeedEntity feedEntity) {
 		this.userId = popEntity.getUserEntity().getId();
 		this.youtubeUrl = popEntity.getYoutubeEntity().getUrl();

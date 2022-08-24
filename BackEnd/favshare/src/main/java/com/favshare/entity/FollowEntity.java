@@ -3,7 +3,6 @@ package com.favshare.entity;
 import java.util.List;
 import javax.persistence.*;
 
-
 import lombok.*;
 
 @Entity
@@ -13,9 +12,6 @@ import lombok.*;
 @Getter
 @ToString
 @Builder
-
-
-
 public class FollowEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,5 +24,5 @@ public class FollowEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "to_user_id", nullable = false)
 	private UserEntity toUserEntity;
-	
+
 }

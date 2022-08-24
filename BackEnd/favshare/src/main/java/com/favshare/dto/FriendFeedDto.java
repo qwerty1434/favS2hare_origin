@@ -2,7 +2,6 @@ package com.favshare.dto;
 
 import java.util.List;
 
-
 import lombok.*;
 
 @Data
@@ -11,8 +10,5 @@ import lombok.*;
 public class FriendFeedDto {
 	UserProfileDto userProfileDto;
 	PopDto popDto;
-	
-	
-	
 
 }

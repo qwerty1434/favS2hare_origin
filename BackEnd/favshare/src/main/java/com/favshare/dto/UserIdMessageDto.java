@@ -7,7 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 public class UserIdMessageDto {
 	int userId;
-	String message; 
-	
-	
+	String message;
+
 }

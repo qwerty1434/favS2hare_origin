@@ -11,7 +11,6 @@ import lombok.*;
 @Getter
 @ToString
 @Builder
-
 public class StoreYoutubeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)	
@@ -22,7 +21,7 @@ public class StoreYoutubeEntity {
     @JoinColumn(name="youtube_id", nullable = false)
     private YoutubeEntity youtubeEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable = false)
     private UserEntity userEntity;
     

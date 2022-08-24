@@ -63,7 +63,7 @@
             :key="i"
             :href="eco.href"
             class="subheading mx-3"
-            target="_blank"
+            target="blankTarget"
           >
             {{ eco.text }}
           </a>

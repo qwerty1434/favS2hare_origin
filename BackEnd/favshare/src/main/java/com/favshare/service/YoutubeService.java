@@ -53,7 +53,7 @@ public class YoutubeService {
 
 	@Autowired
 	IdolRepository idolRepository;
-	
+
 	@Autowired
 	StoreYoutubeRepository storeYoutubeRepository;
 
@@ -93,22 +93,20 @@ public class YoutubeService {
 	public YoutubeDetailDto getDetailByUrl(YoutubeUserIdDto youtubeUSerIdDto) {
 		YoutubeEntity youtubeEntity;
 		youtubeEntity = youtubeRepository.findByUrl(youtubeUSerIdDto.getYoutubeUrl());
-		
+
 		List<PopDto> popList;
 		YoutubeDetailDto result;
 		int youtubeId = youtubeRepository.findByUrl(youtubeUSerIdDto.getYoutubeUrl()).getId();
 		boolean isBookmarked;
-		
-		// 해당 유튜브를 bookmark 했는지를 같이 반환
-		if(storeYoutubeRepository.isBookmarked(youtubeUSerIdDto.getUserId(), youtubeId) == 1) {
+
+		if (storeYoutubeRepository.isBookmarked(youtubeUSerIdDto.getUserId(), youtubeId) == 1) {
 			isBookmarked = true;
+		} else {
+			isBookmarked = false;
 		}
-		else {
-			isBookmarked = false;	
-		}
-			
+
 		result = new YoutubeDetailDto(youtubeUSerIdDto.getYoutubeUrl(), isBookmarked);
-		
+
 		if (youtubeEntity == null) {
 			popList = null;
 		} else {
@@ -134,45 +132,9 @@ public class YoutubeService {
 		}
 
 		return queryList;
-		
-//		try {
-//			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
-//				@Override
-//				public void initialize(HttpRequest request) throws IOException {
-//				}
-//			}).setApplicationName("youtube-cmdline-search-sample").build();
-//
-//			SearchListResponse searchResponse = null;
-//
-//			YouTube.Search.List search = youtube.search().list("id,snippet");
-//
-//			search.setKey(API_KEY);
-//			search.setType("video");
-//			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
-//			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
-//			search.setQ(queryList);
-//
-//			searchResponse = search.execute();
-//
-//			List<SearchResult> searchResultList = searchResponse.getItems();
-//			if (searchResultList != null) {
-//				prettyPrint(searchResultList.iterator(), urlList);
-//			}
-//
-//		} catch (GoogleJsonResponseException e) {
-//			System.err.println(
-//					"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
-//		} catch (IOException e) {
-//			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-//		} catch (Throwable t) {
-//			t.printStackTrace();
-//		}
-//
-//		Collections.shuffle(urlList);
-//
-//		return urlList;
+
 	}
- 
+
 	// 로그인 하지 않은 사용자 or 선호하는 아이돌이 없는 경우에 사용되는 api
 	public String getAlgoUrlByNoId() {
 
@@ -180,9 +142,9 @@ public class YoutubeService {
 
 		Random r = new Random();
 		int[] idList = new int[5];
-		String queryList = "";	
+		String queryList = "";
 		int size = idolRepository.findAll().size();
-		
+
 		// 랜덤으로 아이돌 추출해서 검색어 쿼리 만드는 반복문
 		for (int i = 0; i < idList.length; i++) {
 			idList[i] = r.nextInt(size) + 1;
@@ -192,7 +154,6 @@ public class YoutubeService {
 			}
 		}
 
-		
 		for (int i = 0; i < idList.length; i++) {
 			queryList += idolRepository.findById(idList[i]).get().getName();
 			if (i < idList.length - 1)
@@ -200,53 +161,9 @@ public class YoutubeService {
 		}
 		return queryList;
 
-//		try {
-//			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
-//				@Override
-//				public void initialize(HttpRequest request) throws IOException {
-//				}
-//			}).setApplicationName("youtube-cmdline-search-sample").build();
-//			
-//			SearchListResponse searchResponse = null;
-//			YouTube.Search.List search = youtube.search().list("id,snippet");
-//
-//			search.setKey(API_KEY);
-//			search.setType("video");
-//			search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
-//			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
-//			search.setQ(queryList);
-//
-//			searchResponse = search.execute();
-//			
-//			System.out.println(queryList);
-//			System.out.println(search.toString()+"!!!!!!!!!!!!!!!!!!!!!");
-//			System.out.println(searchResponse.toString()+"@@@@@@@@@@@@@@@@");
-//
-//			List<SearchResult> searchResultList = searchResponse.getItems();
-//			if (searchResultList != null) {
-//				prettyPrint(searchResultList.iterator(), urlList);
-//			}
-//
-//		} catch (GoogleJsonResponseException e) {
-//			System.err.println(
-//					"There was a service error: " + e.getDetails().getCode() + " : " + e.getDetails().getMessage());
-//		} catch (IOException e) {
-//			System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-//		} catch (Throwable t) {
-//			t.printStackTrace();
-//		}
-//
-//		Collections.shuffle(urlList);
-//		
-//
-//		return urlList;
 	}
 
 	private static void prettyPrint(Iterator<SearchResult> iteratorSearchResults, List<String> urlList) {
-
-//		System.out.println("\n=============================================================");
-//		System.out.println("   First " + NUMBER_OF_VIDEOS_RETURNED + " videos for search on \"" + query + "\".");
-//		System.out.println("=============================================================\n");
 
 		if (!iteratorSearchResults.hasNext()) {
 			System.out.println(" There aren't any results for your query.");
@@ -257,15 +174,10 @@ public class YoutubeService {
 			SearchResult singleVideo = iteratorSearchResults.next();
 			ResourceId rId = singleVideo.getId();
 
-			// Double checks the kind is video.
 			if (rId.getKind().equals("youtube#video")) {
-//				Thumbnail thumbnail = singleVideo.getSnippet().getThumbnails().getDefault();
 
 				urlList.add(rId.getVideoId());
-//				System.out.println(" Video Id : " + rId.getVideoId());
-//				System.out.println(" Title : " + singleVideo.getSnippet().getTitle());
-//				System.out.println(" Thumbnail : " + thumbnail.getUrl());
-//				System.out.println("\n-------------------------------------------------------------\n");
+
 			}
 		}
 
@@ -284,7 +196,7 @@ public class YoutubeService {
 
 	public List<String> getUrlByKeyword(String keyword) {
 		List<String> urlList = new ArrayList<String>();
-		
+
 		try {
 			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
 				@Override
@@ -304,7 +216,6 @@ public class YoutubeService {
 
 			searchResponse = search.execute();
 
-
 			List<SearchResult> searchResultList = searchResponse.getItems();
 			if (searchResultList != null) {
 				prettyPrint(searchResultList.iterator(), urlList);
@@ -321,7 +232,7 @@ public class YoutubeService {
 
 		Collections.shuffle(urlList);
 
-		return urlList;		
+		return urlList;
 	}
-	
+
 }

@@ -89,7 +89,6 @@ public class UserFollowController {
 	@PostMapping
 	public ResponseEntity addFollow(@RequestBody FromUserToUserDto fromUserToUserDto) {
 		try {
-			// 프론트에서 유저 id를 알고 있나요?
 			int fromUserId = fromUserToUserDto.getFromUserId();
 			int toUserId = fromUserToUserDto.getToUserId();
 			followService.insertFollow(fromUserId, toUserId);
@@ -107,7 +106,6 @@ public class UserFollowController {
 		followService.DeleteFollowById(fromUserId, toUserId);
 	}
 
-	// 이 api가 조금 헷갈린다. => 같이 봐주면 좋을 것 같음
 	@ApiOperation(value = "삭제 버튼 - 나를 팔로우 하는 사람(팔로워)을 삭제", response = ResponseEntity.class)
 	@DeleteMapping("/to")
 	public void deleteFollowing(@RequestBody FromUserToUserDto fromUserToUserDto) {

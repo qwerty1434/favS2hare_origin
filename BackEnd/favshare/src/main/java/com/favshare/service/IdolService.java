@@ -10,21 +10,20 @@ import com.favshare.entity.SongEntity;
 import com.favshare.repository.IdolRepository;
 
 @Service
-public class IdolService{
+public class IdolService {
 	@Autowired
 	private IdolRepository idolRepository;
-		
+
 	public IdolEntity getIdolByName(String name) {
 		return idolRepository.findByName(name);
 	}
-	
-	public List<IdolEntity> getIdolContains(String name){
+
+	public List<IdolEntity> getIdolContains(String name) {
 		return idolRepository.findByKeywordContains(name);
 	}
-	
-	public List<IdolEntity> getIdolList(){
-		return idolRepository.findAll();		
+
+	public List<IdolEntity> getIdolList() {
+		return idolRepository.findAll();
 	}
-	
-	
+
 }

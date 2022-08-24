@@ -19,30 +19,30 @@ public class LikePopService {
 
 	@Autowired
 	private LikePopRepository likePopRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private PopRepository popRepository;
-	
+
 	public void insertLikePop(UserPopIdDto userPopIdDto) {
 		LikePopEntity likePopEntity = new LikePopEntity();
-		
+
 		UserEntity userEntity = userRepository.findById(userPopIdDto.getUserId()).get();
-		PopEntity popEntity = popRepository.findById(userPopIdDto.getPopId()).get(); 
-		
+		PopEntity popEntity = popRepository.findById(userPopIdDto.getPopId()).get();
+
 		int duplicate = likePopRepository.findByPopIdUserId(userEntity.getId(), popEntity.getId());
-		if(duplicate >= 1) {
-			
-		}else {
-			likePopEntity = likePopEntity.builder().userEntity(userEntity).popEntity(popEntity).build();		
+		if (duplicate >= 1) {
+
+		} else {
+			likePopEntity = likePopEntity.builder().userEntity(userEntity).popEntity(popEntity).build();
 			likePopRepository.save(likePopEntity);
-			
+
 		}
-		
+
 	}
-	
+
 	public void deleteLikePop(UserPopIdDto userPopIdDto) {
 		LikePopEntity likePopEntity;
 		likePopEntity = likePopRepository.searchByUserIdAndPopId(userPopIdDto.getUserId(), userPopIdDto.getPopId());

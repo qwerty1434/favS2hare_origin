@@ -38,9 +38,7 @@ public class InterestSongService {
 
 		int duplicate = interestSongRepository.findBySongIdUserId(userEntity.getId(), songEntity.getId());
 		if (duplicate >= 1) {
-			// 중복이라면 넣지않음
 		} else {
-			// 하나도 없다면 입력
 			InterestSongEntity result = new InterestSongEntity(songEntity, userEntity);
 			interestSongRepository.save(result);
 		}
