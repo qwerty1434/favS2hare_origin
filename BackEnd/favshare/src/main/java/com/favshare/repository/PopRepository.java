@@ -1,6 +1,5 @@
 package com.favshare.repository;
 
-
 import java.util.*;
 
 import java.time.LocalDateTime;
@@ -11,13 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import com.favshare.entity.PopEntity;
 
-
 @Repository
-public interface PopRepository extends JpaRepository<PopEntity,Integer>{
+public interface PopRepository extends JpaRepository<PopEntity, Integer> {
 
-	@Query(value ="SELECT * FROM pop where content LIKE CONCAT('%',:keyword,'%') OR name LIKE CONCAT('%',:keyword,'%')", nativeQuery = true)
-	public List<PopEntity> findByKeywordContains(@Param("keyword") String keyword);	
+	@Query(value = "SELECT * FROM pop where content LIKE CONCAT('%',:keyword,'%') OR name LIKE CONCAT('%',:keyword,'%')", nativeQuery = true)
+	public List<PopEntity> findByKeywordContains(@Param("keyword") String keyword);
 
-	
-	
 }
