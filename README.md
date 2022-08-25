@@ -76,7 +76,7 @@
 
 ### 홈화면
 - 유튜브 탭
-![image.png](./docs/image/홈화면.png)
+![image.png](./docs/image/홈화면.png){: width="100" height="100"}
 
 - 친구 피드 탭
 ![image.png](./docs/image/친구피드.png)
