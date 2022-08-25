@@ -121,7 +121,7 @@
 검색어에 맞는 팝, 동영상, 유저 정보
 더보기 제공
 <br>
-![image.png](./docs/image/검색.png)
+![image.png](./docs/image/검색.gif)
 
 <br>
 <hr>
@@ -129,7 +129,7 @@
 ### 프로필 탭
 유저의 프로필 정보와 피드 정보
 <br>
-![image.png](./docs/image/프로필.png)
+![image.png](./docs/image/프로필.gif)
 
 <br>
 <hr>
@@ -138,14 +138,14 @@
 비밀번호를 변경할 수 있습니다.
 프로필이미지, 닉네임, 자기소개 글을 변경할 수 있습니다.
 <br>
-![image.png](./docs/image/프로필변경.png)
+![image.png](./docs/image/프로필변경.gif)
 <br>
 <hr>
 
 ### 다중 피드
 유저가 생성한 다중 피드에 팝 리스트 
 <br>
-![image.png](./docs/image/다중피드.png)
+![image.png](./docs/image/다중피드.gif)
 
 <br>
 <hr>
@@ -153,7 +153,7 @@
 ### 선호도 조사
 유저가 회원가입 후 선호하는 아이돌, 노래 선택 
 <br>
-![image.png](./docs/image/선호도.png)
+![image.png](./docs/image/선호도.gif)
 
 <br>
 <hr>
@@ -161,7 +161,7 @@
 ### 저장한 유튜브 보기
 설정 페이지에서 좋아요한 플레이리스트, 플레이룸, 게시글 목록을 확인할 수 있습니다.
 <br>
-![image.png](./docs/image/저장영상.png)
+![image.png](./docs/image/저장영상.gif)
 
 <br>
 <hr>
@@ -170,4 +170,4 @@
 로그아웃하면 비회원으로 사용
 비회원 사용자는 좋아요, 댓글 특정 화면 제한.
 <br>
-![image.png](./docs/image/로그아웃.png)
+![image.png](./docs/image/로그아웃.gif)
