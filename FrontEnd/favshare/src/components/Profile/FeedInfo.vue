@@ -124,6 +124,7 @@ export default {
           this.fetchFeedUserInfo(this.feedUserInfo.id);
         })
         .catch((res) => console.log(res));
+    },
   },
   watch: {
     "$store.state.profile.feedUserInfo": function () {

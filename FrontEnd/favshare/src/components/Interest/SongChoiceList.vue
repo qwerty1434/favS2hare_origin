@@ -1,7 +1,9 @@
 <template>
   <v-row justify="space-between" no-gutters>
     <v-col cols="6" align="center">
-      <div id="non-choice" @click="select" class="option unselected-option">선택 안함</div>
+      <div id="non-choice" @click="select" class="option unselected-option">
+        선택 안함
+      </div>
     </v-col>
     <song-choice-list-item
       ref="songChoiceListItem"

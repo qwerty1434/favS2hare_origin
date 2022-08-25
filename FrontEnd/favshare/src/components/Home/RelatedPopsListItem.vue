@@ -10,7 +10,11 @@
           :height="167"
           @ready="onPlayerReady"
           @playing="onPlaying"
-          style="pointer-events: none; border-top-left-radius: 8px; border-top-right-radius: 8px"
+          style="
+            pointer-events: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+          "
         ></youtube>
       </div>
       <v-card-actions class="mt-n2 mb-n2">

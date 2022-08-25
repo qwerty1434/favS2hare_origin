@@ -1,7 +1,9 @@
 <template>
   <div class="pops-search mt-5">
-    <div v-for="popsListItem in popsList">
-      <search-pops-list-item :pops-list-item="popsListItem"></search-pops-list-item>
+    <div v-for="popsListItem in popsList" :key="popsListItem.id">
+      <search-pops-list-item
+        :pops-list-item="popsListItem"
+      ></search-pops-list-item>
     </div>
   </div>
 </template>

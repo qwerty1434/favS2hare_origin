@@ -33,7 +33,9 @@
           ticks
           hide-details
           @mouseup="onMouseUp"
-          ><template v-slot:thumb-label="{ value }">{{ secondToMinute(value) }} </template>
+          ><template v-slot:thumb-label="{ value }"
+            >{{ secondToMinute(value) }}
+          </template>
         </v-range-slider>
       </v-col>
       <v-col v-if="!isPlaying" cols="1">
@@ -94,7 +96,8 @@ export default {
       return this.$refs[`youtube${this.$route.query.youtubeId}`].player;
     },
     currentTimeBarPosition() {
-      const px = (319 / (this.max - this.min)) * (this.currentTime - this.min) - 3;
+      const px =
+        (319 / (this.max - this.min)) * (this.currentTime - this.min) - 3;
       return px;
     },
   },

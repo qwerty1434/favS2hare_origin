@@ -33,7 +33,9 @@
           ></v-text-field>
         </v-col>
         <v-col cols="2">
-          <v-btn class="mt-3" icon text small @click="btnInsertComment">게시</v-btn>
+          <v-btn class="mt-3" icon text small @click="btnInsertComment"
+            >게시</v-btn
+          >
         </v-col>
       </v-row>
     </v-card>

@@ -94,17 +94,27 @@ export default {
       passwordCheck: "",
       passwordNew: "",
       user_pw_rule: [
-        (v) => (this.state === "ins" ? !!v || "패스워드는 필수 입력사항입니다." : true),
-        (v) => !(v && v.length >= 30) || "패스워드는 30자 이상 입력할 수 없습니다.",
+        (v) =>
+          this.state === "ins"
+            ? !!v || "패스워드는 필수 입력사항입니다."
+            : true,
+        (v) =>
+          !(v && v.length >= 30) || "패스워드는 30자 이상 입력할 수 없습니다.",
       ],
       user_pw_rule2: [
-        (v) => (this.state === "ins" ? !!v || "패스워드는 필수 입력사항입니다." : true),
-        (v) => !(v && v.length >= 30) || "패스워드는 30자 이상 입력할 수 없습니다.",
+        (v) =>
+          this.state === "ins"
+            ? !!v || "패스워드는 필수 입력사항입니다."
+            : true,
+        (v) =>
+          !(v && v.length >= 30) || "패스워드는 30자 이상 입력할 수 없습니다.",
         (v) => v === this.passwordNew || "패스워드가 일치하지 않습니다.",
       ],
       isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
-      isBirthDate: (value) => this.checkBirthDate(value) || "올바르지 않은 형식의 생년월일입니다",
-      phoneNumber: (value) => this.checkPhoneNumber(value) || "올바르지 않은 형식의 전화번호입니다",
+      isBirthDate: (value) =>
+        this.checkBirthDate(value) || "올바르지 않은 형식의 생년월일입니다",
+      phoneNumber: (value) =>
+        this.checkPhoneNumber(value) || "올바르지 않은 형식의 전화번호입니다",
     };
   },
   created() {

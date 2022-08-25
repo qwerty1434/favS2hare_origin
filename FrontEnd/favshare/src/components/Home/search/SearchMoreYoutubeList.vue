@@ -1,6 +1,9 @@
 <template>
   <v-container class="mt-1">
-    <div v-for="searchedYoutubeListItem in searchedYoutubeList">
+    <div
+      v-for="(searchedYoutubeListItem, index) in searchedYoutubeList"
+      :key="index"
+    >
       <search-more-video-list-item
         :searched-youtube-list-item="searchedYoutubeListItem"
       ></search-more-video-list-item>

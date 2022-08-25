@@ -16,12 +16,22 @@
         <v-row align="center">
           <v-col cols="3"><h5>비밀번호</h5></v-col>
           <v-col>
-            <v-text-field id="pw-value" type="password" v-model="pwValue" dense></v-text-field>
+            <v-text-field
+              id="pw-value"
+              type="password"
+              v-model="pwValue"
+              dense
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row class="mt-9">
           <v-col align="center">
-            <v-btn class="white--text" small rounded color="grey darken-2" @click="confirmPw"
+            <v-btn
+              class="white--text"
+              small
+              rounded
+              color="grey darken-2"
+              @click="confirmPw"
               >계정 정보 수정</v-btn
             >
           </v-col>

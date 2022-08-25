@@ -1,7 +1,12 @@
 <template>
   <div class="video-search mt-7">
-    <div v-for="youtubeListItem in youtubeList.slice(0, 5)">
-      <search-video-list-item :youtube-list-item="youtubeListItem"></search-video-list-item>
+    <div
+      v-for="(youtubeListItem, index) in youtubeList.slice(0, 5)"
+      :key="index"
+    >
+      <search-video-list-item
+        :youtube-list-item="youtubeListItem"
+      ></search-video-list-item>
     </div>
   </div>
 </template>

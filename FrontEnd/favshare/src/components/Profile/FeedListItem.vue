@@ -2,13 +2,19 @@
   <div class="feed-item ml-1 mr-1">
     <div v-if="feedInfo.first">
       <v-badge icon="mdi-star" bordered overlap avatar color="red lighten-1">
-        <v-avatar size="60" @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)">
+        <v-avatar
+          size="60"
+          @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)"
+        >
           <img :src="feedInfo.feedImageUrl" alt="" />
         </v-avatar>
       </v-badge>
     </div>
     <div v-else>
-      <v-avatar size="60" @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)">
+      <v-avatar
+        size="60"
+        @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)"
+      >
         <img :src="feedInfo.feedImageUrl" alt="" />
       </v-avatar>
     </div>

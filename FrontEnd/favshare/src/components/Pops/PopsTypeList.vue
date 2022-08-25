@@ -1,6 +1,10 @@
 <template>
   <div class="pops-type no-scroll">
-    <div class="pops-type-size" v-for="popsTypeItem in popsTypeList" :key="popsTypeItem.id">
+    <div
+      class="pops-type-size"
+      v-for="popsTypeItem in popsTypeList"
+      :key="popsTypeItem.id"
+    >
       <pops-type-list-item
         class="ma-3"
         @click-type="searchPopsType"

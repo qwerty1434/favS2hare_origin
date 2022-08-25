@@ -2,7 +2,12 @@
   <div class="mt-2 dialog-item">
     <v-row>
       <v-col cols="2">
-        <v-avatar class="ml-3" color="orange lighten-4" size="40" @click="goFriendFeed">
+        <v-avatar
+          class="ml-3"
+          color="orange lighten-4"
+          size="40"
+          @click="goFriendFeed"
+        >
           <img :src="commentListItem.profileImageUrl" alt="image" />
         </v-avatar>
       </v-col>
@@ -26,10 +31,24 @@
         </h5>
       </v-col>
       <v-col v-if="isSignin" cols="2">
-        <v-btn class="mt-2" text icon color="red" v-if="!isLiked" @click="btnLikeComment">
+        <v-btn
+          class="mt-2"
+          text
+          icon
+          color="red"
+          v-if="!isLiked"
+          @click="btnLikeComment"
+        >
           <v-icon small>mdi-heart-outline</v-icon>
         </v-btn>
-        <v-btn class="mt-2" text icon color="red" v-else @click="btnLikeComment">
+        <v-btn
+          class="mt-2"
+          text
+          icon
+          color="red"
+          v-else
+          @click="btnLikeComment"
+        >
           <v-icon small>mdi-heart</v-icon>
         </v-btn>
       </v-col>
@@ -54,7 +73,9 @@ export default {
   },
   data() {
     return {
-      createDate: dayjs(this.commentListItem.createDate).format("YYYY-MM-DD HH:mm"),
+      createDate: dayjs(this.commentListItem.createDate).format(
+        "YYYY-MM-DD HH:mm"
+      ),
       isLiked: false,
     };
   },

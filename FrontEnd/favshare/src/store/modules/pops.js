@@ -50,7 +50,7 @@ export default {
         method: "put",
         url: api.pop.detail(popId),
       })
-        .then((res) => {
+        .then(() => {
           commit("SET_POPS_INFO");
         })
         .catch((err) => {
@@ -64,7 +64,7 @@ export default {
         data: {
           popId: popId,
         },
-      }).then((res) => {
+      }).then(() => {
         commit("SET_POPS_INFO");
       });
     },
