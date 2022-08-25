@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <v-bottom-sheet
     class="chat-dialog-info"
     :value="dialogInfo"
@@ -68,7 +67,6 @@
   </v-bottom-sheet>
 </template>
 <script>
-/* eslint-disable */
 import { mapGetters, mapActions } from "vuex";
 import dayjs from "dayjs";
 
@@ -80,14 +78,6 @@ export default {
   data() {
     return {
       createDate: "",
-      // sampleInfo: {
-      //   id: 1,
-      //   name: "사용자",
-      //   content: "컨텐츠 명",
-      //   createDate: "2022-05-19",
-      //   popsLike: "1,900,000",
-      //   views: "2,400,000",
-      // },
     };
   },
   props: {
@@ -103,7 +93,6 @@ export default {
     },
   },
   created() {
-    console.log("popsInfo " + this.popsId);
     this.getPopsInfo({
       popId: this.popsId,
       userId: this.userId,

@@ -7,11 +7,7 @@
     >
       <youtube-list-item :home-youtube="homeYoutube"></youtube-list-item>
     </div>
-
-    <div
-      v-if="scrollTestYoutubes.length"
-      v-observe-visibility="handleScrolledToBottom"
-    ></div>
+    <div v-if="scrollTestYoutubes.length" v-observe-visibility="handleScrolledToBottom"></div>
   </div>
 </template>
 
@@ -33,7 +29,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["homeYoutubes"]), // 3. homeYoutubes가 변경되면 감지하여 다시 랜더링, 그 값을 가져옴
+    ...mapGetters(["homeYoutubes"]),
   },
   methods: {
     ...mapActions(["fetchHomeYoutubes"]),
@@ -45,11 +41,7 @@ export default {
       this.homeToScroll();
     },
     homeToScroll() {
-      const nextPush = this.homeYoutubes.slice(
-        5 * (this.page - 1),
-        5 * this.page
-      );
-      console.log("홈투스크롤", nextPush);
+      const nextPush = this.homeYoutubes.slice(5 * (this.page - 1), 5 * this.page);
       this.scrollTestYoutubes.push(...nextPush);
     },
   },

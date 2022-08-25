@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <v-sheet
       class="video"
@@ -64,7 +63,6 @@
 </template>
 
 <script>
-// 이 파일은 feedPop -> newsFeedPop 으로 다 바꿔서 해보면 됩니다.
 import router from "@/router";
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
@@ -76,7 +74,6 @@ export default {
   name: "NewsFeedListItem",
   props: {
     newsFeedPop: Object,
-    // newsFeedPop: Object, // {}
   },
   data() {
     return {
@@ -87,7 +84,6 @@ export default {
         controls: 0,
         disablekb: 1,
       },
-      // tmp data
       section: {
         start: this.newsFeedPop.popDto.startSecond,
         end: this.newsFeedPop.popDto.endSecond,
@@ -115,15 +111,11 @@ export default {
     restartVideoSection() {
       this.player.seekTo(this.section.start);
     },
-    printFeed() {
-      console.log("herer");
-      console.log(this.newsFeedPop);
-    },
+    printFeed() {},
     routerPushes(icon) {
       router.push({ name: icon });
     },
     goPopsDetail() {
-      console.log(this.newsFeedPop.userProfileDto.nickname);
       this.$router.push({
         name: "popsdetail",
         params: {
@@ -134,7 +126,6 @@ export default {
     },
   },
   created() {
-    // this.playVideo();
     this.printFeed();
   },
 };

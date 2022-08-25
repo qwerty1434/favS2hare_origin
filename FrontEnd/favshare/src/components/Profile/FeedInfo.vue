@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <div class="user-info">
       <div class="user-pic">
@@ -111,8 +110,6 @@ export default {
       this.$router.push({ name: "profileedit" });
     },
     cancelFollowing() {
-      console.log(this.userId);
-      console.log(this.feedUserInfo.id);
       axios({
         method: "delete",
         url: api.userFollow.followFromDelete(),
@@ -127,7 +124,6 @@ export default {
           this.fetchFeedUserInfo(this.feedUserInfo.id);
         })
         .catch((res) => console.log(res));
-    },
   },
   watch: {
     "$store.state.profile.feedUserInfo": function () {
@@ -137,9 +133,6 @@ export default {
       console.log(this.$store.state.profile.isFollowing);
     },
   },
-  // created() {
-  //   this.fetchIsFollowing
-  // }
 };
 </script>
 

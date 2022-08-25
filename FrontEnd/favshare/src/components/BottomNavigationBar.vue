@@ -1,28 +1,16 @@
 <template>
-  <v-bottom-navigation
-    :value="bottomValue - 1"
-    grow
-    color="teal"
-    absolute
-    class="bottom"
-  >
+  <v-bottom-navigation :value="bottomValue - 1" grow color="teal" absolute class="bottom">
     <v-btn class="pinkBtn" @click="[routerPushes('home'), fetchBottomValue(1)]">
       <span>Home</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn
-      class="pinkBtn"
-      @click="[routerPushes('pops'), fetchBottomValue(2), fetchPopList(0)]"
-    >
+    <v-btn class="pinkBtn" @click="[routerPushes('pops'), fetchBottomValue(2), fetchPopList(0)]">
       <span>Pops</span>
       <v-icon>mdi-party-popper</v-icon>
     </v-btn>
 
-    <v-btn
-      class="pinkBtn"
-      @click="[routerPushes('search'), fetchBottomValue(3)]"
-    >
+    <v-btn class="pinkBtn" @click="[routerPushes('search'), fetchBottomValue(3)]">
       <span>Search</span>
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
@@ -59,21 +47,13 @@ export default {
     ...mapGetters(["userId", "bottomValue"]),
   },
   methods: {
-    ...mapActions([
-      "fetchFeedUserInfo",
-      "fetchFeedList",
-      "fetchBottomValue",
-      "fetchPopList",
-    ]),
+    ...mapActions(["fetchFeedUserInfo", "fetchFeedList", "fetchBottomValue", "fetchPopList"]),
     routerPushes(icon) {
       router.push({ name: icon });
     },
   },
   watch: {
-    "$store.state.bottomValue": function () {
-      console.log("-------------------");
-      console.log(this.$store.state.bottomValue);
-    },
+    "$store.state.bottomValue": function () {},
   },
 };
 </script>

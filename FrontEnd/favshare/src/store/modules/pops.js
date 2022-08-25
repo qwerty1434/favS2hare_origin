@@ -3,8 +3,6 @@ import api from "@/api/springRestAPI";
 
 export default {
   state: {
-    // userIdInPopsTab: 1,
-    // popsIdInPopsTab: 1,
     userImgInPopsTab: "image",
     commentList: [],
     popsInfo: {},
@@ -34,10 +32,8 @@ export default {
   },
   actions: {
     getPopsInfo({ commit }, { popId, userId }) {
-      console.log(popId + " " + userId);
       axios({
         method: "post",
-        // url: `http://13.124.112.241:8080/pop/info`,
         url: api.pop.info(),
         data: {
           popId: popId,
@@ -45,7 +41,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log("여기", res.data.popInfoDto);
           commit("SET_POPS_INFO", res.data.popInfoDto);
         })
         .catch((err) => console.log("getPopsInfo 에러", err));
@@ -53,11 +48,9 @@ export default {
     countView({ commit }, { popId }) {
       axios({
         method: "put",
-        // url: `http://13.124.112.241:8080/pop/detail/${popId}`,
         url: api.pop.detail(popId),
       })
         .then((res) => {
-          console.log("조회수 증가" + res.data);
           commit("SET_POPS_INFO");
         })
         .catch((err) => {
@@ -67,21 +60,17 @@ export default {
     deletePopsOne({ commit }, { popId }) {
       axios({
         method: "delete",
-        // url: `http://13.124.112.241:8080/pop`,
         url: api.pop.pop(),
         data: {
           popId: popId,
         },
       }).then((res) => {
-        console.log(res.data);
         commit("SET_POPS_INFO");
       });
     },
     getComment({ commit }, { popId, userId }) {
-      console.log(popId + " " + userId);
       axios({
         method: "post",
-        // url: `http://13.124.112.241:8080/pop/comment/list`,
         url: api.comment.list(),
         data: {
           popId: popId,
@@ -98,7 +87,6 @@ export default {
     likePops({ commit }, { popId, userId }) {
       axios({
         method: "post",
-        // url: `http://13.124.112.241:8080/pop/like`,
         url: api.pop.like(),
         data: {
           popId: popId,
@@ -108,14 +96,12 @@ export default {
         .then(() => {
           axios({
             method: "post",
-            // url: `http://13.124.112.241:8080/pop/info`,
             url: api.pop.info(),
             data: {
               popId: popId,
               userId: userId,
             },
           }).then((res) => {
-            console.log(res.data.popInfoDto);
             commit("SET_POPS_INFO", res.data.popInfoDto);
           });
         })
@@ -126,7 +112,6 @@ export default {
     unLikePops({ commit }, { popId, userId }) {
       axios({
         method: "delete",
-        // url: `http://13.124.112.241:8080/pop/like`,
         url: api.pop.like(),
         data: {
           popId: popId,
@@ -135,14 +120,12 @@ export default {
       }).then(() => {
         axios({
           method: "post",
-          // url: `http://13.124.112.241:8080/pop/info`,
           url: api.pop.info(),
           data: {
             popId: popId,
             userId: userId,
           },
         }).then((res) => {
-          console.log(res.data.popInfoDto);
           commit("SET_POPS_INFO", res.data.popInfoDto);
         });
       });
@@ -151,7 +134,6 @@ export default {
       console.log(content + " " + popId + " " + userId);
       axios({
         method: "post",
-        // url: `http://13.124.112.241:8080/pop/comment`,
         url: api.comment.all(),
         data: {
           content: content,
@@ -162,7 +144,6 @@ export default {
         .then(() => {
           axios({
             method: "post",
-            // url: `http://13.124.112.241:8080/pop/comment/list`,
             url: api.comment.list(),
             data: {
               popId: popId,
@@ -177,10 +158,8 @@ export default {
         });
     },
     deleteComment({ commit }, { commentId, userId, popId }) {
-      console.log(commentId + " " + userId + " " + popId);
       axios({
         method: "delete",
-        // url: `http://13.124.112.241:8080/pop/comment`,
         url: api.comment.all(),
         data: {
           commentId: commentId,
@@ -190,7 +169,6 @@ export default {
         .then(() => {
           axios({
             method: "post",
-            // url: `http://13.124.112.241:8080/pop/comment/list`,
             url: api.comment.list(),
             data: {
               popId: popId,
@@ -207,7 +185,6 @@ export default {
     likeComment({ commit }, { popId, commentId, userId }) {
       axios({
         method: "post",
-        // url: `http://13.124.112.241:8080/pop/likeComment`,
         url: api.likeComment.likeComment(),
         data: {
           commentId: commentId,
@@ -217,7 +194,6 @@ export default {
         .then(() => {
           axios({
             method: "post",
-            // url: `http://13.124.112.241:8080/pop/comment/list`,
             url: api.comment.list(),
             data: {
               popId: popId,
@@ -234,7 +210,6 @@ export default {
     unLikeComment({ commit }, { popId, commentId, userId }) {
       axios({
         method: "delete",
-        // url: `http://13.124.112.241:8080/pop/likeComment`,
         url: api.likeComment.likeComment(),
         data: {
           commentId: commentId,
@@ -243,7 +218,6 @@ export default {
       }).then(() => {
         axios({
           method: "post",
-          // url: `http://13.124.112.241:8080/pop/comment/list`,
           url: api.comment.list(),
           data: {
             popId: popId,
@@ -257,24 +231,20 @@ export default {
     fetchInterestIdol({ commit, getters }) {
       axios({
         method: "get",
-        // url: `http://13.124.112.241:8080/pop/idolList/${getters.userId}`,
         url: api.pop.idolList(getters.userId),
       }).then((res) => {
         commit("SET_POPSTYPELIST", res.data);
       });
     },
     fetchPopList({ commit, getters }, idolId) {
-      console.log("여기 PopList");
       axios({
         method: "post",
-        // url: "http://13.124.112.241:8080/pop",
         url: api.pop.pop(),
         data: {
           idolId: idolId,
           userId: getters.userId,
         },
       }).then((res) => {
-        console.log(res.data);
         commit("SET_POPLIST", res.data);
       });
     },

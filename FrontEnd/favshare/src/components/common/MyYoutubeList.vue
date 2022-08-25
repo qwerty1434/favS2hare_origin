@@ -1,12 +1,5 @@
 <template>
-  <!-- eslint-disable -->
   <div>
-    <!-- <my-youtube-list-item
-      v-for="youtubeItem in myVideoList"
-      :youtubeId="youtubeItem.youtubeId"
-      :youtubeUrl="youtubeItem.youtubeUrl"
-      :key="youtubeItem.youtubeId"
-    ></my-youtube-list-item> -->
     <div v-for="myYoutubeVideo in myVideoList" :key="myVideoList.id">
       <my-youtube-list-item
         @delete-video="refreshCur"
@@ -28,10 +21,6 @@ export default {
     };
   },
   created() {
-    // this.getMyVideo({ userId: this.userId });
-    // this.myYoutubeVideos = this.myVideoList;
-    // console.log("vidididdidi");
-    // console.log(this.myYoutubeVideos);
     this.reload();
   },
   computed: {
@@ -40,7 +29,6 @@ export default {
   methods: {
     // ...mapActions(["getMyVideo"]),
     refreshCur() {
-      console.log("삭제 이벤트 발생 " + this.myVideoList.length);
       this.$router.go();
     },
   },

@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <v-divider></v-divider>
-    <div>
-      <v-icon @click="fetchIsDelete(false)">mdi-video-input-component</v-icon>
-    </div> -->
     <div v-for="feedInfo in feedList" :key="feedInfo.id" class="popsitem">
       <feed-list-item :feed-info="feedInfo"></feed-list-item>
     </div>

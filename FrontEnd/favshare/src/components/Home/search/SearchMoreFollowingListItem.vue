@@ -1,7 +1,6 @@
 <template>
-  <!-- eslint-disable -->
   <v-hover>
-    <v-row @click="">
+    <v-row>
       <v-col align="center" cols="3">
         <v-avatar
           color="orange lighten-4"
@@ -50,12 +49,6 @@ export default {
   },
   methods: {
     ...mapActions(["fetchFeedUserInfo", "fetchFeedList", "fetchIsFollowing"]),
-    // goFriendFeed() {
-    //   this.$router.push({
-    //     name: "feed",
-    //     params: this.searchedFollowingListItem.id,
-    //   });
-    // },
     routerPushes(icon) {
       router.push({ name: icon });
     },

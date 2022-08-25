@@ -7,10 +7,6 @@
 
       <v-spacer></v-spacer>
 
-      <!-- <v-btn icon @click="goAlarm">
-        <v-icon>mdi-alarm</v-icon>
-      </v-btn> -->
-
       <v-menu transition="slide-y-transition" bottom dense>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" @click="openModal">
@@ -79,7 +75,6 @@ export default {
         },
       }).then((res) => {
         this.userInfo = res.data;
-        console.log(this.userInfo);
       });
     },
     goMyVideo() {

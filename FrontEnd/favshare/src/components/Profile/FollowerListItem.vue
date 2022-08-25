@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div class="ma-3">
     <v-row align="center">
       <v-col
@@ -46,7 +45,6 @@
         >
       </v-col>
     </v-row>
-    <!-- <v-divider class="mt-3"></v-divider> -->
   </div>
 </template>
 
@@ -54,13 +52,6 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
 import api from "@/api/springRestAPI";
-// 팔로우 버튼 누를 시 -> post요청 => fromUserId: 자기아이디, toUserId: 상대아이디
-// 팔로잉 버튼 누를 시 -> delete user/follow/from => fromUserId: 자기아이디, toUserId: 상대아이디
-// 삭제 버튼 누를 시 -> delete user/follow/to => fromUserId: 상대아이디, toUserId: 자기아이디
-
-// get from = 팔로워리스트 받음
-// get to = 팔로잉리스트 받음
-// delete from =
 
 export default {
   name: "FollowerListItem",
@@ -70,7 +61,7 @@ export default {
     };
   },
   props: {
-    followerItem: Object, // {nickname: ~~}
+    followerItem: Object,
   },
   computed: {
     ...mapGetters(["userId", "feedUserInfo"]),

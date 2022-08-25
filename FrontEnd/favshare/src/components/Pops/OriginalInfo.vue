@@ -36,7 +36,6 @@ export default {
     this.getOriginalInfo();
   },
   methods: {
-    // youtube api: 원본 동영상에 대한 정보 요청
     getOriginalInfo() {
       const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {

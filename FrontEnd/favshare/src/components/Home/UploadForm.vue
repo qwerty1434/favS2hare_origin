@@ -27,11 +27,7 @@
       </v-col>
     </v-row>
     <div class="scroll-horizontal" no-gutters>
-      <div
-        v-for="feedListItem in feedList"
-        :key="feedListItem.id"
-        align="center"
-      >
+      <div v-for="feedListItem in feedList" :key="feedListItem.id" align="center">
         <div
           class="unselected feed"
           :id="feedListItem.id"

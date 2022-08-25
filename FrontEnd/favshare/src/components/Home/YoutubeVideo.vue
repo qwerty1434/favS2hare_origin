@@ -33,19 +33,12 @@
             <v-icon @click="setBookmark">mdi-bookmark-outline</v-icon>
           </div>
         </div>
-        <!-- <div v-if="this.isBookmarkClicked">
-          <v-icon @click="[setBookmark, postStoredYoutube]"></v-icon>
-        </div>
-        <div v-else>
-          <v-icon @click="[setBookmark, deleteStoredYoutube]"></v-icon>
-        </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// 유튜브id, 채널이름, 영상제목, 채널 이미지
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 import { mapGetters } from "vuex";
@@ -56,10 +49,6 @@ Vue.use(VueYoutube);
 
 export default {
   name: "YoutubeVideo",
-  // props: {
-  //   videoInfo: Object,
-  //   youtubeId: Number,
-  // },
   data() {
     return {
       playerVars: {
@@ -78,9 +67,7 @@ export default {
     playVideo() {
       this.player.playVideo();
     },
-    playing() {
-      console.log("playing");
-    },
+    playing() {},
     setBookmark() {
       if (this.isBookmarkClicked === 1) {
         this.isBookmarkClicked = 0;
@@ -102,8 +89,6 @@ export default {
           }
         })
         .catch((res) => {
-          console.log(this.userId);
-          console.log(this.videoInfo.videoId);
           console.log(res);
         });
     },
@@ -128,9 +113,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           this.isBookmarkClicked = res.data.bookmarked;
-          console.log(this.isBookmarkClicked);
         })
         .catch((res) => {
           console.log(res);

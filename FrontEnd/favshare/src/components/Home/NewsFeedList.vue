@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div class="mb-15">
     <div v-for="(newsFeedPop, index) in newsFeedPops" :key="index" class="videos__container">
       <news-feed-list-item :news-feed-pop="newsFeedPop"></news-feed-list-item>
@@ -10,7 +9,6 @@
 <script>
 import NewsFeedListItem from "./NewsFeedListItem.vue";
 import { mapActions, mapGetters } from "vuex";
-// import axios from "axios";
 
 export default {
   components: { NewsFeedListItem },

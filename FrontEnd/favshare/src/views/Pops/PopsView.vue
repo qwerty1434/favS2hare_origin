@@ -15,7 +15,6 @@
 import PopsList from "@/components/Pops/PopsList.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 import NavBar from "@/components/NavBar.vue";
-// import windowTest from "@/components/Pops/windowTest";
 
 export default {
   name: "PopsView",
@@ -23,7 +22,6 @@ export default {
     PopsList,
     BottomNavigationBar,
     NavBar,
-    // windowTest,
   },
 };
 </script>
@@ -46,8 +44,7 @@ export default {
   width: 100%;
   bottom: 0;
 }
-/* 스크롤바 제거 */
 .no-scroll::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 </style>

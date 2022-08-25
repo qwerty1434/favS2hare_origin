@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <v-card class="related-size" @click="goPopsDetail">
       <div class="align-end">
@@ -36,8 +35,6 @@
 </template>
 
 <script>
-// @playing="playing"
-// style="pointer-events: none"
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 
@@ -83,7 +80,6 @@ export default {
       this.player.seekTo(this.section.start);
     },
     goPopsDetail() {
-      console.log(this.popsItem.userId);
       this.$router.push({
         name: "popsdetail",
         params: {

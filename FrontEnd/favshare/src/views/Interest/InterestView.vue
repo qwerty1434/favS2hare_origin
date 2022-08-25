@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- 로고 -->
     <v-app-bar color="white" elevation="0" dense>
       <router-link :to="{ name: 'home' }" active-class="navbar-active">
         <img class="navbar__logo" src="@/assets/favshare.png" alt="Logo" />
@@ -9,14 +8,12 @@
     <v-divider></v-divider>
     <v-container class="container">
       <v-row align="center" no-gutters>
-        <!-- back icon -->
         <v-col v-if="currentPage == 1" cols="1">
           <v-icon>mdi-circle-small</v-icon>
         </v-col>
         <v-col v-if="currentPage > 1" cols="1">
           <v-icon @click="previousPage">mdi-keyboard-backspace</v-icon>
         </v-col>
-        <!-- progress bar -->
         <v-col cols="11">
           <div class="progress-bar">
             <interest-progress
@@ -26,7 +23,6 @@
           </div>
         </v-col>
       </v-row>
-      <!-- question -->
       <v-row class="question-part" no-gutters>
         <v-col v-if="currentPage === 1" cols="12" class="text-center">
           <h3>당신이 선호하는 가수는?</h3>
@@ -35,7 +31,6 @@
           <h3>당신이 선호하는 노래는?</h3>
         </v-col>
       </v-row>
-      <!-- search bar-->
       <v-row
         v-if="currentPage === 1"
         class="search-bar"
@@ -58,7 +53,6 @@
           >
         </v-col>
       </v-row>
-      <!-- 응답 선택 -->
       <idol-choice-list
         ref="idolChoiceList"
         v-if="currentPage === 1"
@@ -73,7 +67,6 @@
         @emitUnselectSong="removeSongInList"
       ></Song-choice-list>
     </v-container>
-    <!-- continue -->
     <v-footer fixed padless>
       <v-btn
         v-if="currentPage === 1"
@@ -85,7 +78,6 @@
         tile
         >Continue</v-btn
       >
-      <!-- finish -->
       <v-btn
         v-if="currentPage === totalPage"
         @click.prevent="sendInterest"
@@ -120,12 +112,9 @@ export default {
     return {
       currentPage: 1,
       totalPage: 2,
-      // 검색어
       keyword: "",
-      // 취향 후보 리스트
       idolList: [],
       songList: [],
-      // 사용자가 선택한 리스트
       idolChoiceList: [],
       songChoiceList: [],
     };
@@ -136,8 +125,6 @@ export default {
   },
   watch: {
     keyword(newVal) {
-      // 사용자가 검색을 했다가 검색어를
-      // 검색어를 다 지우면 다시 전체 목록 보여줌
       if (!newVal) {
         this.getIdolList();
         this.$refs.idolChoiceList.isSearching = false;
@@ -148,7 +135,6 @@ export default {
     ...mapGetters(["userId"]),
   },
   methods: {
-    // 좋아하는 가수 선택사항 요청
     getIdolList() {
       axios
         .get(api.userInterest.getIdolInfo())
@@ -217,7 +203,6 @@ export default {
           this.$router.push({ name: "home" });
         })
         .catch((error) => {
-          console.log("jerer");
           console.log(error);
         });
     },

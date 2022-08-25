@@ -3,7 +3,6 @@ import api from "@/api/springRestAPI";
 
 export default {
   state: {
-    // userIdInMyVideo: 1,
     myVideoList: [],
   },
   getters: {
@@ -17,7 +16,6 @@ export default {
       console.log(userId);
       axios({
         method: "get",
-        // url: `http://13.124.112.241:8080/youtube/bookmark/${userId}`,
         url: api.youtubeBookmark.youtubeBookmarkUser(userId),
       }).then((res) => {
         commit("SET_MY_YOUTUBE", res.data);
@@ -26,7 +24,6 @@ export default {
     deleteMyVideo({ commit }, { userId, youtubeUrl }) {
       axios({
         method: "delete",
-        // url: `http://13.124.112.241:8080/youtube/bookmark`,
         url: api.youtubeBookmark.youtubeBookmark(),
         data: {
           userId: userId,
@@ -36,11 +33,9 @@ export default {
         .then(() => {
           axios({
             method: "get",
-            // url: `http://13.124.112.241:8080/youtube/bookmark/${userId}`,
             url: api.youtubeBookmark.youtubeBookmarkUser(userId),
           })
             .then((res) => {
-              console.log("삭제 후 " + res.data.length);
               commit("SET_MY_YOUTUBE", res.data);
             })
             .catch((err) => {

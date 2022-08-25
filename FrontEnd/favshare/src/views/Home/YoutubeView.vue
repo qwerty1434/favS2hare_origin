@@ -1,19 +1,4 @@
 <template>
-  <!-- <div>
-    <nav-bar class="top"></nav-bar>
-    <youtube-video
-      class="youtube__view"
-      :video-info="this.videoInfo"
-      :youtube-id="this.youtubeId"
-    ></youtube-video>
-    <related-pops-list
-      :youtube-id="this.youtubeId"
-      class="rpops"
-    ></related-pops-list>
-    <div class="bottom">
-      <bottom-navigation-bar></bottom-navigation-bar>
-    </div>
-  </div> -->
   <div>
     <nav-bar class="top"></nav-bar>
     <youtube-video class="youtube__view"></youtube-video>
@@ -38,17 +23,12 @@ export default {
   name: "YoutubeView",
   props: {
     youtubeId: Number,
-    videoInfo: Object, // { videoId(유튜브 id), channelName, channelProfilePic, videoTitle }
+    videoInfo: Object,
   },
-  // computed: {
-  //   ...mapGetters(["youtubeInfo"]),
-  // },
   methods: {
     ...mapActions(["fetchYoutubeInfo"]),
   },
   created() {
-    // const vuexYoutubeId = { youtubeId: this.youtubeId };
-    // const vuexVideoInfo = Object.assign(this.videoInfo, vuexYoutubeId);
     const vuexVideoInfo = Object.assign(this.videoInfo);
     this.fetchYoutubeInfo(vuexVideoInfo);
   },
@@ -70,7 +50,6 @@ export default {
   width: 360px;
   padding: 20px;
   overflow: scroll;
-  /* 가로 스크롤 */
   overflow: auto;
   white-space: nowrap;
   display: flex;

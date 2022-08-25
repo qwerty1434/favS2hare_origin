@@ -1,9 +1,7 @@
 <template>
   <v-row justify="space-between" no-gutters>
     <v-col v-if="!isSearching" cols="6" align="center">
-      <div id="non-choice" @click="select" class="option unselected-option">
-        선택 안함
-      </div>
+      <div id="non-choice" @click="select" class="option unselected-option">선택 안함</div>
     </v-col>
     <idol-choice-list-item
       ref="idolChoiceListItem"
@@ -27,7 +25,6 @@ export default {
   props: ["idolList"],
   data() {
     return {
-      // 검색 중일 때는 보이지 않도록
       isSearching: false,
       isSelected: false,
     };
@@ -37,7 +34,6 @@ export default {
       const item = document.getElementById("non-choice");
       if (newVal) {
         item.setAttribute("class", "option selected-option");
-        // 다른 선택지들 선택 취소
         if (this.$refs.idolChoiceListItem) {
           this.$refs.idolChoiceListItem.forEach((item) => {
             item.isSelected = false;
@@ -49,9 +45,7 @@ export default {
     },
   },
   methods: {
-    // 다른 선택지가 선택되면
     emitSelectIdol(id) {
-      // 선택안함 버튼은 선택 취소
       this.isSelected = false;
       this.$emit("emitSelectIdol", id);
     },
@@ -59,7 +53,6 @@ export default {
       this.$emit("emitUnselectIdol", id);
     },
     select() {
-      // 이미 선택되어 있을 때
       if (this.isSelected) {
         this.isSelected = false;
       } else {

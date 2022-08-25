@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <v-card class="pops-size" @click="goPopsDetail">
       <div>
@@ -78,7 +77,6 @@ export default {
       this.player.seekTo(this.section.start);
     },
     goPopsDetail() {
-      console.log(this.searchedPopsListItem.userId);
       this.$router.push({
         name: "popsdetail",
         params: {

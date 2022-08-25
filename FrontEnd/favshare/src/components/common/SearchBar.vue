@@ -38,16 +38,10 @@ export default {
         alert("검색 키워드를 입력하세요.");
       } else {
         this.$emit("input-change", this.searchKeyword);
-        // console.log(searchKeyword);
-        // document.getElementById("search-bar").value = "";
       }
     },
     onInputKeyword: function (event) {
       this.$emit("input-change", event.target.value);
-      // this.router.push({
-      //   name: "search",
-      //   params: { searchKeyword: this.searchKeyword },
-      // });
     },
   },
 };

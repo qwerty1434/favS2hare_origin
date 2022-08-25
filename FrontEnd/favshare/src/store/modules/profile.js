@@ -4,14 +4,12 @@ import api from "@/api/springRestAPI";
 
 export default {
   state: {
-    // 마이프로필 상단 유저 정보 state
     feedUserInfo: {},
-    // 마이프로필 중단 유저 Feed List state
     feedList: [],
     freindInfo: {},
     feedPops: [],
     feedPop: {},
-    followtab: 0, // 팔로워 클릭이면 0, 팔로잉 클릭이면 1
+    followtab: 0,
     isDelete: true,
     followerList: [],
     followingList: [],
@@ -61,15 +59,11 @@ export default {
       (state.followActiveTab = followActiveTab),
   },
   actions: {
-    // *마이* 프로필 화면을 갈 때 상단에 유저 정보(게시글 수 등) 받는 함수
-    // 어떤 유저인지를 입력변수로 받음
     fetchFeedUserInfo({ commit }, userId) {
-      console.log("우선 여기", userId);
       if (userId != 0) {
         axios({
           method: "get",
           url: api.userProfile.profileGet(userId),
-          // url: `http://13.124.112.241:8080/user/profile/1`,
         }).then((res) => {
           commit("SET_FEEDUSERINFO", res.data);
           router.push({ name: "feed" });
@@ -77,25 +71,18 @@ export default {
       }
     },
 
-    // 마이 프로필 화면 중간 피드 목록 받는 함수
-    // 받자마자 대표피드 id 찾아서 popsInFeed 받는 함수 실행시켜야 함
-    // 어떤 유저인지를 입력변수로 받음
-    // fetchFeedList({ commit, getters }, userId) {
+    
     fetchFeedList({ commit, getters }, userId) {
-      console.log("2번");
       if (userId != 0) {
         axios({
           method: "get",
           url: api.userProfile.profileFeed(userId),
-          // url: `http://13.124.112.241:8080/user/profile/feed/1`,
         }).then((res) => {
-          console.log("피드리스트", res.data);
           if (res.data.length == 0) {
             commit("SET_FEEDPOPS", []);
           }
           for (const feed of res.data) {
             if (feed.first) {
-              console.log("3번");
               axios({
                 method: "post",
                 url: api.userProfile.profilePopList(),
@@ -104,9 +91,6 @@ export default {
                   feedId: feed.id,
                 },
               }).then((res) => {
-                console.log(getters.userId);
-                console.log(getters.userId);
-                console.log("피드 팝스", res.data);
                 commit("SET_FEEDPOPS", res.data);
               });
             }
@@ -116,9 +100,7 @@ export default {
       }
     },
 
-    // 피드 클릭 시 피드의 팝스들을 리스트로 받는 함수
     fetchFeedPops({ commit, getters }, feedId) {
-      console.log("3번");
       axios({
         method: "post",
         url: api.userProfile.profilePopList(),
@@ -127,8 +109,6 @@ export default {
           feedId: feedId,
         },
       }).then((res) => {
-        console.log("피드팝스", res.data);
-        console.log(res.data);
         commit("SET_FEEDPOPS", res.data);
       });
     },
@@ -165,7 +145,6 @@ export default {
     },
 
     spliceFeedPops({ commit }, id) {
-      console.log("actions", id);
       commit("SPLICE_FEEDPOPS", id);
     },
     getProfileInfo({ commit }, userId) {
@@ -173,7 +152,6 @@ export default {
         method: "get",
         url: api.userProfile.profileEdit(userId),
       }).then((res) => {
-        console.log(res);
         commit("SET_EDITUSERINFO", res.data);
       });
     },
@@ -181,9 +159,6 @@ export default {
       { commit },
       { userId, nickname, content, profileImageUrl }
     ) {
-      console.log(userId);
-      console.log(nickname);
-      console.log(content);
       axios({
         method: "put",
         url: api.userProfile.profile(),
@@ -195,7 +170,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           commit("RESET_FORM");
         })
         .catch((err) => {
@@ -215,7 +189,6 @@ export default {
     fetchFollowerList({ commit, getters }) {
       axios({
         method: "get",
-        // url: `http://13.124.112.241:8080/user/follow/to/${getters.feedUserInfo.id}`,
         url: api.userFollow.followTo(getters.feedUserInfo.id),
       })
         .then((res) => {
@@ -235,24 +208,14 @@ export default {
 
     // 다른 유저 프로필 화면 들어갈 때 팔로우 하고있는지 확인하기 위한 함수
     fetchIsFollowing({ commit, getters }, id) {
-      console.log("isFollowing 안에 왔음", id);
       axios({
         method: "get",
-        // url: `http://13.124.112.241:8080/user/follow/from/${getters.userId}`,
         url: api.userFollow.followFrom(getters.userId),
       })
         .then((res) => {
-          console.log(".then 안에 왔음", res.data);
-          console.log("내 아이디", getters.userId, typeof getters.userId);
-          console.log(
-            "느그 아이디",
-            res.data[0].toUserId,
-            typeof res.data[0].toUserId
-          );
           const len = res.data.length;
           let tmp = 0;
           for (const user of res.data) {
-            console.log("for문 안", user);
             if (user.toUserId === id) {
               commit("SET_ISFOLLOWING", true);
               break;
@@ -262,7 +225,6 @@ export default {
             }
           }
           if (tmp === len) {
-            console.log("여기왔냐!!!");
             commit("SET_ISFOLLOWING", false);
           }
         })
@@ -271,7 +233,6 @@ export default {
 
     // 다른 유저 프로필 화면에서 팔로우를 눌렀을 때 함수
     fetchFollowInProfile({ commit, getters }, id) {
-      console.log(id);
       axios({
         method: "post",
         url: api.userFollow.follow(),
@@ -280,7 +241,6 @@ export default {
           toUserId: id,
         },
       }).then((res) => {
-        console.log(res);
         this.dispatch("fetchFeedUserInfo", id);
       });
       commit("SET_ISFOLLOWING", true);

@@ -1,9 +1,7 @@
 <template>
   <v-row justify="space-between" no-gutters>
     <v-col cols="6" align="center">
-      <div id="non-choice" @click="select" class="option unselected-option">
-        선택 안함
-      </div>
+      <div id="non-choice" @click="select" class="option unselected-option">선택 안함</div>
     </v-col>
     <song-choice-list-item
       ref="songChoiceListItem"
@@ -45,9 +43,7 @@ export default {
     },
   },
   methods: {
-    // 다른 선택지가 선택되면
     emitSelectSong(id) {
-      // 선택안함 버튼은 선택 취소
       this.isSelected = false;
       this.$emit("emitSelectSong", id);
     },
@@ -55,7 +51,6 @@ export default {
       this.$emit("emitUnselectSong", id);
     },
     select() {
-      // 이미 선택되어 있을 때
       if (this.isSelected) {
         this.isSelected = false;
       } else {

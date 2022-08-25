@@ -31,7 +31,6 @@
   </div>
 </template>
 <script>
-/* eslint-disable */
 import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 import googleAPI from "@/api/googleAPI";
@@ -40,7 +39,6 @@ export default {
   name: "MyYouTubeListItem",
   data() {
     return {
-      //for-use data
       thumbNail: String,
       channelProfilePic: String,
       channelName: String,
@@ -60,17 +58,13 @@ export default {
   methods: {
     ...mapActions(["deleteMyVideo"]),
     getStoredVideoInfo() {
-      // 썸네일, 채널 id 받아오기
-
       const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {
         key: API_KEY,
         part: "snippet",
         id: this.myYoutubeVideo.url,
       };
-      console.log(params);
       axios.get(googleAPI.videos(), { params }).then((res) => {
-        console.log(res);
         this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
         this.videoTitle = res.data.items[0].snippet.title;
         const tmpChannelId = res.data.items[0].snippet.channelId;

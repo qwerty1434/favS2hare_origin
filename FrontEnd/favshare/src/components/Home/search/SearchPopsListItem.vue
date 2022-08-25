@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <v-card class="pops-size ml-2 mr-2" @click="goPopsDetail">
       <div>
@@ -59,9 +58,7 @@ export default {
   props: {
     popsListItem: Object,
   },
-  created() {
-    console.log(this.popsListItem);
-  },
+  created() {},
   computed: {
     player() {
       return this.$refs[`pops${this.popsListItem.id}`].player;
@@ -80,7 +77,6 @@ export default {
       this.player.seekTo(this.section.start);
     },
     goPopsDetail() {
-      console.log(this.popsListItem.userId);
       this.$router.push({
         name: "popsdetail",
         params: {

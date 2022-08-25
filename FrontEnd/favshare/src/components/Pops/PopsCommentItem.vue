@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div class="mt-2 dialog-item">
     <v-row>
       <v-col cols="2">
@@ -13,7 +12,6 @@
           &nbsp;&nbsp;&nbsp;&nbsp;{{ commentListItem.content }}
         </h5>
         <h5>
-          <!-- {{ commentListItem.createDate }} -->
           {{ createDate }}
           &nbsp;&nbsp;&nbsp;좋아요 {{ commentListItem.countCommentLikes }}개
           <v-btn
@@ -40,7 +38,6 @@
   </div>
 </template>
 <script>
-/* eslint-disable */
 import dayjs from "dayjs";
 import { mapGetters, mapActions } from "vuex";
 
@@ -99,7 +96,10 @@ export default {
     },
     goFriendFeed() {
       if (this.isSignin) {
-        this.$router.push({ name: "feed", params: this.commentListItem.userId });
+        this.$router.push({
+          name: "feed",
+          params: this.commentListItem.userId,
+        });
       }
     },
   },

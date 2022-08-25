@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div class="mt-n1" align="center">
     <v-avatar size="60px" @click="fetchPopList(popsTypeItem.id)">
       <img :src="popsTypeItem.idolImageUrl" alt="" />
@@ -25,7 +24,6 @@ export default {
   methods: {
     ...mapActions(["fetchPopList"]),
     SearchPopsByType() {
-      console.log("type click");
       this.$emit("click-type", this.type1);
     },
   },

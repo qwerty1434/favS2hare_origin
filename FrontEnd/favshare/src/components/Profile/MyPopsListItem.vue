@@ -96,7 +96,6 @@ export default {
 </script>
 
 <style scoped>
-/* youtube 태그와 크기, border-radius 일치 */
 .youtube-container {
   width: 160px;
   height: 90px;

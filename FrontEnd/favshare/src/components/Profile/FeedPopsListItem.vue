@@ -28,9 +28,6 @@
 </template>
 
 <script>
-// 마이너스(삭제) 버튼 클릭 시
-// -> delete요청 보내기 & vuex state feedPops에서 해당 인덱스 지우기
-
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
@@ -58,7 +55,7 @@ export default {
     };
   },
   props: {
-    feedPop: Object, // { id(pops), name, *youtubeUrl(추가필요), startSecond, endSecond, content, createDate, views, likeCount }
+    feedPop: Object,
     index: Number,
   },
   computed: {

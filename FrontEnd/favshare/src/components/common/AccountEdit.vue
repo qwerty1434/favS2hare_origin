@@ -82,7 +82,6 @@
   </div>
 </template>
 <script>
-/* eslint-disable */
 import dayjs from "dayjs";
 import { mapActions, mapGetters } from "vuex";
 
@@ -91,13 +90,6 @@ export default {
   data() {
     return {
       birthDateForm: "",
-      // sampleUser: {
-      //   email: "ssafy7@ssafy.com",
-      //   pw: "zxczxc",
-      //   name: "홍길동",
-      //   phone: "010-0000-0000",
-      //   birth: "2022-08-03",
-      // },
       state: "ins",
       passwordCheck: "",
       passwordNew: "",
@@ -117,30 +109,22 @@ export default {
   },
   created() {
     this.birthDateForm = dayjs(this.userInfo.birthDate).format("YYYY-MM-DD");
-    // console.log(this.userInfo);
   },
   computed: {
     ...mapGetters(["userId", "userInfo"]),
   },
   methods: {
     ...mapActions(["updateUserInfo"]),
-    // getSampleUser() {
-    //   axios.get().then((response) => {
-    //     this.sampleUser = response.data;
-    //   });
-    // },
     checkEmail(email) {
       /* eslint-disable-next-line */
       const reg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       return reg.test(email);
     },
-    // 생일 형식(YYYY-MM-DD) 확인
     checkBirthDate(birthDate) {
       /* eslint-disable-next-line */
       const reg = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
       return reg.test(birthDate);
     },
-    // 전화번호 형식(010-0000-0000) 확인
     checkPhoneNumber(phone) {
       /* eslint-disable-next-line */
       const reg = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
@@ -148,7 +132,6 @@ export default {
     },
     updateProfile() {
       if (this.$refs.accountEditForm.validate()) {
-        console.log("update user");
         this.updateUserInfo({
           userId: this.userId,
           password: this.passwordNew,
