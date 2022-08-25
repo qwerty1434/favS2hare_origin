@@ -89,7 +89,7 @@
 ### 유튜브 상세정보
 유튜브 편집 및 북마크
 <br>
-![image.png](./docs/image/유튜브상세.png)
+![image.png](./docs/image/유튜브상세.gif)
 <br>
 <hr>
 
