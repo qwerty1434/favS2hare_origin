@@ -123,9 +123,4 @@ export default {
   top: 280px;
   left: 15px;
 }
-/* .user-pic {
-  position: absolute;
-  top: 280px;
-  left: 15px;
-} */
 </style>
