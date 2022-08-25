@@ -82,7 +82,7 @@
 
 친구 피드 탭
 <br>
-![image.png](./docs/image/친구피드.png)
+![image.png](./docs/image/친구피드.gif)
 <br>
 <hr>
 
