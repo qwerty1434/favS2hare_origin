@@ -96,7 +96,7 @@
 ### 팝 생성 화면
 시간 지정, 피드 설정 후 팝 생성
 <br>
-![image.png](./docs/image/팝생성.png)
+![image.png](./docs/image/팝생성.gif)
 
 <br>
 <hr>
