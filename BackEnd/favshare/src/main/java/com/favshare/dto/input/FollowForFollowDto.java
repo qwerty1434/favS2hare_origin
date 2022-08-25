@@ -1,4 +1,4 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
 
 import com.favshare.entity.FollowEntity;
 import com.favshare.entity.UserEntity;

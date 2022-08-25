@@ -1,12 +1,12 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
 
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCommentContentIdDto {
+public class UserCommentIdDto {
 	int userId;
 	int commentId;
-	String content;
+
 }

@@ -17,7 +17,7 @@ import com.favshare.dto.FeedDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.YoutubeDetailDto;
 import com.favshare.dto.YoutubeInfoDto;
-import com.favshare.dto.YoutubeUserIdDto;
+import com.favshare.dto.input.YoutubeUserIdDto;
 import com.favshare.entity.InterestIdolEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.entity.YoutubeEntity;

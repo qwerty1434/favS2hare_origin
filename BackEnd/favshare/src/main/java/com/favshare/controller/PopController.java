@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.PopAlgoDto;
-import com.favshare.dto.FriendFeedDto;
 import com.favshare.dto.IdolDto;
-import com.favshare.dto.IdolUserIdDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInfoDto;
 import com.favshare.dto.SongDto;
-import com.favshare.dto.UserPopIdDto;
-import com.favshare.dto.UserProfileDto;
+import com.favshare.dto.input.FriendFeedDto;
+import com.favshare.dto.input.IdolUserIdDto;
+import com.favshare.dto.input.UserPopIdDto;
+import com.favshare.dto.input.UserProfileDto;
 import com.favshare.service.LikePopService;
 import com.favshare.service.PopService;
 import com.favshare.service.UserService;

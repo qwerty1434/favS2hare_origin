@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.FollowDto;
-import com.favshare.dto.FromUserToUserDto;
+import com.favshare.dto.input.FromUserToUserDto;
 import com.favshare.entity.FollowEntity;
 import com.favshare.service.FollowService;
 import com.favshare.service.UserService;

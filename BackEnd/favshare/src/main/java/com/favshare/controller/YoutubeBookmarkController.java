@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.YoutubeBookmarkDto;
 import com.favshare.dto.YoutubeDto;
-import com.favshare.dto.YoutubeUserIdDto;
+import com.favshare.dto.input.YoutubeUserIdDto;
 import com.favshare.service.StoreYoutubeService;
 
 import io.swagger.annotations.ApiOperation;

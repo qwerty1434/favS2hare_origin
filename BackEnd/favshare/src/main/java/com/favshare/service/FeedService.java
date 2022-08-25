@@ -3,9 +3,9 @@ package com.favshare.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.favshare.dto.FeedUserIdDto;
-import com.favshare.dto.IdFeedImageUrlDto;
-import com.favshare.dto.IdNameDto;
+import com.favshare.dto.input.FeedUserIdDto;
+import com.favshare.dto.input.IdFeedImageUrlDto;
+import com.favshare.dto.input.IdNameDto;
 import com.favshare.entity.FeedEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.repository.FeedRepository;

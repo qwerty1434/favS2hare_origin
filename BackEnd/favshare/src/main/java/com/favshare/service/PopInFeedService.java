@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.favshare.dto.FeedPopIdDto;
+import com.favshare.dto.input.FeedPopIdDto;
 import com.favshare.entity.CommentEntity;
 import com.favshare.entity.FeedEntity;
 import com.favshare.entity.LikeCommentEntity;

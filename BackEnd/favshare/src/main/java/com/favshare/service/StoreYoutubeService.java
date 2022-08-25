@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.favshare.dto.YoutubeDto;
-import com.favshare.dto.YoutubeUserIdDto;
+import com.favshare.dto.input.YoutubeUserIdDto;
 import com.favshare.entity.StoreYoutubeEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.entity.YoutubeEntity;

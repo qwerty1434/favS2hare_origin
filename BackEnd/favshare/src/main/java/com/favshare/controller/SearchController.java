@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.PopDto;
-import com.favshare.dto.UserIdMessageDto;
-import com.favshare.dto.UserProfileDto;
+import com.favshare.dto.input.UserIdMessageDto;
+import com.favshare.dto.input.UserProfileDto;
 import com.favshare.service.PopService;
 import com.favshare.service.UserService;
 

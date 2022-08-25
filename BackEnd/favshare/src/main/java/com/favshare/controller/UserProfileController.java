@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.FeedDto;
-import com.favshare.dto.FeedUserIdDto;
-import com.favshare.dto.FollowForFollowDto;
 import com.favshare.dto.PopDto;
-import com.favshare.dto.UserProfileDto;
+import com.favshare.dto.input.FeedUserIdDto;
+import com.favshare.dto.input.FollowForFollowDto;
+import com.favshare.dto.input.UserProfileDto;
 import com.favshare.service.PopService;
 import com.favshare.service.UserService;
 
