@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class YoutubeBookmarkDto {
-	
+
 	private int userId;
-	
+
 	private List<StoreYoutubeEntity> storeYoutubeList = new ArrayList<>();
-	
+
 	public YoutubeBookmarkDto(UserEntity userEntity) {
 		this.userId = userEntity.getId();
 		this.storeYoutubeList = userEntity.getStoreYoutubeList();

@@ -1,11 +1,11 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
 
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class IdPasswordDto {
-	int id;
+public class EmailPasswordDto {
+	String email;
 	String password;
 }

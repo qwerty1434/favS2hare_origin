@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class YoutubeDto {
 	private int id;
 	private String url;
-	
+
 	public YoutubeDto(YoutubeEntity youtubeEntity) {
 		this.id = youtubeEntity.getId();
 		this.url = youtubeEntity.getUrl();

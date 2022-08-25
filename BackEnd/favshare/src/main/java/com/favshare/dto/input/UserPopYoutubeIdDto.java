@@ -1,4 +1,5 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
+
 import lombok.*;
 
 @Data
@@ -6,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 public class UserPopYoutubeIdDto {
 	int userId;
-	int popId;	
+	int popId;
 	private int youtubeId;
 
 }

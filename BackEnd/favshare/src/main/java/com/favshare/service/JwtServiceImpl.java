@@ -57,13 +57,9 @@ public class JwtServiceImpl implements JwtService {
 			Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(jwt);
 			return true;
 		} catch (Exception e) {
-//			if (logger.isInfoEnabled()) {
-//				e.printStackTrace();
-//			} else {
+
 			logger.error(e.getMessage());
-//			}
-//			throw new UnauthorizedException();
-//			개발환경
+
 			return false;
 		}
 	}
@@ -77,16 +73,11 @@ public class JwtServiceImpl implements JwtService {
 		try {
 			claims = Jwts.parser().setSigningKey(SALT.getBytes("UTF-8")).parseClaimsJws(jwt);
 		} catch (Exception e) {
-//			if (logger.isInfoEnabled()) {
-//				e.printStackTrace();
-//			} else {
+
 			logger.error(e.getMessage());
-//			}
+
 			throw new UnauthorizedException();
-//			개발환경
-//			Map<String,Object> testMap = new HashMap<>();
-//			testMap.put("userid", userid);
-//			return testMap;
+
 		}
 		Map<String, Object> value = claims.getBody();
 		logger.info("value : {}", value);

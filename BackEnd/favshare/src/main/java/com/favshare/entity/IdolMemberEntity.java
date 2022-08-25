@@ -9,19 +9,17 @@ import lombok.*;
 @Getter
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Builder
-public class IdolMemberEntity {
+public class IdolMemberEntity { 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String name;
 
-	
-	@ManyToOne
-	@JoinColumn(name ="idol_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idol_id", nullable = false)
 	private IdolEntity idolEntity;
-	
 
 }

@@ -11,13 +11,12 @@ public class IdolDto {
 	private String name;
 	private String content;
 	private String idolImageUrl;
-	
+
 	public IdolDto(IdolEntity idolEntity) {
 		this.id = idolEntity.getId();
 		this.name = idolEntity.getName();
 		this.content = idolEntity.getContent();
 		this.idolImageUrl = idolEntity.getIdolImageUrl();
 	}
-	
-	
+
 }

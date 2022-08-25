@@ -1,4 +1,5 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
+
 import lombok.*;
 
 @Data

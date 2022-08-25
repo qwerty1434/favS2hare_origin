@@ -16,16 +16,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class YoutubeDetailDto {
 
-	
-	private int id;
 	private String url;
-	
-  	private List<PopDto> popList = new ArrayList<>();		
-  	
-  	public YoutubeDetailDto(YoutubeEntity youtubeEntity) {
-  		this.id = youtubeEntity.getId();
-  		this.url = youtubeEntity.getUrl();
-//  		this.popList = youtubeEntity.getPopList();
-  	}
+	private boolean isBookmarked;
+	private List<PopDto> popList = new ArrayList<>();
+
+	public YoutubeDetailDto(String url, boolean isBookmarked) {
+		this.url = url;
+		this.isBookmarked = isBookmarked;
+	}
 
 }

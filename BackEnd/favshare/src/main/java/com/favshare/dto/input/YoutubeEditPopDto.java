@@ -1,4 +1,4 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
 
 import java.time.LocalDateTime;
 
@@ -11,21 +11,21 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class YoutubeEditPopDto {
-	//userId, youtubeId, startSecond, endSecond, bgm(심화과정), title, content,feedId
-	
+
 	private int userId;
-	private int youtubeId;
+	private String youtubeUrl;
 	private int feedId;
 	private String name;
 	private int startSecond;
-	private int endSecond; 
+	private int endSecond;
 	private String content;
 	private LocalDateTime createDate;
 	private int views;
-	
+	private boolean isMuted;
+
 	public YoutubeEditPopDto(PopEntity popEntity, FeedEntity feedEntity) {
 		this.userId = popEntity.getUserEntity().getId();
-		this.youtubeId = popEntity.getYoutubeEntity().getId();
+		this.youtubeUrl = popEntity.getYoutubeEntity().getUrl();
 		this.feedId = feedEntity.getId();
 		this.name = popEntity.getName();
 		this.startSecond = popEntity.getStartSecond();
@@ -33,5 +33,6 @@ public class YoutubeEditPopDto {
 		this.content = popEntity.getContent();
 		this.createDate = LocalDateTime.now();
 		this.views = 0;
+		this.isMuted = popEntity.isMuted();
 	}
 }

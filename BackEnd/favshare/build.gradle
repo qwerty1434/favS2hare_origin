@@ -16,6 +16,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	google()
 }
 
 dependencies {
@@ -26,19 +27,36 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
 	//https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+	//swagger 설정 
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+	
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+	//jwt 토큰
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	
+	//메일 인증
 	// https://mvnrepository.com/artifact/javax.mail/mail
 	implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
 	// https://mvnrepository.com/artifact/org.springframework/spring-context-support
 	implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.20'
+	
+	//web socket 설정 
 	// https://mvnrepository.com/artifact/org.springframework/spring-websocket
 	implementation group: 'org.springframework', name: 'spring-websocket', version: '5.3.18'
+	
+	//youtube api
+	// https://mvnrepository.com/artifact/com.google.api-client/google-api-client
+	implementation group: 'com.google.api-client', name: 'google-api-client', version: '1.25.0'
+	// https://mvnrepository.com/artifact/com.google.apis/google-api-services-youtube
+	implementation group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev222-1.25.0'
+	
+
+
 	
 	
 }

@@ -1,4 +1,6 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
+
+import java.util.List;
 
 import lombok.*;
 
@@ -7,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class FeedPopIdDto {
 	int feedId;
-	int popId;
-	
+	List<Integer> popId;
+
 }

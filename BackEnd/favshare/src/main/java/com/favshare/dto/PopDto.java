@@ -17,13 +17,17 @@ public class PopDto {
 	private int id;
 	private String name;
 	private int startSecond;
-	private int endSecond; 
+	private int endSecond;
 	private String content;
 	private LocalDateTime createDate;
 	private int views;
 	private int likeCount;
-	
-	public PopDto(PopEntity popEntity) {
+	private String youtubeUrl;
+	private boolean isLiked;
+	private int userId;
+	private boolean isMuted;
+
+	public PopDto(PopEntity popEntity, boolean isLiked) {
 		this.id = popEntity.getId();
 		this.name = popEntity.getName();
 		this.startSecond = popEntity.getStartSecond();
@@ -32,5 +36,9 @@ public class PopDto {
 		this.createDate = popEntity.getCreateDate();
 		this.views = popEntity.getViews();
 		this.likeCount = popEntity.getLikePopList().size();
+		this.youtubeUrl = popEntity.getYoutubeEntity().getUrl();
+		this.isLiked = isLiked;
+		this.userId = popEntity.getUserEntity().getId();
+		this.isMuted = popEntity.isMuted();
 	}
 }
