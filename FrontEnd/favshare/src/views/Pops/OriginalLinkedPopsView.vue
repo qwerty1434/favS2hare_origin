@@ -42,14 +42,10 @@ export default {
   methods: {
     getOriginalAndPops() {
       axios
-        .post(
-          // `http://13.124.112.241:8080/pop/youtube/${this.$route.query.popsId}`
-          api.pop.youtube(),
-          {
-            userId: this.userId,
-            popId: this.$route.query.popsId,
-          }
-        )
+        .post(api.pop.youtube(), {
+          userId: this.userId,
+          popId: this.$route.query.popsId,
+        })
         .then((response) => {
           this.linkedPopsList = response.data.popInfo;
           this.countLinkedPopsList = response.data.countPopList;

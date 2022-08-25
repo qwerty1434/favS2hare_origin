@@ -22,7 +22,6 @@ export default {
   },
   actions: {
     getSearchedPopsList({ commit }, { keyword, userId }) {
-      console.log(keyword);
       axios({
         method: "post",
         url: api.search.search(),
@@ -44,7 +43,6 @@ export default {
           const searchedYoutubeList = res.data.items.map(function (item) {
             return item.id.videoId;
           });
-          console.log(searchedYoutubeList);
           commit("SET_SEARCHEDYOUTUBE_LIST", searchedYoutubeList);
         });
     },
@@ -57,7 +55,6 @@ export default {
           userId: userId,
         },
       }).then((res) => {
-        console.log(res.data);
         commit("SET_SEARCHEDFOLLOWING_LIST", res.data.user);
       });
     },

@@ -12,18 +12,17 @@
             <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
           </div>
           <div v-else>
-            <v-btn rounded outlined color="grey" elevation="2" x-small @click="fetchIsDelete(true)"
+            <v-btn
+              rounded
+              outlined
+              color="grey"
+              elevation="2"
+              x-small
+              @click="fetchIsDelete(true)"
               >완료</v-btn
             >
-            <!-- <button @click="fetchIsDelete(true)">삭제</button> -->
           </div>
         </div>
-        <!-- <div v-if="isDelete">
-          <v-icon @click="fetchIsDelete(false)">mdi-cog-outline</v-icon>
-        </div>
-        <div v-else>
-          <button @click="fetchIsDelete(true)">[삭제완료]</button>
-        </div> -->
       </div>
       <feed-list class="rpops"></feed-list>
       <feed-pops-list></feed-pops-list>
@@ -56,7 +55,13 @@ export default {
   },
   name: "FeedView",
   computed: {
-    ...mapGetters(["isDelete", "feedList", "isSignin", "feedUserInfo", "userId"]),
+    ...mapGetters([
+      "isDelete",
+      "feedList",
+      "isSignin",
+      "feedUserInfo",
+      "userId",
+    ]),
   },
   methods: {
     ...mapActions(["fetchIsDelete"]),

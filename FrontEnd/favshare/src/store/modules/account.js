@@ -41,7 +41,6 @@ export default {
   actions: {
     async userConfirm({ commit }, user) {
       await axios
-        // 주소 변경 필요
         .post(api.user.login(), JSON.stringify(user), {
           headers: {
             "Content-Type": "application/json",
@@ -56,9 +55,6 @@ export default {
             let token = response.data["access-token"];
             commit("SET_IS_SIGNIN", true);
             commit("SET_IS_SIGNIN_ERROR", false);
-            // sessionStorage에 access token 저장
-            // sessionStorage: 탭 단위 저장소, 새로고침에는 데이터가 사라지지 않고, 탭을 닫으면 사라짐
-            // localStorage: 모든 탭과 창에서 데이터 공유, 브라우저나 OS 재시작해도 데이터 유지
             sessionStorage.setItem("access-token", token);
             commit("SET_USERID", jwt_decode(token).userId);
           } else {
@@ -73,7 +69,6 @@ export default {
     getUserInfo({ commit }, { userId, password }) {
       axios({
         method: "post",
-        // url: `http://13.124.112.241:8080/user/info`,
         url: api.userInfo.confirmPw(),
         data: {
           id: userId,
@@ -98,7 +93,6 @@ export default {
       console.log(birthDate);
       axios({
         method: "put",
-        // url: `http://13.124.112.241:8080/user/info`,
         url: api.userInfo.editProfile(),
         data: {
           id: userId,
@@ -109,7 +103,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           commit("RESET_FORM");
         })
         .catch((err) => {

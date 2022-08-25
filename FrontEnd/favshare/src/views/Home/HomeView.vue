@@ -45,12 +45,6 @@ export default {
   },
   methods: {
     ...mapActions(["setTabYoutube", "setTabFeed"]),
-    // setTabYoutube() {
-    //   this.isFeed = false;
-    // },
-    // setTabFeed() {
-    //   this.isFeed = true;
-    // },
   },
   watch: {
     "$store.state.home.homeActiveTab": function () {

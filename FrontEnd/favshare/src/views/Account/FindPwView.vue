@@ -2,19 +2,16 @@
   <!-- eslint-disable -->
   <div>
     <v-container>
-      <!-- 뒤로가기 -->
       <div class="bar-top">
         <router-link to="signin">
           <v-icon>mdi-keyboard-backspace</v-icon>
         </router-link>
       </div>
-      <!-- 로고 -->
       <v-row class="logo-part text-center">
         <v-col>
           <img class="logo" src="@/assets/favshare.png" alt="Logo" />
         </v-col>
       </v-row>
-      <!-- 인증번호 전송 Form -->
       <v-form ref="sendingForm">
         <v-row no-gutters v-if="!isConfirmed">
           <v-col offset="1" cols="10">
@@ -44,7 +41,6 @@
           </v-col>
         </v-row>
       </v-form>
-      <!-- 인증번호확인 Form -->
       <v-form ref="confirmForm" v-if="isSent && !isConfirmed">
         <v-row no-gutters>
           <v-col offset="1" cols="10">
@@ -72,7 +68,6 @@
           </v-col>
         </v-row>
       </v-form>
-      <!-- 비밀번호재설정 Form -->
       <v-form ref="passwordForm" v-if="isConfirmed">
         <v-row>
           <v-col offset="1" cols="10">
@@ -132,12 +127,9 @@ export default {
       password: "",
       password2: "",
       receivedAuthNumber: "111111111111111",
-      // 인증번호 발송 여부
       isSent: false,
-      // 이메일 인증 완료 여부
       isConfirmed: false,
       showPassword: false,
-      // 유효성검사 rule
       rules: {
         isEmail: (value) => this.checkEmail(value) || "ID는 이메일 형식입니다",
         authNumberLength: (value) =>
@@ -150,7 +142,6 @@ export default {
     };
   },
   methods: {
-    // 이메일 형식인지 확인
     checkEmail(email) {
       /* eslint-disable-next-line */
       const reg =
@@ -158,24 +149,14 @@ export default {
 
       return reg.test(email);
     },
-    // 인증번호 발송
     sendAuthNumber() {
-      //  유효성 검사를 통과할 경우
       if (this.$refs.sendingForm.validate()) {
-        // 가입된 사용자인지 확인
-        // 가입된 사용자 => then, 가입되지 않은 사용자 catch
         axios
-          // .get(`http://13.124.112.241:8080/user/signup/${this.email}`)
           .get(api.user.email(this.email))
           .then(() => {
-            // 가입된 사용자만 인증번호 전송
             axios
-              .get(
-                // `http://13.124.112.241:8080/user/password/sendAuth/${this.email}`
-                api.userPassword.sendAuthToEmail(this.email)
-              )
+              .get(api.userPassword.sendAuthToEmail(this.email))
               .then((response) => {
-                // 요청 결과로 받은 인증번호 저장
                 this.receivedAuthNumber = response.data;
                 this.isSent = true;
               })
@@ -192,11 +173,8 @@ export default {
         alert("이메일 형식의 ID를 입력해주세요");
       }
     },
-    // 인증번호 확인
     checkAuthNumber() {
-      // 유효성 검사를 통과할 경우
       if (this.$refs.confirmForm.validate()) {
-        // 사용자가 입력한 인증번호와 응답받은 인증번호가 일치할 때
         if (this.authNumber === this.receivedAuthNumber) {
           this.isConfirmed = true;
         } else {
@@ -208,14 +186,10 @@ export default {
         alert("인증번호의 자리수를 확인해주세요");
       }
     },
-    // 비밀번호 변경
     changePassword() {
-      // 유효성 검사를 통과할 경우
       if (this.$refs.passwordForm.validate()) {
         axios
-          // .put("http://13.124.112.241:8080/user/password", {
           .put(
-            // "http://13.124.112.241:8080/user/password",
             api.userPassword.updatePw(),
             {},
             {
@@ -234,9 +208,7 @@ export default {
           });
       }
     },
-    // 인증번호 발송 후, email 입력을 바꾸면 저장된 값 초기화
     resetAuthNumber() {
-      // this.receivedAuthNumber = ""
       this.authNumber = "";
       this.isSent = false;
     },

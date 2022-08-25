@@ -4,7 +4,7 @@
       <div class="name-font">{{ popItem.name }}</div>
       <div class="video">
         <youtube
-          :video-id="youtubePk"
+          :video-id="popItem.youtubeUrl"
           :player-vars="playerVars"
           :ref="'pops' + this.popItem.id"
           @ready="onPlayerReady"

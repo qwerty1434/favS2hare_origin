@@ -26,8 +26,6 @@ import api from "@/api/springRestAPI";
 export default {
   name: "YoutubeEditView",
   components: { YoutubeEditTool, UploadForm },
-  // youtubeId: DB에서 영상을 분류하는 번호
-  // youtubeUrl: youtube에서 영상을 불러오는 11자리 key
   data() {
     return {
       youtubeId: null,
@@ -44,11 +42,9 @@ export default {
     this.getFeedList();
   },
   methods: {
-    // 해당 유저의 피드리스트 가져오기
     getFeedList() {
       axios({
         method: "post",
-        // url: "http://13.124.112.241:8080/youtube/edit/info",
         url: api.youtubeEdit.info(),
         data: {
           userId: this.userId,
@@ -56,23 +52,19 @@ export default {
         },
       })
         .then((res) => {
-          // feedList: [id, name, feedImageUrl, userId, first]
           this.feedList = res.data.feedList;
         })
         .catch((res) => {
           console.log(res);
         });
     },
-    // Pops 게시
     postPops() {
       axios({
         method: "post",
-        // url: "http://13.124.112.241:8080/youtube/edit",
         url: api.youtubeEdit.youtubeEdit(),
         data: {
           userId: this.userId,
           youtubeUrl: this.youtubeUrl,
-          // 전체 피드는 0
           feedId: Number(this.$refs.uploadForm.selectedFeedId),
           name: this.$refs.uploadForm.title,
           content: this.$refs.uploadForm.description,
@@ -81,20 +73,18 @@ export default {
         },
       })
         .then(() => {
-          // 게시 성공 후엔 YoutubeView로 이동
           this.moveToYoutube();
         })
         .catch((res) => {
           console.log(res);
         });
     },
-    // YoutubeView로 이동하기
     moveToYoutube() {
       this.$router.push({
         name: "youtube",
         params: {
           videoInfo: {
-            videoId: this.videoInfo.videoId, // 유튜브 id -> 실제로 쓸 때는 this.videoId => homeYoutube로 바꾸기
+            videoId: this.videoInfo.videoId,
             channelName: this.videoInfo.channelName,
             channelProfilePic: this.videoInfo.channelProfilePic,
             videoTitle: this.videoInfo.videoTitle,
