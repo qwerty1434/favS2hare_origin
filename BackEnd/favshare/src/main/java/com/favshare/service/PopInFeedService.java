@@ -31,12 +31,12 @@ public class PopInFeedService {
 	private PopRepository popRepository;
 
 	public void insertPopInFeed(FeedPopIdDto feedPopIdDto) {
-		PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
+		 
 
 		for (int i = 0; i < feedPopIdDto.getPopId().size(); i++) {
 			FeedEntity feedEntity = feedRepository.findById(feedPopIdDto.getFeedId()).get();
 			PopEntity popEntity = popRepository.findById(feedPopIdDto.getPopId().get(i)).get();
-			popInFeedEntity = popInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity).build();
+			PopInFeedEntity popInFeedEntity = PopInFeedEntity.builder().feedEntity(feedEntity).popEntity(popEntity).build();
 			popInFeedRepository.save(popInFeedEntity);
 		}
 

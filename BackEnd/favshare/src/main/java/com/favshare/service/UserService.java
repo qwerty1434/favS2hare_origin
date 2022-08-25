@@ -1,31 +1,26 @@
 package com.favshare.service;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.favshare.dto.EmailPasswordDto;
 import com.favshare.dto.FeedDto;
 import com.favshare.dto.FeedUserIdDto;
-import com.favshare.dto.FollowDto;
 import com.favshare.dto.FollowForFollowDto;
 import com.favshare.dto.FriendFeedDto;
 import com.favshare.dto.IdolDto;
 import com.favshare.dto.PopDto;
-import com.favshare.dto.PopInFeedDto;
 import com.favshare.dto.SongDto;
 import com.favshare.dto.UserAccountDto;
 import com.favshare.dto.UserInfoDto;
 import com.favshare.dto.UserProfileDto;
 import com.favshare.dto.UserSignUpDto;
-import com.favshare.dto.YoutubeBookmarkDto;
-import com.favshare.dto.YoutubeDto;
 import com.favshare.entity.FeedEntity;
 import com.favshare.entity.FollowEntity;
 import com.favshare.entity.IdolEntity;
@@ -34,7 +29,6 @@ import com.favshare.entity.InterestSongEntity;
 import com.favshare.entity.PopEntity;
 import com.favshare.entity.PopInFeedEntity;
 import com.favshare.entity.SongEntity;
-import com.favshare.entity.StoreYoutubeEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.repository.FeedRepository;
 import com.favshare.repository.FollowRepository;
@@ -43,7 +37,6 @@ import com.favshare.repository.InterestSongRepository;
 import com.favshare.repository.LikePopRepository;
 import com.favshare.repository.PopRepository;
 import com.favshare.repository.UserRepository;
-import com.favshare.repository.YoutubeRepository;
 
 @Service
 public class UserService {
@@ -53,9 +46,6 @@ public class UserService {
 
 	@Autowired
 	private FeedRepository feedRepository;
-
-	@Autowired
-	private PopRepository popRepository;
 
 	@Autowired
 	private FollowRepository followRepository;
@@ -80,8 +70,7 @@ public class UserService {
 	}
 
 	public void insertUser(UserSignUpDto userSignUpDto) {
-		UserEntity userEntity = new UserEntity();
-		userEntity = userEntity.builder().name(userSignUpDto.getName()).email(userSignUpDto.getEmail())
+		UserEntity userEntity = UserEntity.builder().name(userSignUpDto.getName()).email(userSignUpDto.getEmail())
 				.password(userSignUpDto.getPassword()).nickname(userSignUpDto.getNickname())
 				.birthDate(userSignUpDto.getBirthDate()).phone(userSignUpDto.getPhone()).build();
 		userRepository.save(userEntity);

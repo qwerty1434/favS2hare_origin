@@ -1,14 +1,11 @@
 package com.favshare.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.favshare.dto.YoutubeBookmarkDto;
 import com.favshare.dto.YoutubeDto;
 import com.favshare.dto.YoutubeUserIdDto;
 import com.favshare.entity.StoreYoutubeEntity;
@@ -41,9 +38,9 @@ public class StoreYoutubeService {
 		if (storeYoutubeRepository.isBookmarked(userEntity.getId(), youtubeEntity.getId()) < 1) {
 
 			if (youtubeEntity == null) {
-				youtubeEntity = youtubeEntity.builder().url(youtubeUserIdDto.getYoutubeUrl()).build();
+				youtubeEntity = YoutubeEntity.builder().url(youtubeUserIdDto.getYoutubeUrl()).build();
 			}
-			storeYoutubeEntity = storeYoutubeEntity.builder().userEntity(userEntity).youtubeEntity(youtubeEntity)
+			storeYoutubeEntity = StoreYoutubeEntity.builder().userEntity(userEntity).youtubeEntity(youtubeEntity)
 					.build();
 
 			storeYoutubeRepository.save(storeYoutubeEntity);

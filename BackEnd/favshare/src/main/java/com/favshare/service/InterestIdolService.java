@@ -1,21 +1,17 @@
 package com.favshare.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.favshare.dto.InterestIdolDto;
 import com.favshare.entity.IdolEntity;
 import com.favshare.entity.InterestIdolEntity;
-import com.favshare.entity.InterestSongEntity;
 import com.favshare.entity.UserEntity;
 import com.favshare.repository.IdolRepository;
 import com.favshare.repository.InterestIdolRepository;
-import com.favshare.repository.SongRepository;
 import com.favshare.repository.UserRepository;
 
 @Service
@@ -28,9 +24,6 @@ public class InterestIdolService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private ModelMapper modelMapper;
 
 	public void addIdolFavorite(int userId, int idolId) {
 		IdolEntity idolEntity = idolRepository.findById(idolId).get();

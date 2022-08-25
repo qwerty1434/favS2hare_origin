@@ -1,7 +1,6 @@
 package com.favshare.service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +33,11 @@ public class CommentService {
 	}
 
 	public void insertComment(UserPopContentIdDto userPopContentIdDto) {
-		CommentEntity commentEntity = new CommentEntity();
+
 		UserEntity userEntity = userRepository.findById(userPopContentIdDto.getUserId()).get();
 		PopEntity popEntity = popRepository.findById(userPopContentIdDto.getPopId()).get();
 
-		commentEntity = commentEntity.builder().content(userPopContentIdDto.getContent())
+		CommentEntity commentEntity = CommentEntity.builder().content(userPopContentIdDto.getContent())
 				.createDate(LocalDateTime.now()).isModify(false).userEntity(userEntity).popEntity(popEntity).build();
 
 		commentRepository.save(commentEntity);

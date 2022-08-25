@@ -1,16 +1,12 @@
 package com.favshare.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.favshare.dto.IdolDto;
-import com.favshare.dto.InterestSongDto;
-import com.favshare.dto.SongDto;
 import com.favshare.entity.InterestSongEntity;
 import com.favshare.entity.SongEntity;
 import com.favshare.entity.UserEntity;
@@ -28,9 +24,6 @@ public class InterestSongService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private ModelMapper modelMapper;
 
 	public void addSongFavorite(int userId, int songId) {
 		SongEntity songEntity = songRepository.findById(songId).get();

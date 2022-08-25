@@ -5,20 +5,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import com.favshare.dto.PopAlgoDto;
 import com.favshare.dto.IdolDto;
 import com.favshare.dto.IdolUserIdDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInfoDto;
-import com.favshare.dto.UserPopIdDto;
 import com.favshare.dto.YoutubeEditPopDto;
 import com.favshare.entity.FeedEntity;
 import com.favshare.entity.IdolEntity;
@@ -129,14 +126,14 @@ public class PopService {
 
 		// youtube가 아직데이터 베이스에 없을 시 데이터베이스에 넣어주기
 		if (youtubeEntity == null) {
-			youtubeEntity = youtubeEntity.builder().url(youtubeEditPopDto.getYoutubeUrl()).build();
+			youtubeEntity = YoutubeEntity.builder().url(youtubeEditPopDto.getYoutubeUrl()).build();
 			youtubeRepository.save(youtubeEntity);
 		}
 
-		PopEntity popEntity = new PopEntity();
+		
 
 		// 팝에도 넣어주고
-		popEntity = popEntity.builder().name(youtubeEditPopDto.getName())
+		PopEntity popEntity = PopEntity.builder().name(youtubeEditPopDto.getName())
 				.startSecond(youtubeEditPopDto.getStartSecond()).endSecond(youtubeEditPopDto.getEndSecond())
 				.content(youtubeEditPopDto.getContent()).createDate(LocalDateTime.now())
 				.views(youtubeEditPopDto.getViews()).userEntity(userEntity).youtubeEntity(youtubeEntity).build();
@@ -147,9 +144,7 @@ public class PopService {
 		if (youtubeEditPopDto.getFeedId() >= 1) {
 			FeedEntity feedEntity = feedRepository.findById(youtubeEditPopDto.getFeedId()).get();
 
-			PopInFeedEntity popInFeedEntity = new PopInFeedEntity();
-			popInFeedEntity = popInFeedEntity.builder().popEntity(popEntity).feedEntity(feedEntity).build();
-
+			PopInFeedEntity popInFeedEntity = PopInFeedEntity.builder().popEntity(popEntity).feedEntity(feedEntity).build();
 			popInFeedRepository.save(popInFeedEntity);
 		}
 

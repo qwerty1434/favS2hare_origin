@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import javax.sound.midi.Soundbank;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,7 +120,6 @@ public class YoutubeService {
 		List<InterestIdolEntity> interestIdolEntityList;
 		interestIdolEntityList = interestIdolRepository.findAllByUserId(userId);
 
-		List<String> urlList = new ArrayList<String>();
 		String queryList = "";
 
 		// 검색어 쿼리 만드는 반복문
@@ -138,7 +136,6 @@ public class YoutubeService {
 	// 로그인 하지 않은 사용자 or 선호하는 아이돌이 없는 경우에 사용되는 api
 	public String getAlgoUrlByNoId() {
 
-		List<String> urlList = new ArrayList<String>();
 
 		Random r = new Random();
 		int[] idList = new int[5];
@@ -185,8 +182,7 @@ public class YoutubeService {
 
 	public YoutubeInfoDto getEditInfoByUrl(YoutubeUserIdDto youtubeUserIdDto) {
 		UserEntity userEntity = userRepository.findById(youtubeUserIdDto.getUserId()).get();
-		YoutubeEntity youtubeEntity = youtubeRepository.findByUrl(youtubeUserIdDto.getYoutubeUrl());
-
+	
 		YoutubeInfoDto result = new YoutubeInfoDto(userEntity, youtubeUserIdDto.getYoutubeUrl());
 		List<FeedDto> feedList = Arrays.asList(modelMapper.map(userEntity.getFeedList(), FeedDto[].class));
 

@@ -1,15 +1,11 @@
 package com.favshare.service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.favshare.dto.SongDto;
 import com.favshare.dto.UserCommentIdDto;
 import com.favshare.entity.CommentEntity;
 import com.favshare.entity.LikeCommentEntity;
@@ -30,14 +26,11 @@ public class LikeCommentService {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private ModelMapper modelMapper;
-
 	public void insertLike(@RequestBody UserCommentIdDto userCommentIdDto) {
 		int userId = userCommentIdDto.getUserId();
 		likeCommentRepository.findById(userId);
 
-		LikeCommentEntity likeCommentEntity = new LikeCommentEntity();
+		LikeCommentEntity likeCommentEntity;
 
 		UserEntity userEntity = userRepository.findById(userCommentIdDto.getUserId()).get();
 		CommentEntity commentEntity = commentRepository.findById(userCommentIdDto.getCommentId()).get();
@@ -47,7 +40,7 @@ public class LikeCommentService {
 
 		} else {
 
-			likeCommentEntity = likeCommentEntity.builder().userEntity(userEntity).commentEntity(commentEntity).build();
+			likeCommentEntity = LikeCommentEntity.builder().userEntity(userEntity).commentEntity(commentEntity).build();
 			likeCommentRepository.save(likeCommentEntity);
 		}
 
