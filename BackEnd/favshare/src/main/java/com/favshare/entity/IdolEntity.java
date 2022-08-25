@@ -1,33 +1,36 @@
 package com.favshare.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import javax.persistence.*;
 
-@Entity 
-@Table(name = "idol") 
+import lombok.*;
+
+@Entity
+@Table(name = "idol")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Builder
 @ToString
+@Builder
 public class IdolEntity {
-	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	int id;
-	
-	String name;
-	
-	String content;
-	
-	String idolImageUrl;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@Column(nullable = false)
+	private String name;
+	private String content;
+	@Column(name = "idol_image_url")
+	private String idolImageUrl;
+
+	@OneToMany(mappedBy = "idolEntity")
+	private List<IdolMemberEntity> idolMemberList = new ArrayList<>();
+
+	@OneToMany(mappedBy = "idolEntity")
+	private List<YoutubeEntity> youtubeList = new ArrayList<>();
+
+	@OneToMany(mappedBy = "idolEntity")
+	private List<InterestIdolEntity> interestIdolList = new ArrayList<>();
+
 }

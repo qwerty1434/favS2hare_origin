@@ -1,38 +1,5 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+  <v-app class="v-application">
     <v-main>
       <router-view />
     </v-main>
@@ -48,3 +15,39 @@ export default {
   }),
 };
 </script>
+
+<style>
+.v-application {
+  font-family: "SpoqaHanSansNeo", sans-serif !important;
+}
+
+@font-face {
+  font-family: "SpoqaHanSansNeo";
+  src: url("assets/fonts/SpoqaHanSansNeo-Thin.ttf") format("truetype");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "SpoqaHanSansNeo";
+  src: url("assets/fonts/SpoqaHanSansNeo-Light.ttf") format("truetype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "SpoqaHanSansNeo";
+  src: url("assets/fonts/SpoqaHanSansNeo-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SpoqaHanSansNeo";
+  src: url("assets/fonts/SpoqaHanSansNeo-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SpoqaHanSansNeo";
+  src: url("assets/fonts/SpoqaHanSansNeo-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+</style>
