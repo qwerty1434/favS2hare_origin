@@ -10,10 +10,14 @@
 ---
 
 **Backend - Spring**
-- Eclipse 2020-03 (4.15.0)
+- Spring Tool Suite 3
+- Spring boot 2.7.1
 - Spring Data JPA
 - Spring Web
 - Swagger 3.0.0
+- QueryDSL
+- Mysql DB 8.0.30-0
+- ubuntu0.20.04.2
 
 **Frontend**
 - Visual Studio Code IDE
@@ -22,18 +26,19 @@
 - Vuex 3.6.2
 
 **CI/CD**
-- Jenkins
+- AWS EC2
+- Docker
 - NGINX
+- SSL
 
 ## ✔ 협업 툴
 ---
 - Git
 - Notion
-- Gether Town
 - JIRA
-- Slack
 - MatterMost
 - Webex
+- Discord
 
 ## ✔ 팀원 역할 분배
 ---
@@ -52,6 +57,9 @@
 ## ✔ 프로젝트 결과물
 - [중간발표자료](./docs/공통PJT_A803_중간발표자료.pdf)
 - [최종발표자료](./docs/공통PJT_A803_최종발표자료.pdf)
+
+## ✔ 프로젝트 파일 구조
+---
 
 ## favS2ahre 서비스 화면
 ---
