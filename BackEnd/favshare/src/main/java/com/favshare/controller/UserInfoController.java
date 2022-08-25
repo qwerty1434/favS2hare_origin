@@ -1,12 +1,9 @@
 package com.favshare.controller;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.IdPasswordDto;
-import com.favshare.dto.UserAccountDto;
 import com.favshare.dto.UserInfoDto;
 import com.favshare.service.UserService;
 
@@ -42,7 +38,7 @@ public class UserInfoController {
 
 	@ApiOperation(value = "회원 정보 변경", response = ResponseEntity.class)
 	@PutMapping
-	public ResponseEntity changeUserInfo(@RequestBody UserInfoDto userInfoDto) {
+	public ResponseEntity<?> changeUserInfo(@RequestBody UserInfoDto userInfoDto) {
 		try {
 			UserInfoDto result = userService.getUserInfoById(userInfoDto.getId());
 			result.setName(userInfoDto.getName());
@@ -52,19 +48,19 @@ public class UserInfoController {
 
 			userService.updateUserInfo(result);
 
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
 
 	@ApiOperation(value = "회원탈퇴", response = ResponseEntity.class)
 	@DeleteMapping("/{userId}")
-	public ResponseEntity usersignUp(@PathVariable int userId) {
+	public ResponseEntity<?> usersignUp(@PathVariable int userId) {
 
 		userService.deleteByUserId(userId);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

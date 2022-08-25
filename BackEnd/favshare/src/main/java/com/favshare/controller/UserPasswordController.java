@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.EmailPasswordDto;
-import com.favshare.dto.UserAccountDto;
-import com.favshare.dto.UserSignUpDto;
 import com.favshare.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -43,12 +41,12 @@ public class UserPasswordController {
 
 	@ApiOperation(value = "비밀번호 재설정", response = ResponseEntity.class)
 	@PutMapping
-	public ResponseEntity changePassword(EmailPasswordDto emailPasswordDto) {
+	public ResponseEntity<?> changePassword(EmailPasswordDto emailPasswordDto) {
 		try {
 			userService.updatePassword(emailPasswordDto);
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		}
 	}
@@ -85,7 +83,7 @@ public class UserPasswordController {
 			CommandMap.setDefaultCommandMap(MailcapCmdMap);
 
 			mailSender.send(message);
-			return new ResponseEntity(auth, HttpStatus.OK);
+			return new ResponseEntity<>(auth, HttpStatus.OK);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 			return null;
@@ -99,12 +97,12 @@ public class UserPasswordController {
 		try {
 			String result = userService.getUserAuthByEmail(authInfo.get("email"));
 			if (authInfo.get("auth").equals(result)) {
-				return new ResponseEntity("success", HttpStatus.OK);
+				return new ResponseEntity<>("success", HttpStatus.OK);
 			} else {
-				return new ResponseEntity("fail", HttpStatus.OK);
+				return new ResponseEntity<>("fail", HttpStatus.OK);
 			}
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 

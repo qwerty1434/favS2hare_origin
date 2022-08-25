@@ -1,9 +1,7 @@
 package com.favshare.controller;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.IdolDto;
-import com.favshare.dto.InterestIdolDto;
 import com.favshare.dto.InterestSaveDto;
-import com.favshare.dto.InterestSongDto;
 import com.favshare.dto.SongDto;
 import com.favshare.entity.IdolEntity;
 import com.favshare.entity.SongEntity;
