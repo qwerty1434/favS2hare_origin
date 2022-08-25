@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="myYoutubeVideo in myVideoList" :key="myVideoList.id">
+    <div v-for="myYoutubeVideo in myVideoList" :key="myYoutubeVideo.id">
       <my-youtube-list-item
         @delete-video="refreshCur"
         :my-youtube-video="myYoutubeVideo"
@@ -27,7 +27,6 @@ export default {
     ...mapGetters(["myVideoList"]),
   },
   methods: {
-    // ...mapActions(["getMyVideo"]),
     refreshCur() {
       this.$router.go();
     },

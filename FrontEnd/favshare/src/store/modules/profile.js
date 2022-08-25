@@ -71,7 +71,6 @@ export default {
       }
     },
 
-    
     fetchFeedList({ commit, getters }, userId) {
       if (userId != 0) {
         axios({
@@ -169,7 +168,7 @@ export default {
           profileImageUrl: profileImageUrl,
         },
       })
-        .then((res) => {
+        .then(() => {
           commit("RESET_FORM");
         })
         .catch((err) => {
@@ -240,7 +239,7 @@ export default {
           fromUserId: getters.userId,
           toUserId: id,
         },
-      }).then((res) => {
+      }).then(() => {
         this.dispatch("fetchFeedUserInfo", id);
       });
       commit("SET_ISFOLLOWING", true);

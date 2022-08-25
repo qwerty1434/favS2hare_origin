@@ -69,7 +69,8 @@ export default {
               `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=${API_KEY}`
             )
             .then((res) => {
-              this.channelProfilePic = res.data.items[0].snippet.thumbnails.default.url;
+              this.channelProfilePic =
+                res.data.items[0].snippet.thumbnails.default.url;
               this.channelName = res.data.items[0].snippet.title;
             })
             .catch((res) => {

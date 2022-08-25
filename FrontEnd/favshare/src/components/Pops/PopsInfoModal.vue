@@ -1,7 +1,6 @@
 <template>
   <v-bottom-sheet
     class="chat-dialog-info"
-    :value="dialogInfo"
     @input="dialogInfo = $event"
     hide-overlay
     transition="dialog-bottom-transition"
@@ -49,7 +48,9 @@
         <br />
         <br />
       </v-card-text>
-      <v-card-text class="red--text">#나연&nbsp;&nbsp;&nbsp;#트와이스</v-card-text>
+      <v-card-text class="red--text"
+        >#나연&nbsp;&nbsp;&nbsp;#트와이스</v-card-text
+      >
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="mt-3">
         <router-link
@@ -97,7 +98,9 @@ export default {
       popId: this.popsId,
       userId: this.userId,
     });
-    this.createDate = dayjs(this.popsInfo.createDate).format("YYYY-MM-DD HH:mm");
+    this.createDate = dayjs(this.popsInfo.createDate).format(
+      "YYYY-MM-DD HH:mm"
+    );
   },
   computed: {
     ...mapGetters(["popsInfo"]),
@@ -112,9 +115,6 @@ export default {
   },
   methods: {
     ...mapActions(["getPopsInfo"]),
-    closePopsInfoModal() {
-      this.value = false;
-    },
   },
 };
 </script>

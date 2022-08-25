@@ -4,7 +4,9 @@
       <v-subheader>POPS</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader class="more-font">
-        <v-card class="blue--text" elevation="0" @click="goSearchedPopsMore">더보기</v-card>
+        <v-card class="blue--text" elevation="0" @click="goSearchedPopsMore"
+          >더보기</v-card
+        >
       </v-subheader>
     </v-row>
     <div class="mt-n7">

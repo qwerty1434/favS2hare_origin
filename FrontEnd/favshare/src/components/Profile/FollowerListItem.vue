@@ -2,7 +2,8 @@
   <div class="ma-3">
     <v-row align="center">
       <v-col
-        ><v-avatar size="45px"><img :src="followerItem.profileImageUrl" alt="" /></v-avatar
+        ><v-avatar size="45px"
+          ><img :src="followerItem.profileImageUrl" alt="" /></v-avatar
       ></v-col>
       <v-col class="ml-n3" cols="4"
         ><h5>{{ followerItem.nickname }}</h5></v-col

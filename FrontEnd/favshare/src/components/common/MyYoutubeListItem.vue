@@ -75,7 +75,8 @@ export default {
             id: tmpChannelId,
           })
           .then((res) => {
-            this.channelProfilePic = res.data.items[0].snippet.thumbnails.default.url;
+            this.channelProfilePic =
+              res.data.items[0].snippet.thumbnails.default.url;
             this.channelName = res.data.items[0].snippet.title;
           });
       });

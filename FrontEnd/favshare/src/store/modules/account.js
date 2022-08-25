@@ -102,7 +102,7 @@ export default {
           birthDate: birthDate,
         },
       })
-        .then((res) => {
+        .then(() => {
           commit("RESET_FORM");
         })
         .catch((err) => {

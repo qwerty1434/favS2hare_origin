@@ -7,8 +7,16 @@
       </v-col>
     </v-row>
     <v-row class="mt-n5 mb-14">
-      <v-col cols="6" align="center" v-for="popsItem in popsList" :key="popsItem.id">
-        <related-pops-list-item :pops-item="popsItem" :url="url"></related-pops-list-item>
+      <v-col
+        cols="6"
+        align="center"
+        v-for="popsItem in popsList"
+        :key="popsItem.id"
+      >
+        <related-pops-list-item
+          :pops-item="popsItem"
+          :url="url"
+        ></related-pops-list-item>
       </v-col>
     </v-row>
   </div>

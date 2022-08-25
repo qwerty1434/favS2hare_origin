@@ -7,7 +7,10 @@
     >
       <youtube-list-item :home-youtube="homeYoutube"></youtube-list-item>
     </div>
-    <div v-if="scrollTestYoutubes.length" v-observe-visibility="handleScrolledToBottom"></div>
+    <div
+      v-if="scrollTestYoutubes.length"
+      v-observe-visibility="handleScrolledToBottom"
+    ></div>
   </div>
 </template>
 
@@ -41,7 +44,10 @@ export default {
       this.homeToScroll();
     },
     homeToScroll() {
-      const nextPush = this.homeYoutubes.slice(5 * (this.page - 1), 5 * this.page);
+      const nextPush = this.homeYoutubes.slice(
+        5 * (this.page - 1),
+        5 * this.page
+      );
       this.scrollTestYoutubes.push(...nextPush);
     },
   },
