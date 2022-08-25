@@ -73,7 +73,8 @@
 <br>
 ![image.png](./docs/image/회원가입.png)
 <br>
-<hr />
+<hr>
+
 ### 홈화면
 유튜브 탭
 <br>
