@@ -78,7 +78,7 @@
 ### 홈화면
 유튜브 탭
 <br>
-![image.png](./docs/image/유튜브탭.png)
+![image.png](./docs/image/유튜브탭.gif)
 
 친구 피드 탭
 <br>
