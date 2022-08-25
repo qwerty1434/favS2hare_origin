@@ -67,9 +67,6 @@ export default {
   data() {
     return {
       user: {
-        // id: "",
-        // nickname: "ssafy",
-        // content: "하이^_^",
         profile_image_url:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWSvJiz9yA4YjpGfs_og5XpIsnIEc_cCiaGw&usqp=CAU",
       },

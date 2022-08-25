@@ -5,9 +5,7 @@
       <div class="top">
         <search-bar @input-change="searchOnEnter"></search-bar>
       </div>
-      <!-- v-if로 검색전, 검색후 화면 나누기 -->
       <div class="search-view" v-if="searchSuccess">
-        <!-- <div class="search-view"> -->
         <search-result
           :searched-keyword="keyword"
           :pops-list="popsList"
@@ -37,7 +35,13 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "SearchView",
-  components: { NavBar, LoginRequestMessage, SearchBar, SearchResult, BottomNavigationBar },
+  components: {
+    NavBar,
+    LoginRequestMessage,
+    SearchBar,
+    SearchResult,
+    BottomNavigationBar,
+  },
   data() {
     return {
       searchSuccess: false,
@@ -61,11 +65,11 @@ export default {
     this.paramsData = JSON.parse(this.$route.query.keyword);
   },
   methods: {
-    ...mapActions(["getSearchedPopsList", "getSearchedYoutubeList", "getSearchedFollowingList"]),
-    // getSearchedAll() {
-    //   console.log("search succeess");
-    //   this.searchSuccess = true;
-    // },
+    ...mapActions([
+      "getSearchedPopsList",
+      "getSearchedYoutubeList",
+      "getSearchedFollowingList",
+    ]),
     searchOnEnter: function (keyword) {
       this.keyword = keyword;
       this.$router.push({

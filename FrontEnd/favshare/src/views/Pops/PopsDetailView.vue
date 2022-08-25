@@ -33,7 +33,6 @@
           <div class="pops-title">
             <h2>{{ popsInfo.name }}</h2>
           </div>
-          <!-- pops 재생화면 -->
           <v-sheet class="pops-play">
             <div>
               <youtube
@@ -45,7 +44,6 @@
                 :width="336"
                 :height="189"
               ></youtube>
-              <!-- style="pointer-events: none" -->
             </div>
           </v-sheet>
           <div class="pops-editer">
@@ -61,14 +59,34 @@
         <v-row class="pa-2 mt-600">
           <v-spacer></v-spacer>
           <div v-if="isSignin">
-            <v-btn class="mt-2" text icon color="white" v-if="!isLiked" @click="btnLikePops">
+            <v-btn
+              class="mt-2"
+              text
+              icon
+              color="white"
+              v-if="!isLiked"
+              @click="btnLikePops"
+            >
               <v-icon>mdi-heart-outline</v-icon>
             </v-btn>
-            <v-btn class="mt-2" text icon color="red" v-else @click="btnLikePops">
+            <v-btn
+              class="mt-2"
+              text
+              icon
+              color="red"
+              v-else
+              @click="btnLikePops"
+            >
               <v-icon>mdi-heart</v-icon>
             </v-btn>
           </div>
-          <v-btn class="mt-2" text icon color="white" @click.stop="dialogComment = true">
+          <v-btn
+            class="mt-2"
+            text
+            icon
+            color="white"
+            @click.stop="dialogComment = true"
+          >
             <v-icon>mdi-comment-text-outline</v-icon>
           </v-btn>
           <pops-comment-modal
@@ -77,7 +95,13 @@
             :value="dialogComment"
             @input="dialogComment = $event"
           ></pops-comment-modal>
-          <v-btn class="mt-2" text icon color="white" @click.stop="dialogInfo = true">
+          <v-btn
+            class="mt-2"
+            text
+            icon
+            color="white"
+            @click.stop="dialogInfo = true"
+          >
             <v-icon>mdi-information-outline</v-icon>
           </v-btn>
           <pops-info-modal
@@ -146,20 +170,22 @@ export default {
     },
   },
   created() {
-    console.log(this.isSignin);
     this.countView({ popId: this.popsId });
-    console.log("전달받은 popsID " + this.popsId);
-    console.log("전달받은 editorId " + this.editorId);
     this.getPopsInfo({ popId: this.popsId, userId: this.userId });
     if (this.popsInfo.liked) {
       this.isLiked = true;
     } else {
       this.isLiked = false;
     }
-    console.log("pops생성 " + this.popsInfo.name);
   },
   methods: {
-    ...mapActions(["getPopsInfo", "likePops", "unLikePops", "deletePopsOne", "countView"]),
+    ...mapActions([
+      "getPopsInfo",
+      "likePops",
+      "unLikePops",
+      "deletePopsOne",
+      "countView",
+    ]),
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();

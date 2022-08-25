@@ -11,6 +11,7 @@
     <my-youtube-list></my-youtube-list>
   </v-container>
 </template>
+
 <script>
 import MyYoutubeList from "@/components/common/MyYoutubeList.vue";
 import { mapGetters, mapActions } from "vuex";
@@ -24,7 +25,6 @@ export default {
   },
   created() {
     this.getMyVideo({ userId: this.userId });
-    // this.myYoutubeVideos = this.myVideoList;
   },
   computed: {
     ...mapGetters(["userId"]),
@@ -37,6 +37,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .v-input__slot {
   min-height: 35px !important;

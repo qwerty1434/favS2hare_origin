@@ -45,15 +45,10 @@ export default {
   methods: {
     getMyPopsList() {
       axios
-        .post(
-          // "http://13.124.112.241:8080/user/profile/popList"
-          api.userProfile.profilePopList(),
-          {
-            // 전체 피드 조회는 feedId에 0 값
-            feedId: 0,
-            userId: this.userId,
-          }
-        )
+        .post(api.userProfile.profilePopList(), {
+          feedId: 0,
+          userId: this.userId,
+        })
         .then((response) => {
           this.myPopsList = response.data;
           console.log(response.data);
@@ -63,26 +58,19 @@ export default {
         });
     },
     addPopsInFeed() {
-      // MyPopsListItem에서 isSelected가 true인 것만 배열에 담기
       let selectedList = this.$refs.myPopsList.$refs.myPopsListItem.filter(
         (myPopsListItem) => {
           return myPopsListItem.isSelected;
         }
       );
-      // 각 MyPopsListItem 객체를 담고 있는 배열을 id만 뽑아 재할당
       selectedList = selectedList.map((selectedListItem) => {
         return selectedListItem.id;
       });
-      // 선택된 Pops들 요청 보내기
       axios
-        .post(
-          // "http://13.124.112.241:8080/feed/pop"
-          api.feed.pop(),
-          {
-            feedId: this.currentFeedId,
-            popId: selectedList,
-          }
-        )
+        .post(api.feed.pop(), {
+          feedId: this.currentFeedId,
+          popId: selectedList,
+        })
         .then((response) => {
           console.log(response);
         })
