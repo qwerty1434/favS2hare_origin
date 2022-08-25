@@ -70,14 +70,13 @@
 
 ### 회원가입 
 - 이메일을 중복해서 사용할 수 없습니다.
-
-(이미지넣기)
+![image.png](./docs/image/회원가입.png)
 
 <br>
 
 ### 홈화면
 - 유튜브 탭
-(이미지넣기)
+![image.png](./docs/image/홈화면.png)
 
 - 친구 피드 탭
 ![image.png](./docs/image/친구피드.png)
