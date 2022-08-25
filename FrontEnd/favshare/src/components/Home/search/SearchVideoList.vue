@@ -1,9 +1,14 @@
 <template>
-  <v-container>
-    <div>
-      <search-video-list-item></search-video-list-item>
+  <div class="video-search mt-7">
+    <div
+      v-for="(youtubeListItem, index) in youtubeList.slice(0, 5)"
+      :key="index"
+    >
+      <search-video-list-item
+        :youtube-list-item="youtubeListItem"
+      ></search-video-list-item>
     </div>
-  </v-container>
+  </div>
 </template>
 <script>
 import SearchVideoListItem from "./SearchVideoListItem.vue";
@@ -12,10 +17,18 @@ export default {
   name: "SearchVideoList",
   components: { SearchVideoListItem },
   data() {
-    return {
-      searchedPopsList: [],
-    };
+    return {};
+  },
+  props: {
+    youtubeList: Array,
   },
 };
 </script>
-<style></style>
+<style>
+.video-search {
+  height: 200px;
+  overflow: scroll;
+  white-space: nowrap;
+  display: flex;
+}
+</style>

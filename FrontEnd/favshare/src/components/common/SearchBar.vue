@@ -1,27 +1,27 @@
 <template>
   <div>
-    <v-row dense class="mb-n4">
-      <v-col cols="2">
-        <v-icon large>mdi-arrow-left</v-icon>
-      </v-col>
-      <v-col cols="8">
-        <v-text-field
-          id="search-bar"
-          placeholder="검색어를 입력하세요."
-          v-model="searchKeyword"
-          filled
-          dense
-          rounded
-          @keydown.enter="onInputKeyword"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="2">
-        <v-btn class="ma-1 ml-3" text icon @click="searchAll(searchKeyword)">
-          <v-icon large>mdi-magnify</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-divider></v-divider>
+    <v-app-bar class="comm-top" dense elevation="1" absolute grow color="white">
+      <v-row>
+        <v-col class="mt-6">
+          <v-text-field
+            align="center"
+            class="input-none"
+            id="search-bar"
+            placeholder="검색어를 입력하세요."
+            v-model="searchKeyword"
+            dense
+            rounded
+            outlined
+            @keydown.enter="onInputKeyword"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="1">
+          <v-btn class="mt-5 ml-n6" text icon @click="searchAll">
+            <v-icon color="red">mdi-magnify</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-app-bar>
   </div>
 </template>
 <script>
@@ -33,23 +33,25 @@ export default {
     };
   },
   methods: {
-    searchAll(searchKeyword) {
-      if (searchKeyword === "") {
+    searchAll() {
+      if (this.searchKeyword === "") {
         alert("검색 키워드를 입력하세요.");
       } else {
-        this.$emit("input-change", searchKeyword);
-        // console.log(searchKeyword);
-        // document.getElementById("search-bar").value = "";
+        this.$emit("input-change", this.searchKeyword);
       }
     },
     onInputKeyword: function (event) {
       this.$emit("input-change", event.target.value);
-      // this.router.push({
-      //   name: "SearchView",
-      //   params: { searchKeyword: this.searchKeyword },
-      // });
     },
   },
 };
 </script>
-<style></style>
+<style scoped>
+.input-none {
+  background-color: none;
+}
+.comm-top {
+  position: fixed;
+  width: 100%;
+}
+</style>

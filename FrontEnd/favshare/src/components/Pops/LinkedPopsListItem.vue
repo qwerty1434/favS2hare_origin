@@ -1,14 +1,18 @@
 <template>
-  <youtube
-    :video-id="youtubeId"
-    :player-vars="playerVars"
-    :ref="'pops' + this.popsId"
-    width="160"
-    height="90"
-    @ready="onPlayerReady"
-    @playing="onPlaying"
-    style="pointer-events: none; border-radius: 8px"
-  ></youtube>
+  <v-col cols="6" align="center">
+    <v-card class="pops-container" elevation="2">
+      <youtube
+        :video-id="youtubeUrl"
+        :player-vars="playerVars"
+        :ref="'pops' + this.popsId"
+        width="160"
+        height="90"
+        @ready="onPlayerReady"
+        @playing="onPlaying"
+        style="pointer-events: none; border-radius: 8px"
+      ></youtube>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -30,9 +34,6 @@ export default {
     };
   },
   computed: {
-    youtubeId() {
-      return this.youtubeUrl.slice(-11);
-    },
     player() {
       return this.$refs[`pops${this.popsId}`].player;
     },
@@ -53,4 +54,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.pops-container {
+  width: 160px;
+  height: 90px;
+  border-radius: 8px;
+}
+</style>

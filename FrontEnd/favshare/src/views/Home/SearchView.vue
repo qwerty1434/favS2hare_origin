@@ -1,11 +1,22 @@
 <template>
+  <!-- eslint-disable -->
   <div>
-    <div class="container">
-      <search-bar @input-change="searchOnEnter"></search-bar>
+    <div v-if="isSignin">
+      <div class="top">
+        <search-bar @input-change="searchOnEnter"></search-bar>
+      </div>
+      <div class="search-view" v-if="searchSuccess">
+        <search-result
+          :searched-keyword="keyword"
+          :pops-list="popsList"
+          :youtube-list="youtubeList"
+          :user-list="userList"
+        ></search-result>
+      </div>
     </div>
-    <!-- v-if로 검색전, 검색후 화면 나누기 -->
-    <div v-if="searchSuccess">
-      <search-result></search-result>
+    <div v-else>
+      <nav-bar></nav-bar>
+      <login-request-message></login-request-message>
     </div>
     <div class="bottom">
       <bottom-navigation-bar></bottom-navigation-bar>
@@ -14,29 +25,80 @@
 </template>
 
 <script>
+/* eslint-disable */
+import NavBar from "@/components/NavBar.vue";
+import LoginRequestMessage from "@/components/Home/LoginRequestMessage.vue";
 import SearchBar from "@/components/common/SearchBar.vue";
 import SearchResult from "@/components/Home/search/SearchResult.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "SearchView",
-  components: { SearchBar, SearchResult, BottomNavigationBar },
+  components: {
+    NavBar,
+    LoginRequestMessage,
+    SearchBar,
+    SearchResult,
+    BottomNavigationBar,
+  },
   data() {
     return {
       searchSuccess: false,
+      keyword: "",
+      paramsData: null,
+      popsList: Array,
+      youtubeList: Array,
+      userList: Array,
     };
   },
+  computed: {
+    ...mapGetters([
+      "isSignin",
+      "userId",
+      "searchedPopsList",
+      "searchedYoutubeList",
+      "searchedFollowingList",
+    ]),
+  },
+  mounted() {
+    this.paramsData = JSON.parse(this.$route.query.keyword);
+  },
   methods: {
-    // getSearchedAll() {
-    //   console.log("search succeess");
-    //   this.searchSuccess = true;
-    // },
+    ...mapActions([
+      "getSearchedPopsList",
+      "getSearchedYoutubeList",
+      "getSearchedFollowingList",
+    ]),
     searchOnEnter: function (keyword) {
-      console.log(keyword);
+      this.keyword = keyword;
+      this.$router.push({
+        path: "search",
+        query: { keyword: JSON.stringify(keyword) },
+      });
+      this.getSearchedPopsList({ keyword: keyword, userId: this.userId });
+      this.popsList = this.searchedPopsList;
+      this.getSearchedYoutubeList({ keyword: keyword });
+      this.youtubeList = this.searchedYoutubeList;
+      this.getSearchedFollowingList({ keyword: keyword, userId: this.userId });
+      this.userList = this.searchedFollowingList;
       this.searchSuccess = true;
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.top {
+  position: fixed;
+  width: 100%;
+}
+.search-view {
+  padding-top: 60px;
+}
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+</style>

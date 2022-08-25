@@ -1,8 +1,6 @@
 <template>
   <div>
-    <button @click="getLogin">[ 로그인하기 ]</button>
-    <button @click="getLogout">[ 로그아웃하기 ]</button>
-    <div v-if="isLogin">
+    <div v-if="isSignin">
       <news-feed-list></news-feed-list>
     </div>
     <div v-else>
@@ -12,7 +10,8 @@
 </template>
 
 <script>
-import LoginRequestMessage from "./LoginRequestMessage.vue";
+import { mapGetters } from "vuex";
+import LoginRequestMessage from "@/components/Home/LoginRequestMessage.vue";
 import NewsFeedList from "./NewsFeedList.vue";
 
 export default {
@@ -22,6 +21,9 @@ export default {
     return {
       isLogin: true,
     };
+  },
+  computed: {
+    ...mapGetters(["userId", "isSignin"]),
   },
   methods: {
     getLogin() {

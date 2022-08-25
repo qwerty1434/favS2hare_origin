@@ -1,77 +1,82 @@
 <template>
-  <v-bottom-navigation grow absolute class="b-nav">
-    <router-link
-      :to="{ name: 'home' }"
-      class="button"
-      exact-active-class="bnav-active"
+  <v-bottom-navigation
+    :value="bottomValue - 1"
+    grow
+    color="teal"
+    absolute
+    class="bottom"
+  >
+    <v-btn class="pinkBtn" @click="[routerPushes('home'), fetchBottomValue(1)]">
+      <span>Home</span>
+      <v-icon>mdi-home</v-icon>
+    </v-btn>
+
+    <v-btn
+      class="pinkBtn"
+      @click="[routerPushes('pops'), fetchBottomValue(2), fetchPopList(0)]"
     >
-      <v-btn>
-        <span>Home</span>
+      <span>Pops</span>
+      <v-icon>mdi-party-popper</v-icon>
+    </v-btn>
 
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-    </router-link>
-
-    <router-link
-      :to="{ name: 'pops' }"
-      class="button"
-      exact-active-class="bnav-active"
+    <v-btn
+      class="pinkBtn"
+      @click="[routerPushes('search'), fetchBottomValue(3)]"
     >
-      <v-btn>
-        <span>Pops</span>
+      <span>Search</span>
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
 
-        <v-icon>mdi-party-popper</v-icon>
-      </v-btn>
-    </router-link>
-
-    <router-link
-      :to="{ name: 'search' }"
-      class="button"
-      exact-active-class="bnav-active"
+    <v-btn
+      class="pinkBtn"
+      @click="
+        [
+          fetchFeedUserInfo(userId),
+          fetchFeedList(userId),
+          routerPushes('feed'),
+          fetchBottomValue(4),
+        ]
+      "
     >
-      <v-btn>
-        <span>Search</span>
-
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </router-link>
-
-    <router-link
-      :to="{ name: 'feed' }"
-      class="button"
-      exact-active-class="bnav-active"
-    >
-      <v-btn>
-        <span>Profile</span>
-
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
-    </router-link>
+      <span>Profile</span>
+      <v-icon>mdi-account</v-icon>
+    </v-btn>
   </v-bottom-navigation>
 </template>
 
 <script>
+import router from "@/router";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "BottomNavigationBar",
   data() {
     return {
-      value: 5,
+      value: this.bottomValue,
     };
+  },
+  computed: {
+    ...mapGetters(["userId", "bottomValue"]),
+  },
+  methods: {
+    ...mapActions([
+      "fetchFeedUserInfo",
+      "fetchFeedList",
+      "fetchBottomValue",
+      "fetchPopList",
+    ]),
+    routerPushes(icon) {
+      router.push({ name: icon });
+    },
+  },
+  watch: {
+    "$store.state.bottomValue": function () {},
   },
 };
 </script>
 
 <style>
-.button {
-  padding-top: 8px;
-  color: #ff5d5d !important;
-}
-
-.b-nav {
-  color: #ff5d5d !important;
-}
-
-.bnav-active {
+.v-btn.pinkBtn {
   color: #ff5d5d !important;
 }
 </style>

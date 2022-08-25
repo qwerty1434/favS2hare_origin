@@ -1,18 +1,24 @@
 <template>
   <div>
-    <!-- <v-sheet class="mx-auto" max-width="360">
-      <v-slide-group multiple>
-        <v-slide-item v-for="popsItem in popsList" :key="popsItem.popsId">
-          <related-pops-list-item
-            :pops-item="popsItem"
-            class="mx-2"
-          ></related-pops-list-item>
-        </v-slide-item>
-      </v-slide-group>
-    </v-sheet> -->
-    <div v-for="popsItem in popsList" :key="popsItem.popsId" class="popsitem">
-      <related-pops-list-item :pops-item="popsItem"></related-pops-list-item>
-    </div>
+    <v-row class="related-font">
+      <v-col cols="4"> 관련 Pops </v-col>
+      <v-col class="ml-n9">
+        <h5 class="red--text">({{ popsList.length }})</h5>
+      </v-col>
+    </v-row>
+    <v-row class="mt-n5 mb-14">
+      <v-col
+        cols="6"
+        align="center"
+        v-for="popsItem in popsList"
+        :key="popsItem.id"
+      >
+        <related-pops-list-item
+          :pops-item="popsItem"
+          :url="url"
+        ></related-pops-list-item>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -20,28 +26,32 @@
 import axios from "axios";
 import RelatedPopsListItem from "./RelatedPopsListItem.vue";
 import { mapGetters } from "vuex";
+import api from "@/api/springRestAPI";
 
 export default {
   components: { RelatedPopsListItem },
   name: "RelatedPopsList",
-  // props: {
-  //   youtubeId: Number, // 서버 id
-  // },
   data() {
     return {
       popsList: Array,
+      url: String,
     };
   },
   computed: {
-    ...mapGetters(["videoInfo"]),
+    ...mapGetters(["videoInfo", "userId"]),
   },
   methods: {
     getPopsList() {
       axios({
-        method: "get",
-        url: `http://localhost:8080/youtube/detail/${this.videoInfo.youtubeId}`,
+        method: "post",
+        url: api.youtube.detail(),
+        data: {
+          userId: this.userId,
+          youtubeUrl: this.videoInfo.videoId,
+        },
       }).then((res) => {
-        this.popsList = res.data.popsList;
+        this.popsList = res.data.popList;
+        this.url = res.data.url;
       });
     },
     setDummyData() {
@@ -74,13 +84,18 @@ export default {
     },
   },
   created() {
-    this.setDummyData();
+    this.getPopsList();
   },
 };
 </script>
 
 <style>
 .popsitem {
-  padding-right: 10px;
+  margin-top: -25px;
+}
+.related-font {
+  padding-top: 5px;
+  padding-bottom: 6px;
+  font-weight: bold;
 }
 </style>

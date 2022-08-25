@@ -1,9 +1,10 @@
 <template>
-  <v-container>
-    <div>
-      <search-following-list-item></search-following-list-item>
+  <!-- eslint-disable -->
+  <div class="friend-search mt-7">
+    <div v-for="userListItem in userList">
+      <search-following-list-item :user-list-item="userListItem"></search-following-list-item>
     </div>
-  </v-container>
+  </div>
 </template>
 <script>
 import SearchFollowingListItem from "./SearchFollowingListItem.vue";
@@ -12,10 +13,19 @@ export default {
   name: "SearchFollowingList",
   components: { SearchFollowingListItem },
   data() {
-    return {
-      searchedFollowingList: [],
-    };
+    return {};
+  },
+  props: {
+    userList: Array,
   },
 };
 </script>
-<style></style>
+<style>
+.friend-search {
+  /* 가로 스크롤 */
+  height: 150px;
+  overflow: scroll;
+  white-space: nowrap;
+  display: flex;
+}
+</style>

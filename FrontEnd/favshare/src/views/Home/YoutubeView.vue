@@ -1,23 +1,9 @@
 <template>
-  <!-- <div>
-    <nav-bar class="top"></nav-bar>
-    <youtube-video
-      class="youtube__view"
-      :video-info="this.videoInfo"
-      :youtube-id="this.youtubeId"
-    ></youtube-video>
-    <related-pops-list
-      :youtube-id="this.youtubeId"
-      class="rpops"
-    ></related-pops-list>
-    <div class="bottom">
-      <bottom-navigation-bar></bottom-navigation-bar>
-    </div>
-  </div> -->
   <div>
     <nav-bar class="top"></nav-bar>
     <youtube-video class="youtube__view"></youtube-video>
-    <related-pops-list class="rpops"></related-pops-list>
+    <v-divider class="ma-2"></v-divider>
+    <related-pops-list class="ml-5 mr-5"></related-pops-list>
     <div class="bottom">
       <bottom-navigation-bar></bottom-navigation-bar>
     </div>
@@ -37,27 +23,19 @@ export default {
   name: "YoutubeView",
   props: {
     youtubeId: Number,
-    videoInfo: Object, // { videoId(유튜브 id), channelName, channelProfilePic, videoTitle }
+    videoInfo: Object,
   },
-  // computed: {
-  //   ...mapGetters(["youtubeInfo"]),
-  // },
   methods: {
     ...mapActions(["fetchYoutubeInfo"]),
   },
   created() {
-    console.log(11111);
-    const vuexYoutubeId = { youtubeId: this.youtubeId };
-    console.log(2222);
-    const vuexVideoInfo = Object.assign(this.videoInfo, vuexYoutubeId);
-    console.log(3333);
+    const vuexVideoInfo = Object.assign(this.videoInfo);
     this.fetchYoutubeInfo(vuexVideoInfo);
-    console.log(4444);
   },
 };
 </script>
 
-<style>
+<style scoped>
 .top {
   position: fixed;
   width: 100%;
@@ -72,7 +50,6 @@ export default {
   width: 360px;
   padding: 20px;
   overflow: scroll;
-  /* 가로 스크롤 */
   overflow: auto;
   white-space: nowrap;
   display: flex;

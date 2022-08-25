@@ -6,9 +6,8 @@
           :to="{
             name: 'youtube',
             params: {
-              youtubeId: youtubeVideo.id, // 서버 id
               videoInfo: {
-                videoId: this.videoId, // 유튜브 id
+                videoId: this.homeYoutube.youtubeId,
                 channelName: this.channelName,
                 channelProfilePic: this.channelProfilePic,
                 videoTitle: this.videoTitle,
@@ -36,17 +35,15 @@
 
 <script>
 import axios from "axios";
-
+import googleAPI from "@/api/googleAPI";
 export default {
   name: "YoutubeListItem",
   props: {
-    youtubeVideo: Object,
-    // homeYoutube: Object,  // { youtubeId: ?, youtubeUrl: ? } 형태
+    homeYoutube: Object,
   },
   data() {
     return {
       thumbNail: String,
-      channelId: String,
       channelProfilePic: String,
       channelName: String,
       videoTitle: String,
@@ -54,56 +51,44 @@ export default {
     };
   },
   methods: {
-    getEx() {
-      const videoId = this.youtubeVideo.youtubeUrl.slice(-11);
-      this.videoId = videoId;
-      axios({
-        method: "get",
-        url: `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
-      }).then((res) => {
-        console.log("여기", res.data);
-        // res.data.items[0].snippet.thumbnails.medium => width:320, height: 180 짜리 썸네일
-        this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
-        this.videoTitle = res.data.items[0].snippet.title;
-        const tmpChannelId = res.data.items[0].snippet.channelId;
-        axios({
-          method: "get",
-          url: `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=AIzaSyB45yVkJSllvfe7yH7DNPVcy1jvIRQjYkk`,
-        }).then((res) => {
-          this.channelProfilePic =
-            res.data.items[0].snippet.thumbnails.default.url;
-          this.channelName = res.data.items[0].snippet.title;
+    getVideoInfo() {
+      const API_KEY = process.env.VUE_APP_API_KEY_1;
+      const params = {
+        key: API_KEY,
+        part: "snippet",
+        id: this.homeYoutube.youtubeId,
+      };
+      axios
+        .get(googleAPI.videos(), { params })
+        .then((res) => {
+          this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
+          this.videoTitle = res.data.items[0].snippet.title;
+          const tmpChannelId = res.data.items[0].snippet.channelId;
+          axios
+            .get(
+              `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=${API_KEY}`
+            )
+            .then((res) => {
+              this.channelProfilePic =
+                res.data.items[0].snippet.thumbnails.default.url;
+              this.channelName = res.data.items[0].snippet.title;
+            })
+            .catch((res) => {
+              console.log(res);
+            });
+        })
+        .catch((res) => {
+          console.log(res);
         });
-      });
     },
   },
   created() {
-    this.getEx();
+    this.getVideoInfo();
   },
 };
 </script>
 
-<style>
-/* .container {
-  height: 100vh;
-}
-img {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.profile {
-  width: 10px;
-  height: auto;
-}
-.box {
-  text-align: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 70%;
-  overflow: hidden;
-} */
-
+<style scoped>
 .video {
   width: 320px;
   margin-bottom: 20px;
@@ -127,13 +112,14 @@ img {
 .video__details {
   display: flex;
   margin-top: 10px;
+  padding-left: 15px;
 }
 
 .author img {
   object-fit: cover;
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   margin-right: 10px;
 }
 

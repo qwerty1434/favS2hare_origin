@@ -1,12 +1,5 @@
 <template>
   <v-container>
-    <v-row class="pb-2">
-      <v-col cols="2">
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-col>
-      <v-col>계정 정보</v-col>
-    </v-row>
-    <v-divider></v-divider>
     <div>
       <component :is="currentComponent" @input-change="confirmPw"></component>
     </div>

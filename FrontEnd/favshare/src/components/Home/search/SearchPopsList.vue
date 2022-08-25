@@ -1,21 +1,36 @@
 <template>
-  <v-container>
-    <div class="wrap-vertical">
-      <search-pops-list-item></search-pops-list-item>
+  <div class="pops-search mt-5">
+    <div v-for="popsListItem in popsList" :key="popsListItem.id">
+      <search-pops-list-item
+        :pops-list-item="popsListItem"
+      ></search-pops-list-item>
     </div>
-  </v-container>
+  </div>
 </template>
 <script>
 import SearchPopsListItem from "./SearchPopsListItem.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "SearchPopsList",
   components: { SearchPopsListItem },
   data() {
-    return {
-      searchedPopsList: [],
-    };
+    return {};
   },
+  props: {
+    popsList: Array,
+  },
+  computed: {
+    ...mapGetters(["searchedPopsList"]),
+  },
+  created() {},
 };
 </script>
-<style></style>
+<style>
+.pops-search {
+  height: 250px;
+  overflow: scroll;
+  white-space: nowrap;
+  display: flex;
+}
+</style>

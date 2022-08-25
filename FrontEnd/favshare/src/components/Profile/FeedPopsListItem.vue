@@ -1,41 +1,39 @@
 <template>
-  <div>
-    <div v-if="!isDelete" class="delete-button">
-      <v-btn class="mx-2" fab dark small color="primary">
-        <v-icon dark> mdi-minus </v-icon>
+  <div class="pops-all">
+    <div v-if="!isDelete" style="position: relative; padding-left: 68px">
+      <v-btn
+        fab
+        x-small
+        color="amber accent-1"
+        absolute
+        @click="[deleteFeedPop(), spliceFeedPops(index)]"
+      >
+        <v-icon>mdi-minus-circle-outline</v-icon>
       </v-btn>
     </div>
-    <youtube
-      :video-id="videoId"
-      :player-vars="playerVars"
-      :ref="'pops' + this.feedPop.id"
-      @ready="onPlayerReady"
-      @playing="onPlaying"
-      :width="320"
-      :height="180"
-      style="pointer-events: none; border-radius: 16px"
-    >
-    </youtube>
-    <!-- <router-link :to="{ name: 'popsinfeed' }">
+    <div class="feed-pops-item" @click="goPopsDetail">
       <youtube
-        :video-id="videoId"
+        :video-id="feedPop.youtubeUrl"
         :player-vars="playerVars"
-        :ref="'pops' + this.feedPops.id"
+        :ref="'pops' + this.feedPop.id"
         @ready="onPlayerReady"
         @playing="onPlaying"
-        :width="170"
-        :height="96"
-        style="pointer-events: none; border-radius: 4px"
+        :width="164"
+        :height="92.25"
+        style="pointer-events: none; border-radius: 8px"
       >
       </youtube>
-    </router-link> -->
+    </div>
   </div>
 </template>
 
 <script>
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import axios from "axios";
+import router from "@/router";
+import api from "@/api/springRestAPI";
 
 Vue.use(VueYoutube);
 
@@ -53,21 +51,30 @@ export default {
         start: this.feedPop.startSecond,
         end: this.feedPop.endSecond,
       },
+      isSelected: false,
     };
   },
   props: {
-    feedPop: Object, // { id(pops), name, *youtubeUrl(추가필요), startSecond, endSecond, content, createDate, views, likeCount }
+    feedPop: Object,
+    index: Number,
   },
   computed: {
-    videoId() {
-      return this.feedPop.youtubeUrl.slice(-11);
-    },
     player() {
       return this.$refs[`pops${this.feedPop.id}`].player;
     },
-    ...mapGetters(["isDelete"]),
+    ...mapGetters(["isDelete", "feedPops", "currentFeedId"]),
   },
   methods: {
+    ...mapActions(["spliceFeedPops", "fetchFeedPop"]),
+    goPopsDetail() {
+      this.$router.push({
+        name: "popsdetail",
+        params: {
+          popsId: this.feedPop.id,
+          editorId: this.feedPop.userId,
+        },
+      });
+    },
     onPlayerReady() {
       this.player.seekTo(this.section.start);
       this.player.playVideo();
@@ -79,12 +86,59 @@ export default {
     restartVideoSection() {
       this.player.seekTo(this.section.start);
     },
+    setIsSelected() {
+      if (this.isSelected) {
+        this.isSelected = false;
+      } else {
+        this.isSelected = true;
+      }
+    },
+    deleteFeedPop() {
+      axios({
+        method: "delete",
+        url: api.feed.pop(),
+        data: {
+          feedId: this.currentFeedId,
+          popId: [this.feedPop.id],
+        },
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
+    routerPush(name) {
+      this.fetchFeedPop(this.feedPop);
+      router.push({ name: name });
+    },
+  },
+  watch: {
+    "$store.state.profile.isDelete": function () {
+      console.log(this.$store.state.profile.isDelete);
+    },
+    "$store.state.profile.feedPops": function () {
+      console.log(this.$store.state.profile.feedPops);
+    },
   },
 };
 </script>
 
-<style>
-.delete-button {
-  position: absolute;
+<style scoped>
+/* .pops-all {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 164px;
+  height: 92.25px;
+} */
+/* .delete-button {
+  left: 50px;
+} */
+
+.feed-pops-item {
+  margin: auto;
+  padding-left: 2px;
 }
 </style>
