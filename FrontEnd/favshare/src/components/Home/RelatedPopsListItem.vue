@@ -5,7 +5,7 @@
         <youtube
           :video-id="url"
           :player-vars="playerVars"
-          ref="youtube"
+          :ref="`pops${this.popsItem.id}`"
           :width="150"
           :height="167"
           @ready="onPlayerReady"
@@ -47,18 +47,20 @@ export default {
     url: String,
   },
   computed: {
+    playerVars() {
+      return {
+        autoplay: 1,
+        controls: 0,
+        mute: 1,
+        disablekb: 1,
+      };
+    },
     player() {
       return this.$refs[`pops${this.popsItem.id}`].player;
     },
   },
   data() {
     return {
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        mute: 1,
-        disablekb: 1,
-      },
       section: {
         start: this.popsItem.startSecond,
         end: this.popsItem.endSecond,

@@ -1,12 +1,7 @@
 <template>
   <!-- eslint-disable -->
   <div class="no-scroll">
-    <div class="top">
-      <nav-bar></nav-bar>
-      <v-sheet class="pops-view">
-        <pops-type-list></pops-type-list>
-      </v-sheet>
-    </div>
+    <nav-bar></nav-bar>
     <div class="pops-list">
       <pops-list></pops-list>
     </div>
@@ -17,7 +12,6 @@
 </template>
 
 <script>
-import PopsTypeList from "@/components/Pops/PopsTypeList.vue";
 import PopsList from "@/components/Pops/PopsList.vue";
 import BottomNavigationBar from "@/components/BottomNavigationBar.vue";
 import NavBar from "@/components/NavBar.vue";
@@ -25,7 +19,6 @@ import NavBar from "@/components/NavBar.vue";
 export default {
   name: "PopsView",
   components: {
-    PopsTypeList,
     PopsList,
     BottomNavigationBar,
     NavBar,
@@ -45,9 +38,6 @@ export default {
 }
 .pops-view {
   padding-top: 5px;
-}
-.pops-list {
-  padding-top: 160px;
 }
 .bottom {
   position: fixed;
