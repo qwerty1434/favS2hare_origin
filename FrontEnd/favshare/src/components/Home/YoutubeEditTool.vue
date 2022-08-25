@@ -1,14 +1,12 @@
 <template>
   <v-container>
     <v-row class="position-relative" no-gutters>
-      <!-- 현재 장면 시간 표시: absolute -->
       <v-icon
         class="current-time-bar"
         color="#ffe3a9"
         :style="'left: ' + currentTimeBarPosition + 'px'"
         >mdi-triangle-small-down</v-icon
       >
-      <!-- 유튜브 영상 -->
       <v-col cols="12" align="center">
         <youtube
           :video-id="$route.query.youtubeUrl"
@@ -22,7 +20,6 @@
         ></youtube>
       </v-col>
       <v-col cols="12">
-        <!-- 시간 조정 슬라이더 -->
         <v-range-slider
           :max="max"
           :min="min"
@@ -36,9 +33,7 @@
           ticks
           hide-details
           @mouseup="onMouseUp"
-          ><template v-slot:thumb-label="{ value }"
-            >{{ secondToMinute(value) }}
-          </template>
+          ><template v-slot:thumb-label="{ value }">{{ secondToMinute(value) }} </template>
         </v-range-slider>
       </v-col>
       <v-col v-if="!isPlaying" cols="1">
@@ -71,31 +66,23 @@ export default {
   name: "YoutubeEditTool",
   data() {
     return {
-      // youtube 태그 파라미터
       playerVars: {
         controls: 0,
         mute: 1,
       },
-      // 원본 영상 길이
       duration: 0,
-      // 현재 표시되는 영상 길이
       max: 0,
       min: 0,
-      // range slider가 선택한 시간
       range: [0, 0],
       isPlaying: false,
-      // 현재 재생 중인 시간
       currentTime: 0,
       interval: {},
-      // 영상 음소거 여부
       isMuted: true,
     };
   },
   watch: {
-    // 현재 재생위치가 range[1]에 닿으면
     currentTime(newValue) {
       if (newValue === this.range[1]) {
-        // 영상이 range[0]으로 가고 정지
         this.player.seekTo(this.range[0]);
         this.currentTime = this.range[0];
         this.pauseVideo();
@@ -107,9 +94,7 @@ export default {
       return this.$refs[`youtube${this.$route.query.youtubeId}`].player;
     },
     currentTimeBarPosition() {
-      const px =
-        // left: -3px과 left: 316px 사이를 오감
-        (319 / (this.max - this.min)) * (this.currentTime - this.min) - 3;
+      const px = (319 / (this.max - this.min)) * (this.currentTime - this.min) - 3;
       return px;
     },
   },
@@ -120,7 +105,6 @@ export default {
     clearInterval(this.interval);
   },
   methods: {
-    // 영상의 길이 가져오기
     getYoutubeDuration() {
       const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {
@@ -131,10 +115,7 @@ export default {
       axios
         .get(googleAPI.videos(), { params })
         .then((response) => {
-          // 응답으로 받아온 duration은 PT15M51S 형식
-          // 해당 문자는 15분 51초를 뜻함
           let duration = response.data.items[0].contentDetails.duration;
-          // 초 형태로 변환
           duration = duration.split("").filter((str) => {
             return !isNaN(str);
           });

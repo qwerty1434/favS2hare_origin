@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <div v-for="popItem in popList" :key="popItem.id" class="videos__container">
       <pops-list-item :pop-item="popItem"></pops-list-item>
@@ -10,7 +9,6 @@
 <script>
 import { mapGetters } from "vuex";
 import PopsListItem from "./PopsListItem.vue";
-// import api from "@/api/springRestAPI";
 
 export default {
   name: "PopsList",
@@ -18,32 +16,11 @@ export default {
   computed: {
     ...mapGetters(["userId", "popList"]),
   },
-  // data() {
-  //   return {
-  //     window: 0,
-  //   };
-  // },
   watch: {
     "$store.state.pop.popList": function () {
       console.log(this.$store.state.pop.popList);
     },
   },
-  // methods: {
-  //   fetchPopList() {
-  //     axios({
-  //       method: "post",
-  //       url: api.pop.pop(),
-  //       data: {
-  //         idolId: 0,
-  //         userId: this.userId,
-  //       },
-  //     })
-  //       .then((res) => {
-  //         this.popList = res.data;
-  //       })
-  //       .catch((err) => console.log("popsList", err));
-  //   },
-  // },
 };
 </script>
 <style>

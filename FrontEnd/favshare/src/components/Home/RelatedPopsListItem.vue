@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <v-card class="related-size" @click="goPopsDetail">
       <div class="align-end">
@@ -11,11 +10,7 @@
           :height="167"
           @ready="onPlayerReady"
           @playing="onPlaying"
-          style="
-            pointer-events: none;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-          "
+          style="pointer-events: none; border-top-left-radius: 8px; border-top-right-radius: 8px"
         ></youtube>
       </div>
       <v-card-actions class="mt-n2 mb-n2">
@@ -40,8 +35,6 @@
 </template>
 
 <script>
-// @playing="playing"
-// style="pointer-events: none"
 import VueYoutube from "vue-youtube";
 import Vue from "vue";
 
@@ -85,7 +78,6 @@ export default {
       this.player.seekTo(this.section.start);
     },
     goPopsDetail() {
-      console.log(this.popsItem.userId);
       this.$router.push({
         name: "popsdetail",
         params: {

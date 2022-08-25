@@ -19,7 +19,6 @@
   </v-card>
 </template>
 <script>
-/* eslint-disable */
 import axios from "axios";
 import googleAPI from "@/api/googleAPI";
 
@@ -27,7 +26,6 @@ export default {
   name: "SearchVideoListItem",
   data() {
     return {
-      //for-use data
       thumbNail: String,
       channelProfilePic: String,
       channelName: String,
@@ -38,13 +36,10 @@ export default {
     youtubeListItem: String,
   },
   created() {
-    console.log("video list");
-    console.log(this.youtubeListItem);
     this.getSearchedVideoList();
   },
   methods: {
     getSearchedVideoList() {
-      // 썸네일, 채널 id 받아오기
       const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {
         key: API_KEY,

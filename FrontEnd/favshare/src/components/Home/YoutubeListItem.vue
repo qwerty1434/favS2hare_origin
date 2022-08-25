@@ -7,7 +7,7 @@
             name: 'youtube',
             params: {
               videoInfo: {
-                videoId: this.homeYoutube.youtubeId, // 유튜브 id -> 실재로 쓸 때는 this.videoId => homeYoutube로 바꾸기
+                videoId: this.homeYoutube.youtubeId,
                 channelName: this.channelName,
                 channelProfilePic: this.channelProfilePic,
                 videoTitle: this.videoTitle,
@@ -34,36 +34,24 @@
 </template>
 
 <script>
-/* eslint-disable */
 import axios from "axios";
 import googleAPI from "@/api/googleAPI";
-// import qs from "qs";
-// axios.defaults.paramsSerializer = (pa) => {
-//   return qs.stringify(params);
-// };
 export default {
   name: "YoutubeListItem",
   props: {
-    // tmp data
-    // youtubeVideo: Object,
-    // for-use data
-    homeYoutube: Object, // 'youtube url' 형태
+    homeYoutube: Object,
   },
   data() {
     return {
-      //for-use data
       thumbNail: String,
       channelProfilePic: String,
       channelName: String,
       videoTitle: String,
-      // tmp data
       videoId: String,
     };
   },
   methods: {
-    // for-use-function
     getVideoInfo() {
-      // 썸네일, 채널 id 받아오기
       const API_KEY = process.env.VUE_APP_API_KEY_1;
       const params = {
         key: API_KEY,
@@ -73,7 +61,6 @@ export default {
       axios
         .get(googleAPI.videos(), { params })
         .then((res) => {
-          console.log(res);
           this.thumbNail = res.data.items[0].snippet.thumbnails.medium.url;
           this.videoTitle = res.data.items[0].snippet.title;
           const tmpChannelId = res.data.items[0].snippet.channelId;
@@ -82,52 +69,25 @@ export default {
               `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${tmpChannelId}&key=${API_KEY}`
             )
             .then((res) => {
-              console.log(res);
-              // console.log(res.data.items[0].snippet.thumbnails.default.url);
               this.channelProfilePic = res.data.items[0].snippet.thumbnails.default.url;
               this.channelName = res.data.items[0].snippet.title;
             })
             .catch((res) => {
-              console.log("herer");
               console.log(res);
             });
         })
         .catch((res) => {
-          console.log("here");
           console.log(res);
         });
     },
   },
   created() {
-    // tmp function
-    // this.getEx();
-    // for-use function
     this.getVideoInfo();
   },
 };
 </script>
 
 <style scoped>
-/* .container {
-  height: 100vh;
-}
-img {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.profile {
-  width: 10px;
-  height: auto;
-}
-.box {
-  text-align: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 70%;
-  overflow: hidden;
-} */
-
 .video {
   width: 320px;
   margin-bottom: 20px;

@@ -29,22 +29,18 @@ export default {
       if (newVal) {
         item.setAttribute("class", "option selected-option");
         nameInItem.setAttribute("class", "name selected-name");
-        // 선택 사실 전달
         this.$emit("selectIdol", this.id);
       } else {
         item.setAttribute("class", "option unselected-option");
         nameInItem.setAttribute("class", "name unselected-name");
-        // 선택취소 사실 전달
         this.$emit("unselectIdol", this.id);
       }
     },
   },
   methods: {
     select() {
-      // 이미 선택되었을 때
       if (this.isSelected) {
         this.isSelected = false;
-        // 선택되지 않았을 때
       } else {
         this.isSelected = true;
       }

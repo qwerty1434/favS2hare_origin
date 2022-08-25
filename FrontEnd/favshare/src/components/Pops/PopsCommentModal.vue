@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <v-bottom-sheet
     class="chat-dialog"
     :value="dialogComment"
@@ -41,7 +40,6 @@
   </v-bottom-sheet>
 </template>
 <script>
-/* eslint-disable */
 import PopsCommentItem from "./PopsCommentItem.vue";
 import { mapGetters, mapActions } from "vuex";
 
@@ -51,26 +49,6 @@ export default {
   data() {
     return {
       comment: "",
-      // sampleComments: [
-      //   {
-      //     id: 1,
-      //     content: "첫 번째 댓글입니다.",
-      //     createDate: "2022-05-19",
-      //     likeCount: 4,
-      //   },
-      //   {
-      //     id: 2,
-      //     content: "두 번째 댓글입니다.",
-      //     createDate: "2022-05-19",
-      //     likeCount: 4,
-      //   },
-      //   {
-      //     id: 3,
-      //     content: "세 번째 댓글입니다.",
-      //     createDate: "2022-05-19",
-      //     likeCount: 4,
-      //   },
-      // ],
     };
   },
   props: {

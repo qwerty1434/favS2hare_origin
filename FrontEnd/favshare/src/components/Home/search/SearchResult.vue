@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <v-row class="mr-1 ml-1">
       <v-subheader>POPS</v-subheader>
@@ -16,7 +15,11 @@
       <v-subheader>동영상</v-subheader>
       <v-spacer></v-spacer>
       <v-subheader class="more-font">
-        <router-link :to="{ name: 'searchmoreyoutube', params: { keyword: this.searchedKeyword } }"
+        <router-link
+          :to="{
+            name: 'searchmoreyoutube',
+            params: { keyword: this.searchedKeyword },
+          }"
           >더보기</router-link
         >
       </v-subheader>
@@ -30,7 +33,10 @@
       <v-spacer></v-spacer>
       <v-subheader class="more-font">
         <router-link
-          :to="{ name: 'searchmorefollowing', params: { keyword: this.searchedKeyword } }"
+          :to="{
+            name: 'searchmorefollowing',
+            params: { keyword: this.searchedKeyword },
+          }"
           >더보기</router-link
         >
       </v-subheader>

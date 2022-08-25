@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div class="feed-item ml-1 mr-1">
     <div v-if="feedInfo.first">
       <v-badge icon="mdi-star" bordered overlap avatar color="red lighten-1">
@@ -13,12 +12,6 @@
         <img :src="feedInfo.feedImageUrl" alt="" />
       </v-avatar>
     </div>
-    <!-- <v-avatar
-      size="70"
-      @click="fetchFeedPops(feedInfo.id), fetchCurrentFeedId(feedInfo.id)"
-    >
-      <img :src="feedInfo.feedImageUrl" alt="" />
-    </v-avatar> -->
     <div v-if="feedInfo.first"></div>
     <div class="mt-2 feed-name">{{ feedInfo.name }}</div>
   </div>
@@ -30,7 +23,7 @@ import { mapActions } from "vuex";
 export default {
   name: "FeedListItem",
   props: {
-    feedInfo: Object, // {id(pops), name, feedImageUrl, userId, first}
+    feedInfo: Object,
   },
   methods: {
     ...mapActions(["fetchFeedPops", "fetchCurrentFeedId"]),

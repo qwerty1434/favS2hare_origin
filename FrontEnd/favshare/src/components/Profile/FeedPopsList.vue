@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <v-container class="pt-1">
     <v-row justify="space-around" no-gutters>
       <v-col v-for="(feedPop, index) in feedPops" :key="index" col="6">
@@ -17,7 +16,7 @@ export default {
   components: { FeedPopsListItem },
   name: "FeedPopsList",
   computed: {
-    ...mapGetters(["feedPops"]), // { id(pops), name, *youtubeUrl(추가필요), startSecond, endSecond, content, createDate, views, likeCount }
+    ...mapGetters(["feedPops"]),
   },
   watch: {
     "$store.state.profile.feedPops": function () {

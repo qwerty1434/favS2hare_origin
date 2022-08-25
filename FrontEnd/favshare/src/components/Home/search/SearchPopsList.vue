@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div class="pops-search mt-5">
     <div v-for="popsListItem in popsList">
       <search-pops-list-item :pops-list-item="popsListItem"></search-pops-list-item>
@@ -27,7 +26,6 @@ export default {
 </script>
 <style>
 .pops-search {
-  /* 가로 스크롤 */
   height: 250px;
   overflow: scroll;
   white-space: nowrap;

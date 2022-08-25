@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div>
     <v-card height="550px" color="black" class="pops-list-item" @click="goPopsDetail">
       <div class="name-font">{{ popItem.name }}</div>
@@ -39,7 +38,7 @@ Vue.use(VueYoutube);
 export default {
   name: "PopsListItem",
   props: {
-    popItem: Object, // {id,name,startSecond,endSecond,content,createdDate,views,likeCount,youtubeUrl,liked}
+    popItem: Object,
   },
   data() {
     return {
@@ -85,7 +84,6 @@ export default {
       this.player.seekTo(this.section.start);
     },
     goPopsDetail() {
-      console.log(this.popItem.userId);
       if (this.isSignin) {
         this.$router.push({
           name: "popsdetail",

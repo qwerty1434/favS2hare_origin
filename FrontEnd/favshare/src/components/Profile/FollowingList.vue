@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <v-container class="following">
     <div v-for="(followingItem, index) in followingList" :key="index">
       <following-list-item :following-item="followingItem"></following-list-item>

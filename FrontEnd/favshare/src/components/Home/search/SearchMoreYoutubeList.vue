@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <v-container class="mt-1">
     <div v-for="searchedYoutubeListItem in searchedYoutubeList">
       <search-more-video-list-item

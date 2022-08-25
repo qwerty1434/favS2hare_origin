@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable -->
   <div class="ma-3">
     <v-row align="center">
       <v-col
@@ -36,8 +35,6 @@
 </template>
 
 <script>
-// 팔로우 버튼 누를 시 -> post요청 => fromUserId: 자기아이디, toUserId: 상대아이디
-// 팔로잉취수 버튼 누를 시 -> delete user/follow/from => fromUserId: 자기아이디, toUserId: 상대아이디
 import axios from "axios";
 import api from "@/api/springRestAPI";
 import { mapGetters } from "vuex";
@@ -57,7 +54,6 @@ export default {
   },
   methods: {
     unFollow(event) {
-      console.log(event.target.textContent);
       if (this.isFollowing) {
         this.isFollowing = false;
         event.target.textContent = "팔로우";
@@ -82,9 +78,7 @@ export default {
         }).then((res) => console.log(res));
       }
     },
-    printFollow() {
-      console.log(this.followingItem);
-    },
+    printFollow() {},
   },
   created() {
     this.printFollow();
