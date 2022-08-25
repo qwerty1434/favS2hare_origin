@@ -32,8 +32,7 @@
 - AWS EC2
 - Docker
 - NGINX
-- SSL
-- Jenkins
+- Certbot
 
 ## ✔ 협업 툴
 ---
