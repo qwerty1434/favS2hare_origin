@@ -71,7 +71,7 @@
 ### 회원가입 
 이메일을 중복해서 사용할 수 없습니다.
 <br>
-![image.png](./docs/image/회원가입.png)
+![image.png](./docs/image/회원가입.gif)
 <br>
 <hr>
 
