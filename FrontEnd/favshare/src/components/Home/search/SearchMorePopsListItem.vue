@@ -4,7 +4,7 @@
     <v-card class="pops-size" @click="goPopsDetail">
       <div>
         <youtube
-          :video-id="youtubePk"
+          :video-id="searchedPopsListItem.youtubeUrl"
           :player-vars="playerVars"
           :ref="'pops' + this.searchedPopsListItem.id"
           @ready="onPlayerReady"
@@ -63,9 +63,6 @@ export default {
   computed: {
     player() {
       return this.$refs[`pops${this.searchedPopsListItem.id}`].player;
-    },
-    youtubePk() {
-      return this.searchedPopsListItem.youtubueUrl;
     },
   },
   methods: {
