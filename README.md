@@ -104,7 +104,7 @@
 ### 팝 탭
 사용자의 선호도에 맞는 팝 리스트 
 <br>
-![image.png](./docs/image/팝탭.png)
+![image.png](./docs/image/팝탭.gif)
 
 <br>
 <hr>
