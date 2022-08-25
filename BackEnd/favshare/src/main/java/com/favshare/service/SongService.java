@@ -12,10 +12,10 @@ import com.favshare.repository.SongRepository;
 public class SongService {
 	@Autowired
 	private SongRepository songRepository;
-	
-	public List<SongEntity> getSongList(){
+
+	public List<SongEntity> getSongList() {
 		return songRepository.findAll();
-		
+
 	}
-	
+
 }

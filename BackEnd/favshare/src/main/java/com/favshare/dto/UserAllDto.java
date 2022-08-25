@@ -1,6 +1,9 @@
 package com.favshare.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.favshare.entity.UserEntity;
 
@@ -14,12 +17,13 @@ public class UserAllDto {
 	private String name;
 	private String email;
 	private String password;
-	private String nickname;    
-	private LocalDateTime birthDate;
+	private String nickname;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthDate;
 	private String phone;
 	private String content;
 	private String profileImageUrl;
-	
+
 	public UserAllDto(UserEntity userEntity) {
 		this.id = userEntity.getId();
 		this.name = userEntity.getName();
@@ -31,10 +35,5 @@ public class UserAllDto {
 		this.content = userEntity.getContent();
 		this.profileImageUrl = userEntity.getProfileImageUrl();
 	}
-	
-	
-	
-	
-	
-	
+
 }

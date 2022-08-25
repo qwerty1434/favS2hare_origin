@@ -13,11 +13,8 @@ public class FeedDto {
 	private String name;
 	private boolean isFirst;
 	private String feedImageUrl;
-	
-	// 외래키
 	private int userId;
-	
-	
+
 	public FeedDto(FeedEntity feedEntity) {
 		this.id = feedEntity.getId();
 		this.name = feedEntity.getName();

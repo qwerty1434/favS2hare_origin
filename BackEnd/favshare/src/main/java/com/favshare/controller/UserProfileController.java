@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.FeedDto;
-import com.favshare.dto.FollowDto;
-import com.favshare.dto.FollowForFollowDto;
 import com.favshare.dto.PopDto;
-import com.favshare.dto.PopInFeedDto;
-import com.favshare.dto.UserProfileDto;
+import com.favshare.dto.input.FeedUserIdDto;
+import com.favshare.dto.input.FollowForFollowDto;
+import com.favshare.dto.input.UserProfileDto;
 import com.favshare.service.PopService;
 import com.favshare.service.UserService;
 
@@ -44,28 +43,39 @@ public class UserProfileController {
 			int[] temp = userService.countFollow(userId);
 			int followerNum = temp[0];
 			int followingNum = temp[1];
-			List<FeedDto> feedDtoList = userService.getFeedList(userId);
 
 			UserProfileDto userProfileDto = userService.getUserProfileById(userId);
 
 			userProfileDto.setPopCount(popCount);
 			userProfileDto.setFollowerNum(followerNum);
 			userProfileDto.setFollowingNum(followingNum);
-			userProfileDto.setFeedList(feedDtoList);
-
 
 			return new ResponseEntity<UserProfileDto>(userProfileDto, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
 		}
-
 	}
 
-	// feedController에 있어야 하는건가?
-	@ApiOperation(value = "프로필 보기 아래 피드 출력 부분", response = ResponseEntity.class)
-	@GetMapping("/feed/{feedId}")
-	public ResponseEntity<List<PopDto>> showPopInFeed(@PathVariable("feedId") int feedId) {
-		List<PopDto> popInFeedDtoList = userService.getPopInFeedList(feedId);
+	@ApiOperation(value = "프로필 보기 중간부분(피드 리스트)", response = ResponseEntity.class)
+	@GetMapping("/feed/{userId}")
+	public ResponseEntity<List<FeedDto>> showMiddle(@PathVariable("userId") int userId) {
+		List<FeedDto> feedDtoList = userService.getFeedList(userId);
+		return new ResponseEntity<List<FeedDto>>(feedDtoList, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "프로필 보기 아래 부분 - 피드별 poplist 출력 ", response = ResponseEntity.class)
+	@PostMapping("/popList")
+	public ResponseEntity<List<PopDto>> showPopInFeed(@RequestBody FeedUserIdDto feedUserIdDto) {
+		int userId = feedUserIdDto.getUserId();
+		List<PopDto> popInFeedDtoList;
+
+		// feedId가 0이라는 것은 전체 피드라는 의미
+		if (feedUserIdDto.getFeedId() == 0) {
+			popInFeedDtoList = userService.getAllPopList(feedUserIdDto);
+
+		} else { // 전체 피드 말고, 각각의 피드일때
+			popInFeedDtoList = userService.getPopInFeedList(feedUserIdDto.getFeedId(), userId);
+		}
 		return new ResponseEntity<List<PopDto>>(popInFeedDtoList, HttpStatus.OK);
 
 	}
@@ -73,14 +83,12 @@ public class UserProfileController {
 	@ApiOperation(value = "프로필 수정 화면 들어올 시", response = ResponseEntity.class)
 	@GetMapping("/edit/{userId}")
 	public ResponseEntity<UserProfileDto> showEditProfile(@PathVariable("userId") int userId) {
-//		UserProfileDto userProfileDto = userService.getUserProfileById(userId);
 		try {
 
 			UserProfileDto userProfileDto = userService.getUserProfileById(userId);
 
 			return new ResponseEntity<UserProfileDto>(userProfileDto, HttpStatus.OK);
 		} catch (Exception e) {
-			// 왜 되지..???????객체 없이 httpstatus만 반환 가능?
 			return new ResponseEntity<UserProfileDto>(HttpStatus.BAD_REQUEST);
 		}
 
@@ -88,7 +96,7 @@ public class UserProfileController {
 
 	@ApiOperation(value = "프로필 수정", response = ResponseEntity.class)
 	@PutMapping
-	public ResponseEntity changeProfile(@RequestBody UserProfileDto userProfileDto) {
+	public ResponseEntity<?> changeProfile(@RequestBody UserProfileDto userProfileDto) {
 		try {
 			UserProfileDto result = userService.getUserProfileById(userProfileDto.getId());
 			result.setNickname(userProfileDto.getNickname());
@@ -97,41 +105,42 @@ public class UserProfileController {
 
 			userService.updateProfile(result);
 
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
 
 	@ApiOperation(value = "친구 프로필 보기의 윗부분", response = ResponseEntity.class)
 	@PostMapping("/friend")
-	public ResponseEntity<HashMap<String,Object>> showFreindProfileHead(@RequestBody FollowForFollowDto followForFollowDto) {
-		// {UserProfileDto, 맞팔 여부}를 반환해야 됨
+	public ResponseEntity<HashMap<String, Object>> showFreindProfileHead(
+			@RequestBody FollowForFollowDto followForFollowDto) {
 		try {
 
-			boolean isFollowForFollow = userService.getFollowForFollow(followForFollowDto.getFromUserId(), followForFollowDto.getToUserId());
-			
+			boolean isFollowForFollow = userService.getFollowForFollow(followForFollowDto.getFromUserId(),
+					followForFollowDto.getToUserId());
+			boolean isFollow = userService.isFollow(followForFollowDto);
+
 			int popCount = popService.getPopCount(followForFollowDto.getToUserId());
 			int[] temp = userService.countFollow(followForFollowDto.getToUserId());
 			int followerNum = temp[0];
 			int followingNum = temp[1];
-			List<FeedDto> feedDtoList = userService.getFeedList(followForFollowDto.getToUserId());
 
 			UserProfileDto userProfileDto = userService.getUserProfileById(followForFollowDto.getToUserId());
 
 			userProfileDto.setPopCount(popCount);
 			userProfileDto.setFollowerNum(followerNum);
 			userProfileDto.setFollowingNum(followingNum);
-			userProfileDto.setFeedList(feedDtoList);
-			
-			HashMap<String,Object> map = new HashMap<String,Object>();
+
+			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("friendProfileDto", userProfileDto);
 			map.put("isFollowForFollow", isFollowForFollow);
+			map.put("isFollow", isFollow);
 
-			return new ResponseEntity<HashMap<String,Object>>(map , HttpStatus.OK);
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<HashMap<String,Object>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<HashMap<String, Object>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

@@ -13,10 +13,10 @@ import com.favshare.exception.UnauthorizedException;
 import com.favshare.service.JwtService;
 
 @Component
-public class JwtInterceptor implements HandlerInterceptor{
-	
+public class JwtInterceptor implements HandlerInterceptor {
+
 	public static final Logger logger = LoggerFactory.getLogger(JwtInterceptor.class);
-	
+
 	private static final String HEADER_AUTH = "auth-token";
 
 	@Autowired
@@ -27,10 +27,10 @@ public class JwtInterceptor implements HandlerInterceptor{
 			throws Exception {
 		final String token = request.getHeader(HEADER_AUTH);
 
-		if(token != null && jwtService.isUsable(token)){
+		if (token != null && jwtService.isUsable(token)) {
 			logger.info("토큰 사용 가능 : {}", token);
 			return true;
-		}else{
+		} else {
 			logger.info("토큰 사용 불가능 : {}", token);
 			throw new UnauthorizedException();
 		}
