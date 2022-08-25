@@ -1,4 +1,4 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
 
 import lombok.*;
 
@@ -8,5 +8,5 @@ import lombok.*;
 public class UserCommentIdDto {
 	int userId;
 	int commentId;
-	
+
 }

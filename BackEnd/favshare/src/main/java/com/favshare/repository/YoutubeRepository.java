@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.favshare.entity.YoutubeEntity;
 
 @Repository
-public interface YoutubeRepository extends JpaRepository<YoutubeEntity, Integer>{
-	
-	@Query(value="select count(*) from youtube where url = :youtubeUrl", nativeQuery = true)
+public interface YoutubeRepository extends JpaRepository<YoutubeEntity, Integer> {
+
+	@Query(value = "select count(*) from youtube where url = :youtubeUrl", nativeQuery = true)
 	public int isDuplicated(@Param("youtubeUrl") String youtubeUrl);
-	
+
 	YoutubeEntity findByUrl(String url);
 }

@@ -1,4 +1,4 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import lombok.*;
 public class FeedPopIdDto {
 	int feedId;
 	List<Integer> popId;
-	
+
 }

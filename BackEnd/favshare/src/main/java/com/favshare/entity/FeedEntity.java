@@ -20,40 +20,35 @@ public class FeedEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String name;
-    @Column(name="is_first",nullable = false)
-    private boolean isFirst;
-    @Column(name="feed_image_url")
-    private String feedImageUrl;
-    
+	@Column(name = "is_first", nullable = false)
+	private boolean isFirst;
+	@Column(name = "feed_image_url")
+	private String feedImageUrl;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name ="user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private UserEntity userEntity;
 
-	@OneToMany(mappedBy="feedEntity",  cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "feedEntity", cascade = CascadeType.ALL)
 	private List<PopInFeedEntity> popInFeedList = new ArrayList<>();
-	
+
 	public void changeName(String name) {
 		this.name = name;
 	}
-	
+
 	public void changeImageUrl(String feedImageUrl) {
 		this.feedImageUrl = feedImageUrl;
 	}
-	
 
 	public void changeIsFirst() {
 		this.isFirst = true;
-	
+
 	}
-	
+
 	public void changeIsNotFirst() {
 		this.isFirst = false;
 	}
-	
 
-    
 }
-

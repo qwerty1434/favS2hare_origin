@@ -13,19 +13,17 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 public class SongEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-    @Column(nullable = false)
+
+	@Column(nullable = false)
 	private String name;
 
-    private String content;
-    
-	@OneToMany(mappedBy="songEntity")
+	private String content;
+
+	@OneToMany(mappedBy = "songEntity")
 	private List<InterestSongEntity> interestSongList = new ArrayList<>();
-    
-	
+
 }

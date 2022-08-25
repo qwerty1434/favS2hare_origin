@@ -10,12 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.favshare.entity.UserEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity,Integer>{
-	
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+
 	UserEntity findByEmail(String email);
 
-	@Query(value ="SELECT * FROM user where nickname LIKE CONCAT('%',:keyword,'%')", nativeQuery = true) // name LIKE CONCAT('%',:keyword,'%') OR -> 이름도 검색에 포함할지
-	public List<UserEntity> findByKeywordContains(@Param("keyword") String keyword);	
-	
-	
+	@Query(value = "SELECT * FROM user where nickname LIKE CONCAT('%',:keyword,'%')", nativeQuery = true)
+	public List<UserEntity> findByKeywordContains(@Param("keyword") String keyword);
+
 }

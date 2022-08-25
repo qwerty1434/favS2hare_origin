@@ -1,4 +1,4 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -17,15 +17,10 @@ public class UserInfoDto {
 	private String name;
 	private String email;
 	private String password;
-//	private String nickname;   
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 	private String phone;
-//	private String content;
-//	private String profileImageUrl;
-	
-	
-	
+
 	public UserInfoDto(UserEntity userEntity) {
 		this.id = userEntity.getId();
 		this.name = userEntity.getName();
@@ -33,8 +28,6 @@ public class UserInfoDto {
 		this.password = userEntity.getPassword();
 		this.birthDate = userEntity.getBirthDate();
 		this.phone = userEntity.getPhone();
-	}	
-	
-	
-	
+	}
+
 }

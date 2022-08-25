@@ -19,7 +19,7 @@ public class PopAlgoDto {
 	private int likeCount;
 	private int followers;
 	private int algoScore;
-	
+
 	public PopAlgoDto(int id, int views, int likeCount, int followers, int algoScore) {
 		this.id = id;
 		this.views = views;

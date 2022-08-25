@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
-import javax.sound.midi.Soundbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,23 +17,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.favshare.dto.PopAlgoDto;
-import com.favshare.dto.FollowDto;
-import com.favshare.dto.FriendFeedDto;
 import com.favshare.dto.IdolDto;
-import com.favshare.dto.IdolUserIdDto;
 import com.favshare.dto.PopDto;
 import com.favshare.dto.PopInfoDto;
 import com.favshare.dto.SongDto;
-import com.favshare.dto.UserPopIdDto;
-import com.favshare.dto.UserProfileDto;
-import com.favshare.dto.YoutubeDetailDto;
-import com.favshare.dto.YoutubeDto;
-import com.favshare.entity.FollowEntity;
-import com.favshare.entity.PopEntity;
+import com.favshare.dto.input.FriendFeedDto;
+import com.favshare.dto.input.IdolUserIdDto;
+import com.favshare.dto.input.UserPopIdDto;
+import com.favshare.dto.input.UserProfileDto;
 import com.favshare.service.LikePopService;
 import com.favshare.service.PopService;
 import com.favshare.service.UserService;
@@ -59,7 +50,7 @@ public class PopController {
 	@ApiOperation(value = "사용자에게 맞는 팝 리스트", response = List.class)
 	@PostMapping
 	public ResponseEntity<List<PopDto>> showPopList(@RequestBody IdolUserIdDto idolUserIdDto) {
-		
+
 		int idolId = idolUserIdDto.getIdolId();
 		int userId = idolUserIdDto.getUserId();
 
@@ -98,12 +89,12 @@ public class PopController {
 
 	@ApiOperation(value = "팝 시청시 조회수 증가", response = ResponseEntity.class)
 	@PutMapping("/detail/{popId}")
-	public ResponseEntity modifyPopView(@PathVariable("popId") int popId) {
+	public ResponseEntity<?> modifyPopView(@PathVariable("popId") int popId) {
 		try {
 			popService.updatePopView(popId);
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
@@ -112,14 +103,13 @@ public class PopController {
 	@PostMapping("/info")
 	public ResponseEntity<HashMap<String, Object>> showPopInfo(@RequestBody UserPopIdDto userPopIdDto) {
 		try {
-			PopInfoDto popInfoDto = popService.getPopInfoById(userPopIdDto.getPopId(),userPopIdDto.getUserId());
-			// liked추가        
+			PopInfoDto popInfoDto = popService.getPopInfoById(userPopIdDto.getPopId(), userPopIdDto.getUserId());
+
 			UserProfileDto userProfileDto = userService.getUserProfileById(userPopIdDto.getUserId());
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("popInfoDto", popInfoDto);
 			map.put("userProfileDto", userProfileDto);
-			
-			// pop 시청
+
 			popService.insertShowPop(userPopIdDto.getPopId(), userPopIdDto.getUserId());
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
@@ -130,23 +120,23 @@ public class PopController {
 
 	@ApiOperation(value = "팝 좋아요", response = ResponseEntity.class)
 	@PostMapping("/like")
-	public ResponseEntity likePop(@RequestBody UserPopIdDto userPopIdDto) {
+	public ResponseEntity<?> likePop(@RequestBody UserPopIdDto userPopIdDto) {
 		try {
 			likePopService.insertLikePop(userPopIdDto);
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	@ApiOperation(value = "팝 좋아요 취소", response = ResponseEntity.class)
 	@DeleteMapping("/like")
-	public ResponseEntity dislikePop(@RequestBody UserPopIdDto userPopIdDto) {
+	public ResponseEntity<?> dislikePop(@RequestBody UserPopIdDto userPopIdDto) {
 		try {
 			likePopService.deleteLikePop(userPopIdDto);
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -172,15 +162,15 @@ public class PopController {
 
 	@ApiOperation(value = "팝 삭제 - 한개, 여러개 모두 삭제 가능", response = PopInfoDto.class)
 	@DeleteMapping
-	public ResponseEntity deletePop(@RequestBody List<Integer> popIdList) {
+	public ResponseEntity<?> deletePop(@RequestBody List<Integer> popIdList) {
 		try {
 			popService.deletePop(popIdList);
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@ApiOperation(value = "팝 탭 상단의 카테고리 리스트 - 아이돌1, 아이돌 2 등등", response = PopInfoDto.class)
 	@GetMapping("/idolList/{userId}")
 	public ResponseEntity<List<IdolDto>> getInterestIdolList(@PathVariable int userId) {
@@ -199,7 +189,6 @@ public class PopController {
 		List<FriendFeedDto> friendsPopList = userService.getFollowingList(userId);
 
 		if (friendsPopList.size() == 0) { // 친구가 없으면 -> 알고리즘으로 뿌려주기
-			System.out.println("난 친구가 없어!!!!!!!!!!!!!!!!!!!!!!!!!");
 			List<FriendFeedDto> result = new ArrayList<FriendFeedDto>();
 
 			// 1. 나를 팔로우 한 사람

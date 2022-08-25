@@ -1,4 +1,4 @@
-package com.favshare.dto;
+package com.favshare.dto.input;
 
 import java.util.List;
 
@@ -11,6 +11,5 @@ public class InterestSaveDto {
 	int userId;
 	List<Integer> IdolList;
 	List<Integer> SongList;
-	
-	
+
 }
