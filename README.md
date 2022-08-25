@@ -112,7 +112,7 @@
 ### 팝 상세 화면
 팝 좋아요 수, 댓글 상세 정보 확인
 <br>
-![image.png](./docs/image/팝상세.png)
+![image.png](./docs/image/팝상세.gif)
 
 <br>
 <hr>
