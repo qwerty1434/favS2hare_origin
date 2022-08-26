@@ -1,6 +1,12 @@
-# favS2hare - 유튜브 콘텐츠 기반 SNS
+# :iphone: favS2hare - 유튜브 콘텐츠 기반 SNS
 
-![로고](./docs/image/favS2hare.png)
+<!-- ![로고](./docs/image/favS2hare.png) -->
+<img src="./docs/image/favS2hare.png" width="350" height="100">
+
+## :date: 프로젝트 진행 기간
+2022.07.11 ~ 2022.08.19 (40일간 진행)
+<br>
+SSAFY 7기 2학기 공통프로젝트 A803 덕지덕질 - favS2hare
 
 ## ✔ 소개
 
@@ -53,11 +59,16 @@ _- 모바일 플랫폼을 통해 아이돌 굿즈, 정보를 편하게 얻을 �
 - Webex
 - Discord
 
+## ✔ 프로젝트 파일 구조 
+
+
+
 ## ✔ 팀원 역할 분배
 
 ---
 
 ![image.png](./docs/image/역할배분.png)
+
 
 ## ✔ 프로젝트 산출물
 
