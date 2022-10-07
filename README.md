@@ -61,12 +61,12 @@ _-
 - Visual Studio Code Live Share
 
 ## ✔ 프로젝트 파일 구조 
-- [파일 구조](./docs/)
+- 파일 구조
 
 
 ## ✔ 팀원 역할 분배
 
-![image.png](./docs/)
+image.png
 
 
 ## ✔ 프로젝트 산출물
