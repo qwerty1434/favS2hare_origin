@@ -47,7 +47,6 @@ _- 모바일 플랫폼을 통해 아이돌 굿즈, 정보를 편하게 얻을 �
 - Spring Data JPA
 - Spring Web
 - Swagger 3.0.0
-- QueryDSL
 - Mysql DB 8.0.30-0
 - ubuntu0.20.04.2
 
